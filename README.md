@@ -78,4 +78,4 @@ I will use ESLint to enforce coherent syntax in the project. ESLint is also run 
 
 I've tried to write time all the hours put on the project. In case of half hour, I've sometimes rounded down, sometimes up (50-50). 
 
-[hours spend](Docs/hours_spend.md)
+[hours spend](Docs/spend_hours.md)
