@@ -8,6 +8,7 @@
 - [Wireframes](#wireframes)
 - [Database](#database)
 - [Testing](#testing)
+- [Hours spend](#hours-spend)
 
 ## Description
 
@@ -72,3 +73,9 @@ TODO: Create a relational model for all the data needed for the application
 I will use Jest to run tests against backend and frontend. Testing is automated using Github Actions and tests always need to pass in order for the code to proceed in the pipeline. For e2e testing I'll be using Cypress. Like tests written using Jest, e2e tests are also run automatically with Github Actions. Tests can also be easily performed by developer using Docker. 
 
 I will use ESLint to enforce coherent syntax in the project. ESLint is also run automatically by Github Actions and code has to pass linting in order to proceed. 
+
+## Hours spend
+
+I've tried to write time all the hours put on the project. In case of half hour, I've sometimes rounded down, sometimes up (50-50). 
+
+[hours spend](Docs/hours_spend.md)
