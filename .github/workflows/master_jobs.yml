@@ -34,12 +34,18 @@ jobs:
           cat << EOF > server/.env
           PORT=3001
           EOF
+      - name: prepare frontend for building
+          cat << EOF > client/.env
+          REACT_APP_API_BASE=http://localhost:3001/api/
+          EOF
       - name: build frontend
-        run: npm run build --prefix client 
+        run: | 
+          npm run build --prefix client
+          mv client/build server
       - name: e2e tests
         uses: cypress-io/github-action@v2
         with:
           command: npm run e2e --prefix client
           start: npm run dev --prefix server
-          wait-on: http://localhost:3000
+          wait-on: http://localhost:3001
       

@@ -27,7 +27,7 @@ const App = () => {
   }, []);
   return (
     <div>
-      msg: {message}
+      msg: {message}!
     </div>
   );
 };

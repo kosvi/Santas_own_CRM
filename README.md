@@ -8,6 +8,7 @@
 - [Wireframes](#wireframes)
 - [Database](#database)
 - [Testing](#testing)
+- [Starting the app](#starting-the-app)
 - [Hours spend](#hours-spend)
 
 ## Description
@@ -73,6 +74,14 @@ TODO: Create a relational model for all the data needed for the application
 I will use Jest to run tests against backend and frontend. Testing is automated using Github Actions and tests always need to pass in order for the code to proceed in the pipeline. For e2e testing I'll be using Cypress. Like tests written using Jest, e2e tests are also run automatically with Github Actions. Tests can also be easily performed by developer using Docker. 
 
 I will use ESLint to enforce coherent syntax in the project. ESLint is also run automatically by Github Actions and code has to pass linting in order to proceed. 
+
+## Starting the app
+
+Requirements:
+- Docker
+- Docker-Compose
+
+Clone the repository and run `npm install --prefix server` and `npm install --prefix client` in repository root. After all dependencies are installed, you can start the app in development mode by running command `docker-compose -f docker-compose.dev.yml up`. Modifications to server and client force them to reload automatically. App can be accessed from `http://localhost:3000`. 
 
 ## Hours spend
 
