@@ -2,8 +2,7 @@
   "env": {
     "browser": true,
     "es6": true,
-    "jest": true,
-    "cypress/globals": true
+    "jest": true
   },
   "extends": [
     "eslint:recommended",
@@ -13,7 +12,6 @@
   "plugins": [
     "react",
     "jest",
-    "cypress",
     "@typescript-eslint"
   ],
   "settings": {
