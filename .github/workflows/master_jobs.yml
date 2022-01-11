@@ -1,0 +1,33 @@
+name: Production jobs
+
+on:
+  push:
+    branches: 
+      - master
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with: 
+          node-version: '14.x'
+      - name: install backend
+        run: npm install --prefix server
+      - name: install frontend
+        run: npm install --prefix client
+      - name: lint backend
+        run: npm run lint --prefix server
+      - name: lint frontend
+        run: npm run lint --prefix client
+      - name: test backend
+        run: npm test --prefix server
+      - name: test frontend
+        run: npm test --prefix client
+
+# Still need e2e tests
