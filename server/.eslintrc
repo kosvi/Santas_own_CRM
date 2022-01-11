@@ -5,10 +5,12 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "cypress"
   ],
   "env": {
     "node": true,
+    "cypress/globals": true,
     "es6": true
   },
   "rules": {

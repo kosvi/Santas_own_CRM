@@ -3,14 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.24.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "5.0.0"
   },
   "scripts": {
-    "lint": "eslint './{src,cypress}/**/*.{ts,tsx}'",
-    "cypress:open": "cypress open",
-    "e2e": "cypress run",
+    "lint": "eslint './src/**/*.{ts,tsx}'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "CI=true react-scripts test",
@@ -42,8 +41,6 @@
     "@types/node": "^16.11.19",
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
-    "cypress": "^9.2.1",
-    "eslint-plugin-cypress": "^2.12.1",
     "typescript": "^4.5.4"
   }
 }
