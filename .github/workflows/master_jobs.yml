@@ -35,6 +35,7 @@ jobs:
           PORT=3001
           EOF
       - name: prepare frontend for building
+        run: |
           cat << EOF > client/.env
           REACT_APP_API_BASE=http://localhost:3001/api/
           EOF
