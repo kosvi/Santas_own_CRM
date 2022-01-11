@@ -55,20 +55,15 @@ jobs:
     needs: [test]
     steps:
       - uses: actions/checkout@v2
-      - name: prepare for deployment
-        run: |
-          cat << EOF > client/.env
-          REACT_APP_API_BASE=/api/
-          EOF
-          npm install --prefix client
-          npm run build --prefix client
       - uses: akhileshns/heroku-deploy@v3.12.12
         with: 
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "glacial-shore-58496"
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          appdir: "server"
+          # appdir: "server"
           branch: "release"
+          usedocker: true
+          # docker_heroku_process_type: web
           healthcheck: "https://glacial-shore-58496.herokuapp.com/api/version"
           checkstring: "0.0.0"
           rollbackonhealthcheckfailed: true
