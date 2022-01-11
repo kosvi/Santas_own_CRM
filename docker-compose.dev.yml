@@ -20,9 +20,12 @@ services:
       dockerfile: dev.Dockerfile
     environment:
       REACT_APP_API_BASE: "http://localhost:3000/api/"
+      HOST: "santas-client"
     volumes: 
       - ./client/:/usr/src/app
     container_name: santas-client
+    depends_on: 
+      - "santas-server"
 
   santas-server:
     image: santas-server

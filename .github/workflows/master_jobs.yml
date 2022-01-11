@@ -35,7 +35,7 @@ jobs:
           PORT=3001
           EOF
       - name: build frontend
-        run: npm run build --prefix client
+        run: npm run build --prefix client 
       - name: e2e tests
         uses: cypress-io/github-action@v2
         with:

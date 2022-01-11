@@ -1,14 +1,10 @@
 import express from 'express';
 const app = express();
 
-app.get('/', (_req, res) => {
+app.get('/api', (_req, res) => {
   res.json({ msg: 'Hello World!' });
 });
 
-app.get('/api', (_req, res) => {
-  res.json({msg: 'Hello World! Thank you...'});
-});
-
-app.
+app.use(express.static('../../client/build'));
 
 export default app;
