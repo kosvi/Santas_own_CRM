@@ -1,14 +1,15 @@
-name: Run tests
+name: Deploy to Heroku
 
 on:
   push:
-    branches: [master]
+    branches: [master, release]
   pull_request:
-    branches: [master]
+    branches: [master, release]
     types: [opened, synchronize]
+  
 
 jobs:
-  test:
+  test: 
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -48,4 +49,17 @@ jobs:
           start: npm run dev
           wait-on: http://localhost:3000
           working-directory: ./server
-      
+  deploy:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/release' }}
+    runs-on: ubuntu-20.04
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with: 
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "glacial-shore-58496"
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          healthcheck: "https://glacial-shore-58496.herokuapp.com/api/version"
+          checkstring: "0.0.0"
+          rollbackonhealthcheckfailed: true
