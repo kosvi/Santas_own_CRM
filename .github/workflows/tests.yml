@@ -41,7 +41,6 @@ jobs:
       - name: build frontend
         run: | 
           npm run build --prefix client
-          mv client/build server
       - name: e2e tests
         uses: cypress-io/github-action@v2
         with:
