@@ -10,3 +10,5 @@
 |           | 2 | Adjustments to both client and server, created `docker-compose.dev.yml` to allow easy development of the application. |
 |           | 1 | Spend most of the time trying to get e2e tests to work on Github. |
 |           | 1 | Worked to make tests easier to run on different environments. Begin to work on Heroku deployment. |
+|           | 1 | Decided to still continue deploying to Heroku |
+|           | 1 | And spend too much time fighting with Cypress. For now Cypress stays in `.eslintignore` |
