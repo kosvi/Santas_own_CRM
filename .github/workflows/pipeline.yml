@@ -60,6 +60,7 @@ jobs:
           cat << EOF > client/.env
           REACT_APP_API_BASE=/api/
           EOF
+          npm ci 
           npm run build --prefix client
       - uses: akhileshns/heroku-deploy@v3.12.12
         with: 
