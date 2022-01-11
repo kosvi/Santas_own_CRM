@@ -47,7 +47,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           command: npm run e2e --prefix client
-          start: npm run dev --prefix server
+          start: npm run dev
           wait-on: http://localhost:3001
           working-directory: ./server
       
