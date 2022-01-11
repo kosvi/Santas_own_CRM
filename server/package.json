@@ -9,6 +9,8 @@
     "e2e": "cypress run",
     "lint": "eslint --ext .ts .",
     "dev": "NODE_ENV=develop ts-node-dev src/index.ts",
+    "build": "npx tsc",
+    "start": "node dist/src/index.js",
     "test": "NODE_ENV=test jest"
   },
   "author": "Ville Koskela",
@@ -31,5 +33,10 @@
   "dependencies": {
     "dotenv": "^11.0.0",
     "express": "^4.17.2"
+  },
+  "esLintConfig": {
+    "extends": [
+      "plugin:cypress:recommended"
+    ]
   }
 }
