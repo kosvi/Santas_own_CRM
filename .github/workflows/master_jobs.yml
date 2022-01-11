@@ -19,15 +19,27 @@ jobs:
           node-version: '14.x'
       - name: install backend
         run: npm install --prefix server
-      - name: install frontend
-        run: npm install --prefix client
       - name: lint backend
         run: npm run lint --prefix server
-      - name: lint frontend
-        run: npm run lint --prefix client
       - name: test backend
         run: npm test --prefix server
+      - name: install frontend
+        run: npm install --prefix client
+      - name: lint frontend
+        run: npm run lint --prefix client
       - name: test frontend
         run: npm test --prefix client
-
-# Still need e2e tests
+      - name: prepare backend for e2e-tests
+        run: |
+          cat << EOF > server/.env
+          PORT=3001
+          EOF
+      - name: build frontend
+        run: npm run build --prefix client
+      - name: e2e tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: npm run e2e --prefix client
+          start: npm run dev --prefix server
+          wait-on: http://localhost:3000
+      
