@@ -1,0 +1,22 @@
+name: Deploy to Heroku
+
+on:
+  workflow_run:
+    branches: [release]
+    workflows: ["Lint and run tests"]
+    types: 
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with: 
+          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
+          heroku_app_name: "glacial-shore-58496"
+          heroku_email: ${{ secrets.HEROKU_EMAIL }}
+          healthcheck: "https://glacial-shore-58496.herokuapp.com/api/version"
+          checkstring: "0.0.0"
+          rollbackonhealthcheckfailed: true

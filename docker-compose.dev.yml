@@ -21,7 +21,7 @@ services:
       context: ./client
       dockerfile: dev.Dockerfile
     environment:
-      REACT_APP_API_BASE: "http://localhost:3000/api/"
+      REACT_APP_API_BASE: "/api/"
       HOST: "santas-client"
       WDS_SOCKET_HOST: "localhost"
     volumes: 

@@ -1,12 +1,10 @@
-name: Production jobs
+name: Lint and run tests
 
 on:
   push:
-    branches: 
-      - master
+    branches: [master, release]
   pull_request:
-    branches:
-      - master
+    branches: [master, release]
     types: [opened, synchronize]
 
 jobs:
@@ -33,6 +31,7 @@ jobs:
         run: |
           cat << EOF > server/.env
           PORT=3000
+          HOST_URL='http://localhost:3000'
           EOF
       - name: prepare frontend for building
         run: |
