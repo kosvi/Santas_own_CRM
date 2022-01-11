@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+
+  nginx:
+    image: nginx:1.20.1
+    volumes: 
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 3000:80
+    container_name: dev-proxy
+    logging:
+      driver: 'none'
+    depends_on:
+      - "santas-client"
+      - "santas-server"
+
+  santas-client:
+    image: santas-client
+    build:
+      context: ./client
+      dockerfile: dev.Dockerfile
+    environment:
+      REACT_APP_API_BASE: "/api/"
+      HOST: "santas-client"
+      WDS_SOCKET_HOST: "localhost"
+    volumes: 
+      - ./client/:/usr/src/app
+    container_name: santas-client
+    depends_on: 
+      - "santas-server"
+
+  santas-server:
+    image: santas-server
+    build:
+      context: ./server
+      dockerfile: dev.Dockerfile
+    environment:
+      PORT: 3001
+    volumes:
+      - ./server/:/usr/src/app
+    container_name: santas-server

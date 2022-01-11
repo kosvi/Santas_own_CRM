@@ -8,6 +8,7 @@
 - [Wireframes](#wireframes)
 - [Database](#database)
 - [Testing](#testing)
+- [Starting the app](#starting-the-app)
 - [Hours spend](#hours-spend)
 
 ## Description
@@ -27,7 +28,7 @@ This repository contains two directories: [server](server) and [client](client).
 For my development pipeline I will use Github and Github Actions. My github repository will be formed in the following manner: 
 
 ```
-[main] this is the production version - it's update trough pull requests from [release]
+[master] this is the production version - it's update trough pull requests from [release]
 -> [release] this is a release candidate that has passed all the tests. It will automaticly be deployed to Heroku for live demo
   -> [develop] this branch is where individual features are first merged and tested. Once working, it can be merged to [release]
     -> [feature-branches] new features will be developed in their own brances and merged to [develop] once ready for it. 
@@ -73,6 +74,16 @@ TODO: Create a relational model for all the data needed for the application
 I will use Jest to run tests against backend and frontend. Testing is automated using Github Actions and tests always need to pass in order for the code to proceed in the pipeline. For e2e testing I'll be using Cypress. Like tests written using Jest, e2e tests are also run automatically with Github Actions. Tests can also be easily performed by developer using Docker. 
 
 I will use ESLint to enforce coherent syntax in the project. ESLint is also run automatically by Github Actions and code has to pass linting in order to proceed. 
+
+## Starting the app
+
+#### Dev-mode
+
+Requirements:
+- Docker
+- Docker-Compose
+
+Clone the repository and run `npm install --prefix server` and `npm install --prefix client` in repository root. After all dependencies are installed, you can start the app in development mode by running command `docker-compose -f docker-compose.dev.yml up`. Modifications to server and client force them to reload automatically. App can be accessed from `http://localhost:3000`. 
 
 ## Hours spend
 
