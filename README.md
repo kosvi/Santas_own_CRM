@@ -77,6 +77,8 @@ I will use ESLint to enforce coherent syntax in the project. ESLint is also run 
 
 ## Starting the app
 
+#### Dev-mode
+
 Requirements:
 - Docker
 - Docker-Compose
