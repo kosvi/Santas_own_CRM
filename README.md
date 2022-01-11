@@ -27,7 +27,7 @@ This repository contains two directories: [server](server) and [client](client).
 For my development pipeline I will use Github and Github Actions. My github repository will be formed in the following manner: 
 
 ```
-[main] this is the production version - it's update trough pull requests from [release]
+[master] this is the production version - it's update trough pull requests from [release]
 -> [release] this is a release candidate that has passed all the tests. It will automaticly be deployed to Heroku for live demo
   -> [develop] this branch is where individual features are first merged and tested. Once working, it can be merged to [release]
     -> [feature-branches] new features will be developed in their own brances and merged to [develop] once ready for it. 

@@ -1,0 +1,16 @@
+name: Production jobs
+
+on:
+  push:
+    branches: 
+      - master
+  pull_request:
+    branches:
+      - master
+    types: [opened, synchronize]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: 
