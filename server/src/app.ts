@@ -8,7 +8,7 @@ app.get('/api', (_req, res) => {
 });
 
 app.get('/api/version', (_req, res) => {
-  res.send('0.0.1');
+  res.send('OK!');
 });
 
 export default app;
