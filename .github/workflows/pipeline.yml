@@ -17,7 +17,7 @@ jobs:
         with: 
           node-version: '14.x'
       - name: install backend
-        run: npm install --prefix server
+        run: CI=true npm install --prefix server
       - name: lint backend
         run: npm run lint --prefix server
       - name: test backend

@@ -15,6 +15,14 @@ services:
       - "santas-client"
       - "santas-server"
 
+  db:
+    image: postgres
+    environment: 
+      POSTGRES_USER: "santa"
+      POSTGRES_PASSWORD: "password"
+    volumes:
+      - ./db/:/var/lib/postgresql/data
+
   santas-client:
     image: santas-client
     build:
@@ -40,3 +48,5 @@ services:
     volumes:
       - ./server/:/usr/src/app
     container_name: santas-server
+    depends_on:
+      - "db"
