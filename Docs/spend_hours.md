@@ -12,3 +12,5 @@
 |           | 1 | Worked to make tests easier to run on different environments. Begin to work on Heroku deployment. |
 |           | 1 | Decided to still continue deploying to Heroku |
 |           | 1 | And spend too much time fighting with Cypress. For now Cypress stays in `.eslintignore` |
+|           | 1 | ...aaaand another hour with Heroku... |
+|           | 1 | Worked on to get Heroku pushes to work. |

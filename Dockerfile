@@ -9,9 +9,9 @@ ENV REACT_APP_API_BASE=/api/
 
 RUN npm install --prefix client && \
     npm install --prefix server && \
-    npm build --prefix client && \
-    npm build --prefix server
-
-EXPOSE $PORT
+    npm run build --prefix client && \
+    npm run build --prefix server && \
+    npm prune --production --prefix server && \
+    rm -rf client 
 
 CMD ["npm", "start", "--prefix", "server"]

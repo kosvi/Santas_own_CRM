@@ -65,5 +65,5 @@ jobs:
           usedocker: true
           # docker_heroku_process_type: web
           healthcheck: "https://glacial-shore-58496.herokuapp.com/api/version"
-          checkstring: "0.0.0"
+          checkstring: "0.0.1"
           rollbackonhealthcheckfailed: true
