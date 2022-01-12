@@ -14,3 +14,4 @@
 |           | 1 | And spend too much time fighting with Cypress. For now Cypress stays in `.eslintignore` |
 |           | 1 | ...aaaand another hour with Heroku... |
 |           | 1 | Worked on to get Heroku pushes to work. |
+| 12.1.2022 | 5 | Managed to get Heroku work. Struggling with Typescript & Sequelize combination | 

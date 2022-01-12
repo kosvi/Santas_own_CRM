@@ -31,7 +31,7 @@ interface QueryInterface {
   dropTable: (arg0: string) => unknown;
 }
 
-module.exports = {
+const migration = {
   up: async (queryInterface: QueryInterface) => {
     await queryInterface.createTable('users', {
       id: {
@@ -65,3 +65,5 @@ module.exports = {
     await queryInterface.dropTable('users');
   }
 };
+
+export default migration;
