@@ -1,7 +1,7 @@
 import app from './app';
 import http from 'http';
 import { PORT } from './utils/config';
-// import { connectionToDatabase } from './utils/db';
+import { connectionToDatabase } from './utils/db';
 
 const server = http.createServer(app);
 
@@ -10,7 +10,7 @@ const server = http.createServer(app);
 //});
 
 const start = async () => {
-  // await connectionToDatabase();
+  await connectionToDatabase();
   server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
