@@ -23,7 +23,7 @@ jobs:
       - name: test backend
         run: npm test --prefix server
         env:
-          DATABASE_URl = ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: install frontend
         run: npm install --prefix client
       - name: lint frontend
