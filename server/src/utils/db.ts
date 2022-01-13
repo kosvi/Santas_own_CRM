@@ -8,7 +8,22 @@ import { Umzug, SequelizeStorage } from 'umzug';
 import { DATABASE_URL } from './config';
 import { validateToString } from './validators';
 
+// https://stackoverflow.com/questions/60014874/how-to-use-typescript-with-sequelize
 export const sequelize = new Sequelize(validateToString(DATABASE_URL));
+
+/*
+export const sequelize = new Sequelize({
+  database: validateToString(DATABASE_URL),
+  dialect: 'postgres',
+  host: 'db',
+  dialectOptions: {
+    ssl: {
+      require: false,
+      rejectUnauthorized: false
+    }
+  }
+});
+*/
 
 export const runMigration = async (down: boolean) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
