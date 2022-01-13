@@ -10,11 +10,11 @@ import { validateToString } from './validators';
 
 export const sequelize = new Sequelize(validateToString(DATABASE_URL));
 
-const runMigration = async () => {
+export const runMigration = async (down: boolean) => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const migrator = new Umzug({
     migrations: {
-      glob: `${process.cwd()}/dist/src/migrations/*.js`,
+      glob: `${process.cwd()}/migrations/*.js`,
       resolve: ({ name, path, context }) => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const migration = require(validateToString(path));
@@ -29,14 +29,18 @@ const runMigration = async () => {
     storage: new SequelizeStorage({ sequelize }),
     logger: console
   });
-  await migrator.up();
+  if (down) {
+    await migrator.down();
+  } else {
+    await migrator.up();
+  }
   console.log('Migrations ready');
 };
 
 export const connectionToDatabase = async () => {
   try {
     await sequelize.authenticate();
-    await runMigration();
+    await runMigration(false);
     console.log('Connected to database');
   } catch (error) {
     console.log('Connection to database failed', error);
