@@ -14,7 +14,7 @@ const runMigration = async () => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const migrator = new Umzug({
     migrations: {
-      glob: `${process.cwd()}/dist/src/migrations/*.js`,
+      glob: `${process.cwd()}/migrations/*.js`,
       resolve: ({ name, path, context }) => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const migration = require(validateToString(path));
