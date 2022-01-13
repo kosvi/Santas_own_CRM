@@ -35,6 +35,7 @@ jobs:
           cat << EOF > server/.env
           PORT=3000
           HOST_URL='http://localhost:3000'
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
           EOF
       - name: prepare frontend for building
         run: |
