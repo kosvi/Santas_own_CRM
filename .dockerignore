@@ -5,6 +5,7 @@ server/node_modules
 server/.env
 server/build
 server/dist
+db
 .git
 .github
 .vscode
