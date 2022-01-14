@@ -21,6 +21,7 @@ require('dotenv').config();
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
-  config.env.testhost = `${process.env.HOST_URL}`;
+  config.env.web_base = `${process.env.CYPRESS_WEB_BASE}`;
+  config.env.api_base = `${process.env.CYPRESS_WEB_BASE}/api`;
   return config;
 };

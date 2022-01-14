@@ -24,6 +24,7 @@ jobs:
         run: npm test --prefix server
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          POSTGRES_SSL: true
       - name: install frontend
         run: npm install --prefix client
       - name: lint frontend
@@ -34,7 +35,7 @@ jobs:
         run: |
           cat << EOF > server/.env
           PORT=3000
-          HOST_URL='http://localhost:3000'
+          CYPRESS_WEB_BASE='http://localhost:3000'
           DATABASE_URL=${{ secrets.DATABASE_URL }}
           POSTGRES_SSL=true
           EOF
@@ -70,5 +71,5 @@ jobs:
           # docker_heroku_process_type: web
           delay: 30
           healthcheck: "https://glacial-shore-58496.herokuapp.com/api/version"
-          checkstring: "OK"
+          checkstring: "OK!"
           # rollbackonhealthcheckfailed: true

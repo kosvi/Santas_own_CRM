@@ -1,17 +1,24 @@
-FROM node:14
+FROM node:14-alpine AS build-stage
 
 WORKDIR /usr/src/app
 
 COPY . .
 
-ENV PORT=$PORT
 ENV REACT_APP_API_BASE=/api/
 
 RUN npm install --production --prefix client && \
     npm install --prefix server && \
     npm run build --prefix client && \
     npm run build --prefix server && \
-    npm prune --production --prefix server && \
-    rm -rf client 
+    rm -rf server/node_modules
 
-CMD ["npm", "start", "--prefix", "server"]
+FROM node:14-alpine 
+
+COPY --from=build-stage /usr/src/app/server /usr/src/app
+
+WORKDIR /usr/src/app
+
+ENV PORT=$PORT
+RUN npm install --production
+
+CMD ["npm", "start"]
