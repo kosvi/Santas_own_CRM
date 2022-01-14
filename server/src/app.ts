@@ -1,14 +1,10 @@
 import express from 'express';
+import { helloRouter, resetRouter } from './controllers';
+
 const app = express();
 
 app.use(express.static('build'));
-
-app.get('/api', (_req, res) => {
-  res.json({ msg: 'Hello World' });
-});
-
-app.get('/api/version', (_req, res) => {
-  res.send('OK!');
-});
+app.use('/api/reset', resetRouter);
+app.use('/api', helloRouter);
 
 export default app;

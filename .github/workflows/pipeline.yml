@@ -22,6 +22,9 @@ jobs:
         run: npm run lint --prefix server
       - name: test backend
         run: npm test --prefix server
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          POSTGRES_SSL: true
       - name: install frontend
         run: npm install --prefix client
       - name: lint frontend
@@ -32,7 +35,9 @@ jobs:
         run: |
           cat << EOF > server/.env
           PORT=3000
-          HOST_URL='http://localhost:3000'
+          CYPRESS_WEB_BASE='http://localhost:3000'
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
+          POSTGRES_SSL=true
           EOF
       - name: prepare frontend for building
         run: |

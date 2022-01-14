@@ -75,6 +75,8 @@ I will use Jest to run tests against backend and frontend. Testing is automated 
 
 I will use ESLint to enforce coherent syntax in the project. ESLint is also run automatically by Github Actions and code has to pass linting in order to proceed. 
 
+Latest Release candidate is running in [Heroku](https://glacial-shore-58496.herokuapp.com/)
+
 ## Starting the app
 
 #### Dev-mode
