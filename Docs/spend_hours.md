@@ -17,4 +17,5 @@
 | 12.1.2022 | 5 | Managed to get Heroku work. Struggling with Typescript & Sequelize combination | 
 | 13.1.2022 | 1 | Realized my own stupidity and fixed migrations with fresh brains. |
 |           | 2 | Tinkered with database. Having ALOT of thought about giving up on typescript and going to plain JS. THIS IS INSANE! But I got migrations to work and I have an endpoint to reset & populate database (for tests). Alot of refactoring is needed soon... |
-|           | 1 | Try to create a working test-env (for github) |
+|           | 2 | Try to create a working test-env (for github) |
+| 14.1.2022 | 1 | Tinkered with DB issues on the pipeline | 
