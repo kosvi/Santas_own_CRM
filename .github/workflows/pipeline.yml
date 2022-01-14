@@ -17,11 +17,13 @@ jobs:
         with: 
           node-version: '14.x'
       - name: install backend
-        run: npm install --prefix server
+        run: CI=true npm install --prefix server
       - name: lint backend
         run: npm run lint --prefix server
       - name: test backend
         run: npm test --prefix server
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
       - name: install frontend
         run: npm install --prefix client
       - name: lint frontend
@@ -33,6 +35,8 @@ jobs:
           cat << EOF > server/.env
           PORT=3000
           HOST_URL='http://localhost:3000'
+          DATABASE_URL=${{ secrets.DATABASE_URL }}
+          POSTGRES_SSL=true
           EOF
       - name: prepare frontend for building
         run: |
@@ -64,6 +68,7 @@ jobs:
           branch: "release"
           usedocker: true
           # docker_heroku_process_type: web
+          delay: 30
           healthcheck: "https://glacial-shore-58496.herokuapp.com/api/version"
-          checkstring: "0.0.1"
-          rollbackonhealthcheckfailed: true
+          checkstring: "OK"
+          # rollbackonhealthcheckfailed: true

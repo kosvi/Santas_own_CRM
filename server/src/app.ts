@@ -1,14 +1,13 @@
 import express from 'express';
+import { helloRouter, resetRouter } from './controllers';
+import { NODE_ENV } from './utils/config';
+
 const app = express();
 
 app.use(express.static('build'));
-
-app.get('/api', (_req, res) => {
-  res.json({ msg: 'Hello World' });
-});
-
-app.get('/api/version', (_req, res) => {
-  res.send('0.0.1');
-});
+if (NODE_ENV !== 'TEST') {
+  app.use('/api/reset', resetRouter);
+}
+app.use('/api', helloRouter);
 
 export default app;
