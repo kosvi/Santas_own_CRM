@@ -69,7 +69,7 @@ jobs:
           branch: "release"
           usedocker: true
           # docker_heroku_process_type: web
-          delay: 30
-          healthcheck: "https://glacial-shore-58496.herokuapp.com/api/version"
+          delay: 15
+          healthcheck: "https://glacial-shore-58496.herokuapp.com/api/health"
           checkstring: "OK!"
-          # rollbackonhealthcheckfailed: true
+          rollbackonhealthcheckfailed: true

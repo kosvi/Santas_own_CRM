@@ -20,3 +20,21 @@
 |           | 2 | Try to create a working test-env (for github) |
 | 14.1.2022 | 1 | Tinkered with DB issues on the pipeline | 
 |           | 1 | Tweaked Dockerfiles and compose-file to make images lighter |
+| total.    |24 | |
+
+I guess we now have a more or less working development environment that is using Docker to spin up the dev-version of the software. We also have a pipeline that is doing all the tasks required from it for now. There is still some things to do with the pipeline, but for now it will allow us to start developing and trying out our product as it starts to become our MVP. 
+
+I did have some (or alot) trouble with Typescript, but I am happy that I decided to stick with it. I am confident that once I get to work on the actual project, thing will get better. I don't consider this my first sprint. I was just setting up the tools to start the actual work. 
+
+### Sprint 1 - database
+
+Goals:
+- First version of the relation model
+- All the migration-scripts to implement it
+- `/api/reset` -endpoint to reset & populate database when `NODE_ENV=develop` or `NODE_ENV=test`
+- Refactor all the technical debt gathered so far
+- Add tests for all the code that is going to stay in the product
+
+| Date | Hours | Description |
+|------|-------|-------------|
+| 14.1.2022 | 1 | Spend some time updating documentation and started first sprint. |

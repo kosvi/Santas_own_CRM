@@ -5,7 +5,7 @@ router.get('/', (_req, res) => {
   res.json({ msg: 'Hello World' });
 });
 
-router.get('/version', (_req, res) => {
+router.get('/health', (_req, res) => {
   res.send('OK!');
 });
 

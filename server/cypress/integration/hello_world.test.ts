@@ -6,3 +6,8 @@ it('Hello World!', function () {
   cy.visit(validateToString(Cypress.env('web_base')));
   cy.contains('Hello World!');
 });
+
+it('Healthcheck works', function () {
+  cy.visit(`${Cypress.env('api_base')}/health`);
+  cy.contains('OK!');
+});
