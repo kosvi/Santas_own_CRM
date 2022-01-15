@@ -97,8 +97,8 @@ module.exports = {
   },
   down: async (queryInterface) => {
     await queryInterface.dropTable('entrys');
-    await queryInterface.dropTable('items');
     await queryInterface.dropTable('wishs');
+    await queryInterface.dropTable('items');
     await queryInterface.dropTable('persons');
   }
 };

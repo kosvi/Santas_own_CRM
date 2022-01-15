@@ -1,3 +1,8 @@
+/*
+ * This file contains all the types, interfaces etc. required by the database related code. 
+ * All --Attributes interfaces are used by ORM 
+ */
+
 export interface UserAttributes {
   id?: number,
   username: string,
@@ -62,3 +67,5 @@ export interface ItemAttributes {
   id?: number,
   name: string
 }
+
+export type MigrationDirection = 'up' | 'down';

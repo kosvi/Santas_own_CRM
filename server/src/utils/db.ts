@@ -5,9 +5,10 @@
 import { Sequelize } from 'sequelize';
 // https://github.com/sequelize/umzug
 import { Umzug, SequelizeStorage } from 'umzug';
-import { DATABASE_URL, POSTGRES_SSL } from './config';
+import { DATABASE_URL, NODE_ENV, POSTGRES_SSL } from './config';
 import { validateToString } from './validators';
 import url from 'url';
+import { MigrationDirection } from '../types';
 
 interface DatabaseUrl {
   host: string;
@@ -34,8 +35,6 @@ const parseDatabaseUrl = (dbUrl: string): DatabaseUrl => {
 };
 
 // https://stackoverflow.com/questions/60014874/how-to-use-typescript-with-sequelize
-// export const sequelize = new Sequelize(validateToString(DATABASE_URL));
-
 const databaseUrl: DatabaseUrl = parseDatabaseUrl(validateToString(DATABASE_URL));
 const useSsl = POSTGRES_SSL ? { ssl: { require: true, rejectUnauthorized: false } } : {};
 export const sequelize = new Sequelize({
@@ -45,23 +44,8 @@ export const sequelize = new Sequelize({
     ...useSsl
   }
 });
-/*
-export const sequelize = new Sequelize({
-  database: validateToString(DATABASE_URL),
-  dialect: 'postgres',
-  host: 'db',
-  dialectOptions: {
-    ssl: {
-      require: false,
-      rejectUnauthorized: false
-    }
-  }
-});
-*/
 
-
-export const runMigration = async (down: boolean) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+export const runMigration = async (direction: MigrationDirection) => {
   const migrator = new Umzug({
     migrations: {
       glob: `${process.cwd()}/migrations/*.js`,
@@ -79,8 +63,10 @@ export const runMigration = async (down: boolean) => {
     storage: new SequelizeStorage({ sequelize }),
     logger: console
   });
-  if (down) {
-    await migrator.down();
+  // this will revert ALL migrations, 
+  // used for resetting database (probably not the most optimal way, but this isn't for production env)
+  if ((NODE_ENV === 'test' || NODE_ENV === 'develop') && direction === 'down') {
+    await migrator.down({ to: 0 });
   } else {
     await migrator.up();
   }
@@ -90,7 +76,7 @@ export const runMigration = async (down: boolean) => {
 export const connectionToDatabase = async () => {
   try {
     await sequelize.authenticate();
-    await runMigration(false);
+    await runMigration('up');
     console.log('Connected to database');
   } catch (error) {
     console.log('Connection to database failed', error);

@@ -22,13 +22,20 @@ router.get('/adduser', (_req, res) => {
 });
 
 router.get('/', (_req, res) => {
-  runMigration(true).then(function () {
+  runMigration('down').then(function () {
     sequelize.drop().catch((error) => { console.log(error); });
   }).then(function () {
-    runMigration(false).catch((error) => { console.log(error); });
+    runMigration('up').catch((error) => { console.log(error); });
   })
     .catch((error) => { console.log(error); });
   res.send('Migrations ok!');
+});
+
+router.get('/drop', (_req, res) => {
+  runMigration('down').then(function () {
+    console.log('Migration.down completed');
+  }).catch((error) => { console.log(error); });
+  res.send('Migrations cancelled');
 });
 
 export default router;

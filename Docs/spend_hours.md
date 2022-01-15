@@ -29,8 +29,8 @@ I did have some (or alot) trouble with Typescript, but I am happy that I decided
 ### Sprint 1 - database
 
 Goals:
-- First version of the relation model
-- All the migration-scripts to implement it
+- ~~First version of the relation model~~
+- ~~All the migration-scripts to implement it~~
 - `/api/reset` -endpoint to reset & populate database when `NODE_ENV=develop` or `NODE_ENV=test`
 - Refactor all the technical debt gathered so far
 - Add tests for all the code that is going to stay in the product
@@ -40,3 +40,4 @@ Goals:
 | 14.1.2022 | 1 | Spend some time updating documentation and started first sprint. |
 | 15.1.2022 | 1 | Planned and draw the first version of the relational model. Next up: write migrations from it. | 
 |           | 2 | Wrote migrations and required models, relations etc. Also tested that written migrations work (= created the tables). Noticed some minor problems in the relational model, but didn't fix them in the diagram. I guess I'll be loosing my mind one day figuring why code & documentation won't match :) |
+|           | 1 | Minor refactoring and re-structuring. Some updates to documentation and minor fixes to migrations (the part to revert them). |
