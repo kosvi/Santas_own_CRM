@@ -67,7 +67,9 @@ Some ideas are in the [Docs](Docs) directory.
 
 ## Database
 
-TODO: Create a relational model for all the data needed for the application
+![Relational model](Docs/Santas_relational_model.drawio.svg "Relational model")
+
+This is the first version of the relational model. It does not include support for all the features requested and address is stored just as a single text-field, but it should be sufficient enough to build MVP. 
 
 ## Testing
 

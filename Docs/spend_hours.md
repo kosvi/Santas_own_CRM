@@ -38,3 +38,4 @@ Goals:
 | Date | Hours | Description |
 |------|-------|-------------|
 | 14.1.2022 | 1 | Spend some time updating documentation and started first sprint. |
+| 15.1.2022 | 1 | Planned and draw the first version of the relational model. Next up: write migrations from it. | 
