@@ -9,6 +9,7 @@ export class User extends Model<UserAttributes> implements UserAttributes {
   declare name: string;
   declare username: string;
   declare password: string;
+  declare disabled: boolean;
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;
 }
@@ -31,6 +32,11 @@ User.init({
   name: {
     type: DataTypes.STRING,
     allowNull: false
+  },
+  disabled: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false
   }
 }, {
   sequelize,

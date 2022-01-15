@@ -4,12 +4,14 @@ const users: UserAttributes[] = [
   {
     username: 'foo',
     password: 'bar',
-    name: 'foobar'
+    name: 'foobar',
+    disabled: true
   },
   {
     username: 'elf',
     password: 'elf',
-    name: 'Small Elf'
+    name: 'Small Elf',
+    disabled: false
   }
 ];
 

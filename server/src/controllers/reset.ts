@@ -1,5 +1,5 @@
 import express from 'express';
-import { User } from '../models';
+import Models from '../models';
 import { UserAttributes } from '../types';
 import users from '../data/users';
 import { runMigration, sequelize } from '../utils/db';
@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/adduser', (_req, res) => {
   const newUsers = users.map((u: UserAttributes) => {
-    return User.create(u)
+    return Models.User.create(u)
       .then((n) => { return n; })
       .catch((error) => { console.log(error); });
   });
