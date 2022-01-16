@@ -41,3 +41,4 @@ Goals:
 | 15.1.2022 | 1 | Planned and draw the first version of the relational model. Next up: write migrations from it. | 
 |           | 2 | Wrote migrations and required models, relations etc. Also tested that written migrations work (= created the tables). Noticed some minor problems in the relational model, but didn't fix them in the diagram. I guess I'll be loosing my mind one day figuring why code & documentation won't match :) |
 |           | 1 | Minor refactoring and re-structuring. Some updates to documentation and minor fixes to migrations (the part to revert them). |
+| 16.1.2022 | 3 | Worked on populating database and get the `/api/reset` to work. | 

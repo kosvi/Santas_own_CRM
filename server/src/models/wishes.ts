@@ -18,7 +18,7 @@ Wish.init({
   personId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'persons', key: 'id' }
+    references: { model: 'people', key: 'id' }
   },
   itemId: {
     type: DataTypes.INTEGER,

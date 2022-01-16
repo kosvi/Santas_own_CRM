@@ -37,7 +37,6 @@ Entry.belongsTo(Person);
 Person.hasMany(Wish);
 Wish.belongsTo(Person);
 Wish.hasOne(Item);
-Item.belongsTo(Wish);
 
 export default {
   Entry, Group, Item, Page, Permission, Person, Session, UserGroup, User, Wish

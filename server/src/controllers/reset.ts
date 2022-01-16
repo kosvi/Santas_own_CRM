@@ -2,8 +2,27 @@ import express from 'express';
 import Models from '../models';
 import { UserAttributes } from '../types';
 import users from '../data/users';
+import { addData, resetDB } from '../services/resetService';
 import { runMigration, sequelize } from '../utils/db';
 const router = express.Router();
+
+router.get('/foo', (_req, res) => {
+  resetDB()
+    .catch(error => console.log(error));
+  res.send('ok!');
+});
+
+router.get('/addusers', (_req, res) => {
+  addData()
+    .then((returnValue) => {
+      console.log('addData returned ', returnValue);
+      res.json(returnValue);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.send('failure');
+    });
+});
 
 router.get('/adduser', (_req, res) => {
   const newUsers = users.map((u: UserAttributes) => {
@@ -19,6 +38,11 @@ router.get('/adduser', (_req, res) => {
     .catch((error) => {
       console.log(error);
     });
+});
+
+router.get('/r', (_req, res) => {
+  runMigration('down').catch((error) => console.log(error));
+  res.send('ok!');
 });
 
 router.get('/', (_req, res) => {

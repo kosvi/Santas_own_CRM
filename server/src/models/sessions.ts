@@ -3,7 +3,7 @@ import { sequelize } from '../utils/db';
 import { SessionAttributes } from '../types';
 
 export class Session extends Model<SessionAttributes> implements SessionAttributes {
-  declare id: number;
+  declare id?: number;
   declare userId: number;
   declare token: string;
   declare readonly createdAt: Date;

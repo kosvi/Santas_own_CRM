@@ -1,17 +1,23 @@
 import { UserAttributes } from '../types';
 
-const users: UserAttributes[] = [
+export const users: UserAttributes[] = [
   {
-    username: 'foo',
-    password: 'bar',
-    name: 'foobar',
-    disabled: true
+    username: 'santa',
+    password: 'santa',
+    name: 'Santa Claus',
+    disabled: false
   },
   {
     username: 'elf',
     password: 'elf',
     name: 'Small Elf',
     disabled: false
+  },
+  {
+    username: 'mickey',
+    password: 'mouse',
+    name: 'Mickey Mouse',
+    disabled: true
   }
 ];
 

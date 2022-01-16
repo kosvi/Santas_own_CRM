@@ -5,7 +5,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = {
   up: async (queryInterface) => {
-    await queryInterface.createTable('persons', {
+    await queryInterface.createTable('people', {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -31,7 +31,7 @@ module.exports = {
         allowNull: false
       }
     });
-    await queryInterface.createTable('entrys', {
+    await queryInterface.createTable('entries', {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -45,7 +45,7 @@ module.exports = {
       personId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'persons', key: 'id' }
+        references: { model: 'people', key: 'id' }
       },
       niceness: {
         type: DataTypes.INTEGER,
@@ -74,7 +74,7 @@ module.exports = {
         allowNull: false
       }
     });
-    await queryInterface.createTable('wishs', {
+    await queryInterface.createTable('wishes', {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -83,7 +83,7 @@ module.exports = {
       personId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'persons', key: 'id' }
+        references: { model: 'people', key: 'id' }
       },
       itemId: {
         type: DataTypes.INTEGER,
@@ -96,9 +96,9 @@ module.exports = {
     });
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable('entrys');
-    await queryInterface.dropTable('wishs');
+    await queryInterface.dropTable('entries');
+    await queryInterface.dropTable('wishes');
     await queryInterface.dropTable('items');
-    await queryInterface.dropTable('persons');
+    await queryInterface.dropTable('people');
   }
 };

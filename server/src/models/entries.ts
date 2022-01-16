@@ -26,7 +26,7 @@ Entry.init({
   personId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'persons', key: 'id' }
+    references: { model: 'people', key: 'id' }
   },
   niceness: {
     type: DataTypes.INTEGER,

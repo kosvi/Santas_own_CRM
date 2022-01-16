@@ -13,3 +13,13 @@ export const validateToString = (text: unknown): string => {
     return text;
   }
 };
+
+export const validateToNumber = (num: unknown): number => {
+  const asString = validateToString(num);
+  const asNum = Number(asString);
+  if (!num || !(typeof asNum === 'number')) {
+    throw new Error('Incorrect of missing number');
+  } else {
+    return asNum;
+  }
+};
