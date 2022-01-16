@@ -12,6 +12,6 @@ const error = (line: string) => {
   }
 };
 
-export default {
+export const logger = {
   log, error
 };

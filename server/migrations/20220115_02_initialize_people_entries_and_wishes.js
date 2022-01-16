@@ -37,12 +37,12 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true
       },
-      userId: {
+      user_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: 'users', key: 'id' }
       },
-      personId: {
+      person_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: 'people', key: 'id' }
@@ -80,12 +80,12 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true
       },
-      personId: {
+      person_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: 'people', key: 'id' }
       },
-      itemId: {
+      item_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: 'items', key: 'id' }

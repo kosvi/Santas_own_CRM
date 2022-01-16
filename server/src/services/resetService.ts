@@ -7,20 +7,32 @@
  */
 
 import Models from '../models';
-import Logger from '../utils/logger';
+import { logger } from '../utils/logger';
 import { users, persons, entries } from '../data';
 import { EntryAttributes, PersonAttributes, UserAttributes } from '../types';
-import { runMigration, sequelize } from '../utils/db';
+import { runMigration } from '../utils/db';
 import { validateToNumber, validateToString } from '../utils/validators';
 
-export const resetDB = async (): Promise<boolean> => {
+// For some reason async await caused mystic problems with this function
+// After a re-write to this format, it's working as intended
+export const resetDB = () =>
+  runMigration('down')
+    .then(() => {
+      runMigration('up')
+        .catch(error => logError(error));
+    })
+    .catch(error => logError(error));
+
+
+// This one is for populating the database
+// It uses all the functions below it to do it's job. 
+export const addData = async (): Promise<boolean> => {
   try {
-    Logger.log('reverting all migrations');
-    await runMigration('down');
-    Logger.log('removing SequelizeMeta');
-    await sequelize.drop();
-    Logger.log('running migrations');
-    await runMigration('up');
+    const newUsers = await addUsers();
+    const newPersons = await addPersons();
+    console.log(newPersons);
+    const newEntries = await addEntries(newUsers, newPersons);
+    console.log(newEntries);
     return true;
   } catch (error) {
     logError(error);
@@ -49,48 +61,35 @@ const addPersons = async (): Promise<PersonAttributes[]> => {
 };
 
 const addEntries = async (newUsers: UserAttributes[], newPersons: PersonAttributes[]): Promise<EntryAttributes[]> => {
-  // I am fairly confident here is data and if not, we are still in dev environment after all
+  // Add all entries to first user in the user-table and first person in the people-table
   const userId = validateToNumber(newUsers[0].id);
   const personId = validateToNumber(newPersons[0].id);
+  // Remember that 'entries' is in the form of NewEntry and is missing foreign keys, 
+  // let's add them first and then add them to database
+  const newEntries: EntryAttributes[] = entries.map(e => {
+    return {
+      ...e,
+      userId: userId,
+      personId: personId
+    };
+  });
   try {
-    const newEntries = entries.map(e => {
-      const newEntry: EntryAttributes = {
-        ...e,
-        userId: userId,
-        personId: personId
-      };
-      return Models.Entry.create(newEntry);
-    });
-    await Promise.all(newEntries);
-    console.log(newEntries);
-    return [];
+    const createdEntries = await Models.Entry.bulkCreate(newEntries);
+    return createdEntries;
   } catch (error) {
     logError(error);
     return [];
-  }
-};
-
-export const addData = async (): Promise<boolean> => {
-  try {
-    const newUsers = await addUsers();
-    const newPersons = await addPersons();
-    const newEntries = await addEntries(newUsers, newPersons);
-    console.log(newEntries);
-    return true;
-  } catch (error) {
-    logError(error);
-    return false;
   }
 };
 
 const logError = (error: unknown) => {
   if (error instanceof Error) {
-    Logger.error(error.message);
+    logger.error(error.message);
   } else {
     try {
-      Logger.error(validateToString(error));
+      logger.error(validateToString(error));
     } catch (error) {
-      Logger.error('unknown error');
+      logger.error('unknown error');
     }
   }
 };

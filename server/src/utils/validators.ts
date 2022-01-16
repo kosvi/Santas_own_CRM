@@ -15,11 +15,12 @@ export const validateToString = (text: unknown): string => {
 };
 
 export const validateToNumber = (num: unknown): number => {
-  const asString = validateToString(num);
-  const asNum = Number(asString);
-  if (!num || !(typeof asNum === 'number')) {
-    throw new Error('Incorrect of missing number');
+  if (!num || !(typeof num === 'number' || num instanceof Number)) {
+    throw new Error('Incorrect or missing number');
   } else {
-    return asNum;
+    if (num instanceof Number) {
+      return num.valueOf();
+    }
+    return num;
   }
 };
