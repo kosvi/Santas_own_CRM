@@ -44,6 +44,7 @@ Goals:
 | 16.1.2022 | 3 | Worked on populating database and get the `/api/reset` to work. Fixed some plural-issues on migrations. | 
 |           | 1 | Kept working on resetting database and started building some tests before quitting for the day. |
 | 17.1.2022 | 3 | Kept working on resetting the database, added some new data to populate with. Adjusted relational model and added some tests. Tweaks to pipeline. |
+|           | 1 | Cleaned some final marks of Cypress from backend. Added version controller and wrote some tests. | 
 
 Extras:
 - Extracted Cypress in it's own folder. Hopefully this will make deployments a bit faster. 
