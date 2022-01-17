@@ -20,7 +20,7 @@
 |           | 2 | Try to create a working test-env (for github) |
 | 14.1.2022 | 1 | Tinkered with DB issues on the pipeline | 
 |           | 1 | Tweaked Dockerfiles and compose-file to make images lighter |
-| total.    |24 | |
+| total    |24 | |
 
 I guess we now have a more or less working development environment that is using Docker to spin up the dev-version of the software. We also have a pipeline that is doing all the tasks required from it for now. There is still some things to do with the pipeline, but for now it will allow us to start developing and trying out our product as it starts to become our MVP. 
 
