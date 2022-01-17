@@ -10,5 +10,3 @@ export const entries: NewEntry[] = [
     description: 'Took a toy from anothers hand'
   }
 ];
-
-export default entries;

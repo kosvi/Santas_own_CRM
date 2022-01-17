@@ -1,3 +1,4 @@
 export * from './users';
-export * from './persons';
+export * from './groups';
+export * from './people';
 export * from './entries';

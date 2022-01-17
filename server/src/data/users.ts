@@ -18,7 +18,11 @@ export const users: UserAttributes[] = [
     password: 'mouse',
     name: 'Mickey Mouse',
     disabled: true
+  },
+  {
+    username: 'admin',
+    password: 'password',
+    name: 'Admin Elf',
+    disabled: false
   }
 ];
-
-export default users;

@@ -4,6 +4,9 @@
  */
 
 export const validateToString = (text: unknown): string => {
+  if (text === '') {
+    return '';
+  }
   if (!text || !(typeof text === 'string' || text instanceof String)) {
     throw new Error('Malformed string');
   } else {
@@ -15,6 +18,9 @@ export const validateToString = (text: unknown): string => {
 };
 
 export const validateToNumber = (num: unknown): number => {
+  if (num === 0) {
+    return 0;
+  }
   if (!num || !(typeof num === 'number' || num instanceof Number)) {
     throw new Error('Incorrect or missing number');
   } else {

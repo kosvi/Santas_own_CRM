@@ -1,6 +1,6 @@
 import { PersonAttributes } from '../types';
 
-export const persons: PersonAttributes[] = [
+export const people: PersonAttributes[] = [
   {
     name: 'Mikko Mallikas',
     birthdate: new Date(2014, 10, 15),
@@ -12,5 +12,3 @@ export const persons: PersonAttributes[] = [
     address: 'Mikonkatu 12'
   }
 ];
-
-export default persons;

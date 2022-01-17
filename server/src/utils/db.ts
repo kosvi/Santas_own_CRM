@@ -9,6 +9,7 @@ import { DATABASE_URL, NODE_ENV, POSTGRES_SSL } from './config';
 import { validateToString } from './validators';
 import url from 'url';
 import { MigrationDirection } from '../types';
+import { logger } from './logger';
 
 interface DatabaseUrl {
   host: string;
@@ -34,6 +35,7 @@ const parseDatabaseUrl = (dbUrl: string): DatabaseUrl => {
   };
 };
 
+// a bit unprofessional to leave stackoverflow-links to comments?
 // https://stackoverflow.com/questions/60014874/how-to-use-typescript-with-sequelize
 const databaseUrl: DatabaseUrl = parseDatabaseUrl(validateToString(DATABASE_URL));
 const useSsl = POSTGRES_SSL ? { ssl: { require: true, rejectUnauthorized: false } } : {};
@@ -70,16 +72,20 @@ export const runMigration = async (direction: MigrationDirection) => {
   } else {
     await migrator.up();
   }
-  console.log('Migrations ready');
+  logger.log('Migrations ready');
 };
 
 export const connectionToDatabase = async () => {
   try {
     await sequelize.authenticate();
     await runMigration('up');
-    console.log('Connected to database');
+    logger.log('Connected to database');
   } catch (error) {
-    console.log('Connection to database failed', error);
+    let msg = 'Connection to database failed';
+    if (error instanceof Error) {
+      msg = `${msg}: ${error.message}`;
+    }
+    logger.error(msg);
     return process.exit(1);
   }
   return null;
