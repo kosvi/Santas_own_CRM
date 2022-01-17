@@ -5,7 +5,7 @@ import { PermissionAttributes } from '../types';
 export class Permission extends Model<PermissionAttributes> implements PermissionAttributes {
   declare id?: number;
   declare groupId: number;
-  declare pageId: number;
+  declare functionalityId: number;
   declare read: boolean;
   declare write: boolean;
 }
@@ -21,10 +21,10 @@ Permission.init({
     allowNull: false,
     references: { model: 'groups', key: 'id' }
   },
-  pageId: {
+  functionalityId: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: { model: 'pages', key: 'id' }
+    references: { model: 'functionalities', key: 'id' }
   },
   read: {
     type: DataTypes.BOOLEAN,

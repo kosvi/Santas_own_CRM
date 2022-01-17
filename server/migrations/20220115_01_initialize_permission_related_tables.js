@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false
       }
     });
-    await queryInterface.createTable('pages', {
+    await queryInterface.createTable('functionalities', {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -46,10 +46,10 @@ module.exports = {
         allowNull: false,
         references: { model: 'groups', key: 'id' }
       },
-      page_id: {
+      functionality_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: { model: 'pages', key: 'id' }
+        references: { model: 'functionalities', key: 'id' }
       },
       read: {
         type: DataTypes.BOOLEAN,
@@ -108,7 +108,7 @@ module.exports = {
     await queryInterface.dropTable('permissions');
     await queryInterface.dropTable('usergroups');
     await queryInterface.dropTable('groups');
-    await queryInterface.dropTable('pages');
+    await queryInterface.dropTable('functionalities');
     await queryInterface.dropTable('sessions');
   }
 };

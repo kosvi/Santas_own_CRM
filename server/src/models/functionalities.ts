@@ -1,13 +1,13 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../utils/db';
-import { PageAttributes } from '../types';
+import { FunctionalityAttributes } from '../types';
 
-export class Page extends Model<PageAttributes> implements PageAttributes {
+export class Functionality extends Model<FunctionalityAttributes> implements FunctionalityAttributes {
   declare id?: number;
   declare name: string;
 }
 
-Page.init({
+Functionality.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -21,5 +21,5 @@ Page.init({
   sequelize,
   underscored: true,
   timestamps: false,
-  modelName: 'page'
+  modelName: 'functionality'
 });

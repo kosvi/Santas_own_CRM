@@ -28,7 +28,7 @@ export interface UserGroupAttributes {
   groupId: number
 }
 
-export interface PageAttributes {
+export interface FunctionalityAttributes {
   id?: number,
   name: string
 }
@@ -36,7 +36,7 @@ export interface PageAttributes {
 export interface PermissionAttributes {
   id?: number,
   groupId: number,
-  pageId: number,
+  functionalityId: number,
   read: boolean,
   write: boolean
 }
