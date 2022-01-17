@@ -81,6 +81,10 @@ Latest Release candidate is running in [Heroku](https://glacial-shore-58496.hero
 
 ## Starting the app
 
+UPDATE HERE: 
+- `NODE_ENV` options (and what are the effects)
+- .env -files and their contents
+
 #### Dev-mode
 
 Requirements:

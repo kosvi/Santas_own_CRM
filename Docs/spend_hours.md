@@ -43,3 +43,7 @@ Goals:
 |           | 1 | Minor refactoring and re-structuring. Some updates to documentation and minor fixes to migrations (the part to revert them). |
 | 16.1.2022 | 3 | Worked on populating database and get the `/api/reset` to work. Fixed some plural-issues on migrations. | 
 |           | 1 | Kept working on resetting database and started building some tests before quitting for the day. |
+| 17.1.2022 | 3 | Kept working on resetting the database, added some new data to populate with. Adjusted relational model and added some tests. Tweaks to pipeline. |
+
+Extras:
+- Extracted Cypress in it's own folder. Hopefully this will make deployments a bit faster. 
