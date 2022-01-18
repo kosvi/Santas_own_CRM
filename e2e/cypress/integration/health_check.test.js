@@ -1,8 +1,8 @@
-it('Hello World!', function () {
+it('Version responds!', function () {
   //  console.log('PORT:', Cypress.env('PORT'));
   //  cy.visit(`${Cypress.env('FULL_HOST')}:${Cypress.env('PORT')}`);
   cy.visit(Cypress.env('web_base'));
-  cy.contains('0.0.0');
+  cy.contains('version');
 });
 
 it('Healthcheck works', function () {
