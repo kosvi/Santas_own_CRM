@@ -51,3 +51,17 @@ Goals:
 Extras:
 - Extracted Cypress in it's own folder. Hopefully this will make deployments a bit faster. 
 - Added tests for `develop` branch
+
+### Sprint 2 - controllers (without permissions yet)
+
+Goals:
+- Add controllers to backend to serve data from database
+- Add possibility to: 
+  - add entries
+  - add groups and permissions
+- Update documentation to reflect the state of the project
+
+
+| Date | Hours | Description |
+|-----|------|--------------|
+| 18.1.2022 | 1 | Wrote `users` and `groups` routers to serve data from database. | 
