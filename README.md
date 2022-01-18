@@ -30,7 +30,7 @@ For my development pipeline I will use Github and Github Actions. My github repo
 ```
 [master] this is the production version - it's update trough pull requests from [release]
 -> [release] this is a release candidate that has passed all the tests. It will automaticly be deployed to Heroku for live demo
-  -> [develop] this branch is where individual features are first merged and tested. Once working, it can be merged to [release]
+  -> [develop] this branch is where I develop or where feature-branches are merger. Once working, it can be merged to [release]
     -> [feature-branches] new features will be developed in their own brances and merged to [develop] once ready for it. 
 ```
 
@@ -67,7 +67,9 @@ Some ideas are in the [Docs](Docs) directory.
 
 ## Database
 
-TODO: Create a relational model for all the data needed for the application
+![Relational model](Docs/Santas_relational_model.drawio.svg "Relational model")
+
+This is the first version of the relational model. It does not include support for all the features requested and address is stored just as a single text-field, but it should be sufficient enough to build MVP. 
 
 ## Testing
 
@@ -78,6 +80,10 @@ I will use ESLint to enforce coherent syntax in the project. ESLint is also run 
 Latest Release candidate is running in [Heroku](https://glacial-shore-58496.herokuapp.com/)
 
 ## Starting the app
+
+UPDATE HERE: 
+- `NODE_ENV` options (and what are the effects)
+- .env -files and their contents
 
 #### Dev-mode
 

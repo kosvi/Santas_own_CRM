@@ -1,34 +1,61 @@
+/*
+ * This controller is for NODE_ENV = develop and NODE_ENV = test ONLY!!!
+ * Should this be available in production, it most likely would cause 
+ * SEVERE HARM 
+ * 
+ * This controller can be used to reset the whole database and populate 
+ * it with some hardcoded test-data. DO NOT LEAVE THIS AVAILABLE IN PRODUCTION!
+ */
+
 import express from 'express';
-import { User } from '../models';
-import { UserAttributes } from '../types';
-import users from '../data/users';
-import { runMigration, sequelize } from '../utils/db';
+import { addData, resetDB } from '../services/resetService';
+import { logger } from '../utils/logger';
+import { validateToString } from '../utils/validators';
 const router = express.Router();
 
-router.get('/adduser', (_req, res) => {
-  const newUsers = users.map((u: UserAttributes) => {
-    return User.create(u)
-      .then((n) => { return n; })
-      .catch((error) => { console.log(error); });
-  });
-  console.log(newUsers[0]);
-  Promise.all(newUsers)
-    .then((nu) => {
-      res.json(nu);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+router.delete('/clear', (_req, res) => {
+  resetDB().catch((error) => console.log(error));
+  res.send('ok!');
+});
+
+router.post('/populate', (_req, res) => {
+  addData().catch((error) => logError(error));
+  res.send('ok!');
+});
+
+router.post('/full', (_req, res) => {
+  resetDB().then(() => {
+    addData().catch((error) => logError(error));
+  })
+    .catch((error) => logError(error));
+  res.send('ok');
 });
 
 router.get('/', (_req, res) => {
-  runMigration(true).then(function () {
-    sequelize.drop().catch((error) => { console.log(error); });
-  }).then(function () {
-    runMigration(false).catch((error) => { console.log(error); });
-  })
-    .catch((error) => { console.log(error); });
-  res.send('Migrations ok!');
+  res.send(`
+  Functionalities:<br />
+  <table>
+  <tr>
+  <td>Clear database</td><td>DELETE /api/reset/clear</td>
+  </tr><tr>
+  <td>Populate database</td><td>POST /api/reset/populate</td>
+  </tr><tr>
+  <td>Clear and populate database</td><td>POST /api/reset/full</td>
+  </tr>
+  </table>
+  `);
 });
+
+const logError = (error: unknown) => {
+  if (error instanceof Error) {
+    logger.error(error.message);
+  } else {
+    try {
+      logger.error(validateToString(error));
+    } catch (err) {
+      console.error(err);
+    }
+  }
+};
 
 export default router;

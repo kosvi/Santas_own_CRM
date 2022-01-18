@@ -16,6 +16,7 @@ jobs:
       - uses: actions/setup-node@v1
         with: 
           node-version: '14.x'
+      # Install, lint and test backend
       - name: install backend
         run: CI=true npm install --prefix server
       - name: lint backend
@@ -25,17 +26,27 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           POSTGRES_SSL: true
+      # Install, lint and test frontend
       - name: install frontend
         run: npm install --prefix client
       - name: lint frontend
         run: npm run lint --prefix client
       - name: test frontend
         run: npm test --prefix client
+      # Install, lint and run e2e tests
+      - name: install e2e
+        run: npm install --prefix e2e
+      - name: lint e2e
+        run: npm run lint --prefix e2e
+      - name: prepare e2e for tests
+        run: |
+          cat << EOF > e2e/.env
+          CYPRESS_WEB_BASE='http://localhost:3000'
+          EOF
       - name: prepare backend for e2e-tests
         run: |
           cat << EOF > server/.env
           PORT=3000
-          CYPRESS_WEB_BASE='http://localhost:3000'
           DATABASE_URL=${{ secrets.DATABASE_URL }}
           POSTGRES_SSL=true
           EOF
@@ -51,9 +62,9 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           command: npm run e2e
-          start: npm run dev
+          start: npm run dev --prefix ../server
           wait-on: http://localhost:3000
-          working-directory: ./server
+          working-directory: ./e2e
   deploy:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/release' }}
     runs-on: ubuntu-20.04
@@ -69,7 +80,7 @@ jobs:
           branch: "release"
           usedocker: true
           # docker_heroku_process_type: web
-          delay: 30
-          healthcheck: "https://glacial-shore-58496.herokuapp.com/api/version"
+          delay: 15
+          healthcheck: "https://glacial-shore-58496.herokuapp.com/api/version/health"
           checkstring: "OK!"
-          # rollbackonhealthcheckfailed: true
+          rollbackonhealthcheckfailed: true
