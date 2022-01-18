@@ -13,7 +13,8 @@ module.exports = {
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       created_at: {
         type: DataTypes.DATE,
@@ -30,9 +31,15 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true
       },
+      code: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true
+      },
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       }
     });
     await queryInterface.createTable('permissions', {
@@ -101,7 +108,7 @@ module.exports = {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: { model: 'groups', key: 'id' }
-      }    
+      }
     });
   },
   down: async (queryInterface) => {

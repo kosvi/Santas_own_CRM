@@ -47,7 +47,6 @@ jobs:
         run: |
           cat << EOF > server/.env
           PORT=3000
-          CYPRESS_WEB_BASE='http://localhost:3000'
           DATABASE_URL=${{ secrets.DATABASE_URL }}
           POSTGRES_SSL=true
           EOF

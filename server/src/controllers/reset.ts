@@ -9,33 +9,41 @@
 
 import express from 'express';
 import { addData, resetDB } from '../services/resetService';
-import { runMigration } from '../utils/db';
 import { logger } from '../utils/logger';
 import { validateToString } from '../utils/validators';
-// import { logger } from '../utils/logger';
 const router = express.Router();
 
-router.get('/down', (_req, res) => {
-  runMigration('down').catch((error) => logError(error));
+router.delete('/clear', (_req, res) => {
+  resetDB().catch((error) => console.log(error));
   res.send('ok!');
 });
 
-router.get('/up', (_req, res) => {
-  runMigration('up').catch((error) => logError(error));
-  res.send('ok!');
-});
-
-router.get('/populate', (_req, res) => {
+router.post('/populate', (_req, res) => {
   addData().catch((error) => logError(error));
   res.send('ok!');
 });
 
-router.get('/full', (_req, res) => {
+router.post('/full', (_req, res) => {
   resetDB().then(() => {
-    addData().catch(error => logError(error));
+    addData().catch((error) => logError(error));
   })
-    .catch(error => logError(error));
+    .catch((error) => logError(error));
   res.send('ok');
+});
+
+router.get('/', (_req, res) => {
+  res.send(`
+  Functionalities:<br />
+  <table>
+  <tr>
+  <td>Clear database</td><td>DELETE /api/reset/clear</td>
+  </tr><tr>
+  <td>Populate database</td><td>POST /api/reset/populate</td>
+  </tr><tr>
+  <td>Clear and populate database</td><td>POST /api/reset/full</td>
+  </tr>
+  </table>
+  `);
 });
 
 const logError = (error: unknown) => {

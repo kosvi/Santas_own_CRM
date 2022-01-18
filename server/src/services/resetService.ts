@@ -8,21 +8,23 @@
 
 import Models from '../models';
 import { logger } from '../utils/logger';
-import { users, groups, people, entries } from '../data';
-import { EntryAttributes, GroupAttributes, PersonAttributes, UserAttributes } from '../types';
-import { runMigration } from '../utils/db';
+import { users, groups, people, entries, items } from '../data';
+import { EntryAttributes, GroupAttributes, ItemAttributes, PersonAttributes, UserAttributes, WishAttributes } from '../types';
 import { validateToNumber, validateToString } from '../utils/validators';
 
-// For some reason async await caused mystic problems with this function
-// After a re-write to this format, it's working as intended
-// I wonder if it had some typo or something??
-export const resetDB = () =>
-  runMigration('down')
-    .then(() => {
-      runMigration('up')
-        .catch(error => logError(error));
-    })
-    .catch(error => logError(error));
+
+// Reset all tables and make id's to start from 1 again
+export const resetDB = async () => {
+  await Models.Wish.sync({ force: true });
+  await Models.Entry.sync({ force: true });
+  await Models.Item.sync({ force: true });
+  await Models.Person.sync({ force: true });
+  await Models.Permission.sync({ force: true });
+  await Models.UserGroup.sync({ force: true });
+  await Models.Group.sync({ force: true });
+  await Models.User.sync({ force: true });
+  await Models.Session.sync({ force: true });
+};
 
 
 // This one is for populating the database
@@ -32,8 +34,11 @@ export const addData = async (): Promise<boolean> => {
     const newUsers = await addUsers();
     await addGroups();
     await connectGroupsAndUsers();
+    await addPermissionsToAdmin();
     const newPeople = await addPeople();
     await addEntries(newUsers, newPeople);
+    const newItems = await addItems();
+    await addWishes(newPeople, newItems);
     return true;
   } catch (error) {
     logError(error);
@@ -78,6 +83,26 @@ const connectGroupsAndUsers = async () => {
   }
 };
 
+const addPermissionsToAdmin = async () => {
+  try {
+    const adminGroup = await Models.Group.findOne({ where: { name: 'admin' } });
+    const functionalities = await Models.Functionality.findAll();
+    if (adminGroup && functionalities) {
+      const permissionArray = functionalities.map(f => {
+        return {
+          groupId: validateToNumber(adminGroup.id),
+          functionalityId: validateToNumber(f.id),
+          read: true,
+          write: true
+        };
+      });
+      await Models.Permission.bulkCreate(permissionArray);
+    }
+  } catch (error) {
+    logError(error);
+  }
+};
+
 const addPeople = async (): Promise<PersonAttributes[]> => {
   try {
     const peopleCreated = await Models.Person.bulkCreate(people);
@@ -107,6 +132,35 @@ const addEntries = async (newUsers: UserAttributes[], newPeople: PersonAttribute
   } catch (error) {
     logError(error);
     return [];
+  }
+};
+
+const addItems = async (): Promise<ItemAttributes[]> => {
+  try {
+    const newItems = await Models.Item.bulkCreate(items);
+    return newItems;
+  } catch (error) {
+    logError(error);
+    return [];
+  }
+};
+
+const addWishes = async (people: PersonAttributes[], items: ItemAttributes[]) => {
+  try {
+    let wishes: WishAttributes[];
+    wishes = [];
+    people.forEach(p => {
+      items.forEach(i => {
+        wishes = wishes.concat({
+          personId: validateToNumber(p.id),
+          itemId: validateToNumber(i.id),
+          description: 'I want it to be lovely!'
+        });
+      });
+    });
+    await Models.Wish.bulkCreate(wishes);
+  } catch (error) {
+    logError(error);
   }
 };
 

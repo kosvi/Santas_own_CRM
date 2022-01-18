@@ -48,6 +48,8 @@ export const sequelize = new Sequelize({
 });
 
 export const runMigration = async (direction: MigrationDirection) => {
+  // no logging when running in production
+  const umzugLogger = NODE_ENV === 'production' ? undefined : console;
   const migrator = new Umzug({
     migrations: {
       glob: `${process.cwd()}/migrations/*.js`,
@@ -63,7 +65,7 @@ export const runMigration = async (direction: MigrationDirection) => {
     },
     context: sequelize.getQueryInterface(),
     storage: new SequelizeStorage({ sequelize }),
-    logger: console
+    logger: umzugLogger
   });
   // this will revert ALL migrations, 
   // used for resetting database (probably not the most optimal way, but this isn't for production env)

@@ -30,6 +30,7 @@ export interface UserGroupAttributes {
 
 export interface FunctionalityAttributes {
   id?: number,
+  code: string,
   name: string
 }
 

@@ -1,6 +1,7 @@
 import { validateToNumber, validateToString } from '../../src/utils/validators';
 
 const STRING_ERROR = 'Malformed string';
+const NUMBER_ERROR = 'Incorrect or missing number';
 
 describe('validator tests', () => {
   test('validate valid strings', () => {
@@ -20,5 +21,10 @@ describe('validator tests', () => {
     expect(validateToNumber(-100)).toEqual(-100);
     expect(validateToNumber(Number('100'))).toEqual(100);
     expect(validateToNumber(1.9314)).toEqual(1.9314);
+  });
+  test('validate invalid numbers', () => {
+    expect(() => { validateToNumber('string'); }).toThrow(NUMBER_ERROR);
+    expect(() => { validateToNumber(undefined); }).toThrow(NUMBER_ERROR);
+    expect(() => { validateToNumber(null); }).toThrow(NUMBER_ERROR);
   });
 });

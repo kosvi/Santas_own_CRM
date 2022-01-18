@@ -4,6 +4,7 @@ import { FunctionalityAttributes } from '../types';
 
 export class Functionality extends Model<FunctionalityAttributes> implements FunctionalityAttributes {
   declare id?: number;
+  declare code: string;
   declare name: string;
 }
 
@@ -13,9 +14,15 @@ Functionality.init({
     autoIncrement: true,
     primaryKey: true
   },
+  code: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true
+  },
   name: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   }
 }, {
   sequelize,

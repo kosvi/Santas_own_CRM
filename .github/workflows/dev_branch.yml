@@ -1,0 +1,35 @@
+name: Test Develop-branch
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+    types: [opened, synchronize]
+  
+
+jobs:
+  test: 
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with: 
+          node-version: '14.x'
+      # Install, lint and test backend
+      - name: install backend
+        run: CI=true npm install --prefix server
+      - name: lint backend
+        run: npm run lint --prefix server
+      - name: test backend
+        run: npm test --prefix server
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          POSTGRES_SSL: true
+      # Install, lint and test frontend
+      - name: install frontend
+        run: npm install --prefix client
+      - name: lint frontend
+        run: npm run lint --prefix client
+      - name: test frontend
+        run: npm test --prefix client

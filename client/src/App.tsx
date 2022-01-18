@@ -2,23 +2,23 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { validateToString } from './utils/validators';
 
-interface Message {
-  msg: string
+interface VersionInfo {
+  mode: string,
+  version: string,
+  license: string
 }
 
 const App = () => {
 
-  const [message, setMessage] = useState<string>();
+  const [version, setVersion] = useState<string>();
 
   useEffect(() => {
     const getApi = async () => {
-      console.log(`getApi ${process.env.REACT_APP_API_BASE}`);
       try {
-        const { data: msg } = await axios.get<Message>(
-          validateToString(process.env.REACT_APP_API_BASE)
+        const { data: versionInfo } = await axios.get<VersionInfo>(
+          validateToString(`${process.env.REACT_APP_API_BASE}/version`)
         );
-        console.log(msg);
-        setMessage(msg.msg);
+        setVersion(versionInfo.version);
       } catch (error) {
         console.error(error);
       }
@@ -27,7 +27,7 @@ const App = () => {
   }, []);
   return (
     <div>
-      msg: {message}!
+      backend version: {version}
     </div>
   );
 };

@@ -31,9 +31,9 @@ I did have some (or alot) trouble with Typescript, but I am happy that I decided
 Goals:
 - ~~First version of the relation model~~
 - ~~All the migration-scripts to implement it~~
-- `/api/reset` -endpoint to reset & populate database when `NODE_ENV=develop` or `NODE_ENV=test`
-- Refactor all the technical debt gathered so far
-- Add tests for all the code that is going to stay in the product
+- ~~`/api/reset` -endpoint to reset & populate database when `NODE_ENV=develop` or `NODE_ENV=test`~~
+- ~~Refactor all the technical debt gathered so far~~
+- ~~Add tests for all the code that is going to stay in the product~~
 
 | Date | Hours | Description |
 |------|-------|-------------|
@@ -45,6 +45,9 @@ Goals:
 |           | 1 | Kept working on resetting database and started building some tests before quitting for the day. |
 | 17.1.2022 | 3 | Kept working on resetting the database, added some new data to populate with. Adjusted relational model and added some tests. Tweaks to pipeline. |
 |           | 1 | Cleaned some final marks of Cypress from backend. Added version controller and wrote some tests. | 
+| 18.1.2022 | 3 | Worked on to improve the pipeline, tweaked tests. Got reset for database to work the smart way instead of stupid way. All data is ready and we can populate database when ever we want to. | 
+| total    | 16 | |
 
 Extras:
 - Extracted Cypress in it's own folder. Hopefully this will make deployments a bit faster. 
+- Added tests for `develop` branch
