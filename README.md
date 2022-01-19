@@ -12,6 +12,13 @@
 
 This repository contains a customer relationship manager for Santa. It was written as an [Full Stack Open project](https://github.com/FullStack-HY/misc/blob/main/harjoitustyo.md) as a part of [Full Stack Open -course](https://fullstackopen.com/). A course held by University of Helsinki. This project is mostly to showcase my skills with Node.js and React. As I have no previous experience on building full stack -apps, planning of this app is mostly guided by my uncertainty. 
 
+**Other documents**
+| document | description |
+|----------|-------------|
+| [specs.md](Docs/specs.md) | Contains specs for the app. Includes latest relational models of the database and user stories that are used to decided content of sprints. |
+| [spend_hours.md](Docs/spend_hours.md) | Contains sprints, time spend on each sprint, sprint goals and what else was achieved during each sprint (extras). Spend hours are recorded by individual sprints. |
+| [personal_notes.md](Docs/personal_notes.md) | Personal notes that might be useful again during later development. |
+
 ## Repository
 
 This repository contains three directories: [server](server), [client](client) and [e2e](e2e). They contain the following code for this project:
