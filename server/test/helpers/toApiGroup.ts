@@ -1,0 +1,68 @@
+import { validateToNumber, validateToString, validateToDate, validateToBoolean } from '../../src/utils/validators';
+
+
+export interface ApiPermission {
+  id: number,
+  code: string,
+  name: string,
+  permissions: {
+    read: boolean,
+    write: boolean
+  }
+}
+
+export interface ApiGroup {
+  id: number,
+  name: string,
+  createdAt: Date,
+  updatedAt: Date,
+  functionalities?: Array<ApiPermission>
+}
+
+const validateToPermissions = (obj: unknown): { read: boolean, write: boolean } => {
+  if (Object.prototype.hasOwnProperty.call(obj, 'read') && Object.prototype.hasOwnProperty.call(obj, 'write')) {
+    const permissions = obj as { read: boolean, write: boolean };
+    return {
+      read: validateToBoolean(permissions.read),
+      write: validateToBoolean(permissions.write)
+    };
+  }
+  // if read and write properties wasn't found, we have an error so let's throw one
+  throw new Error('permissions given in incorrect format');
+};
+
+type PermissionFields = { id: unknown, code: unknown, name: unknown, permission: unknown };
+const toApiPermission = ({ id, code, name, permission }: PermissionFields): ApiPermission => {
+  console.log(code);
+  const apiPermission: ApiPermission = {
+    id: validateToNumber(id),
+    code: validateToString(code),
+    name: validateToString(name),
+    permissions: validateToPermissions(permission)
+  };
+  return apiPermission;
+};
+
+const toApiPermissions = (functionalities: unknown): Array<ApiPermission> => {
+  if (!functionalities) {
+    return [];
+  }
+  if (!(typeof functionalities === 'object' && functionalities instanceof Array)) {
+    throw new Error('Permissions not given as an Array');
+  }
+  // This f as PermissionFields is not so safe, but we just have to live with it for now...
+  const allPermissions = functionalities.map(f => toApiPermission(f as PermissionFields));
+  return allPermissions;
+};
+
+type GroupFields = { id: unknown, name: unknown, createdAt: unknown, updatedAt: unknown, functionalities: [{ id: unknown, code: unknown, name: unknown, permission: { read: unknown, write: unknown } }] };
+export const toApiGroup = ({ id, name, createdAt, updatedAt, functionalities }: GroupFields): ApiGroup => {
+  const apiGroup: ApiGroup = {
+    id: validateToNumber(id),
+    name: validateToString(name),
+    createdAt: validateToDate(createdAt),
+    updatedAt: validateToDate(updatedAt),
+    functionalities: toApiPermissions(functionalities)
+  };
+  return apiGroup;
+};

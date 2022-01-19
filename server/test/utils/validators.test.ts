@@ -1,4 +1,4 @@
-import { validateToNumber, validateToString } from '../../src/utils/validators';
+import { validateToDate, validateToNumber, validateToString } from '../../src/utils/validators';
 
 const STRING_ERROR = 'Malformed string';
 const NUMBER_ERROR = 'Incorrect or missing number';
@@ -26,5 +26,17 @@ describe('validator tests', () => {
     expect(() => { validateToNumber('string'); }).toThrow(NUMBER_ERROR);
     expect(() => { validateToNumber(undefined); }).toThrow(NUMBER_ERROR);
     expect(() => { validateToNumber(null); }).toThrow(NUMBER_ERROR);
+  });
+  test('validate valid dates', () => {
+    if (!(validateToDate('2022-01-18T20:05:21.660Z') instanceof Date)) {
+      fail('validateToDate didn\'t return a date');
+    }
+    if (!(validateToDate('2020-12-10') instanceof Date)) {
+      fail('validateToDate didn\'t return a date');
+    }
+  });
+  test('validate invalid dates', () => {
+    expect(() => { validateToDate('no-real-date'); }).toThrow(Error);
+    expect(() => { validateToDate(undefined); }).toThrow(Error);
   });
 });

@@ -30,3 +30,25 @@ export const validateToNumber = (num: unknown): number => {
     return num;
   }
 };
+
+export const validateToDate = (date: unknown): Date => {
+  try {
+    const dateString: string = validateToString(date);
+    if (Date.parse(dateString)) {
+      return new Date(dateString);
+    }
+    throw new Error(`Incorrect date: ${date}`);
+  } catch (error) {
+    throw new Error(`Incorrect date: ${date}`);
+  }
+};
+
+export const validateToBoolean = (value: unknown): boolean => {
+  if (typeof value === 'boolean' || value instanceof Boolean) {
+    if (value instanceof Boolean) {
+      return value.valueOf();
+    }
+    return value;
+  }
+  throw new Error('Value is not boolean');
+};

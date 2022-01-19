@@ -5,11 +5,8 @@ import { connectionToDatabase } from './utils/db';
 
 const server = http.createServer(app);
 
-// server.listen(PORT, () => {
-//  console.log(`Server running on port ${PORT}`);
-//});
-
 const start = async () => {
+  // connectionToDatabase() basically just tests connection to DB and runs migrations if they are not up-to-date
   await connectionToDatabase();
   server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

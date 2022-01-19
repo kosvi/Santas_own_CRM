@@ -67,3 +67,4 @@ Goals:
 | 18.1.2022 | 1 | Wrote `users` and `groups` routers to serve data from database. | 
 |           | 1 | Struggled to get a single test run against controller that uses database. Still going to need whole alot of work on that! |
 | 19.1.2022 | 1 | Re-organizing documentation |
+|           | 2 | Banged my head against the wall with TypeScript typing when trying to write integration tests to test data returned by Api. |
