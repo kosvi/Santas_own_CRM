@@ -88,7 +88,7 @@ POSTGRES_SSL=
 | feature | production | develop | test |
 |--------|-------------|---------|------|
 | `/api/reset` available | false | true | true |
-| log to console | false | true | true |
+| `logger` logs to console | false | true | false |
 | Sequelize logs sql-queries to console | true | true | false |
 | Umzug logs migrations to console | false | true | false |
 | Umzug allows reverting migrations | false | true | true |
