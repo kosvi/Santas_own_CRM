@@ -84,6 +84,11 @@ POSTGRES_SSL=
 |DATABASE_URL | Url where the database is accessible. Format: `postgres://<user>:<password>@<hostname>:<port>/<database>` | must be set |
 |POSTGRES_SSL | If SSL is required to connect to database, set this to `true` | false |
 
+NODE_ENV differences:
+| feature | production | develop | test |
+|--------|-------------|---------|------|
+| `/api/reset` | *false* | *true* | *true* |
+
 **client:**
 
 .env
