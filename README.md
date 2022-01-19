@@ -6,6 +6,7 @@
 - [Repository](#repository)
 - [Testing](#testing)
 - [Running the app](#running-the-app)
+- [Enviromental variables](#enviromental-variables)
 
 ## Description
 
@@ -49,7 +50,16 @@ Latest Release candidate is running in [Heroku](https://glacial-shore-58496.hero
 NODE_ENV=develop
 ```
 
-### Enviromental variables
+#### Dev-mode
+
+Requirements:
+- Docker
+- Docker-Compose
+
+Clone the repository and run `npm install --prefix server` and `npm install --prefix client` in repository root. After all dependencies are installed, you can start the app in development mode by running command `docker-compose -f docker-compose.dev.yml up`. Modifications to server and client force them to reload automatically. App can be accessed from `http://localhost:3000`. 
+
+
+## Enviromental variables
 
 **server:**
 
@@ -90,12 +100,4 @@ CYPRESS_WEB_BASE=
 | Variable | Description | default |
 |---------|-------------|-------|
 |CYPRESS_WEB_BASE| Used as base url when making requests to app during tests. | - |
-
-#### Dev-mode
-
-Requirements:
-- Docker
-- Docker-Compose
-
-Clone the repository and run `npm install --prefix server` and `npm install --prefix client` in repository root. After all dependencies are installed, you can start the app in development mode by running command `docker-compose -f docker-compose.dev.yml up`. Modifications to server and client force them to reload automatically. App can be accessed from `http://localhost:3000`. 
 
