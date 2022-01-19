@@ -1,6 +1,6 @@
 #### Plurals in database
 
-Check how words are transformed in to plural:
+Check how words are transformed into plural:
 
 ```
 $ node
