@@ -47,7 +47,7 @@ I will write some simple use stories to help me get started with the project. I 
 
 ## Database
 
-![Relational model](Docs/Santas_relational_model.drawio.svg "Relational model")
+![Relational model](Santas_relational_model.drawio.svg "Relational model")
 
 This is the first version of the relational model. It does not include support for all the features requested (=user stories 1.-14.) and address is stored just as a single text-field, but it should be sufficient enough to build MVP. 
 
