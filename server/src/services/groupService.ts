@@ -11,3 +11,16 @@ export const getAllGroupsWithPermissions = async () => {
   });
   return groupsWithPermissions;
 };
+
+export const getSingleGroupWithPermissions = async (name: string) => {
+  const group = await models.Group.findOne({
+    where: { name: name },
+    include: {
+      model: models.Functionality,
+      through: {
+        attributes: ['read', 'write']
+      }
+    }
+  });
+  return group;
+};

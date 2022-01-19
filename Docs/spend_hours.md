@@ -59,7 +59,7 @@ Goals:
 - Add possibility to: 
   - add entries
   - add groups and permissions
-- Update documentation to reflect the state of the project
+- ~~Update documentation to reflect the state of the project~~
 
 
 | Date | Hours | Description |
@@ -68,3 +68,4 @@ Goals:
 |           | 1 | Struggled to get a single test run against controller that uses database. Still going to need whole alot of work on that! |
 | 19.1.2022 | 1 | Re-organizing documentation |
 |           | 2 | Banged my head against the wall with TypeScript typing when trying to write integration tests to test data returned by Api. |
+|           | 1 | Added some stuff to groups controller, service and tests. Seems `fail()` can no longer be used in Jest. | 

@@ -5,7 +5,7 @@ export interface ApiPermission {
   id: number,
   code: string,
   name: string,
-  permissions: {
+  permission: {
     read: boolean,
     write: boolean
   }
@@ -16,15 +16,15 @@ export interface ApiGroup {
   name: string,
   createdAt: Date,
   updatedAt: Date,
-  functionalities?: Array<ApiPermission>
+  functionalities: Array<ApiPermission>
 }
 
 const validateToPermissions = (obj: unknown): { read: boolean, write: boolean } => {
   if (Object.prototype.hasOwnProperty.call(obj, 'read') && Object.prototype.hasOwnProperty.call(obj, 'write')) {
-    const permissions = obj as { read: boolean, write: boolean };
+    const permission = obj as { read: boolean, write: boolean };
     return {
-      read: validateToBoolean(permissions.read),
-      write: validateToBoolean(permissions.write)
+      read: validateToBoolean(permission.read),
+      write: validateToBoolean(permission.write)
     };
   }
   // if read and write properties wasn't found, we have an error so let's throw one
@@ -33,12 +33,11 @@ const validateToPermissions = (obj: unknown): { read: boolean, write: boolean } 
 
 type PermissionFields = { id: unknown, code: unknown, name: unknown, permission: unknown };
 const toApiPermission = ({ id, code, name, permission }: PermissionFields): ApiPermission => {
-  console.log(code);
   const apiPermission: ApiPermission = {
     id: validateToNumber(id),
     code: validateToString(code),
     name: validateToString(name),
-    permissions: validateToPermissions(permission)
+    permission: validateToPermissions(permission)
   };
   return apiPermission;
 };
