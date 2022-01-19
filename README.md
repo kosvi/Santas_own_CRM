@@ -3,13 +3,9 @@
 ## Contents
 
 - [Description](#description)
-- [Development](#development)
-- [User stories](#user-stories)
-- [Wireframes](#wireframes)
-- [Database](#database)
+- [Repository](#repository)
 - [Testing](#testing)
-- [Starting the app](#starting-the-app)
-- [Hours spend](#hours-spend)
+- [Running the app](#running-the-app)
 
 ## Description
 
