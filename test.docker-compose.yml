@@ -2,13 +2,14 @@ version: '3.8'
 
 services:
 
-  db:
+  santas-test-db:
     image: postgres
     environment: 
       POSTGRES_USER: "santa"
       POSTGRES_PASSWORD: "password"
     volumes:
       - ./db_test/:/var/lib/postgresql/data
+    container_name: santas-test-db
 
 #  santas-client:
 #    image: santas-client
@@ -31,10 +32,10 @@ services:
       context: ./server
       dockerfile: test.Dockerfile
     environment:
-      DATABASE_URL: "postgres://santa:password@db:5432/santa"
+      DATABASE_URL: "postgres://santa:password@santas-test-db:5432/santa"
       NODE_ENV: "test"
     volumes:
       - ./server/:/usr/src/app
     container_name: santas-test-server
     depends_on:
-      - "db"
+      - "santas-test-db"

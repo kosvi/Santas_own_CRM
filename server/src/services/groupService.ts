@@ -1,4 +1,6 @@
 import models from '../models';
+import { GroupAttributes } from '../types';
+import { logger } from '../utils/logger';
 
 export const getAllGroupsWithPermissions = async () => {
   const groupsWithPermissions = await models.Group.findAll({
@@ -23,4 +25,14 @@ export const getSingleGroupWithPermissions = async (name: string) => {
     }
   });
   return group;
+};
+
+export const addGroup = async (group: GroupAttributes): Promise<GroupAttributes | undefined> => {
+  try {
+    const newGroup = await models.Group.create(group);
+    return newGroup;
+  } catch (error) {
+    logger.logError(error);
+    return undefined;
+  }
 };

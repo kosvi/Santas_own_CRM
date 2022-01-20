@@ -70,3 +70,7 @@ Goals:
 |           | 2 | Banged my head against the wall with TypeScript typing when trying to write integration tests to test data returned by Api. |
 |           | 1 | Added some stuff to groups controller, service and tests. Seems `fail()` can no longer be used in Jest. | 
 | 20.1.2022 | 1 | Worked on groups-endpoint, it's tests and tried to make docker-setup for simple test-running. | 
+|           | 1 | Worked on groups-endpoint, wrote some tests and made docker-compose-file to run tests in containers. |
+
+Extras:
+- Easier testing with docker-compose
