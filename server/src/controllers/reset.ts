@@ -23,6 +23,8 @@ router.post('/populate', (_req, res) => {
   res.send('ok!');
 });
 
+// We should return 500 if we experience error.
+// This is a dev/test endpoint, we won't spend energy on handling errors...
 router.post('/full', (_req, res) => {
   resetDB().then(() => {
     addData().then(value => value ? res.json({msg: 'database re-populated'}) : res.status(500).json({msg: 'error resetting database' })).catch((error) => logError(error));
