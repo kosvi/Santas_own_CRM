@@ -29,7 +29,7 @@ router.get('/:name', (req, res) => {
   getSingleGroupWithPermissions(name)
     .then(group => {
       if (!group) {
-        res.json({ msg: `no group found with name ${name}` });
+        res.status(404).json({ msg: `no group found with name ${name}` });
       } else {
         res.json(group);
       }

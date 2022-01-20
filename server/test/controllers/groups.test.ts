@@ -46,6 +46,23 @@ describe('groups controller', () => {
     }
   });
 
+  test('single group is returned with valid group name', async () => {
+    const response = await api.get('/api/groups/admin').expect(200).expect('Content-Type', /application\/json/);
+    try {
+      const group = toApiGroup(response.body);
+      expect(group.name).toEqual('admin');
+    } catch (error) {
+      if (error instanceof Error) {
+	console.error(error.message);
+      }
+    }
+  });
+
+  test('no group is returned with non-existent name', async () => {
+    const response = await api.get('/api/groups/foo').expect(404).expect('Content-Type', /application\/json/);
+    expect(response.body).toHaveProperty('msg');
+  });
+
 });
 
 afterAll(async () => {
