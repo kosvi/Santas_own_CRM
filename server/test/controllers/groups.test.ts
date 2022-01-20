@@ -9,8 +9,6 @@ const ADMIN_GROUP_FUNCTIONALITIES = 5;
 
 beforeAll(async () => {
   await connectionToDatabase();
-  // await sequelize.close();
-  //await api.post('/api/reset/full');
 });
 
 describe('groups controller', () => {
@@ -30,8 +28,6 @@ describe('groups controller', () => {
         expect(group).toHaveProperty('name');
         // let try-catch to give proper failure if parsing the data fails
         try {
-          // We will just take the risk and forward unknown data to toApiGroup parser. It should fail if data is invalid. 
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           const apiGroup = toApiGroup(group);
           // if this is admin group, it should have all permissions (total of five!)
           if (apiGroup.name === 'admin') {
@@ -53,7 +49,6 @@ describe('groups controller', () => {
   test('single group is returned with valid group name', async () => {
     const response = await api.get('/api/groups/admin').expect(200).expect('Content-Type', /application\/json/);
     try {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const group = toApiGroup(response.body);
       expect(group.name).toEqual('admin');
       expect(group.functionalities).toHaveLength(ADMIN_GROUP_FUNCTIONALITIES);
@@ -72,11 +67,9 @@ describe('groups controller', () => {
 
   test('new group can be created', async () => {
     const response = await api.post('/api/groups').send({ name: 'foo' }).expect(201).expect('Content-Type', /application\/json/);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const group = toApiGroup(response.body);
     expect(group).toHaveProperty('id');
     const newResponse = await api.get('/api/groups/foo').expect(200).expect('Content-Type', /application\/json/);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const newGroup = toApiGroup(newResponse.body);
     expect(newGroup).toHaveProperty('id');
   });

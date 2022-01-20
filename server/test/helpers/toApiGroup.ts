@@ -54,8 +54,18 @@ const toApiPermissions = (functionalities: unknown): Array<ApiPermission> => {
   return allPermissions;
 };
 
+/*
+ * THIS ALLOWS US TO VERIFY DATA FROM API WITHOUT ALWAYS NEEDING eslint-disable-lines 
+ * I know this may not be pretty, but best I can come up with
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const toApiGroup = (data: any): ApiGroup => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  return toApiGroupFromAny(data);
+};
+
 type GroupFields = { id: unknown, name: unknown, createdAt: unknown, updatedAt: unknown, functionalities: [{ id: unknown, code: unknown, name: unknown, permission: { read: unknown, write: unknown } }] };
-export const toApiGroup = ({ id, name, createdAt, updatedAt, functionalities }: GroupFields): ApiGroup => {
+const toApiGroupFromAny = ({ id, name, createdAt, updatedAt, functionalities }: GroupFields): ApiGroup => {
   const apiGroup: ApiGroup = {
     id: validateToNumber(id),
     name: validateToString(name),
