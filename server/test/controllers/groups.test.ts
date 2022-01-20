@@ -4,6 +4,8 @@ import { connectionToDatabase, sequelize } from '../../src/utils/db';
 import { toApiGroup } from '../helpers/toApiGroup';
 const api = supertest(app);
 
+const ADMIN_GROUP_FUNCTIONALITIES = 5;
+
 beforeAll(async () => {
   await connectionToDatabase();
   // await sequelize.close();
@@ -32,12 +34,13 @@ describe('groups controller', () => {
           const apiGroup = toApiGroup(group);
           // if this is admin group, it should have all permissions (total of five!)
           if (apiGroup.name === 'admin') {
-            expect(apiGroup.functionalities).toHaveLength(5);
+            expect(apiGroup.functionalities).toHaveLength(ADMIN_GROUP_FUNCTIONALITIES);
           }
         } catch (error) {
           if (error instanceof Error) {
             // it seems fail() is no longer part of Jest
             console.error(error.message);
+	    fail('');
           }
         }
       });
@@ -51,9 +54,11 @@ describe('groups controller', () => {
     try {
       const group = toApiGroup(response.body);
       expect(group.name).toEqual('admin');
+      expect(group.functionalities).toHaveLength(ADMIN_GROUP_FUNCTIONALITIES);
     } catch (error) {
       if (error instanceof Error) {
 	console.error(error.message);
+	fail('');
       }
     }
   });

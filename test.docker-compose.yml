@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres
+    environment: 
+      POSTGRES_USER: "santa"
+      POSTGRES_PASSWORD: "password"
+    volumes:
+      - ./db_test/:/var/lib/postgresql/data
+
+#  santas-client:
+#    image: santas-client
+#    build:
+#      context: ./client
+#      dockerfile: dev.Dockerfile
+#    environment:
+#      REACT_APP_API_BASE: "/api/"
+#      HOST: "santas-client"
+#      WDS_SOCKET_HOST: "localhost"
+#    volumes: 
+#      - ./client/:/usr/src/app
+#    container_name: santas-client
+#    depends_on: 
+#      - "santas-server"
+
+  santas-test-server:
+    image: santas-test-server
+    build:
+      context: ./server
+      dockerfile: test.Dockerfile
+    environment:
+      DATABASE_URL: "postgres://santa:password@db:5432/santa"
+      NODE_ENV: "test"
+    volumes:
+      - ./server/:/usr/src/app
+    container_name: santas-test-server
+    depends_on:
+      - "db"

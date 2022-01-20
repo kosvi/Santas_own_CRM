@@ -25,7 +25,7 @@ router.post('/populate', (_req, res) => {
 
 router.post('/full', (_req, res) => {
   resetDB().then(() => {
-    addData().catch((error) => logError(error));
+    addData().then(value => value ? res.json({msg: 'database re-populated'}) : res.status(500).json({msg: 'error resetting database' })).catch((error) => logError(error));
   })
     .catch((error) => logError(error));
   res.send('ok');
