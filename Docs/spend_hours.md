@@ -71,6 +71,7 @@ Goals:
 |           | 1 | Added some stuff to groups controller, service and tests. Seems `fail()` can no longer be used in Jest. | 
 | 20.1.2022 | 1 | Worked on groups-endpoint, it's tests and tried to make docker-setup for simple test-running. | 
 |           | 1 | Worked on groups-endpoint, wrote some tests and made docker-compose-file to run tests in containers. |
+| 21.2.2022 | 2 | Continued work on groups-endpoint. Also wrote some tests (for test-helpers). Next we will need tests to ensure adding new permissions work as intended. | 
 
 Extras:
 - Easier testing with docker-compose

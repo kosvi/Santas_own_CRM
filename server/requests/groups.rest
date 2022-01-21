@@ -4,3 +4,15 @@ Content-Type: application/json
 {
   "name": "foo"
 }
+
+###
+
+POST http://localhost:3000/api/groups/4
+Content-Type: application/json
+
+{
+  "groupId": 4,
+  "functionalityId": 2,
+  "read": false,
+  "write": false
+}

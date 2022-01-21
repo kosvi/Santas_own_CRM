@@ -82,6 +82,11 @@ describe('groups controller', () => {
     expect(newResponse.body).toHaveLength(NUMBER_OF_DEFAULT_GROUPS);
   });
 
+  test('can\'t create a group with an already existing name', async () => {
+    const response = await api.post('/api/groups').send({ name: 'scout' }).expect(403).expect('Content-Type', /application\/json/);
+    expect(response.body).toHaveProperty('error');
+  });
+
 });
 
 afterAll(async () => {
