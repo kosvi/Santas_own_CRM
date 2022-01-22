@@ -1,4 +1,4 @@
-import { validateToNumber, validateToString, validateToDate, validateToBoolean } from '../../src/utils/validators';
+import { validateToNumber, validateToString, validateToDate, validateToBoolean } from '../../../src/utils/validators';
 
 
 export interface ApiPermission {

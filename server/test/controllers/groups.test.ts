@@ -1,11 +1,12 @@
 import supertest from 'supertest';
 import app from '../../src/app';
 import { connectionToDatabase, sequelize } from '../../src/utils/db';
-import { toApiGroup } from '../helpers/toApiGroup';
+import { toApiGroup } from '../helpers/toApiObject';
 const api = supertest(app);
 
 const NUMBER_OF_DEFAULT_GROUPS = 3;
 const ADMIN_GROUP_FUNCTIONALITIES = 5;
+const NONEXISTENT_GROUP_ID = 1000000;
 
 beforeAll(async () => {
   await connectionToDatabase();
@@ -66,7 +67,7 @@ describe('groups controller', () => {
   });
 
   test('new group can be created', async () => {
-    const response = await api.post('/api/groups').send({ name: 'foo' }).expect(201).expect('Content-Type', /application\/json/);
+    const response = await api.post('/api/groups/').send({ name: 'foo' }).expect(201).expect('Content-Type', /application\/json/);
     const group = toApiGroup(response.body);
     expect(group).toHaveProperty('id');
     const newResponse = await api.get('/api/groups/foo').expect(200).expect('Content-Type', /application\/json/);
@@ -85,6 +86,45 @@ describe('groups controller', () => {
   test('can\'t create a group with an already existing name', async () => {
     const response = await api.post('/api/groups').send({ name: 'scout' }).expect(403).expect('Content-Type', /application\/json/);
     expect(response.body).toHaveProperty('error');
+  });
+
+  test('a permission can be added to a group', async () => {
+    const rawScout = await api.get('/api/groups/scout');
+    const scout = toApiGroup(rawScout.body);
+    const rawScoutWithPermission = await api.post(`/api/groups/${scout.id}`).send({
+      functionalityId: 1,
+      read: true,
+      write: false
+    }).expect(201).expect('Content-Type', /application\/json/);
+    const scoutWithPermission = toApiGroup(rawScoutWithPermission.body);
+    expect(scoutWithPermission.name).toEqual('scout');
+    expect(scoutWithPermission.functionalities).toHaveLength(1);
+    expect(scoutWithPermission.functionalities[0].permission.read).toBe(true);
+    expect(scoutWithPermission.functionalities[0].permission.write).toBe(false);
+  });
+
+  test('adding permission fails gracefully if data is invalid', async () => {
+    const responseWithInvalidGroupId = await api.post(`/api/groups/${NONEXISTENT_GROUP_ID}`).send({
+      functionalityId: 1,
+      read: true,
+      write: false
+    }).expect(404).expect('Content-Type', /application\/json/);
+    expect(responseWithInvalidGroupId.body).toHaveProperty('error');
+    const rawScout = await api.get('/api/groups/scout');
+    const scout = toApiGroup(rawScout.body);
+    // We can safely think that there isn't 100000 functionalities and id's should start from 1 
+    // as database is reset before each test
+    const responseWithInvalidFunctionality = await api.post(`/api/groups/${scout.id}`).send({
+      functionalityId: 100000,
+      read: true,
+      write: false
+    }).expect(400).expect('Content-Type', /application\/json/);
+    expect(responseWithInvalidFunctionality.body).toHaveProperty('error');
+    const responseWithMissingPermission = await api.post(`/api/groups/${scout.id}`).send({
+      functionalityId: 2,
+      read: false
+    }).expect(400).expect('Content-Type', /application\/json/);
+    expect(responseWithMissingPermission).toHaveProperty('error');
   });
 
 });

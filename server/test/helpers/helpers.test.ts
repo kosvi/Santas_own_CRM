@@ -16,7 +16,7 @@ import {
   groupObjectWithoutId,
   validGroupArray
 } from './data';
-import { toApiGroup } from './toApiGroup';
+import { toApiGroup } from './toApiObject';
 
 
 

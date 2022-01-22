@@ -74,6 +74,8 @@ Goals:
 |           | 1 | Worked on groups-endpoint, wrote some tests and made docker-compose-file to run tests in containers. |
 | 21.2.2022 | 2 | Continued work on groups-endpoint. Also wrote some tests (for test-helpers). Next we will need tests to ensure adding new permissions work as intended. | 
 | 22.2.2022 | 1 | Wrote middleware to handle errors on routes. | 
+|           | 2 | Wrote final tests for groups-controller and fixed situations where user tries to post invalid permissions to a group. |
+|           | 1 | Worked on `/api/users` (controller and service). It now allows searching by name. Also started working on tests for users-endpoint. Minor re-organizing of tests folder structure. |
 
 Extras:
 - Easier testing with docker-compose

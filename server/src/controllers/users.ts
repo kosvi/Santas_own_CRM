@@ -1,19 +1,32 @@
 import express from 'express';
-import { getAllUsersWithGroups, getUserWithPermissions } from '../services/userService';
+import { getAllUsersWithGroups, getUsersBySearchString, getUserWithPermissions } from '../services/userService';
 import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
-import { validateToNumber } from '../utils/validators';
+import { validateToNumber, validateToString } from '../utils/validators';
 const router = express.Router();
 
-router.get('/', (_req, res, next) => {
-  getAllUsersWithGroups()
-    .then(users => {
-      res.json(users);
-    })
-    .catch(error => {
-      logger.logError(error);
-      next(error);
-    });
+router.get('/', (req, res, next) => {
+  if (req.query.name) {
+    // ok, we try to find user by name
+    getUsersBySearchString(validateToString(req.query.name))
+      .then(users => {
+        res.json(users);
+      })
+      .catch(error => {
+        logger.logError(error);
+        next(error);
+      });
+  } else {
+    // else we will just return every single user in database
+    getAllUsersWithGroups()
+      .then(users => {
+        res.json(users);
+      })
+      .catch(error => {
+        logger.logError(error);
+        next(error);
+      });
+  }
 });
 
 router.get('/:id', (req, res, next) => {

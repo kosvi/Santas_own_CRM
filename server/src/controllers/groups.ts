@@ -61,14 +61,14 @@ router.post('/:id', (req, res, next) => {
   }
   // now we should have a valid formed PermissionAttributes in 'permission'
   addPermission(permission).then(response => {
-    if (response instanceof Error) {
-      throw (response);
-    } else if (response) {
-      res.status(201).json(response);
-    }
+    res.status(201).json(response);
   })
     .catch(error => {
       logger.logError(error);
+      if (error instanceof ControllerError) {
+        next(error);
+      }
+      // if error isn't ControllerError, I guess we are in trouble. Let's give 500!
       let message = 'Server encountered an error';
       if (error instanceof Error) {
         message = `${message}: ${error.message}`;
