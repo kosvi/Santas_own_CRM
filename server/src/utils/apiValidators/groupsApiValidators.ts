@@ -1,5 +1,5 @@
-import { GroupAttributes, PermissionAttributes } from '../types';
-import { validateToBoolean, validateToNumber, validateToString } from './validators';
+import { GroupAttributes, PermissionAttributes } from '../../types';
+import { validateToBoolean, validateToNumber, validateToString } from '../validators';
 
 type GroupFields = { name: unknown };
 

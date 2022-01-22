@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 import { addGroup, addPermission, getAllGroupsWithPermissions, getSingleGroupWithPermissions } from '../services/groupService';
 import { logger } from '../utils/logger';
-import { toNewGroup, toNewPermission } from '../utils/groupsApiValidators';
+import { toNewGroup, toNewPermission } from '../utils/apiValidators';
 import { GroupAttributes, PermissionAttributes } from '../types';
 import { validateToString } from '../utils/validators';
 import { ControllerError } from '../utils/customError';
