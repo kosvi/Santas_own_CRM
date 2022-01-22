@@ -1,16 +1,24 @@
 import express from 'express';
 import { resetRouter, versionRouter, userRouter, groupRouter } from './controllers';
 import { NODE_ENV } from './utils/config';
+import { errorHandler } from './utils/middleware';
+require('express-async-errors');
 
 const app = express();
 app.use(express.json());
 
 app.use(express.static('build'));
 app.use('/api/version', versionRouter);
+app.use('/api/users', userRouter);
+app.use('/api/groups', groupRouter);
+
+// resetting database should only be allowed in develop and test modes
 if (NODE_ENV === 'develop' || NODE_ENV === 'test') {
   app.use('/api/reset', resetRouter);
 }
-app.use('/api/users', userRouter);
-app.use('/api/groups', groupRouter);
+
+
+// add error-handler to handle errors
+app.use(errorHandler);
 
 export default app;

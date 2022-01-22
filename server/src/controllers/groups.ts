@@ -5,63 +5,67 @@ import { logger } from '../utils/logger';
 import { toNewGroup, toNewPermission } from '../utils/groupsApiValidators';
 import { GroupAttributes, PermissionAttributes } from '../types';
 import { validateToString } from '../utils/validators';
+import { ControllerError } from '../utils/customError';
 
-router.get('/', (_req, res) => {
+router.get('/', (_req, res, next) => {
   getAllGroupsWithPermissions()
     .then(groups => {
       res.json(groups);
     })
     .catch(error => {
       logger.logError(error);
+      next(error);
     });
 });
 
-router.get('/:name', (req, res) => {
+router.get('/:name', (req, res, next) => {
   let name: string;
   try {
     name = validateToString(req.params.name);
   } catch (error) {
-    let message = 'unknown error';
+    let message = 'error validating group name';
     if (error instanceof Error) {
-      message = error.message;
+      message = `${message}: ${error.message}`;
     }
-    res.status(400).json({ error: message });
-    return;
+    next(new ControllerError(400, message));
+    name = '';
   }
   getSingleGroupWithPermissions(name)
     .then(group => {
       if (!group) {
-        res.status(404).json({ msg: `no group found with name ${name}` });
+        throw new ControllerError(404, `no group found with name ${name}`);
       } else {
         res.json(group);
       }
     })
     .catch(error => {
       logger.logError(error);
+      next(error);
     });
 });
 
-router.post('/:id', (req, res) => {
+router.post('/:id', (req, res, next) => {
   const groupId = Number(req.params.id);
   let permission: PermissionAttributes;
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     permission = toNewPermission(req.body);
     if (permission.groupId !== groupId) {
-      throw new Error('groupId does not match with url');
+      throw new ControllerError(400, 'groupId does not match with url');
     }
   } catch (error) {
     let message = 'Error validating request';
     if (error instanceof Error) {
       message = `${message}: ${error.message}`;
+      next(new ControllerError(400, message));
     }
-    res.status(400).json({ error: message });
+    next(error);
     return;
   }
   // now we should have a valid formed PermissionAttributes in 'permission'
   addPermission(permission).then(response => {
     if (response instanceof Error) {
-      res.status(400).json({ error: response.name });
+      throw (response);
     } else if (response) {
       res.status(201).json(response);
     }
@@ -72,11 +76,11 @@ router.post('/:id', (req, res) => {
       if (error instanceof Error) {
         message = `${message}: ${error.message}`;
       }
-      res.status(500).json({ error: message });
+      next(new ControllerError(500, message));
     });
 });
 
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
   // We can safely send req.body to toNewGroup because it will validate the body
   let group: GroupAttributes;
   try {
@@ -88,7 +92,7 @@ router.post('/', (req, res) => {
     if (error instanceof Error) {
       message = `${message}: ${error.message}`;
     }
-    res.status(400).json({ error: message });
+    next(new ControllerError(400, message));
     return;
   }
   // addGroup should either resolve to 'GroupAttributes' or 'Error'
@@ -97,18 +101,14 @@ router.post('/', (req, res) => {
   addGroup(group).then(newGroup => {
     if (newGroup) {
       if (newGroup instanceof Error) {
-        if (newGroup.name === 'SequelizeUniqueConstraintError') {
-          res.status(403).json({ error: 'group with that name already exists' });
-        } else {
-          res.status(400).json({ error: newGroup.name });
-        }
+        next(newGroup);
       } else {
         res.status(201).json(newGroup);
       }
     }
   }).catch(error => {
     logger.logError(error);
-    res.status(400).json({ error: 'couldn\'t save the group' });
+    next(new ControllerError(500, 'couldn\'t save the group'));
   });
 });
 

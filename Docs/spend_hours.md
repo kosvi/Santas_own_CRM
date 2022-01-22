@@ -46,7 +46,8 @@ Goals:
 | 17.1.2022 | 3 | Kept working on resetting the database, added some new data to populate with. Adjusted relational model and added some tests. Tweaks to pipeline. |
 |           | 1 | Cleaned some final marks of Cypress from backend. Added version controller and wrote some tests. | 
 | 18.1.2022 | 3 | Worked on to improve the pipeline, tweaked tests. Got reset for database to work the smart way instead of stupid way. All data is ready and we can populate database when ever we want to. | 
-| total    | 16 | |
+| sprint total    | 16 | |
+| project total | 40 | |
 
 Extras:
 - Extracted Cypress in it's own folder. Hopefully this will make deployments a bit faster. 
@@ -58,7 +59,7 @@ Goals:
 - Add controllers to backend to serve data from database
 - Add possibility to: 
   - add entries
-  - add groups and permissions
+  - ~~add groups and permissions~~
 - ~~Update documentation to reflect the state of the project~~
 
 
@@ -72,6 +73,7 @@ Goals:
 | 20.1.2022 | 1 | Worked on groups-endpoint, it's tests and tried to make docker-setup for simple test-running. | 
 |           | 1 | Worked on groups-endpoint, wrote some tests and made docker-compose-file to run tests in containers. |
 | 21.2.2022 | 2 | Continued work on groups-endpoint. Also wrote some tests (for test-helpers). Next we will need tests to ensure adding new permissions work as intended. | 
+| 22.2.2022 | 1 | Wrote middleware to handle errors on routes. | 
 
 Extras:
 - Easier testing with docker-compose

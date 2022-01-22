@@ -62,7 +62,7 @@ describe('groups controller', () => {
 
   test('no group is returned with non-existent name', async () => {
     const response = await api.get('/api/groups/foo').expect(404).expect('Content-Type', /application\/json/);
-    expect(response.body).toHaveProperty('msg');
+    expect(response.body).toHaveProperty('error');
   });
 
   test('new group can be created', async () => {
