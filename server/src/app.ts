@@ -2,7 +2,6 @@ import express from 'express';
 import { resetRouter, versionRouter, userRouter, groupRouter } from './controllers';
 import { NODE_ENV } from './utils/config';
 import { errorHandler } from './utils/middleware';
-require('express-async-errors');
 
 const app = express();
 app.use(express.json());
