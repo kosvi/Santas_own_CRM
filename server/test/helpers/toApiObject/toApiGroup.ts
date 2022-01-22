@@ -1,6 +1,5 @@
 import { validateToNumber, validateToString, validateToDate, validateToBoolean } from '../../../src/utils/validators';
 
-
 export interface ApiPermission {
   id: number,
   code: string,
