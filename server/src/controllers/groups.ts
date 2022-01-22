@@ -49,10 +49,7 @@ router.post('/:id', (req, res, next) => {
   let permission: PermissionAttributes;
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    permission = toNewPermission(req.body);
-    if (permission.groupId !== groupId) {
-      throw new ControllerError(400, 'groupId does not match with url');
-    }
+    permission = toNewPermission({ ...req.body, groupId: groupId });
   } catch (error) {
     let message = 'Error validating request';
     if (error instanceof Error) {

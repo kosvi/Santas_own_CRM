@@ -18,7 +18,7 @@ router.get('/', (_req, res, next) => {
 
 router.get('/:id', (req, res, next) => {
   let id: number;
-  // get value to id or set to 0 and log error
+  // get value to id or log error
   try {
     id = validateToNumber(Number(req.params.id));
   }

@@ -50,6 +50,10 @@ Automatic tests by branches:
 - develop
   - lint, unit/integration-tests
 
+**server:**
+
+Tests include unit-tests for functions used around application and integration tests that concentrate on testing api-functionality. I will not write separate tests for services, since controllers rely on services and testing services would basically just lead to douple-testing them. 
+
 ## Running the app
 
 Latest Release candidate is running in [Heroku](https://glacial-shore-58496.herokuapp.com/). It's running with the following configuration:

@@ -25,8 +25,7 @@ POST http://localhost:3000/api/groups/4
 Content-Type: application/json
 
 {
-  "groupId": 5,
-  "functionalityId": 2,
+  "functionalityId": 1,
   "read": false,
   "write": false
 }
