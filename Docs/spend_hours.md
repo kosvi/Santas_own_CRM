@@ -81,3 +81,4 @@ Goals:
 
 Extras:
 - Easier testing with docker-compose
+- Error handling to middleware
