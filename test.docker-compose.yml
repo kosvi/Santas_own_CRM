@@ -7,6 +7,8 @@ services:
     environment: 
       POSTGRES_USER: "santa"
       POSTGRES_PASSWORD: "password"
+    logging: 
+      driver: 'none'
     volumes:
       - ./db_test/:/var/lib/postgresql/data
     container_name: santas-test-db

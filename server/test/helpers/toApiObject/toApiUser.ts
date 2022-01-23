@@ -1,11 +1,12 @@
 import { validateToNumber, validateToString, validateToDate, validateToBoolean } from '../../../src/utils/validators';
 
-interface ApiUserGroup {
+export interface ApiUserGroup {
   id: number,
-  name: string
+  name: string,
+  functionalities?: []
 }
 
-interface ApiUser {
+export interface ApiUser {
   id: number,
   username: string,
   name: string,
@@ -48,10 +49,15 @@ const toApiUserGroups = (groups: unknown): Array<ApiUserGroup> => {
 const validateToUserGroup = (obj: unknown): ApiUserGroup => {
   if (Object.prototype.hasOwnProperty.call(obj, 'id') && Object.prototype.hasOwnProperty.call(obj, 'name')) {
     const userGroup = obj as ApiUserGroup;
-    return {
+    const validatedUserGroup = {
       id: validateToNumber(userGroup.id),
       name: validateToString(userGroup.name)
     };
+    // For now we will not validate this, since we are not really testing this any more then just to see the array exists
+    if (userGroup.functionalities) {
+      return { ...validatedUserGroup, functionalities: userGroup.functionalities };
+    }
+    return validatedUserGroup;
   }
   throw new Error('group given in incorrect format');
 };

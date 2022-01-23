@@ -72,10 +72,12 @@ Goals:
 |           | 1 | Added some stuff to groups controller, service and tests. Seems `fail()` can no longer be used in Jest. | 
 | 20.1.2022 | 1 | Worked on groups-endpoint, it's tests and tried to make docker-setup for simple test-running. | 
 |           | 1 | Worked on groups-endpoint, wrote some tests and made docker-compose-file to run tests in containers. |
-| 21.2.2022 | 2 | Continued work on groups-endpoint. Also wrote some tests (for test-helpers). Next we will need tests to ensure adding new permissions work as intended. | 
-| 22.2.2022 | 1 | Wrote middleware to handle errors on routes. | 
+| 21.1.2022 | 2 | Continued work on groups-endpoint. Also wrote some tests (for test-helpers). Next we will need tests to ensure adding new permissions work as intended. | 
+| 22.1.2022 | 1 | Wrote middleware to handle errors on routes. | 
 |           | 2 | Wrote final tests for groups-controller and fixed situations where user tries to post invalid permissions to a group. |
 |           | 1 | Worked on `/api/users` (controller and service). It now allows searching by name. Also started working on tests for users-endpoint. Minor re-organizing of tests folder structure. |
+| 23.1.2022 | 1 | Worked on tests for the `/api/users`. |
+|           | 1 | Started working on `/api/people`, added controller, service and tests and first functionalities to them. |
 
 Extras:
 - Easier testing with docker-compose

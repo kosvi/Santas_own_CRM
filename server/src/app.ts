@@ -1,5 +1,5 @@
 import express from 'express';
-import { resetRouter, versionRouter, userRouter, groupRouter } from './controllers';
+import { resetRouter, versionRouter, userRouter, groupRouter, peopleRouter } from './controllers';
 import { NODE_ENV } from './utils/config';
 import { errorHandler } from './utils/middleware';
 
@@ -10,6 +10,7 @@ app.use(express.static('build'));
 app.use('/api/version', versionRouter);
 app.use('/api/users', userRouter);
 app.use('/api/groups', groupRouter);
+app.use('/api/people', peopleRouter);
 
 // resetting database should only be allowed in develop and test modes
 if (NODE_ENV === 'develop' || NODE_ENV === 'test') {

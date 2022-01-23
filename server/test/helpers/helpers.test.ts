@@ -8,15 +8,22 @@
  *  or incorrectly formatted
  */
 import {
+  apiUserWithInvalidDate,
+  apiUserWithInvalidDisabled,
+  apiUserWithNonArrayGroup,
+  apiUserWithoutId,
+  apiUserWithoutName,
+  apiUserWithoutUsername,
   groupObjectWithIncorrectPermission,
   groupObjectWithInvalidDate,
   groupObjectWithInvalidName,
   groupObjectWithMissingPermission,
   groupObjectWithoutFunctionalities,
   groupObjectWithoutId,
-  validGroupArray
+  validGroupArray,
+  validUserArray
 } from './data';
-import { toApiGroup } from './toApiObject';
+import { toApiGroup, toApiUser } from './toApiObject';
 
 
 
@@ -45,5 +52,29 @@ describe('make sure helper functions for tests work as supposed to', () => {
     // This should work and it should return an empty array as functionalities
     validGroupData = toApiGroup(groupObjectWithoutFunctionalities);
     expect(validGroupData.functionalities).toHaveLength(0);
+  });
+
+  test('toApiUser tests', () => {
+    // valid Array should be easy to handle
+    const validUserDataWithGroups = toApiUser(validUserArray[0]);
+    expect(validUserDataWithGroups).toHaveProperty('username');
+    // forgive my magic numbers. See the data at './data/userApi.ts'
+    expect(validUserDataWithGroups.groups).toHaveLength(2);
+    expect(validUserDataWithGroups.groups[0].id).toBe(1);
+    const validUserDataWithoutGroups = toApiUser(validUserArray[1]);
+    expect(validUserDataWithoutGroups.groups).toBeInstanceOf(Array);
+    expect(validUserDataWithoutGroups.groups).toHaveLength(0);
+    expect(validUserDataWithoutGroups.createdAt).toBeInstanceOf(Date);
+    // I guess we can be sure that at least something works correctly
+    // => we can at least parse the data if it's given in the format the API is (supposed to be) giving us
+    // Now the interesting part: toApiUser should fail with all to following data:
+    expect(() => { toApiUser(apiUserWithoutId); }).toThrow(Error);
+    expect(() => { toApiUser(apiUserWithoutUsername); }).toThrow(Error);
+    expect(() => { toApiUser(apiUserWithoutName); }).toThrow(Error);
+    expect(() => { toApiUser(apiUserWithInvalidDisabled); }).toThrow(Error);
+    expect(() => { toApiUser(apiUserWithInvalidDate); }).toThrow(Error);
+    expect(() => { toApiUser(apiUserWithNonArrayGroup); }).toThrow(Error);
+    // also trying to parse the Array should fail
+    expect(() => { toApiUser(validUserDataWithGroups); }).toThrow(Error);
   });
 });

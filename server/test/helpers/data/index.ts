@@ -4,3 +4,4 @@
  */
 
 export * from './groupApi';
+export * from './userApi';
