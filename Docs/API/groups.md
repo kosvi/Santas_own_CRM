@@ -108,3 +108,20 @@ Example of result
 ```
 
 ## Add a permission to group
+
+**Example**
+
+POST `/api/groups/3`
+```
+{
+  "functionalityId": 1,
+  "read": false,
+  "write": false
+}
+```
+
+Status: 201
+
+```
+Example of result
+```
