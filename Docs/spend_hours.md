@@ -78,7 +78,7 @@ Goals:
 |           | 1 | Worked on `/api/users` (controller and service). It now allows searching by name. Also started working on tests for users-endpoint. Minor re-organizing of tests folder structure. |
 | 23.1.2022 | 1 | Worked on tests for the `/api/users`. |
 |           | 1 | Started working on `/api/people`, added controller, service and tests and first functionalities to them. |
-| 24.1.2022 | 1 | Worked on api-documentation. | 
+| 24.1.2022 | 1 | Worked on api-documentation. Wrote tests for boolean validator. | 
 
 Extras:
 - Easier testing with docker-compose

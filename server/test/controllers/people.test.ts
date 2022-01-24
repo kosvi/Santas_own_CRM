@@ -13,7 +13,7 @@ describe('people controller', () => {
     await api.post('/api/reset/full');
   });
 
-  test('get without keyword gives 400', async () => {
+  test('GET without keyword gives 400', async () => {
     const response = await api.get('/api/people').expect(400).expect('Content-Type', /application\/json/);
     expect(response.body).toHaveProperty('error');
   });
