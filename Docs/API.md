@@ -4,9 +4,9 @@
 
 |Description |URL | Method | Success | Possible errors | 
 |------------|----|--------|---------|-----------------|
-|[API/users.md#list-all-users](List all users) | `/api/users` | GET | 200 | - |
-|[API/users.md#search-users](Search users) | `/api/users?name=<key>` | GET | 200 | - |
-|[API/users.md#display-user-by-id](Display user by ID) | `/api/users/:id` | GET | 200 | 400, 404 |
+|[List all users](API/users.md#list-all-users) | `/api/users` | GET | 200 | - |
+|[Search users](API/users.md#search-users) | `/api/users?name=<key>` | GET | 200 | - |
+|[Display user by ID](API/users.md#display-user-by-id) | `/api/users/:id` | GET | 200 | 400, 404 |
 
 ## Groups
 
