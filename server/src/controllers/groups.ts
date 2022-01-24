@@ -32,11 +32,7 @@ router.get('/:name', (req, res, next) => {
   }
   getSingleGroupWithPermissions(name)
     .then(group => {
-      if (!group) {
-        throw new ControllerError(404, `no group found with name ${name}`);
-      } else {
-        res.json(group);
-      }
+      res.json(group);
     })
     .catch(error => {
       logger.logError(error);

@@ -44,7 +44,7 @@ describe('validator tests', () => {
     expect(validateToBoolean(true)).toBe(true);
     expect(validateToBoolean(false)).not.toBe(true);
     expect(validateToBoolean(true)).not.toBe(false);
-    expect(validateToBoolean(new Boolean(true)).toBe(true);
+    expect(validateToBoolean(new Boolean(true))).toBe(true);
   });
   test('invalid boolean gives Error', () => {
     expect(() => { validateToBoolean('string'); }).toThrow(Error);
