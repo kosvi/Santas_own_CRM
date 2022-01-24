@@ -3,10 +3,12 @@ import { UserAttributes } from '../types';
 import { Op } from 'sequelize';
 // import { logger } from '../utils/logger';
 
+/*
 export const getAllUsers = async (): Promise<UserAttributes[]> => {
   const allUsers = await models.User.findAll();
   return allUsers;
 };
+*/
 
 export const getUsersBySearchString = async (search: string): Promise<UserAttributes[]> => {
   // construct search options 

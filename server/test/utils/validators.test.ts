@@ -6,7 +6,7 @@ const NUMBER_ERROR = 'Incorrect or missing number';
 describe('validator tests', () => {
   test('validate valid strings', () => {
     expect(validateToString('foo')).toEqual('foo');
-    expect(validateToString(String('bar'))).toEqual('bar');
+    expect(validateToString(new String('bar'))).toEqual('bar');
     expect(() => { validateToString(''); }).not.toThrow(STRING_ERROR);
     expect(() => { validateToString('foobar'); }).not.toThrow(STRING_ERROR);
   });
@@ -19,7 +19,7 @@ describe('validator tests', () => {
     expect(validateToNumber(0)).toEqual(0);
     expect(validateToNumber(100)).toEqual(100);
     expect(validateToNumber(-100)).toEqual(-100);
-    expect(validateToNumber(Number('100'))).toEqual(100);
+    expect(validateToNumber(new Number('100'))).toEqual(100);
     expect(validateToNumber(1.9314)).toEqual(1.9314);
   });
   test('validate invalid numbers', () => {
@@ -44,6 +44,7 @@ describe('validator tests', () => {
     expect(validateToBoolean(true)).toBe(true);
     expect(validateToBoolean(false)).not.toBe(true);
     expect(validateToBoolean(true)).not.toBe(false);
+    expect(validateToBoolean(new Boolean(true)).toBe(true);
   });
   test('invalid boolean gives Error', () => {
     expect(() => { validateToBoolean('string'); }).toThrow(Error);

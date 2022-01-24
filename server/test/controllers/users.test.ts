@@ -60,6 +60,11 @@ describe('users controller', () => {
     expect(response).toHaveProperty('error');
   });
 
+  test('invalid id gives proper error', async () => {
+    const response = await api.get('/api/users/foo').expect(400).expect('Content-Type', /application\/json/);
+    expect(response.body).toHaveProperty('error');
+  });
+
   test('searching by keyword works', async () => {
     const firstResponse = await api.get('/api/users/?name=ELF').expect(200).expect('Content-Type', /application\/json/);
     expect(firstResponse.body).toBeInstanceOf(Array);
