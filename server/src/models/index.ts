@@ -36,7 +36,8 @@ Entry.belongsTo(Person);
 // Initialize relation between a person and it's wishes (and wish and item wished)
 Person.hasMany(Wish);
 Wish.belongsTo(Person);
-Wish.hasOne(Item);
+Item.hasMany(Wish);
+Wish.belongsTo(Item);
 
 export default {
   Entry, Group, Item, Functionality, Permission, Person, Session, UserGroup, User, Wish

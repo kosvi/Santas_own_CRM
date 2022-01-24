@@ -13,13 +13,11 @@ import { logger } from '../utils/logger';
 const router = express.Router();
 
 router.delete('/clear', (_req, res) => {
-  resetDB().catch((error) => logger.logError(error));
-  res.send('ok!');
+  resetDB().then(() => res.status(204).send()).catch((error) => logger.logError(error));
 });
 
 router.post('/populate', (_req, res) => {
-  addData().catch((error) => logger.logError(error));
-  res.send('ok!');
+  addData().then(() => res.status(201).json({ msg: 'ok!' })).catch((error) => logger.logError(error));
 });
 
 // We should return 500 if we experience error.

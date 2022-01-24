@@ -25,7 +25,27 @@ POST http://localhost:3000/api/groups/4
 Content-Type: application/json
 
 {
-  "functionalityId": 1,
+  "functionalityId": 2,
   "read": false,
+  "write": false
+}
+
+###
+
+POST http://localhost:3000/api/groups
+Content-Type: application/json
+
+{
+  "foo": "bar"
+}
+
+###
+
+POST http://localhost:3000/api/groups/4
+Content-Type: application/json
+
+{
+  "functionalityId": 4,
+  "read": "false",
   "write": false
 }

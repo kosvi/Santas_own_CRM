@@ -103,6 +103,25 @@ describe('groups controller', () => {
     expect(scoutWithPermission.functionalities[0].permission.write).toBe(false);
   });
 
+  test('can\'t create duplicate permission to same group', async () => {
+    // let's get 'scout' group in play around with it
+    const rawScout = await api.get('/api/groups/scout');
+    const scout = toApiGroup(rawScout.body);
+    // let's first add a permission
+    await api.post(`/api/groups/${scout.id}`).send({
+      functionalityId: 1,
+      read: false,
+      write: false
+    }).expect(201);
+    // now duplicate should fail!
+    const rawResponse = await api.post(`/api/groups/${scout.id}`).send({
+      functionalityId: 1,
+      read: true,
+      write: true
+    }).expect(403).expect('Content-Type', /application\/json/);
+    expect(rawResponse.body).toHaveProperty('error');
+  });
+
   test('adding permission fails gracefully if data is invalid', async () => {
     const responseWithInvalidGroupId = await api.post(`/api/groups/${NONEXISTENT_GROUP_ID}`).send({
       functionalityId: 1,

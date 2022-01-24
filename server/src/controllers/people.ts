@@ -1,5 +1,5 @@
 import express from 'express';
-import { findPeopleByName } from '../services/peopleService';
+import { displayPersonWithWishes, findPeopleByName } from '../services/peopleService';
 import { logger } from '../utils/logger';
 import { validateToString } from '../utils/validators';
 const router = express.Router();
@@ -19,6 +19,17 @@ router.get('/', (req, res, next) => {
     // no keyword given, return all?!?!?!
     res.status(400).json({ error: 'you must give a keyword to search people' });
   }
+});
+
+router.get('/:id', (req, res) => {
+  displayPersonWithWishes(Number(req.params.id))
+    .then(response => {
+      res.json(response);
+    })
+    .catch(error => {
+      console.log(error);
+      res.send('failure');
+    });
 });
 
 export default router;

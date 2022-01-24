@@ -42,6 +42,7 @@ export const addGroup = async (group: GroupAttributes): Promise<GroupAttributes 
     if (error instanceof Error) {
       return error;
     }
+    // I see no reason why we would end up to this line
     return undefined;
   }
 };
@@ -61,8 +62,11 @@ export const addPermission = async (permission: PermissionAttributes): Promise<G
     });
     return group;
   } catch (error) {
+    logger.logError(error);
     if (error instanceof Error) {
-      logger.logError(error);
+      if (error.name === 'SequelizeUniqueConstraintError') {
+        throw new ControllerError(403, 'this group already has permission set to this functionality');
+      }
       if (error.name === 'SequelizeEmptyResultError') {
         throw new ControllerError(404, `no group found with id: ${permission.groupId}`);
       }

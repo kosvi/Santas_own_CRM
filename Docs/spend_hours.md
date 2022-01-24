@@ -79,6 +79,8 @@ Goals:
 | 23.1.2022 | 1 | Worked on tests for the `/api/users`. |
 |           | 1 | Started working on `/api/people`, added controller, service and tests and first functionalities to them. |
 | 24.1.2022 | 1 | Worked on api-documentation. Wrote tests for boolean validator. | 
+|           | 1 | Found some problems from groups-endpoint while writing documentation. Added tests and fixed issues. Also wrote tests to reset-endpoint. Continued working on `/api/people`. | 
+|           | 1 | Spend quite some time reading Sequelize documentation about relations before finally figured out how they are implemented. Spend time working on `/api/people` |
 
 Extras:
 - Easier testing with docker-compose

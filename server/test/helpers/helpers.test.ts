@@ -23,7 +23,9 @@ import {
   validGroupArray,
   validUserArray
 } from './data';
+import { personWithInvalidAddress, personWithInvalidBirthdate, personWithInvalidUpdateAt, personWithNumberAsName, personWithoutId, validPeopleArray } from './data/personApi';
 import { toApiGroup, toApiUser } from './toApiObject';
+import { toApiPerson } from './toApiObject/toApiPerson';
 
 
 
@@ -76,5 +78,22 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiUser(apiUserWithNonArrayGroup); }).toThrow(Error);
     // also trying to parse the Array should fail
     expect(() => { toApiUser(validUserDataWithGroups); }).toThrow(Error);
+  });
+
+  test('toApiPerson tests', () => {
+    const validPeopleData = toApiPerson(validPeopleArray[0]);
+    expect(validPeopleData).toHaveProperty('name');
+    expect(validPeopleData.birthdate).toBeInstanceOf(Date);
+    // I think we are more interested in that toApiPerson fails with incorrect data
+    // First we must fail if whole array is given as param
+    expect(() => { toApiPerson(validPeopleArray); }).toThrow(Error);
+    // then all the invalid people we have
+    expect(() => { toApiPerson(personWithoutId); }).toThrow(Error);
+    expect(() => { toApiPerson(personWithNumberAsName); }).toThrow(Error);
+    expect(() => { toApiPerson(personWithInvalidBirthdate); }).toThrow(Error);
+    expect(() => { toApiPerson(personWithInvalidAddress); }).toThrow(Error);
+    expect(() => { toApiPerson(personWithInvalidUpdateAt); }).toThrow(Error);
+    expect(() => { toApiPerson(undefined); }).toThrow(Error);
+    expect(() => { toApiPerson(null); }).toThrow(Error);
   });
 });
