@@ -16,3 +16,11 @@
 |[Show single group](API/groups.md#show-single-group)|`/api/groups/:name`| GET | 200 | 404 |
 |[Post new group](API/groups.md#post-new-group)|`/api/groups` | POST | 201 | 400, 403, 500(?) |
 |[Add a permission to group](API/groups.md#add-a-permission-to-group) | `/api/groups/:groupId` | POST | 201 | 400, 403, 404, 500(?) |
+
+## People
+
+|Description | URL | Method | Success | Possible errors |
+|------------|-----|--------|---------|-----------------|
+|[GET /api/people](API/people.md#get-base)|`/api/people`|GET | - | 400 |
+|[Search people by name](API/people.md#search-people-by-name) | `/api/people/?name=<key>?` | GET | 200 | - |
+|[Display single person with wishes](API/people.md#display-single-person-with-wishes) | `/api/people/:id` | GET | 200 | - |
