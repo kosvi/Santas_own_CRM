@@ -13,7 +13,8 @@ export const listMostCommonItems = async (amount: number) => {
       include: {
 	model: models.Item
       },
-      group: 'item.id'
+      group: 'item.id',
+      order: sequelize.literal('count DESC')
     });
     return items;
   } catch (error) {
