@@ -4,6 +4,8 @@ import supertest from 'supertest';
 import { toApiPerson } from '../helpers/toApiObject/toApiPerson';
 const api = supertest(app);
 
+const NONEXISTENT_PERSON_ID = 100000;
+
 beforeAll(async () => {
   await connectionToDatabase();
 });
@@ -29,6 +31,22 @@ describe('people controller', () => {
     } else {
       expect('error').toBe('result was not an Array!');
     }
+  });
+
+  test('Displaying single person gives list of wishes', async () => {
+    const rawResult = await api.get('/api/people/1').expect(200).expect('Content-Type', /application\/json/);
+    const person = toApiPerson(rawResult.body);
+    expect(person.wishes).toBeInstanceOf(Array);
+    if(person.wishes && person.wishes.length>0) {
+      expect(person.wishes[0].item).toHaveProperty('id');
+    } else {
+      expect('error').toBe('for some reason wishes was not returned as expected');
+    }
+  });
+
+  test('Incorrect ID returns 404', async () => {
+    const rawResult = await api.get(`/api/people/${NONEXISTENT_PERSON_ID}`).expect(404).expect('Content-Type', /application\/json/);
+    expect(rawResult.body).toHaveProperty('error');
   });
 
 });

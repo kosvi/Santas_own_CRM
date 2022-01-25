@@ -23,7 +23,7 @@ import {
   validGroupArray,
   validUserArray
 } from './data';
-import { personWithInvalidAddress, personWithInvalidBirthdate, personWithInvalidUpdateAt, personWithNumberAsName, personWithoutId, validPeopleArray } from './data/personApi';
+import { personWithInvalidAddress, personWithInvalidBirthdate, personWithInvalidUpdateAt, personWithNumberAsName, personWithoutId, validPeopleArray, validPersonWithWishes, wishIsMissingItem, wishNotGivenAsArray } from './data/personApi';
 import { toApiGroup, toApiUser } from './toApiObject';
 import { toApiPerson } from './toApiObject/toApiPerson';
 
@@ -84,6 +84,11 @@ describe('make sure helper functions for tests work as supposed to', () => {
     const validPeopleData = toApiPerson(validPeopleArray[0]);
     expect(validPeopleData).toHaveProperty('name');
     expect(validPeopleData.birthdate).toBeInstanceOf(Date);
+    // Also check person with wishes
+    const validPersonDataWithWishes = toApiPerson(validPersonWithWishes);
+    expect(validPersonDataWithWishes).toHaveProperty('name');
+    expect(validPersonDataWithWishes.wishes).toBeInstanceOf(Array);
+    expect(validPersonDataWithWishes.wishes).toHaveLength(2);
     // I think we are more interested in that toApiPerson fails with incorrect data
     // First we must fail if whole array is given as param
     expect(() => { toApiPerson(validPeopleArray); }).toThrow(Error);
@@ -95,5 +100,7 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiPerson(personWithInvalidUpdateAt); }).toThrow(Error);
     expect(() => { toApiPerson(undefined); }).toThrow(Error);
     expect(() => { toApiPerson(null); }).toThrow(Error);
+    expect(() => { toApiPerson(wishIsMissingItem); }).toThrow(Error);
+    expect(() => { toApiPerson(wishNotGivenAsArray); }).toThrow(Error);
   });
 });

@@ -1,5 +1,6 @@
 import { Op } from 'sequelize';
 import models from '../models';
+import { ControllerError } from '../utils/customError';
 import { PersonAttributes } from '../types';
 
 export const findPeopleByName = async (search: string): Promise<PersonAttributes[]> => {
@@ -25,6 +26,11 @@ export const displayPersonWithWishes = async (id: number) => {
     });
     return person;
   } catch (error) {
+    if(error instanceof Error) {
+      if(error.name === 'SequelizeEmptyResultError') {
+	throw new ControllerError(404, `no person found with id: ${id}`);
+      }
+    }
     console.error(error);
     throw error;
   }

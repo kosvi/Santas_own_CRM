@@ -21,14 +21,13 @@ router.get('/', (req, res, next) => {
   }
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res, next) => {
   displayPersonWithWishes(Number(req.params.id))
     .then(response => {
       res.json(response);
     })
     .catch(error => {
-      console.log(error);
-      res.send('failure');
+      next(error);
     });
 });
 
