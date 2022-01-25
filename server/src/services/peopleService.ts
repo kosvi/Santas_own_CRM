@@ -31,7 +31,6 @@ export const displayPersonWithWishes = async (id: number) => {
 	throw new ControllerError(404, `no person found with id: ${id}`);
       }
     }
-    console.error(error);
     throw error;
   }
 };
