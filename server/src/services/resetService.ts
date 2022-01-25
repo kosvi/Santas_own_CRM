@@ -150,12 +150,16 @@ const addWishes = async (people: PersonAttributes[], items: ItemAttributes[]) =>
     let wishes: WishAttributes[];
     wishes = [];
     people.forEach(p => {
+      let personHasItem = false;
       items.forEach(i => {
-        wishes = wishes.concat({
-          personId: validateToNumber(p.id),
-          itemId: validateToNumber(i.id),
-          description: 'I want it to be lovely!'
-        });
+        if (!personHasItem || Math.random() > 0.5) {
+          personHasItem = true;
+          wishes = wishes.concat({
+            personId: validateToNumber(p.id),
+            itemId: validateToNumber(i.id),
+            description: 'I want it to be lovely!'
+          });
+        }
       });
     });
     await models.Wish.bulkCreate(wishes);

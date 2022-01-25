@@ -1,5 +1,4 @@
 # TODO
 
-- finish `/api/people`
-- write tests to `/api/people`
+- `/api/items` controller/service/tests
 - write API-documentation

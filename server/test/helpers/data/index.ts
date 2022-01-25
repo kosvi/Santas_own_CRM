@@ -6,3 +6,4 @@
 export * from './groupApi';
 export * from './userApi';
 export * from './personApi';
+export * from './itemApi';

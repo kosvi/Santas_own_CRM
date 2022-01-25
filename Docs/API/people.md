@@ -74,3 +74,23 @@ Status: 200
   ]
 }
 ```
+
+**Errors**
+
+GET `/api/people/10`
+Status: 404
+
+```
+{
+  "error": "no person found with id: 10"
+}
+```
+
+GET `/api/people/foo`
+Status: 400
+
+```
+{
+  "error": "malformed id given"
+}
+```

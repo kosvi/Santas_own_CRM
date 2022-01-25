@@ -1,5 +1,6 @@
 import express from 'express';
 import { displayPersonWithWishes, findPeopleByName } from '../services/peopleService';
+import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
 import { validateToString } from '../utils/validators';
 const router = express.Router();
@@ -22,7 +23,17 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-  displayPersonWithWishes(Number(req.params.id))
+  let id: number;
+  try {
+    id = parseInt(req.params.id);
+  } catch (error) {
+    id = 0;
+    next(new ControllerError(400, 'malformed id given'));
+  }
+  if (isNaN(id)) {
+    next(new ControllerError(400, 'malformed id given'));
+  }
+  displayPersonWithWishes(id)
     .then(response => {
       res.json(response);
     })

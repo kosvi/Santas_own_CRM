@@ -82,6 +82,7 @@ Goals:
 |           | 1 | Found some problems from groups-endpoint while writing documentation. Added tests and fixed issues. Also wrote tests to reset-endpoint. Continued working on `/api/people`. | 
 |           | 1 | Spend quite some time reading Sequelize documentation about relations before finally figured out how they are implemented. Spend time working on `/api/people` |
 | 25.1.2022 | 2 | Spend time with people-endpoint: api-documentation, tests, controller, service | 
+|           | 2 | Work started with items-endpoint | 
 
 Extras:
 - Easier testing with docker-compose

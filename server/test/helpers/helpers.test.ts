@@ -20,12 +20,25 @@ import {
   groupObjectWithMissingPermission,
   groupObjectWithoutFunctionalities,
   groupObjectWithoutId,
+  personWithInvalidAddress,
+  personWithInvalidBirthdate,
+  personWithInvalidUpdateAt,
+  personWithNumberAsName,
+  personWithoutId,
+  validPeopleArray,
+  validPersonWithWishes,
+  wishIsMissingItem,
+  wishNotGivenAsArray,
   validGroupArray,
-  validUserArray
+  validUserArray,
+  validItemArray,
+  invalidItemMissingCount,
+  invalidItemMalformedCount,
+  invalidItemWithEmptyItem,
+  invalidItemWithMissingName,
+  invalidItemWithNumberAsName
 } from './data';
-import { personWithInvalidAddress, personWithInvalidBirthdate, personWithInvalidUpdateAt, personWithNumberAsName, personWithoutId, validPeopleArray, validPersonWithWishes, wishIsMissingItem, wishNotGivenAsArray } from './data/personApi';
-import { toApiGroup, toApiUser } from './toApiObject';
-import { toApiPerson } from './toApiObject/toApiPerson';
+import { toApiGroup, toApiUser, toApiPerson, toApiItem } from './toApiObject';
 
 
 
@@ -103,4 +116,17 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiPerson(wishIsMissingItem); }).toThrow(Error);
     expect(() => { toApiPerson(wishNotGivenAsArray); }).toThrow(Error);
   });
+
+  test('toApiItem tests', () => {
+    const validItemData = toApiItem(validItemArray[0]);
+    expect(validItemData).toHaveProperty('count');
+    // Let's check all that should fail
+    expect(() => { toApiItem(validItemArray); }).toThrow(Error);
+    expect(() => { toApiItem(invalidItemMissingCount); }).toThrow(Error);
+    expect(() => { toApiItem(invalidItemMalformedCount); }).toThrow(Error);
+    expect(() => { toApiItem(invalidItemWithEmptyItem); }).toThrow(Error);
+    expect(() => { toApiItem(invalidItemWithMissingName); }).toThrow(Error);
+    expect(() => { toApiItem(invalidItemWithNumberAsName); }).toThrow(Error);
+  });
+
 });

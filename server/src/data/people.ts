@@ -10,5 +10,10 @@ export const people: PersonAttributes[] = [
     name: 'Maija Mallikas',
     birthdate: new Date(2012, 6, 30),
     address: 'Mikonkatu 12'
+  },
+  {
+    name: 'Jane Doe',
+    birthdate: new Date(2015, 1, 20),
+    address: 'Somestreet 313'
   }
 ];

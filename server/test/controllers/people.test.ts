@@ -37,7 +37,7 @@ describe('people controller', () => {
     const rawResult = await api.get('/api/people/1').expect(200).expect('Content-Type', /application\/json/);
     const person = toApiPerson(rawResult.body);
     expect(person.wishes).toBeInstanceOf(Array);
-    if(person.wishes && person.wishes.length>0) {
+    if (person.wishes && person.wishes.length > 0) {
       expect(person.wishes[0].item).toHaveProperty('id');
     } else {
       expect('error').toBe('for some reason wishes was not returned as expected');
@@ -46,6 +46,11 @@ describe('people controller', () => {
 
   test('Incorrect ID returns 404', async () => {
     const rawResult = await api.get(`/api/people/${NONEXISTENT_PERSON_ID}`).expect(404).expect('Content-Type', /application\/json/);
+    expect(rawResult.body).toHaveProperty('error');
+  });
+
+  test('Malformed ID return 400', async () => {
+    const rawResult = await api.get('/api/people/foo').expect(400).expect('Content-Type', /application\/json/);
     expect(rawResult.body).toHaveProperty('error');
   });
 
