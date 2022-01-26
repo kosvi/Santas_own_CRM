@@ -83,6 +83,7 @@ Goals:
 |           | 1 | Spend quite some time reading Sequelize documentation about relations before finally figured out how they are implemented. Spend time working on `/api/people` |
 | 25.1.2022 | 2 | Spend time with people-endpoint: api-documentation, tests, controller, service | 
 |           | 2 | Work started with items-endpoint | 
+| 26.1.2022 | 2 | Finished items-endpoint, adjusted people-endpoint and minor tweaks to database reset & some additional edits. |
 
 Extras:
 - Easier testing with docker-compose

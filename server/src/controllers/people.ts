@@ -1,5 +1,5 @@
 import express from 'express';
-import { displayPersonWithWishes, findPeopleByName } from '../services/peopleService';
+import { displayPersonWithWishesAndEntries, findPeopleByName } from '../services/peopleService';
 import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
 import { validateToString } from '../utils/validators';
@@ -33,7 +33,7 @@ router.get('/:id', (req, res, next) => {
   if (isNaN(id)) {
     next(new ControllerError(400, 'malformed id given'));
   }
-  displayPersonWithWishes(id)
+  displayPersonWithWishesAndEntries(id)
     .then(response => {
       res.json(response);
     })

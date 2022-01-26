@@ -71,6 +71,24 @@ Status: 200
         "name": "Toy car"
       }
     }
+  ],
+  "entries": [
+    {
+      "id": 1,
+      "userId": 1,
+      "niceness": 4,
+      "description": "Took out the garbage",
+      "createdAt": "2022-01-25T18:19:13.271Z",
+      "updatedAt": "2022-01-25T18:19:13.271Z"
+    },
+    {
+      "id": 2,
+      "userId": 1,
+      "niceness": -10,
+      "description": "Took a toy from anothers hand",
+      "createdAt": "2022-01-25T18:19:13.271Z",
+      "updatedAt": "2022-01-25T18:19:13.271Z"
+    }
   ]
 }
 ```

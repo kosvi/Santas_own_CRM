@@ -14,21 +14,26 @@ export const findPeopleByName = async (search: string): Promise<PersonAttributes
   return people;
 };
 
-export const displayPersonWithWishes = async (id: number) => {
+export const displayPersonWithWishesAndEntries = async (id: number) => {
   try {
     const person = await models.Person.findByPk(id, {
-      include: {
+      include: [{
         model: models.Wish,
         attributes: { exclude: ['personId', 'itemId'] },
         include: [models.Item]
       },
+      {
+        model: models.Entry,
+        attributes: { exclude: ['personId'] }
+      }
+      ],
       rejectOnEmpty: true
     });
     return person;
   } catch (error) {
-    if(error instanceof Error) {
-      if(error.name === 'SequelizeEmptyResultError') {
-	throw new ControllerError(404, `no person found with id: ${id}`);
+    if (error instanceof Error) {
+      if (error.name === 'SequelizeEmptyResultError') {
+        throw new ControllerError(404, `no person found with id: ${id}`);
       }
     }
     throw error;

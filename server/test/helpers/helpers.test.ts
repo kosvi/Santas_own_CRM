@@ -26,9 +26,9 @@ import {
   personWithNumberAsName,
   personWithoutId,
   validPeopleArray,
-  validPersonWithWishes,
-  wishIsMissingItem,
-  wishNotGivenAsArray,
+  validPersonWithWishesAndEntries,
+  personWishIsMissingItem,
+  personWishNotGivenAsArray,
   validGroupArray,
   validUserArray,
   validItemArray,
@@ -36,7 +36,10 @@ import {
   invalidItemMalformedCount,
   invalidItemWithEmptyItem,
   invalidItemWithMissingName,
-  invalidItemWithNumberAsName
+  invalidItemWithNumberAsName,
+  personIsMissingEntries,
+  personWithInvalidEntryId,
+  personWithInvalidEntryNiceness
 } from './data';
 import { toApiGroup, toApiUser, toApiPerson, toApiItem } from './toApiObject';
 
@@ -98,10 +101,12 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(validPeopleData).toHaveProperty('name');
     expect(validPeopleData.birthdate).toBeInstanceOf(Date);
     // Also check person with wishes
-    const validPersonDataWithWishes = toApiPerson(validPersonWithWishes);
-    expect(validPersonDataWithWishes).toHaveProperty('name');
-    expect(validPersonDataWithWishes.wishes).toBeInstanceOf(Array);
-    expect(validPersonDataWithWishes.wishes).toHaveLength(2);
+    const validPersonDataWithWishesAndEntries = toApiPerson(validPersonWithWishesAndEntries);
+    expect(validPersonDataWithWishesAndEntries).toHaveProperty('name');
+    expect(validPersonDataWithWishesAndEntries.wishes).toBeInstanceOf(Array);
+    expect(validPersonDataWithWishesAndEntries.wishes).toHaveLength(2);
+    expect(validPersonDataWithWishesAndEntries.entries).toBeInstanceOf(Array);
+    expect(validPersonDataWithWishesAndEntries.entries).toHaveLength(2);
     // I think we are more interested in that toApiPerson fails with incorrect data
     // First we must fail if whole array is given as param
     expect(() => { toApiPerson(validPeopleArray); }).toThrow(Error);
@@ -113,8 +118,11 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiPerson(personWithInvalidUpdateAt); }).toThrow(Error);
     expect(() => { toApiPerson(undefined); }).toThrow(Error);
     expect(() => { toApiPerson(null); }).toThrow(Error);
-    expect(() => { toApiPerson(wishIsMissingItem); }).toThrow(Error);
-    expect(() => { toApiPerson(wishNotGivenAsArray); }).toThrow(Error);
+    expect(() => { toApiPerson(personWishIsMissingItem); }).toThrow(Error);
+    expect(() => { toApiPerson(personWishNotGivenAsArray); }).toThrow(Error);
+    expect(() => { toApiPerson(personIsMissingEntries); }).toThrow(Error);
+    expect(() => { toApiPerson(personWithInvalidEntryId); }).toThrow(Error);
+    expect(() => { toApiPerson(personWithInvalidEntryNiceness); }).toThrow(Error);
   });
 
   test('toApiItem tests', () => {

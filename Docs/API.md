@@ -29,4 +29,4 @@
 
 |Description|URL |Method | Success | Possible errors |
 |-----------|----|-------|---------|-----------------|
-|[List items by popularity](API/items.md)|`/api/items` or `/api/items/?limit=<number>`|GET | 200 | 400 |
+|[List items by popularity](API/items.md#list-items-by-popularity)|`/api/items` or `/api/items/?limit=<number>`|GET | 200 | 400 |
