@@ -24,3 +24,9 @@
 |[GET /api/people](API/people.md#get-base)|`/api/people`|GET | - | 400 |
 |[Search people by name](API/people.md#search-people-by-name) | `/api/people/?name=<key>?` | GET | 200 | - |
 |[Display single person with wishes](API/people.md#display-single-person-with-wishes) | `/api/people/:id` | GET | 200 | 400, 404, 500(?) |
+
+## Items
+
+|Description|URL |Method | Success | Possible errors |
+|-----------|----|-------|---------|-----------------|
+|[List items by popularity](API/items.md)|`/api/items` or `/api/items/?limit=<number>`|GET | 200 | 400 |
