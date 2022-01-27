@@ -2,5 +2,7 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testPathIgnorePatterns: ['dist']
+  testPathIgnorePatterns: ['dist'],
+  collectCoverage: true,
+  coverageReporters: ['html', 'text']
 };

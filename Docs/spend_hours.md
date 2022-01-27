@@ -88,3 +88,4 @@ Goals:
 Extras:
 - Easier testing with docker-compose
 - Error handling to middleware
+- Jest collects coverage reports

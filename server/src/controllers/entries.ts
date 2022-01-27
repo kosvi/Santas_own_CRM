@@ -3,6 +3,10 @@ import { getLatestEntries } from '../services/entryService';
 import { validateToString } from '../utils/validators';
 const router = express.Router();
 
+/*
+ * Default endpoint returns latest entries, 
+ * limit is an optional argument that can be used to limit the amount of entries returned
+ */
 router.get('/', (req, res, next) => {
   let limit: string;
   if (req.query.limit) {
