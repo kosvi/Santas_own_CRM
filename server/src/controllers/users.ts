@@ -10,6 +10,9 @@ router.get('/', (req, res, next) => {
     // ok, we try to find user by name
     getUsersBySearchString(validateToString(req.query.name))
       .then(users => {
+        if(users instanceof Array && users.length<1){
+          throw new ControllerError(404, 'no users found');
+        }
         res.json(users);
       })
       .catch(error => {

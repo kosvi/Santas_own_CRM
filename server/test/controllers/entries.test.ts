@@ -14,7 +14,7 @@ describe('entries controller', () => {
     await api.post('/api/reset/full');
   });
 
-  test.skip('entries are ordered by updatedAt DESC', async () => {
+  test('entries are ordered by updatedAt DESC', async () => {
     // let's first add an entry that get's atleast a bit different updatedAt timestamp
     await api.post('/api/entries').send({
       personId: 1,

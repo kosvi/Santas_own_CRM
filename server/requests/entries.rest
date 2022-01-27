@@ -1,0 +1,8 @@
+POST http://localhost:3000/api/entries
+Content-Type: application/json
+
+{
+  "personId": 1,
+  "niceness": 10,
+  "description": 1
+}

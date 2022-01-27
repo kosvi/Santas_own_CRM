@@ -1,5 +1,8 @@
 import express from 'express';
-import { getLatestEntries } from '../services/entryService';
+import { addNewEntry, getLatestEntries } from '../services/entryService';
+import { toNewEntry } from '../utils/apiValidators';
+import { ControllerError } from '../utils/customError';
+import { logger } from '../utils/logger';
 import { validateToString } from '../utils/validators';
 const router = express.Router();
 
@@ -23,6 +26,27 @@ router.get('/', (req, res, next) => {
     .catch(error => {
       next(error);
     });
+});
+
+router.post('/', (req, res, next) => {
+  // we will get userId from middleware later on, for now we hardcode
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const newEntry = toNewEntry({ ...req.body, userId: 1 });
+    addNewEntry(newEntry)
+      .then(result => {
+        res.status(201).json(result);
+      })
+      .catch(error => {
+        logger.logError(error);
+        throw error;
+      });
+  } catch (error) {
+    if (error instanceof Error) {
+      next(new ControllerError(400, error.message));
+    }
+    next(error);
+  }
 });
 
 export default router;

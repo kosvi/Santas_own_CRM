@@ -77,6 +77,17 @@ Status: 200
 ]
 ```
 
+**Errors**
+
+GET `/api/users/?name=foo`
+Status 404
+
+```
+{
+  "error": "no users found"
+}
+```
+
 ## Display user by ID
 
 **Example**

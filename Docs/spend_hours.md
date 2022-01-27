@@ -58,7 +58,7 @@ Extras:
 Goals:
 - Add controllers to backend to serve data from database
 - Add possibility to: 
-  - add entries
+  - ~~add entries~~
   - ~~add groups and permissions~~
 - ~~Update documentation to reflect the state of the project~~
 
@@ -84,6 +84,7 @@ Goals:
 | 25.1.2022 | 2 | Spend time with people-endpoint: api-documentation, tests, controller, service | 
 |           | 2 | Work started with items-endpoint | 
 | 26.1.2022 | 2 | Finished items-endpoint, adjusted people-endpoint and minor tweaks to database reset & some additional edits. |
+| 27.1.2022 | 2 | Entries endpoint almost finished, some updates to documentation. API-documentation almost finished (for sprint 2) |
 
 Extras:
 - Easier testing with docker-compose

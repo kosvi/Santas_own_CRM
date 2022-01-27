@@ -1,14 +1,8 @@
 import models from '../models';
 import { logger } from '../utils/logger';
+import { EntryAttributes, NewEntry } from '../types';
 
 const MAX_NUMBER_OF_ENTRIES_RETURNED = 50;
-
-export const getEntriesByPersonId = async (id: number) => {
-  const entries = models.Entry.findAndCountAll({
-    where: { personId: id }
-  });
-  return entries;
-};
 
 export const getLatestEntries = async (amount: number) => {
   try {
@@ -20,6 +14,16 @@ export const getLatestEntries = async (amount: number) => {
       ...limit
     });
     return entries;
+  } catch (error) {
+    logger.logError(error);
+    throw error;
+  }
+};
+
+export const addNewEntry = async (newEntry: NewEntry): Promise<EntryAttributes> => {
+  try {
+    const entry = await models.Entry.create(newEntry);
+    return entry;
   } catch (error) {
     logger.logError(error);
     throw error;

@@ -26,6 +26,7 @@ describe('users controller', () => {
         const apiUser = toApiUser(user);
         expect(apiUser).toHaveProperty('username');
         expect(apiUser).toHaveProperty('name');
+        expect(apiUser.groups).toBeInstanceOf(Array);
       });
     } else {
       // Nasty, but I can't come up with any better solution
@@ -78,6 +79,11 @@ describe('users controller', () => {
     expect(thirdResponse.body).toHaveLength(1);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     expect(() => { toApiUser(thirdResponse.body[0]); }).not.toThrow(Error);
+  });
+
+  test('no results on search gives 404', async () => {
+    const rawResponse = await api.get('/api/users/?name=foo').expect(404).expect('Content-Type', /application\/json/);
+    expect(rawResponse.body).toHaveProperty('error');
   });
 
 });
