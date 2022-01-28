@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { NODE_ENV } from './config';
 
 const log = (line: string) => {

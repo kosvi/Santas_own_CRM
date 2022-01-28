@@ -1,8 +1,23 @@
+GET http://localhost:3000/api/entries
+
+### 
+
+POST http://localhost:3000/api/entries
+Content-Type: application/json
+
+{
+  "personId": 100000,
+  "niceness": 10,
+  "description": "something else"
+}
+
+###
+
 POST http://localhost:3000/api/entries
 Content-Type: application/json
 
 {
   "personId": 1,
   "niceness": 10,
-  "description": 1
+  "description": "something"
 }

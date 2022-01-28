@@ -39,7 +39,11 @@ router.post('/', (req, res, next) => {
       })
       .catch(error => {
         logger.logError(error);
-        throw error;
+        let message = 'failed to create entry';
+        if (error instanceof Error) {
+          message = `${message}: ${error.name}`;
+        }
+        next(new ControllerError(400, message));
       });
   } catch (error) {
     if (error instanceof Error) {

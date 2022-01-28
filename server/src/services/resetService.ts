@@ -15,15 +15,15 @@ import { validateToNumber, validateToString } from '../utils/validators';
 
 // Reset all tables and make id's to start from 1 again
 export const resetDB = async () => {
-  await models.Wish.sync({ force: true });
-  await models.Entry.sync({ force: true });
-  await models.Item.sync({ force: true });
-  await models.Person.sync({ force: true });
-  await models.Permission.sync({ force: true });
-  await models.UserGroup.sync({ force: true });
-  await models.Group.sync({ force: true });
   await models.User.sync({ force: true });
   await models.Session.sync({ force: true });
+  await models.Group.sync({ force: true });
+  await models.Permission.sync({ force: true });
+  await models.UserGroup.sync({ force: true });
+  await models.Person.sync({ force: true });
+  await models.Item.sync({ force: true });
+  await models.Wish.sync({ force: true });
+  await models.Entry.sync({ force: true });
 };
 
 

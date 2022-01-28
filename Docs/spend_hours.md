@@ -56,7 +56,7 @@ Extras:
 ### Sprint 2 - controllers (without permissions yet)
 
 Goals:
-- Add controllers to backend to serve data from database
+- ~~Add controllers to backend to serve data from database~~
 - Add possibility to: 
   - ~~add entries~~
   - ~~add groups and permissions~~
@@ -85,6 +85,9 @@ Goals:
 |           | 2 | Work started with items-endpoint | 
 | 26.1.2022 | 2 | Finished items-endpoint, adjusted people-endpoint and minor tweaks to database reset & some additional edits. |
 | 27.1.2022 | 2 | Entries endpoint almost finished, some updates to documentation. API-documentation almost finished (for sprint 2) |
+| 28.1.2022 | 2 | Sprint more or less done. Found some issues on reset-service and fixes affected other services that now need minor fixes. |
+| sprint total | 29 | | 
+| project total | 69 | |
 
 Extras:
 - Easier testing with docker-compose

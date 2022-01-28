@@ -39,9 +39,15 @@ import {
   invalidItemWithNumberAsName,
   personIsMissingEntries,
   personWithInvalidEntryId,
-  personWithInvalidEntryNiceness
+  personWithInvalidEntryNiceness,
+  validEntryArray,
+  invalidEntryWithoutId,
+  invalidEntryWithStringAsNiceness,
+  invalidEntryWithNullAsDesc,
+  invalidEntryUserIdAsUndefined,
+  invalidEntryWithInvalidUpdateDate
 } from './data';
-import { toApiGroup, toApiUser, toApiPerson, toApiItem } from './toApiObject';
+import { toApiGroup, toApiUser, toApiPerson, toApiItem, toApiEntry } from './toApiObject';
 
 
 
@@ -135,6 +141,20 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiItem(invalidItemWithEmptyItem); }).toThrow(Error);
     expect(() => { toApiItem(invalidItemWithMissingName); }).toThrow(Error);
     expect(() => { toApiItem(invalidItemWithNumberAsName); }).toThrow(Error);
+  });
+
+  test('toApiEntry tests', () => {
+    const validEntryData = toApiEntry(validEntryArray[0]);
+    expect(validEntryData).toHaveProperty('niceness');
+    // ok, at least parser didn't fail
+    // now let's make sure errors are thrown
+    expect(() => { toApiEntry(invalidEntryWithoutId); }).toThrow(Error);
+    expect(() => { toApiEntry(invalidEntryWithStringAsNiceness); }).toThrow(Error);
+    expect(() => { toApiEntry(invalidEntryWithNullAsDesc); }).toThrow(Error);
+    expect(() => { toApiEntry(invalidEntryUserIdAsUndefined); }).toThrow(Error);
+    expect(() => { toApiEntry(invalidEntryWithInvalidUpdateDate); }).toThrow(Error);
+    // also giving the whole array should throw error
+    expect(() => { toApiEntry(validEntryArray); }).toThrow(Error);
   });
 
 });
