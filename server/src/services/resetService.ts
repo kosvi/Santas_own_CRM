@@ -15,15 +15,15 @@ import { validateToNumber, validateToString } from '../utils/validators';
 
 // Reset all tables and make id's to start from 1 again
 export const resetDB = async () => {
-  await models.Wish.sync({ force: true });
-  await models.Entry.sync({ force: true });
-  await models.Item.sync({ force: true });
-  await models.Person.sync({ force: true });
-  await models.Permission.sync({ force: true });
-  await models.UserGroup.sync({ force: true });
-  await models.Group.sync({ force: true });
   await models.User.sync({ force: true });
   await models.Session.sync({ force: true });
+  await models.Group.sync({ force: true });
+  await models.Permission.sync({ force: true });
+  await models.UserGroup.sync({ force: true });
+  await models.Person.sync({ force: true });
+  await models.Item.sync({ force: true });
+  await models.Wish.sync({ force: true });
+  await models.Entry.sync({ force: true });
 };
 
 
@@ -70,13 +70,18 @@ const connectGroupsAndUsers = async () => {
   try {
     const userSanta = await models.User.findOne({ where: { username: 'santa' } });
     const userAdmin = await models.User.findOne({ where: { username: 'admin' } });
+    const userElf = await models.User.findOne({ where: { username: 'elf' } });
     const groupSanta = await models.Group.findOne({ where: { name: 'santa' } });
     const groupAdmin = await models.Group.findOne({ where: { name: 'admin' } });
+    const groupScout = await models.Group.findOne({ where: { name: 'scout' } });
     if (userSanta && groupSanta) {
       await models.UserGroup.create({ userId: validateToNumber(userSanta.id), groupId: validateToNumber(groupSanta.id) });
     }
     if (userAdmin && groupAdmin) {
       await models.UserGroup.create({ userId: validateToNumber(userAdmin.id), groupId: validateToNumber(groupAdmin.id) });
+    }
+    if (userElf && groupScout) {
+      await models.UserGroup.create({ userId: validateToNumber(userElf.id), groupId: validateToNumber(groupScout.id) });
     }
   } catch (error) {
     logError(error);
@@ -115,7 +120,13 @@ const addPeople = async (): Promise<PersonAttributes[]> => {
 
 const addEntries = async (newUsers: UserAttributes[], newPeople: PersonAttributes[]): Promise<EntryAttributes[]> => {
   // Add all entries to first user in the user-table and first person in the people-table
-  const userId = validateToNumber(newUsers[0].id);
+  let userId: number;
+  // const userId = validateToNumber(newUsers[0].id);
+  newUsers.forEach(u => {
+    if (u.username === 'elf') {
+      userId = validateToNumber(u.id);
+    }
+  });
   const personId = validateToNumber(newPeople[0].id);
   // Remember that 'entries' is in the form of NewEntry and is missing foreign keys, 
   // let's add them first and then add them to database
@@ -150,12 +161,16 @@ const addWishes = async (people: PersonAttributes[], items: ItemAttributes[]) =>
     let wishes: WishAttributes[];
     wishes = [];
     people.forEach(p => {
+      let personHasItem = false;
       items.forEach(i => {
-        wishes = wishes.concat({
-          personId: validateToNumber(p.id),
-          itemId: validateToNumber(i.id),
-          description: 'I want it to be lovely!'
-        });
+        if (!personHasItem || Math.random() > 0.5) {
+          personHasItem = true;
+          wishes = wishes.concat({
+            personId: validateToNumber(p.id),
+            itemId: validateToNumber(i.id),
+            description: 'I want it to be lovely!'
+          });
+        }
       });
     });
     await models.Wish.bulkCreate(wishes);

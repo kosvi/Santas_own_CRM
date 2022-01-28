@@ -15,6 +15,7 @@ This repository contains a customer relationship manager for Santa. It was writt
 **Other documents**
 | document | description |
 |----------|-------------|
+| [API.md](Docs/API.md)| API documentation |
 | [specs.md](Docs/specs.md) | Contains specs for the app. Includes latest relational models of the database and user stories that are used to decided content of sprints. |
 | [spend_hours.md](Docs/spend_hours.md) | Contains sprints, time spend on each sprint, sprint goals and what else was achieved during each sprint (extras). Spend hours are recorded by individual sprints. |
 | [personal_notes.md](Docs/personal_notes.md) | Personal notes that might be useful again during later development. |
@@ -49,6 +50,10 @@ Automatic tests by branches:
 - develop
   - lint, unit/integration-tests
 
+**server:**
+
+Tests include unit-tests for functions used around application and integration tests that concentrate on testing api-functionality. I will not write separate tests for services, since controllers rely on services and testing services would basically just lead to douple-testing them. 
+
 ## Running the app
 
 Latest Release candidate is running in [Heroku](https://glacial-shore-58496.herokuapp.com/). It's running with the following configuration:
@@ -64,6 +69,16 @@ Requirements:
 - Docker-Compose
 
 Clone the repository and run `npm install --prefix server` and `npm install --prefix client` in repository root. After all dependencies are installed, you can start the app in development mode by running command `docker-compose -f docker-compose.dev.yml up`. Modifications to server and client force them to reload automatically. App can be accessed from `http://localhost:3000`. 
+
+#### Tests
+
+Requirements:
+- Docker
+- Docker-compose
+
+Clone repository and run `npm install --prefix server` in repository root. After dependencies are installed, you can start tests by running command `docker-compose -f test.docker-compose.yml up --abort-on-container-exit`. This will run unit and integration tests on the backend. You'll see the list of passed tests in the console. 
+
+Frontend and e2e tests will be added later...
 
 
 ## Enviromental variables
@@ -89,7 +104,7 @@ POSTGRES_SSL=
 |--------|-------------|---------|------|
 | `/api/reset` available | false | true | true |
 | `logger` logs to console | false | true | false |
-| Sequelize logs sql-queries to console | true | true | false |
+| Sequelize logs sql-queries to console | false | true | false |
 | Umzug logs migrations to console | false | true | false |
 | Umzug allows reverting migrations | false | true | true |
 

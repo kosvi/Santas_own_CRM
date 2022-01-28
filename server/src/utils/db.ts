@@ -38,8 +38,10 @@ const parseDatabaseUrl = (dbUrl: string): DatabaseUrl => {
 // a bit unprofessional to leave stackoverflow-links to comments?
 // https://stackoverflow.com/questions/60014874/how-to-use-typescript-with-sequelize
 const databaseUrl: DatabaseUrl = parseDatabaseUrl(validateToString(DATABASE_URL));
+// check if postgres needs ssl-configuration
 const useSsl = POSTGRES_SSL ? { ssl: { require: true, rejectUnauthorized: false } } : {};
-const sequelizeLogging = NODE_ENV === 'test' ? { logging: false } : {};
+// log SQL-queries to console in develop-mode
+const sequelizeLogging = NODE_ENV === 'develop' ? {} : { logging: false };
 export const sequelize = new Sequelize({
   dialect: 'postgres',
   ...databaseUrl,

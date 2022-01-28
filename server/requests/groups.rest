@@ -1,0 +1,51 @@
+GET http://localhost:3000/api/groups
+
+
+###
+
+GET http://localhost:3000/api/groups/foo
+
+
+###
+
+GET http://localhost:3000/api/groups/bar
+
+###
+
+POST http://localhost:3000/api/groups
+Content-Type: application/json
+
+{
+  "name": "foo"
+}
+
+###
+
+POST http://localhost:3000/api/groups/4
+Content-Type: application/json
+
+{
+  "functionalityId": 2,
+  "read": false,
+  "write": false
+}
+
+###
+
+POST http://localhost:3000/api/groups
+Content-Type: application/json
+
+{
+  "foo": "bar"
+}
+
+###
+
+POST http://localhost:3000/api/groups/4
+Content-Type: application/json
+
+{
+  "functionalityId": 4,
+  "read": "false",
+  "write": false
+}

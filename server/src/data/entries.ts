@@ -1,6 +1,7 @@
-import { NewEntry } from '../types';
+import { EntryAttributes } from '../types';
+export type ResetEntry = Omit<EntryAttributes, 'id' | 'userId' | 'personId'>;
 
-export const entries: NewEntry[] = [
+export const entries: ResetEntry[] = [
   {
     niceness: 4,
     description: 'Took out the garbage'

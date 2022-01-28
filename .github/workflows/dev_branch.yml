@@ -11,6 +11,25 @@ on:
 jobs:
   test: 
     runs-on: ubuntu-20.04
+
+    # Tests need Postgres, documentation for Github Actions / Postgres
+    # https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: "santa"
+          POSTGRES_USER: "santa"
+          POSTGRES_PASSWORD: "password"
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -24,8 +43,8 @@ jobs:
       - name: test backend
         run: npm test --prefix server
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          POSTGRES_SSL: true
+          DATABASE_URL: "postgres://santa:password@localhost:5432/santa"
+#          POSTGRES_SSL: true
       # Install, lint and test frontend
       - name: install frontend
         run: npm install --prefix client
