@@ -124,8 +124,7 @@ describe('groups controller', () => {
     expect(rawResponse.body).toHaveProperty('error');
   });
 
-  // this needs to be fixed. Also in code!!
-  test.skip('adding permission fails gracefully if data is invalid', async () => {
+  test('adding permission fails gracefully if data is invalid', async () => {
     const responseWithInvalidGroupId = await api.post(`/api/groups/${NONEXISTENT_GROUP_ID}`).send({
       functionalityId: 1,
       read: true,

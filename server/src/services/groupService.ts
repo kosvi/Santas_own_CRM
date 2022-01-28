@@ -49,6 +49,8 @@ export const addGroup = async (group: GroupAttributes): Promise<GroupAttributes 
 
 export const addPermission = async (permission: PermissionAttributes): Promise<GroupAttributes> => {
   try {
+    // first check if a group exists with the groupId
+    await models.Group.findByPk(permission.groupId, { rejectOnEmpty: true });
     const newPermission = await models.Permission.create(permission);
     const group = await models.Group.findOne({
       where: { id: newPermission.groupId },

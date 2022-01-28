@@ -93,3 +93,16 @@ Extras:
 - Easier testing with docker-compose
 - Error handling to middleware
 - Jest collects coverage reports
+
+### Sprint 3 - authentication
+
+Goals:
+- add `/api/login`
+- add `/api/logout`
+- add middleware to handle authentication
+- fix controllers to check permissions
+
+| Date | Hours | Description |
+|------|-------|-------------|
+
+
