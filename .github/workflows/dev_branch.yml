@@ -11,6 +11,18 @@ on:
 jobs:
   test: 
     runs-on: ubuntu-20.04
+
+    # Tests need Postgres
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: "santa"
+          POSTGRES_USER: "santa"
+          POSTGRES_PASSWORD: "password"
+        ports:
+          - 5432:5432
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -24,8 +36,8 @@ jobs:
       - name: test backend
         run: npm test --prefix server
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          POSTGRES_SSL: true
+          DATABASE_URL: "postgres://santa:password@santas-test-db:5432/santa"
+#          POSTGRES_SSL: true
       # Install, lint and test frontend
       - name: install frontend
         run: npm install --prefix client
