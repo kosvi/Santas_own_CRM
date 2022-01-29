@@ -104,5 +104,7 @@ Goals:
 
 | Date | Hours | Description |
 |------|-------|-------------|
+|29.1.2022 | 3 | Mostly spend time working on login. Also improved pipeline, updated documentation and tweaked docker-compose -files |
 
-
+Extras:
+- Fixed Github Actions to use docker image of Postgres 

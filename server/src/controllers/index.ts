@@ -5,6 +5,7 @@ import groupRouter from './groups';
 import peopleRouter from './people';
 import itemRouter from './items';
 import entryRouter from './entries';
+import loginRouter from './login';
 
 export {
   resetRouter,
@@ -13,5 +14,6 @@ export {
   groupRouter,
   peopleRouter,
   itemRouter,
-  entryRouter
+  entryRouter,
+  loginRouter
 };

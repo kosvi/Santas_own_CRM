@@ -36,3 +36,8 @@
 |Description | URL |Method | Success | Possible errors|
 |[Get latest entries](API/entries.md#get-latest-entries)|`/api/entries` or `/api/entries/?limit=<number>`| GET | 200 | - |
 |[Add new entry](API/entries.md#add-new-entry)|`/api/entries`| POST | 201 | |
+
+## Login
+
+|Description | URL | Method | Success | Possible errors |
+|[Login](API/login.md#login)|`/api/login`|POST | 200 | 400, 401, 403, 500 |
