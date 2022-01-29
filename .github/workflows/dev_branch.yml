@@ -44,7 +44,6 @@ jobs:
         run: npm test --prefix server
         env:
           DATABASE_URL: "postgres://santa:password@localhost:5432/santa"
-#          POSTGRES_SSL: true
       # Install, lint and test frontend
       - name: install frontend
         run: npm install --prefix client
