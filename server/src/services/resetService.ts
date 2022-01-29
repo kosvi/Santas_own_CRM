@@ -6,7 +6,7 @@
  * In production environment this service could cause SEVERE HARM!
  */
 
-import Models from '../models';
+import models from '../models';
 import { logger } from '../utils/logger';
 import { users, groups, people, entries, items } from '../data';
 import { EntryAttributes, GroupAttributes, ItemAttributes, PersonAttributes, UserAttributes, WishAttributes } from '../types';
@@ -15,15 +15,15 @@ import { validateToNumber, validateToString } from '../utils/validators';
 
 // Reset all tables and make id's to start from 1 again
 export const resetDB = async () => {
-  await Models.Wish.sync({ force: true });
-  await Models.Entry.sync({ force: true });
-  await Models.Item.sync({ force: true });
-  await Models.Person.sync({ force: true });
-  await Models.Permission.sync({ force: true });
-  await Models.UserGroup.sync({ force: true });
-  await Models.Group.sync({ force: true });
-  await Models.User.sync({ force: true });
-  await Models.Session.sync({ force: true });
+  await models.User.sync({ force: true });
+  await models.Session.sync({ force: true });
+  await models.Group.sync({ force: true });
+  await models.Permission.sync({ force: true });
+  await models.UserGroup.sync({ force: true });
+  await models.Person.sync({ force: true });
+  await models.Item.sync({ force: true });
+  await models.Wish.sync({ force: true });
+  await models.Entry.sync({ force: true });
 };
 
 
@@ -48,7 +48,7 @@ export const addData = async (): Promise<boolean> => {
 
 const addUsers = async (): Promise<UserAttributes[]> => {
   try {
-    const createdUsers = await Models.User.bulkCreate(users);
+    const createdUsers = await models.User.bulkCreate(users);
     return createdUsers;
   } catch (error) {
     logError(error);
@@ -58,7 +58,7 @@ const addUsers = async (): Promise<UserAttributes[]> => {
 
 const addGroups = async (): Promise<GroupAttributes[]> => {
   try {
-    const createdGroups = await Models.Group.bulkCreate(groups);
+    const createdGroups = await models.Group.bulkCreate(groups);
     return createdGroups;
   } catch (error) {
     logError(error);
@@ -68,15 +68,20 @@ const addGroups = async (): Promise<GroupAttributes[]> => {
 
 const connectGroupsAndUsers = async () => {
   try {
-    const userSanta = await Models.User.findOne({ where: { username: 'santa' } });
-    const userAdmin = await Models.User.findOne({ where: { username: 'admin' } });
-    const groupSanta = await Models.Group.findOne({ where: { name: 'santa' } });
-    const groupAdmin = await Models.Group.findOne({ where: { name: 'admin' } });
+    const userSanta = await models.User.findOne({ where: { username: 'santa' } });
+    const userAdmin = await models.User.findOne({ where: { username: 'admin' } });
+    const userElf = await models.User.findOne({ where: { username: 'elf' } });
+    const groupSanta = await models.Group.findOne({ where: { name: 'santa' } });
+    const groupAdmin = await models.Group.findOne({ where: { name: 'admin' } });
+    const groupScout = await models.Group.findOne({ where: { name: 'scout' } });
     if (userSanta && groupSanta) {
-      await Models.UserGroup.create({ userId: validateToNumber(userSanta.id), groupId: validateToNumber(groupSanta.id) });
+      await models.UserGroup.create({ userId: validateToNumber(userSanta.id), groupId: validateToNumber(groupSanta.id) });
     }
     if (userAdmin && groupAdmin) {
-      await Models.UserGroup.create({ userId: validateToNumber(userAdmin.id), groupId: validateToNumber(groupAdmin.id) });
+      await models.UserGroup.create({ userId: validateToNumber(userAdmin.id), groupId: validateToNumber(groupAdmin.id) });
+    }
+    if (userElf && groupScout) {
+      await models.UserGroup.create({ userId: validateToNumber(userElf.id), groupId: validateToNumber(groupScout.id) });
     }
   } catch (error) {
     logError(error);
@@ -85,8 +90,8 @@ const connectGroupsAndUsers = async () => {
 
 const addPermissionsToAdmin = async () => {
   try {
-    const adminGroup = await Models.Group.findOne({ where: { name: 'admin' } });
-    const functionalities = await Models.Functionality.findAll();
+    const adminGroup = await models.Group.findOne({ where: { name: 'admin' } });
+    const functionalities = await models.Functionality.findAll();
     if (adminGroup && functionalities) {
       const permissionArray = functionalities.map(f => {
         return {
@@ -96,7 +101,7 @@ const addPermissionsToAdmin = async () => {
           write: true
         };
       });
-      await Models.Permission.bulkCreate(permissionArray);
+      await models.Permission.bulkCreate(permissionArray);
     }
   } catch (error) {
     logError(error);
@@ -105,7 +110,7 @@ const addPermissionsToAdmin = async () => {
 
 const addPeople = async (): Promise<PersonAttributes[]> => {
   try {
-    const peopleCreated = await Models.Person.bulkCreate(people);
+    const peopleCreated = await models.Person.bulkCreate(people);
     return peopleCreated;
   } catch (error) {
     logError(error);
@@ -115,7 +120,13 @@ const addPeople = async (): Promise<PersonAttributes[]> => {
 
 const addEntries = async (newUsers: UserAttributes[], newPeople: PersonAttributes[]): Promise<EntryAttributes[]> => {
   // Add all entries to first user in the user-table and first person in the people-table
-  const userId = validateToNumber(newUsers[0].id);
+  let userId: number;
+  // const userId = validateToNumber(newUsers[0].id);
+  newUsers.forEach(u => {
+    if (u.username === 'elf') {
+      userId = validateToNumber(u.id);
+    }
+  });
   const personId = validateToNumber(newPeople[0].id);
   // Remember that 'entries' is in the form of NewEntry and is missing foreign keys, 
   // let's add them first and then add them to database
@@ -127,7 +138,7 @@ const addEntries = async (newUsers: UserAttributes[], newPeople: PersonAttribute
     };
   });
   try {
-    const createdEntries = await Models.Entry.bulkCreate(newEntries);
+    const createdEntries = await models.Entry.bulkCreate(newEntries);
     return createdEntries;
   } catch (error) {
     logError(error);
@@ -137,7 +148,7 @@ const addEntries = async (newUsers: UserAttributes[], newPeople: PersonAttribute
 
 const addItems = async (): Promise<ItemAttributes[]> => {
   try {
-    const newItems = await Models.Item.bulkCreate(items);
+    const newItems = await models.Item.bulkCreate(items);
     return newItems;
   } catch (error) {
     logError(error);
@@ -150,15 +161,19 @@ const addWishes = async (people: PersonAttributes[], items: ItemAttributes[]) =>
     let wishes: WishAttributes[];
     wishes = [];
     people.forEach(p => {
+      let personHasItem = false;
       items.forEach(i => {
-        wishes = wishes.concat({
-          personId: validateToNumber(p.id),
-          itemId: validateToNumber(i.id),
-          description: 'I want it to be lovely!'
-        });
+        if (!personHasItem || Math.random() > 0.5) {
+          personHasItem = true;
+          wishes = wishes.concat({
+            personId: validateToNumber(p.id),
+            itemId: validateToNumber(i.id),
+            description: 'I want it to be lovely!'
+          });
+        }
       });
     });
-    await Models.Wish.bulkCreate(wishes);
+    await models.Wish.bulkCreate(wishes);
   } catch (error) {
     logError(error);
   }

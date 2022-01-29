@@ -10,25 +10,32 @@
 import express from 'express';
 import { addData, resetDB } from '../services/resetService';
 import { logger } from '../utils/logger';
-import { validateToString } from '../utils/validators';
 const router = express.Router();
 
 router.delete('/clear', (_req, res) => {
-  resetDB().catch((error) => console.log(error));
-  res.send('ok!');
+  resetDB().then(() => res.status(204).send()).catch((error) => logger.logError(error));
 });
 
 router.post('/populate', (_req, res) => {
-  addData().catch((error) => logError(error));
-  res.send('ok!');
+  addData().then(() => res.status(201).json({ msg: 'ok!' })).catch((error) => logger.logError(error));
 });
 
+// We should return 500 if we experience error.
+// This is a dev/test endpoint, we won't spend energy on handling errors...
 router.post('/full', (_req, res) => {
   resetDB().then(() => {
-    addData().catch((error) => logError(error));
+    addData().then(value => {
+      // addData return true on success, let's tell user when reset has been succesfull
+      value ? res.json({ msg: 'database re-populated' }) : res.status(500).json({ msg: 'error resetting database' });
+    }).catch((error) => {
+      logger.logError(error);
+      res.status(500).json({ error: 'database reset failed' });
+    });
   })
-    .catch((error) => logError(error));
-  res.send('ok');
+    .catch((error) => {
+      logger.logError(error);
+      res.status(500).json({ error: 'database reset failed' });
+    });
 });
 
 router.get('/', (_req, res) => {
@@ -45,17 +52,5 @@ router.get('/', (_req, res) => {
   </table>
   `);
 });
-
-const logError = (error: unknown) => {
-  if (error instanceof Error) {
-    logger.error(error.message);
-  } else {
-    try {
-      logger.error(validateToString(error));
-    } catch (err) {
-      console.error(err);
-    }
-  }
-};
 
 export default router;

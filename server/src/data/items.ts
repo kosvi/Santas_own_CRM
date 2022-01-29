@@ -6,5 +6,29 @@ export const items: ItemAttributes[] = [
   },
   {
     name: 'Toy car'
+  },
+  {
+    name: 'Chess'
+  },
+  {
+    name: 'Basketball'
+  },
+  {
+    name: 'Xbox'
+  },
+  {
+    name: 'Latest NHL'
+  },
+  {
+    name: 'Violin'
+  },
+  {
+    name: 't-shirt'
+  },
+  {
+    name: 'skates'
+  },
+  {
+    name: 'new pillow'
   }
 ];

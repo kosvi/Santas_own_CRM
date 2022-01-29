@@ -11,6 +11,23 @@ on:
 jobs:
   test: 
     runs-on: ubuntu-20.04
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: "santa"
+          POSTGRES_USER: "santa"
+          POSTGRES_PASSWORD: "password"
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
@@ -24,8 +41,7 @@ jobs:
       - name: test backend
         run: npm test --prefix server
         env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          POSTGRES_SSL: true
+          DATABASE_URL: "postgres://santa:password@localhost:5432/santa"
       # Install, lint and test frontend
       - name: install frontend
         run: npm install --prefix client
@@ -47,13 +63,12 @@ jobs:
         run: |
           cat << EOF > server/.env
           PORT=3000
-          DATABASE_URL=${{ secrets.DATABASE_URL }}
-          POSTGRES_SSL=true
+          DATABASE_URL=postgres://santa:password@localhost:5432/santa
           EOF
       - name: prepare frontend for building
         run: |
           cat << EOF > client/.env
-          REACT_APP_API_BASE=/api/
+          REACT_APP_API_BASE=/api
           EOF
       - name: build frontend
         run: | 
@@ -65,6 +80,7 @@ jobs:
           start: npm run dev --prefix ../server
           wait-on: http://localhost:3000
           working-directory: ./e2e
+
   deploy:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/release' }}
     runs-on: ubuntu-20.04
@@ -76,10 +92,8 @@ jobs:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: "glacial-shore-58496"
           heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          # appdir: "server"
           branch: "release"
           usedocker: true
-          # docker_heroku_process_type: web
           delay: 15
           healthcheck: "https://glacial-shore-58496.herokuapp.com/api/version/health"
           checkstring: "OK!"

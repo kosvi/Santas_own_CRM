@@ -1,7 +1,10 @@
 /*
- * This file cantains types needed to create new data-entries to database
+ * This file cantains types needed to reveice data trough rest-api
  */
 
-import { EntryAttributes } from '.';
-
-export type NewEntry = Omit<EntryAttributes, 'id' | 'userId' | 'personId'>;
+export interface NewEntry {
+  personId: number,
+  userId: number,
+  niceness: number,
+  description: string
+}

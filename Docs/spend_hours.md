@@ -46,8 +46,63 @@ Goals:
 | 17.1.2022 | 3 | Kept working on resetting the database, added some new data to populate with. Adjusted relational model and added some tests. Tweaks to pipeline. |
 |           | 1 | Cleaned some final marks of Cypress from backend. Added version controller and wrote some tests. | 
 | 18.1.2022 | 3 | Worked on to improve the pipeline, tweaked tests. Got reset for database to work the smart way instead of stupid way. All data is ready and we can populate database when ever we want to. | 
-| total    | 16 | |
+| sprint total    | 16 | |
+| project total | 40 | |
 
 Extras:
 - Extracted Cypress in it's own folder. Hopefully this will make deployments a bit faster. 
 - Added tests for `develop` branch
+
+### Sprint 2 - controllers (without permissions yet)
+
+Goals:
+- ~~Add controllers to backend to serve data from database~~
+- Add possibility to: 
+  - ~~add entries~~
+  - ~~add groups and permissions~~
+- ~~Update documentation to reflect the state of the project~~
+
+
+| Date | Hours | Description |
+|-----|------|--------------|
+| 18.1.2022 | 1 | Wrote `users` and `groups` routers to serve data from database. | 
+|           | 1 | Struggled to get a single test run against controller that uses database. Still going to need whole alot of work on that! |
+| 19.1.2022 | 1 | Re-organizing documentation |
+|           | 2 | Banged my head against the wall with TypeScript typing when trying to write integration tests to test data returned by Api. |
+|           | 1 | Added some stuff to groups controller, service and tests. Seems `fail()` can no longer be used in Jest. | 
+| 20.1.2022 | 1 | Worked on groups-endpoint, it's tests and tried to make docker-setup for simple test-running. | 
+|           | 1 | Worked on groups-endpoint, wrote some tests and made docker-compose-file to run tests in containers. |
+| 21.1.2022 | 2 | Continued work on groups-endpoint. Also wrote some tests (for test-helpers). Next we will need tests to ensure adding new permissions work as intended. | 
+| 22.1.2022 | 1 | Wrote middleware to handle errors on routes. | 
+|           | 2 | Wrote final tests for groups-controller and fixed situations where user tries to post invalid permissions to a group. |
+|           | 1 | Worked on `/api/users` (controller and service). It now allows searching by name. Also started working on tests for users-endpoint. Minor re-organizing of tests folder structure. |
+| 23.1.2022 | 1 | Worked on tests for the `/api/users`. |
+|           | 1 | Started working on `/api/people`, added controller, service and tests and first functionalities to them. |
+| 24.1.2022 | 1 | Worked on api-documentation. Wrote tests for boolean validator. | 
+|           | 1 | Found some problems from groups-endpoint while writing documentation. Added tests and fixed issues. Also wrote tests to reset-endpoint. Continued working on `/api/people`. | 
+|           | 1 | Spend quite some time reading Sequelize documentation about relations before finally figured out how they are implemented. Spend time working on `/api/people` |
+| 25.1.2022 | 2 | Spend time with people-endpoint: api-documentation, tests, controller, service | 
+|           | 2 | Work started with items-endpoint | 
+| 26.1.2022 | 2 | Finished items-endpoint, adjusted people-endpoint and minor tweaks to database reset & some additional edits. |
+| 27.1.2022 | 2 | Entries endpoint almost finished, some updates to documentation. API-documentation almost finished (for sprint 2) |
+| 28.1.2022 | 2 | Sprint more or less done. Found some issues on reset-service and fixes affected other services that now need minor fixes. |
+| sprint total | 29 | | 
+| project total | 69 | |
+
+Extras:
+- Easier testing with docker-compose
+- Error handling to middleware
+- Jest collects coverage reports
+
+### Sprint 3 - authentication
+
+Goals:
+- add `/api/login`
+- add `/api/logout`
+- add middleware to handle authentication
+- fix controllers to check permissions
+
+| Date | Hours | Description |
+|------|-------|-------------|
+
+
