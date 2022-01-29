@@ -1,0 +1,1 @@
+POST https://glacial-shore-58496.herokuapp.com/api/reset/full
