@@ -45,7 +45,8 @@ import {
   invalidEntryWithStringAsNiceness,
   invalidEntryWithNullAsDesc,
   invalidEntryUserIdAsUndefined,
-  invalidEntryWithInvalidUpdateDate
+  invalidEntryWithInvalidUpdateDate,
+  groupObjectWithPermissionMissingRead
 } from './data';
 import { toApiGroup, toApiUser, toApiPerson, toApiItem, toApiEntry } from './toApiObject';
 
@@ -72,6 +73,7 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiGroup(groupObjectWithInvalidDate); }).toThrow(Error);
     expect(() => { toApiGroup(groupObjectWithoutId); }).toThrow(Error);
     expect(() => { toApiGroup(groupObjectWithMissingPermission); }).toThrow(Error);
+    expect(() => { toApiGroup(groupObjectWithPermissionMissingRead); }).toThrow(Error);
     expect(() => { toApiGroup(groupObjectWithIncorrectPermission); }).toThrow(Error);
     // This should work and it should return an empty array as functionalities
     validGroupData = toApiGroup(groupObjectWithoutFunctionalities);

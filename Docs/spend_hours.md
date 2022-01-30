@@ -97,7 +97,7 @@ Extras:
 ### Sprint 3 - authentication
 
 Goals:
-- add `/api/login`
+- ~~add `/api/login`~~
 - add `/api/logout`
 - add middleware to handle authentication
 - fix controllers to check permissions
@@ -105,6 +105,7 @@ Goals:
 | Date | Hours | Description |
 |------|-------|-------------|
 |29.1.2022 | 3 | Mostly spend time working on login. Also improved pipeline, updated documentation and tweaked docker-compose -files |
+|30.1.2022 | 2 | Finished login and it's tests. Worked on middleware and tried to learn how to access properties of object typed as unknown. |
 
 Extras:
 - Fixed Github Actions to use docker image of Postgres 

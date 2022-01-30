@@ -5,16 +5,16 @@ import { logger } from '../utils/logger';
 import { ControllerError } from '../utils/customError';
 import { SECRET } from '../utils/config';
 import { validateToNumber } from '../utils/validators';
+import { AccessTokenContent } from '../types';
 
 export const login = async (loginObject: LoginObject) => {
-  let tokenContent: { username: string, name: string, id: number };
+  let tokenContent: AccessTokenContent;
   let token: string;
   try {
     const userFromDatabase = await models.User.findOne({
-      where: { username: loginObject.username },
-      rejectOnEmpty: true
+      where: { username: loginObject.username }
     });
-    if (userFromDatabase.password !== loginObject.password) {
+    if (!userFromDatabase || userFromDatabase.password !== loginObject.password) {
       // passwords don't match
       throw new ControllerError(401, 'invalid username or password');
     }
@@ -42,8 +42,7 @@ export const login = async (loginObject: LoginObject) => {
   if (token && tokenContent) {
     await models.Session.create({ userId: tokenContent.id, token: token });
     return {
-      id: tokenContent.id,
-      name: tokenContent.name,
+      ...tokenContent,
       token: token
     };
   }
