@@ -55,11 +55,10 @@ export const validateToBoolean = (value: unknown): boolean => {
   throw new Error('Value is not boolean');
 };
 
-export function validateToObject<T>(obj: unknown): obj is T {
+export function validateToObject<T>(obj: unknown, props: Array<string | number | symbol>): obj is T {
   if(!(obj instanceof Object)) {
     return false;
   }
-  const props = Array<keyof T>();
   for(let i=0;i<props.length;i++) {
     if(!Object.prototype.hasOwnProperty.call(obj, props[i])) {
       return false;
