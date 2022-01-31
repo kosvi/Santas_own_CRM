@@ -55,8 +55,7 @@ export const validateToBoolean = (value: unknown): boolean => {
   throw new Error('Value is not boolean');
 };
 
-/*
-export const validateToObject<T> = (obj: unknown): obj is T => {
+export function validateToObject<T>(obj: unknown): obj is T {
   if(!(obj instanceof Object)) {
     return false;
   }
@@ -68,7 +67,6 @@ export const validateToObject<T> = (obj: unknown): obj is T => {
   }
   return true;
 };
-*/
 
 /*
 export const validateAsToken = (token: unknown): AccessTokenContent => {
