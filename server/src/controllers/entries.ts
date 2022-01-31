@@ -1,16 +1,22 @@
 import express from 'express';
 import { addNewEntry, getLatestEntries } from '../services/entryService';
+import { RequestWithToken } from '../types';
 import { toNewEntry } from '../utils/apiValidators';
 import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
+import { authenticate } from '../utils/middleware';
 import { validateToString } from '../utils/validators';
 const router = express.Router();
+
+router.use(authenticate);
 
 /*
  * Default endpoint returns latest entries, 
  * limit is an optional argument that can be used to limit the amount of entries returned
  */
-router.get('/', (req, res, next) => {
+router.get('/', (req: RequestWithToken, res, next) => {
+  // eslint-disable-next-line no-console
+  console.log(req.decodedToken);
   let limit: string;
   if (req.query.limit) {
     limit = validateToString(req.query.limit);
