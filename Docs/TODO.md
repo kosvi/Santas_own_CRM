@@ -1,4 +1,4 @@
 # TODO
 
-- `/api/entries` controller/service/tests
-- write API-documentation
+- continue on middleware, we need to learn how to properly make sure object has an property
+- finish API-documentation

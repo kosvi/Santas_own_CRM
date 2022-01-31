@@ -91,13 +91,15 @@ PORT=
 NODE_ENV=
 DATABASE_URL=
 POSTGRES_SSL=
+SECRET=
 ```
 |Variable| Description | default |
 |--------|-------------|---------|
 |PORT    | Used to choose the port where the server binds. | 3001 |
 |NODE_ENV| Chooses what mode is used to run the server. Options: production \| develop \| test | production |
-|DATABASE_URL | Url where the database is accessible. Format: `postgres://<user>:<password>@<hostname>:<port>/<database>` | must be set |
+|DATABASE_URL | Url where the database is accessible. Format: `postgres://<user>:<password>@<hostname>:<port>/<database>` | **must be set** |
 |POSTGRES_SSL | If SSL is required to connect to database, set this to `true` | false |
+|SECRET | Used for signing JWT. | **must be set** |
 
 `NODE_ENV` differences:
 | feature | production | develop | test |

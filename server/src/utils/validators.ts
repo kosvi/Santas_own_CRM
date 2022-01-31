@@ -3,6 +3,8 @@
  * This file contains all sorts of validators that can be used to validate 'unknown' types to specific types. 
  */
 
+import { AccessTokenContent } from '../types';
+
 export const validateToString = (text: unknown): string => {
   if (text === '') {
     return '';
@@ -64,4 +66,22 @@ export const validateToObject<T> = (obj: unknown): obj is T => {
     }
   }
   return true;
+};
+
+export const validateAsToken = (token: unknown): AccessTokenContent => {
+  if (
+    Object.prototype.hasOwnProperty.call(token, 'id') &&
+    Object.prototype.hasOwnProperty.call(token, 'name') &&
+    Object.prototype.hasOwnProperty.call(token, 'username')
+  ) {
+    // Object has all the fields it is supposed to have
+    return {
+      id: validateToNumber(token.id),
+      name: validateToString(token.name),
+      username: validateToString(token.username)
+    };
+  } else {
+    // else we just throw an Error
+    throw new Error('Mandatory properties are missing');
+  }
 };

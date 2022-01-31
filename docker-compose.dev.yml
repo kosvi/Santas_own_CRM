@@ -48,6 +48,7 @@ services:
       PORT: 3001
       DATABASE_URL: "postgres://santa:password@santas-db:5432/santa"
       NODE_ENV: "develop"
+      SECRET: "my-secret-key"
     volumes:
       - ./server/:/usr/src/app
     container_name: santas-server
