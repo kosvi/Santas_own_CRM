@@ -3,7 +3,7 @@
  * This file contains all sorts of validators that can be used to validate 'unknown' types to specific types. 
  */
 
-import { AccessTokenContent } from '../types';
+// import { AccessTokenContent } from '../types';
 
 export const validateToString = (text: unknown): string => {
   if (text === '') {
@@ -55,6 +55,7 @@ export const validateToBoolean = (value: unknown): boolean => {
   throw new Error('Value is not boolean');
 };
 
+/*
 export const validateToObject<T> = (obj: unknown): obj is T => {
   if(!(obj instanceof Object)) {
     return false;
@@ -67,7 +68,9 @@ export const validateToObject<T> = (obj: unknown): obj is T => {
   }
   return true;
 };
+*/
 
+/*
 export const validateAsToken = (token: unknown): AccessTokenContent => {
   if (
     Object.prototype.hasOwnProperty.call(token, 'id') &&
@@ -85,3 +88,4 @@ export const validateAsToken = (token: unknown): AccessTokenContent => {
     throw new Error('Mandatory properties are missing');
   }
 };
+*/
