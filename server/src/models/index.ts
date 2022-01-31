@@ -26,6 +26,8 @@ Group.belongsToMany(User, { through: UserGroup });
 // Initialize relations between functionalities and groups
 Functionality.belongsToMany(Group, { through: Permission });
 Group.belongsToMany(Functionality, { through: Permission });
+Permission.belongsTo(Functionality);
+Functionality.hasMany(Permission);
 
 // Initialize relations between entries and users who wrote them and persons they describe
 User.hasMany(Entry);

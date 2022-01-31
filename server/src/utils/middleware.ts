@@ -4,7 +4,7 @@ import { SECRET } from './config';
 import { ControllerError } from './customError';
 import { logger } from './logger';
 import { validateToString, validateToObject } from './validators';
-import { AccessTokenContent, RequestWithToken, UserAttributes } from '../types';
+import { AccessTokenContent, RequestWithToken } from '../types';
 import models from '../models';
 
 export const errorHandler = (error: ControllerError | Error, _req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -24,7 +24,6 @@ export const errorHandler = (error: ControllerError | Error, _req: express.Reque
   next(error);
 };
 
-// export const authenticate = async (req: RequestWithToken, _res: express.Response, next: express.NextFunction) => {
 export const authenticate = (req: RequestWithToken, _res: express.Response, next: express.NextFunction) => {
   const auth = req.get('authorization');
   if (auth || validateToString(auth).toLowerCase().startsWith('bearer ')) {
@@ -34,26 +33,39 @@ export const authenticate = (req: RequestWithToken, _res: express.Response, next
       }
       const token = verify(validateToString(auth).substring(7), SECRET);
       // make sure we have all properties of AccessTokenContent in 'tokenProps' 
-      const tokenProps: Array<keyof AccessTokenContent> = ['id', 'name', 'username'];
+      const tokenProps: Array<keyof AccessTokenContent> = ['id', 'name', 'username', 'activeGroup'];
       // and then validate that token has all those properties
       if (validateToObject<AccessTokenContent>(token, tokenProps)) {
-        // fetch users information from database
-        const userFromDatabase = await models.User.findByPk(token.id);
-        const userProps: Array<keyof UserAttributes> = ['id', 'name', 'password', 'username', 'disabled'];
-        if (validateToObject<UserAttributes>(userFromDatabase, userProps)) {
-          // user has been found from database and is validated
-          if (userFromDatabase.disabled) {
-            // ...but it's disabled!
-            await models.Session.destroy({ where: { userId: token.id } });
-            throw new ControllerError(403, 'account disabled');
-          } else {
-            // token decoded, user is in database and is not disabled
-            req.decodedToken = token;
-          }
-        } else {
-          // user was not found from database or result didn't validate as UserAttributes
-          throw new ControllerError(403, 'user not found from database');
-        }
+        // fetch user information from database
+        models.User.findByPk(token.id)
+          .then(userFromDatabase => {
+            if (userFromDatabase) {
+              // user has been found from database
+              if (userFromDatabase?.getDataValue('disabled')) {
+                // ...but it's disabled!
+                models.Session.destroy({ where: { userId: token.id } })
+                  .then(() => {
+                    throw new ControllerError(403, 'account disabled');
+                  })
+                  .catch(error => {
+                    next(error);
+                  });
+              } else {
+                // token decoded, user is in database and is not disabled
+                req.decodedToken = token;
+              }
+            } else {
+              // user was not found from database or result didn't validate as UserAttributes
+              throw new ControllerError(403, 'user not found from database');
+            }
+          })
+          .catch(error => {
+            logger.logError(error);
+            if (error instanceof ControllerError) {
+              next(error);
+            }
+            next(new ControllerError(500, 'access to database failed'));
+          });
       }
     } catch (error) {
       if (error instanceof ControllerError) {
@@ -64,3 +76,22 @@ export const authenticate = (req: RequestWithToken, _res: express.Response, next
   }
   next();
 };
+
+/*
+THIS REALLY NEEDS FIXING!!!
+
+const getPermissionsOfGroup = async (id: number) => {
+  const permissions = await models.Permission.findAll({
+    where: { groupId: id },
+    include: {
+      model: models.Functionality
+    }
+  });
+  const cleanPermissionArray = permissions.map(p => {
+    if (validateToObject<PermissionWithFunctionality>(p, ['functionality', 'read', 'write'])) {
+      return { code: p.functionality.code, read: p.read, write: p.write };
+    }
+  });
+  return cleanPermissionArray;
+};
+*/

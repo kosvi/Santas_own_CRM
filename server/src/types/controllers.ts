@@ -1,10 +1,26 @@
 import express from 'express';
-import { GroupAttributes, UserAttributes, AccessTokenContent } from '.';
+import { AccessTokenContent } from '.';
 
-export interface UserWithGroups extends UserAttributes {
-  groups: GroupAttributes[]
+export interface PermissionWithFunctionality {
+  id: number,
+  groupId: number,
+  functionalityId: number,
+  read: boolean,
+  write: boolean,
+  functionality: {
+    id: number,
+    code: string,
+    name: string
+  }
+}
+
+export interface PermissionsInRequest {
+  code: string,
+  read: boolean,
+  write: boolean
 }
 
 export interface RequestWithToken extends express.Request {
-  decodedToken?: AccessTokenContent
+  decodedToken?: AccessTokenContent,
+  permissions?: Array<PermissionsInRequest>
 }

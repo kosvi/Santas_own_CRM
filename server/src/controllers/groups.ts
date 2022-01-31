@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { addGroup, addPermission, getAllGroupsWithPermissions, getSingleGroupWithPermissions } from '../services/groupService';
+import { addGroup, addPermission, getAllGroupsWithPermissions, getPermissionsOfGroup, getSingleGroupWithPermissions } from '../services/groupService';
 import { logger } from '../utils/logger';
 import { toNewGroup, toNewPermission } from '../utils/apiValidators';
 import { GroupAttributes, PermissionAttributes } from '../types';
@@ -11,6 +11,17 @@ router.get('/', (_req, res, next) => {
   getAllGroupsWithPermissions()
     .then(groups => {
       res.json(groups);
+    })
+    .catch(error => {
+      logger.logError(error);
+      next(error);
+    });
+});
+
+router.get('/foo', (_req, res, next) => {
+  getPermissionsOfGroup(1)
+    .then(result => {
+      res.json(result);
     })
     .catch(error => {
       logger.logError(error);

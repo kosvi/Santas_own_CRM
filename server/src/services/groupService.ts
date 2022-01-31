@@ -78,3 +78,17 @@ export const addPermission = async (permission: PermissionAttributes): Promise<G
     throw (error);
   }
 };
+
+/*
+REMOVE THIS AFTER GETTING THE FEATURE TO WORK!
+*/
+
+export const getPermissionsOfGroup = async (id: number) => {
+  const result = await models.Permission.findAll({
+    where: { groupId: id },
+    include: {
+      model: models.Functionality
+    }
+  });
+  return result;
+};
