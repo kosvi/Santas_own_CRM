@@ -51,14 +51,14 @@ describe('entries controller', () => {
   });
 
   test('amount of entries returned is limited by limit', async () => {
-    const response = await api.get('/api/entries/?limit=1').expect(200).expect('Content-Type', /application\/json/);
+    const response = await api.get('/api/entries/?limit=1').set('Authorization', `bearer ${userObj.token}`).expect(200).expect('Content-Type', /application\/json/);
     expect(response.body).toBeInstanceOf(Array);
     expect(response.body).toHaveLength(1);
   });
 
   // malformed or missing limit should revert to default limit
   test('Malformed limit returns 200', async () => {
-    const rawResult = await api.get('/api/entries/?limit=foo').expect(200).expect('Content-Type', /application\/json/);
+    const rawResult = await api.get('/api/entries/?limit=foo').set('Authorization', `bearer ${userObj.token}`).expect(200).expect('Content-Type', /application\/json/);
     expect(rawResult.body).toBeInstanceOf(Array);
     if (rawResult.body instanceof Array) {
       expect(rawResult.body.length).toBeGreaterThan(0);
@@ -72,7 +72,7 @@ describe('entries controller', () => {
       personId: 1,
       niceness: 10,
       description: 'Was really kind to old lady!'
-    }).expect(201).expect('Content-Type', /application\/json/);
+    }).set('Authorization', `bearer ${userObj.token}`).expect(201).expect('Content-Type', /application\/json/);
     // the result should be a valid entry object
     expect(() => { toApiEntry(resultFromPost.body); }).not.toThrow(Error);
     const postResultEntry = toApiEntry(resultFromPost.body);
@@ -80,7 +80,7 @@ describe('entries controller', () => {
     expect(postResultEntry.niceness).toBe(10);
     expect(postResultEntry.description).toBe('Was really kind to old lady!');
     // let's also check that the entry is returned as the latest entry
-    const resultFromGet = await api.get('/api/entries/?limit=1');
+    const resultFromGet = await api.get('/api/entries/?limit=1').set('Authorization', `bearer ${userObj.token}`);
     expect(resultFromGet.body).toBeInstanceOf(Array);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const getResultEntry = toApiEntry(resultFromGet.body[0]);
@@ -94,18 +94,18 @@ describe('entries controller', () => {
       personId: INVALID_PERSON_ID,
       niceness: 10,
       description: 'foobar'
-    }).expect(400).expect('Content-Type', /application\/json/);
+    }).set('Authorization', `bearer ${userObj.token}`).expect(400).expect('Content-Type', /application\/json/);
     expect(firstInvalidResult.body).toHaveProperty('error');
     const secondInvalidResult = await api.post('/api/entries').send({
       personId: 1,
       niceness: 'string',
       description: ''
-    }).expect(400);
+    }).set('Authorization', `bearer ${userObj.token}`).expect(400);
     expect(secondInvalidResult.body).toHaveProperty('error');
     const thirdInvalidResult = await api.post('/api/entries').send({
       personId: 1,
       niceness: 10
-    }).expect(400);
+    }).set('Authorization', `bearer ${userObj.token}`).expect(400);
     expect(thirdInvalidResult.body).toHaveProperty('error');
   });
 

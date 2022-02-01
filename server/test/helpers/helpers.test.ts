@@ -14,6 +14,8 @@ import {
   apiUserWithoutId,
   apiUserWithoutName,
   apiUserWithoutUsername,
+  apiUserWithNonArrayGroups,
+  apiUserWithMalformedGroup,
   groupObjectWithIncorrectPermission,
   groupObjectWithInvalidDate,
   groupObjectWithInvalidName,
@@ -100,6 +102,8 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiUser(apiUserWithInvalidDisabled); }).toThrow(Error);
     expect(() => { toApiUser(apiUserWithInvalidDate); }).toThrow(Error);
     expect(() => { toApiUser(apiUserWithNonArrayGroup); }).toThrow(Error);
+    expect(() => { toApiUser(apiUserWithNonArrayGroups); }).toThrow(Error);
+    expect(() => { toApiUser(apiUserWithMalformedGroup); }).toThrow(Error);
     // also trying to parse the Array should fail
     expect(() => { toApiUser(validUserDataWithGroups); }).toThrow(Error);
   });

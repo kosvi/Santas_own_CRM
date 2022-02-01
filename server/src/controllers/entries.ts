@@ -16,7 +16,6 @@ const router = express.Router();
  */
 router.get('/', authenticate, (req: RequestWithToken, res, next) => {
   // eslint-disable-next-line no-console
-  console.log(req.decodedToken);
   let limit: string;
   if (req.query.limit) {
     limit = validateToString(req.query.limit);
@@ -34,8 +33,7 @@ router.get('/', authenticate, (req: RequestWithToken, res, next) => {
     });
 });
 
-router.post('/', (req: RequestWithToken, res, next) => {
-  console.log(req.permissions);
+router.post('/', authenticate, (req: RequestWithToken, res, next) => {
   // we will get userId from middleware later on, for now we hardcode
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
