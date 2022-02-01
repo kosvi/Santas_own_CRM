@@ -22,11 +22,21 @@ export const errorHandler = (error: ControllerError | Error, _req: express.Reque
   if (error.name === 'SequelizeDatabaseError') {
     res.status(500).json({ error: `${error.message}: ${error.name}` });
   }
+  if (error.name === 'UnhandledPromiseRejectionWarning') {
+    res.status(500).json({ error: 'coder didn\´t catch errors properly!' });
+  }
+  res.status(500).json({ error: 'whaaat?!?!' });
   next(error);
 };
 
-export const authenticate = (req: RequestWithToken, _res: express.Response, next: express.NextFunction) => {
+export const authenticate = async (req: RequestWithToken, _res: express.Response, next: express.NextFunction) => {
+  await models.User.findAll();
   const auth = req.get('authorization');
+  try {
+    validateToString(auth);
+  } catch(error) {
+    next(error);
+  }
   if (auth || validateToString(auth).toLowerCase().startsWith('bearer ')) {
     try {
       if (!SECRET) {

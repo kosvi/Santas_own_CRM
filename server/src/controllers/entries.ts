@@ -8,13 +8,13 @@ import { authenticate } from '../utils/middleware';
 import { validateToString } from '../utils/validators';
 const router = express.Router();
 
-router.use(authenticate);
+// router.use(authenticate);
 
 /*
  * Default endpoint returns latest entries, 
  * limit is an optional argument that can be used to limit the amount of entries returned
  */
-router.get('/', (req: RequestWithToken, res, next) => {
+router.get('/', authenticate, (req: RequestWithToken, res, next) => {
   // eslint-disable-next-line no-console
   console.log(req.decodedToken);
   let limit: string;
@@ -34,7 +34,8 @@ router.get('/', (req: RequestWithToken, res, next) => {
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', (req: RequestWithToken, res, next) => {
+  console.log(req.permissions);
   // we will get userId from middleware later on, for now we hardcode
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
