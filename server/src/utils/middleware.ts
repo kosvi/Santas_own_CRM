@@ -5,7 +5,7 @@ import { ControllerError } from './customError';
 import { logger } from './logger';
 import { toPermissionsWithFunctionality } from './apiValidators';
 import { validateToString, validateToObject } from './validators';
-import { AccessTokenContent, RequestWithToken } from '../types';
+import { AccessTokenContent, PermissionsInRequest, RequestWithToken } from '../types';
 import models from '../models';
 
 export const errorHandler = (error: ControllerError | Error, _req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -22,7 +22,6 @@ export const errorHandler = (error: ControllerError | Error, _req: express.Reque
   if (error.name === 'SequelizeDatabaseError') {
     res.status(500).json({ error: `${error.message}: ${error.name}` });
   }
-  // res.status(500).json({ error: 'whaaat?!?!' });
   next(error);
 };
 
@@ -31,7 +30,7 @@ export const authenticate = async (req: RequestWithToken, _res: express.Response
   // See if auth has been set 
   try {
     validateToString(auth);
-  } catch(error) {
+  } catch (error) {
     next(new ControllerError(401, 'invalid token'));
     return;
   }
@@ -47,24 +46,24 @@ export const authenticate = async (req: RequestWithToken, _res: express.Response
       // and then validate that token has all those properties
       if (validateToObject<AccessTokenContent>(token, tokenProps)) {
         // fetch user information from database
-        const userFromDatabase = await models.User.findByPk(token.id)
-            if (userFromDatabase) {
-              // user has been found from database
-              if (userFromDatabase?.getDataValue('disabled')) {
-                // ...but it's disabled!
-                await models.Session.destroy({ where: { userId: token.id } })
-                throw new ControllerError(403, 'account disabled');
-              } else {
-                // token decoded, user is in database and is not disabled
-                req.decodedToken = token;
-		// let's add also permissions of chosen group
-		const permissions = await getPermissionsOfGroup(token.activeGroup)
-                req.permissions = permissions;
-              }
-            } else {
-              // user was not found from database or result didn't validate as UserAttributes
-              throw new ControllerError(403, 'user not found from database');
-            }
+        const userFromDatabase = await models.User.findByPk(token.id);
+        if (userFromDatabase) {
+          // user has been found from database
+          if (userFromDatabase?.getDataValue('disabled')) {
+            // ...but it's disabled!
+            await models.Session.destroy({ where: { userId: token.id } });
+            throw new ControllerError(403, 'account disabled');
+          } else {
+            // token decoded, user is in database and is not disabled
+            req.decodedToken = token;
+            // let's add also permissions of chosen group
+            const permissions = await getPermissionsOfGroup(token.activeGroup);
+            req.permissions = permissions;
+          }
+        } else {
+          // user was not found from database or result didn't validate as UserAttributes
+          throw new ControllerError(403, 'user not found from database');
+        }
       } else {
         next(new ControllerError(403, 'Malformed token'));
       }
@@ -78,7 +77,7 @@ export const authenticate = async (req: RequestWithToken, _res: express.Response
   next();
 };
 
-const getPermissionsOfGroup = async (id: number) => {
+const getPermissionsOfGroup = async (id: number): Promise<PermissionsInRequest[]> => {
   const permissionsFromDatabase = await models.Permission.findAll({
     where: { groupId: id },
     attributes: { exclude: ['id', 'groupId', 'functionalityId'] },
@@ -88,13 +87,13 @@ const getPermissionsOfGroup = async (id: number) => {
     }
   });
   // This must be really nasty again
-  if(permissionsFromDatabase instanceof Array && permissionsFromDatabase.length>0) {
+  if (permissionsFromDatabase instanceof Array && permissionsFromDatabase.length > 0) {
     const rawPermissions = toPermissionsWithFunctionality(permissionsFromDatabase);
     const permissions = rawPermissions.map(rp => {
       return { code: rp.functionality.code, read: rp.read, write: rp.write };
     });
     return permissions;
-  } 
+  }
   return [];
 };
 

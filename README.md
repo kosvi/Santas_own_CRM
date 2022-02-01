@@ -110,6 +110,8 @@ SECRET=
 | Umzug logs migrations to console | false | true | false |
 | Umzug allows reverting migrations | false | true | true |
 
+Check [Api documentation](Docs/API/reset.md) for `/api/reset` for more information. It will give more information about default data that can be used for writing tests etc. 
+
 **client:**
 
 .env

@@ -2,19 +2,32 @@ import express from 'express';
 import { addNewEntry, getLatestEntries } from '../services/entryService';
 import { RequestWithToken } from '../types';
 import { toNewEntry } from '../utils/apiValidators';
+import { checkPermission } from '../utils/checkPermission';
 import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
 import { authenticate } from '../utils/middleware';
 import { validateToString } from '../utils/validators';
 const router = express.Router();
 
-// router.use(authenticate);
+// This router needs permission from user - anonymous use is not allowed
+router.use(authenticate);
 
 /*
  * Default endpoint returns latest entries, 
  * limit is an optional argument that can be used to limit the amount of entries returned
  */
-router.get('/', authenticate, (req: RequestWithToken, res, next) => {
+router.get('/', (req: RequestWithToken, res, next) => {
+  // first check to make sure that permissions are set
+  if (!req.permissions) {
+    next(new ControllerError(403, 'no permissions set'));
+    return;
+  }
+  const permission = checkPermission('entries', req.permissions);
+  // this route required read-permissions
+  if (!permission.read) {
+    next(new ControllerError(403, 'no permission to access this data'));
+    return;
+  }
   // eslint-disable-next-line no-console
   let limit: string;
   if (req.query.limit) {
@@ -33,7 +46,18 @@ router.get('/', authenticate, (req: RequestWithToken, res, next) => {
     });
 });
 
-router.post('/', authenticate, (req: RequestWithToken, res, next) => {
+router.post('/', (req: RequestWithToken, res, next) => {
+  // first check to make sure that permissions are set
+  if (!req.permissions) {
+    next(new ControllerError(403, 'no permissions set'));
+    return;
+  }
+  const permission = checkPermission('entries', req.permissions);
+  // this route required write-permissions
+  if (!permission.write) {
+    next(new ControllerError(403, 'no permission to access this data'));
+    return;
+  }
   // we will get userId from middleware later on, for now we hardcode
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
