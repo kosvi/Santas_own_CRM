@@ -4,7 +4,7 @@ import { connectionToDatabase, sequelize } from '../../src/utils/db';
 import { toApiUser } from '../helpers/toApiObject/toApiUser';
 const api = supertest(app);
 
-const NUMBER_OF_DEFAULT_USERS = 4;
+const NUMBER_OF_DEFAULT_USERS = 5;
 const NONEXISTING_USER_ID = 1000000;
 
 beforeAll(async () => {

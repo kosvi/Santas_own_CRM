@@ -7,7 +7,7 @@ import app from '../../src/app';
 import supertest from 'supertest';
 const api = supertest(app);
 
-const NUMBER_OF_DEFAULT_USERS = 4;
+const NUMBER_OF_DEFAULT_USERS = 5;
 
 beforeAll(async () => {
   await connectionToDatabase();

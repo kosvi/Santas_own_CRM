@@ -109,6 +109,7 @@ Goals:
 |31.1.2022 | 4 | Spend ALOT of time figuring out how to validate objects. Spend ALOT of time wondering how to access data returned by database requests. Spend ALOT of time figuring out how to async-await in the code. phew... not going to write typescript in any time soon after this project...|
 |1.2.2022 | 1 | Insane work on middleware and trying to get permissions added to requests | 
 |         | 1 | Worked with middleware. Permissions will become a problem in case the user is in multiple groups... |
+|         | 2 | Entries endpoint now checks users permissions. Also wrote some tests and fixed code where tests started to fail after all the changes to code. |
 
 Extras:
 - Fixed Github Actions to use docker image of Postgres 

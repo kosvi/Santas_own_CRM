@@ -100,7 +100,7 @@ export const apiUserWithNonArrayGroups = {
     id: 1,
     name: 'name'
   }
-}
+};
 
 export const apiUserWithMalformedGroup = {
   id: 2,

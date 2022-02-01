@@ -16,12 +16,14 @@ export const errorHandler = (error: ControllerError | Error, _req: express.Reque
   if (error.name === 'SequelizeUniqueConstraintError') {
     res.status(403).json({ error: `${error.message}: ${error.name}` });
   }
+  /*
   if (error.name === 'SequelizeValidationError') {
     res.status(400).json({ error: `${error.message}: ${error.name}` });
   }
   if (error.name === 'SequelizeDatabaseError') {
     res.status(500).json({ error: `${error.message}: ${error.name}` });
   }
+  */
   next(error);
 };
 
