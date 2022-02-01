@@ -86,8 +86,10 @@ REMOVE THIS AFTER GETTING THE FEATURE TO WORK!
 export const getPermissionsOfGroup = async (id: number) => {
   const result = await models.Permission.findAll({
     where: { groupId: id },
+    attributes: { exclude: ['id', 'groupId', 'functionalityId'] },
     include: {
-      model: models.Functionality
+      model: models.Functionality,
+      attributes: { exclude: ['id', 'name'] }
     }
   });
   return result;

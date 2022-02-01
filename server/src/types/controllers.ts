@@ -2,15 +2,10 @@ import express from 'express';
 import { AccessTokenContent } from '.';
 
 export interface PermissionWithFunctionality {
-  id: number,
-  groupId: number,
-  functionalityId: number,
   read: boolean,
   write: boolean,
   functionality: {
-    id: number,
     code: string,
-    name: string
   }
 }
 

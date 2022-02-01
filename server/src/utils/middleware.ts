@@ -3,6 +3,7 @@ import { verify } from 'jsonwebtoken';
 import { SECRET } from './config';
 import { ControllerError } from './customError';
 import { logger } from './logger';
+import { toPermissionsWithFunctionality } from './apiValidators';
 import { validateToString, validateToObject } from './validators';
 import { AccessTokenContent, RequestWithToken } from '../types';
 import models from '../models';
@@ -53,6 +54,14 @@ export const authenticate = (req: RequestWithToken, _res: express.Response, next
               } else {
                 // token decoded, user is in database and is not disabled
                 req.decodedToken = token;
+		// let's add also permissions of chosen group
+		getPermissionsOfGroup(token.activeGroup)
+		.then(permissions => {
+		  req.permissions = permissions;
+		})
+		.catch(error => {
+		  next(error);
+		});
               }
             } else {
               // user was not found from database or result didn't validate as UserAttributes
@@ -69,29 +78,31 @@ export const authenticate = (req: RequestWithToken, _res: express.Response, next
       }
     } catch (error) {
       if (error instanceof ControllerError) {
-        throw error;
+        next(error);
       }
-      throw new ControllerError(403, 'Malformed token');
+      next(new ControllerError(403, 'Malformed token'));
     }
   }
   next();
 };
 
-/*
-THIS REALLY NEEDS FIXING!!!
-
 const getPermissionsOfGroup = async (id: number) => {
-  const permissions = await models.Permission.findAll({
+  const permissionsFromDatabase = await models.Permission.findAll({
     where: { groupId: id },
+    attributes: { exclude: ['id', 'groupId', 'functionalityId'] },
     include: {
-      model: models.Functionality
+      model: models.Functionality,
+      attributes: { exclude: ['id', 'name'] }
     }
   });
-  const cleanPermissionArray = permissions.map(p => {
-    if (validateToObject<PermissionWithFunctionality>(p, ['functionality', 'read', 'write'])) {
-      return { code: p.functionality.code, read: p.read, write: p.write };
-    }
-  });
-  return cleanPermissionArray;
+  // This must be really nasty again
+  if(permissionsFromDatabase instanceof Array && permissionsFromDatabase.length>0) {
+    const rawPermissions = toPermissionsWithFunctionality(permissionsFromDatabase);
+    const permissions = rawPermissions.map(rp => {
+      return { code: rp.functionality.code, read: rp.read, write: rp.write };
+    });
+    return permissions;
+  } 
+  return [];
 };
-*/
+
