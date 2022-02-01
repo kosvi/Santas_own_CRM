@@ -1,13 +1,26 @@
 import { connectionToDatabase, sequelize } from '../../src/utils/db';
 import app from '../../src/app';
 import supertest from 'supertest';
-import { toApiEntry } from '../helpers/toApiObject';
+import { toApiEntry, toLoginResult } from '../helpers/toApiObject';
 const api = supertest(app);
 
 const INVALID_PERSON_ID = 100000;
 
+const userObj = {
+  username: 'admin',
+  password: 'password',
+  id: 0,
+  token: ''
+};
+
 beforeAll(async () => {
   await connectionToDatabase();
+  await api.post('/api/reset/full');
+  // let's get admin token before rest of the tests
+  const response = await api.post('/api/login').send({username: userObj.username, password: userObj.password });
+  const loginResult = toLoginResult(response.body);
+  userObj.id = loginResult.id;
+  userObj.token = loginResult.token;
 });
 
 describe('entries controller', () => {
@@ -22,8 +35,8 @@ describe('entries controller', () => {
       personId: 1,
       niceness: 10,
       description: 'Was really kind to old lady!'
-    }).expect(201).expect('Content-Type', /application\/json/);
-    const response = await api.get('/api/entries').expect(200).expect('Content-Type', /application\/json/);
+    }).set('Authorization', `bearer ${userObj.token}`).expect(201).expect('Content-Type', /application\/json/);
+    const response = await api.get('/api/entries').set('Authorization', `bearer ${userObj.token}`).expect(200).expect('Content-Type', /application\/json/);
     expect(response.body).toBeInstanceOf(Array);
     if (response.body instanceof Array && response.body.length > 1) {
       // make sure latest entry has bigger timestamp compared to second timestamp

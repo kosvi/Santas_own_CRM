@@ -44,7 +44,7 @@ export const toPermissionsWithFunctionality = (data: unknown): Array<PermissionW
     return permissionArray;
   }
   return [];
-}
+};
 
 type PermissionFields = { read: unknown, write: unknown, functionality: unknown };
 const toPermissionWithFunctionalityObject = ({read, write, functionality}:PermissionFields): PermissionWithFunctionality => {

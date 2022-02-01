@@ -57,10 +57,10 @@ export const authenticate = (req: RequestWithToken, _res: express.Response, next
 		// let's add also permissions of chosen group
 		getPermissionsOfGroup(token.activeGroup)
 		.then(permissions => {
-		  req.permissions = permissions;
+                  req.permissions = permissions;
 		})
 		.catch(error => {
-		  next(error);
+                  next(error);
 		});
               }
             } else {
