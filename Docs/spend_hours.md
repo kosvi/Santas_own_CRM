@@ -99,7 +99,7 @@ Extras:
 Goals:
 - ~~add `/api/login`~~
 - add `/api/logout`
-- add middleware to handle authentication
+- ~~add middleware to handle authentication~~
 - fix controllers to check permissions
 
 | Date | Hours | Description |
