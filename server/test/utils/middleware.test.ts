@@ -67,11 +67,6 @@ describe('test authenticate from middleware', () => {
     expect(accessResponse.body).toHaveProperty('error');
   });
 
-  test('login fails with disabled account', async () => {
-    const loginResponse = await api.post('/api/login').send({ username: 'mickey', password: 'mouse' }).expect(403).expect('Content-Type', /application\/json/);
-    expect(loginResponse).toHaveProperty('error');
-  });
-
 });
 
 afterAll(async () => {
