@@ -30,9 +30,9 @@ beforeAll(async () => {
 
 describe('test authenticate from middleware', () => {
 
-  test('invalid token gives proper error and 403', async () => {
+  test('invalid token gives 401', async () => {
     const response = await api.get('/api/entries')
-      .set('Authorization', `bearer ${adminObj.token}foo`).expect(403).expect('Content-Type', /application\/json/);
+      .set('Authorization', `bearer ${adminObj.token}foo`).expect(401).expect('Content-Type', /application\/json/);
     expect(response.body).toHaveProperty('error');
   });
 

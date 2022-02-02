@@ -15,18 +15,17 @@ const userObj = {
 
 beforeAll(async () => {
   await connectionToDatabase();
-  await api.post('/api/reset/full');
-  // let's get admin token before rest of the tests
-  const response = await api.post('/api/login').send({username: userObj.username, password: userObj.password });
-  const loginResult = toLoginResult(response.body);
-  userObj.id = loginResult.id;
-  userObj.token = loginResult.token;
 });
 
 describe('entries controller', () => {
 
   beforeEach(async () => {
     await api.post('/api/reset/full');
+    // let's get admin token before test -> admin has read/write to all endpoint
+    const response = await api.post('/api/login').send({username: userObj.username, password: userObj.password });
+    const loginResult = toLoginResult(response.body);
+    userObj.id = loginResult.id;
+    userObj.token = loginResult.token;
   });
 
   test('entries are ordered by updatedAt DESC', async () => {
@@ -67,7 +66,7 @@ describe('entries controller', () => {
     }
   });
 
-  test('new entry can be posted', async () => {
+  test('new entry can be posted with write permission', async () => {
     const resultFromPost = await api.post('/api/entries').send({
       personId: 1,
       niceness: 10,
@@ -87,6 +86,16 @@ describe('entries controller', () => {
     expect(getResultEntry.personId).toBe(1);
     expect(getResultEntry.niceness).toBe(10);
     expect(getResultEntry.description).toBe('Was really kind to old lady!');
+  });
+
+  test('new entry can not be posted without write permission', async () => {
+    // elf has no permissions for anything - false for read/write
+    const loginResponse = await api.post('/api/login').send({
+      username: 'elf',
+      password: 'elf'
+    }).expect(200);
+    const loginResult = toLoginResult(loginResponse.body);
+    expect(loginResult.username).toBe('elf');
   });
 
   test('invalid entry returns proper status codes', async () => {

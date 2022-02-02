@@ -39,10 +39,17 @@ export const authenticate = async (req: RequestWithToken, _res: express.Response
   // ok, there is something, let's validate the token if set
   if (validateToString(auth).toLowerCase().startsWith('bearer ')) {
     try {
+      const tokenString = validateToString(auth).substring(7);
+      // make sure token is in database
+      const tokenFromDatabase = await models.Session.findOne({where: {token: tokenString}});
+      if(!tokenFromDatabase) {
+	// token is not stored in database -> no access
+	throw new ControllerError(401, 'token expired');
+      }
       if (!SECRET) {
         throw new ControllerError(500, 'Can\'t verify tokens');
       }
-      const token = verify(validateToString(auth).substring(7), SECRET);
+      const token = verify(tokenString, SECRET);
       // make sure we have all properties of AccessTokenContent in 'tokenProps' 
       const tokenProps: Array<keyof AccessTokenContent> = ['id', 'name', 'username', 'activeGroup'];
       // and then validate that token has all those properties
