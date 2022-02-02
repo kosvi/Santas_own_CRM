@@ -34,7 +34,7 @@ Permissions are set same for ALL endpoints
 **People**
 
 Every person has minimum of 1 item in wishlist and maximum of 10 wishes (all default items). Wishes are randomized. 
-All wishes have the same description: 'I want it to be lovely!'
+All wishes have the same description: "I want it to be lovely!"
 
 |Name | Birthdate | Address |
 |-----|-----------|---------|
