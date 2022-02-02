@@ -20,7 +20,7 @@
 ## People
 
 |Description | URL | Method | Functionality |Access | Success | Possible errors |
-|------------|-----|--------|---------|------|-------|-----------|-----------|
+|------------|-----|--------|---------------|-------|---------|-----------|
 |[GET /api/people](API/people.md#get-base)|`/api/people`|GET | people |read | - | 400 |
 |[Search people by name](API/people.md#search-people-by-name) | `/api/people/?name=<key>?` | GET | people |read | 200 | - |
 |[Display single person with wishes](API/people.md#display-single-person-with-wishes) | `/api/people/:id` | GET | people |read | 200 | 400, 404, 500(?) |
@@ -28,7 +28,7 @@
 ## Items
 
 |Description|URL |Method | Functionality | Access | Success | Possible errors |
-|-----------|----|-------|---------|-----------------|-----------|
+|-----------|----|-------|---------------|--------|---------|-----------|
 |[List items by popularity](API/items.md#list-items-by-popularity)|`/api/items` or `/api/items/?limit=<number>`|GET | wishes_and_items |read | 200 | 400 |
 
 ## Entries
