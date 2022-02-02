@@ -1,7 +1,7 @@
 import { connectionToDatabase, sequelize } from '../../src/utils/db';
 import app from '../../src/app';
 import supertest from 'supertest';
-import { toApiEntry, toLoginResult } from '../helpers/toApiObject';
+import { toApiEntry, toLoginResult, toApiError } from '../helpers/toApiObject';
 const api = supertest(app);
 
 const INVALID_PERSON_ID = 100000;
@@ -95,7 +95,14 @@ describe('entries controller', () => {
       password: 'elf'
     }).expect(200);
     const loginResult = toLoginResult(loginResponse.body);
-    expect(loginResult.username).toBe('elf');
+    const response = await api.post('/api/entries').send({
+      personId: 1,
+      niceness: 10,
+      description: 'Was really kind to old lady!'
+    }).set('Authorization', `bearer ${loginResult.token}`).expect(403).expect('Content-Type', /application\/json/);
+    expect(response.body).toHaveProperty('error');
+    const apiError = toApiError(response.body);
+    expect(apiError.error).toBe('no permission to access this data');
   });
 
   test('invalid entry returns proper status codes', async () => {

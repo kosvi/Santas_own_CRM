@@ -48,9 +48,13 @@ import {
   invalidEntryWithNullAsDesc,
   invalidEntryUserIdAsUndefined,
   invalidEntryWithInvalidUpdateDate,
-  groupObjectWithPermissionMissingRead
+  groupObjectWithPermissionMissingRead,
+  validError,
+  invalidErrorMissingError,
+  invalidErrorWithBooleanError,
+  invalidErrorWithUndefinedError
 } from './data';
-import { toApiGroup, toApiUser, toApiPerson, toApiItem, toApiEntry } from './toApiObject';
+import { toApiGroup, toApiUser, toApiPerson, toApiItem, toApiEntry, toApiError } from './toApiObject';
 
 
 
@@ -161,6 +165,15 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiEntry(invalidEntryWithInvalidUpdateDate); }).toThrow(Error);
     // also giving the whole array should throw error
     expect(() => { toApiEntry(validEntryArray); }).toThrow(Error);
+  });
+
+  test('toApiError tests', () => {
+    const validErrorData = toApiError(validError);
+    expect(validErrorData.error).toBe('string');
+    // these should fail
+    expect(() => { toApiError(invalidErrorMissingError); }).toThrow(Error);
+    expect(() => { toApiError(invalidErrorWithBooleanError); }).toThrow(Error);
+    expect(() => { toApiError(invalidErrorWithUndefinedError); }).toThrow(Error);
   });
 
 });
