@@ -22,7 +22,7 @@ describe('entries controller', () => {
   beforeEach(async () => {
     await api.post('/api/reset/full');
     // let's get admin token before test -> admin has read/write to all endpoint
-    const response = await api.post('/api/login').send({username: userObj.username, password: userObj.password });
+    const response = await api.post('/api/login').send({ username: userObj.username, password: userObj.password });
     const loginResult = toLoginResult(response.body);
     userObj.id = loginResult.id;
     userObj.token = loginResult.token;
@@ -88,7 +88,7 @@ describe('entries controller', () => {
     expect(getResultEntry.description).toBe('Was really kind to old lady!');
   });
 
-  test('new entry can not be posted without write permission', async () => {
+  test('new entry can not be posted with write permission set false', async () => {
     // elf has no permissions for anything - false for read/write
     const loginResponse = await api.post('/api/login').send({
       username: 'elf',
@@ -103,6 +103,21 @@ describe('entries controller', () => {
     expect(response.body).toHaveProperty('error');
     const apiError = toApiError(response.body);
     expect(apiError.error).toBe('no permission to access this data');
+  });
+
+  test('new entry can not be posted with no permission set at all', async () => {
+    const loginResponse = await api.post('/api/login').send({
+      username: 'nobody',
+      password: 'nobody'
+    }).expect(200);
+    const loginResult = toLoginResult(loginResponse.body);
+    const response = await api.post('/api/entries').send({
+      personId: 1,
+      niceness: 10,
+      description: 'Was really kind to old lady!'
+    }).set('Authorization', `bearer ${loginResult.token}`).expect(403).expect('Content-Type', /application\/json/);
+    const apiError = toApiError(response.body);
+    expect(apiError.error).toBe('no permissions set');
   });
 
   test('invalid entry returns proper status codes', async () => {

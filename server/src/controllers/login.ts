@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import express from 'express';
 import { login } from '../services/loginService';
 import { LoginObject, toNewLoginObject } from '../utils/apiValidators';
@@ -26,7 +25,6 @@ router.post('/', (req, res, next) => {
         if (result) {
           res.json(result);
         } else {
-          console.error('error');
           throw new ControllerError(500, 'login failed for unknown reason');
         }
       })

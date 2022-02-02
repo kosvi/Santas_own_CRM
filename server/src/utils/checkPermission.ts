@@ -1,8 +1,30 @@
 import { PermissionsInRequest } from '../types';
+import { ControllerError } from './customError';
 
 type PermissionType = 'users' | 'permissions' | 'people' | 'wishes_and_items' | 'entries';
 
-export const checkPermission = (functionality: PermissionType, permissions: Array<PermissionsInRequest>): { read: boolean, write: boolean } => {
+export const checkReadPermission = (functionality: PermissionType, permissions: Array<PermissionsInRequest> | undefined): boolean => {
+  const permission = findPermission(functionality, permissions);
+  if (!permission.read) {
+    throw new ControllerError(403, 'no permission to access this data');
+  } else {
+    return true;
+  }
+};
+
+export const checkWritePermission = (functionality: PermissionType, permissions: Array<PermissionsInRequest> | undefined): boolean => {
+  const permission = findPermission(functionality, permissions);
+  if (!permission.write) {
+    throw new ControllerError(403, 'no permission to access this data');
+  } else {
+    return true;
+  }
+};
+
+const findPermission = (functionality: PermissionType, permissions: Array<PermissionsInRequest> | undefined): { read: boolean, write: boolean } => {
+  if (!permissions) {
+    throw new ControllerError(403, 'no permissions set');
+  }
   const permission = permissions.find(p => p.code === functionality);
   if (permission) {
     return {
@@ -10,8 +32,6 @@ export const checkPermission = (functionality: PermissionType, permissions: Arra
       write: permission.write
     };
   }
-  return {
-    read: false,
-    write: false
-  };
+  // if no permission is set to this 'functionality', just tell it to user
+  throw new ControllerError(403, 'no permissions set');
 };

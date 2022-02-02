@@ -2,7 +2,7 @@ import express from 'express';
 import { addNewEntry, getLatestEntries } from '../services/entryService';
 import { RequestWithToken } from '../types';
 import { toNewEntry } from '../utils/apiValidators';
-import { checkPermission } from '../utils/checkPermission';
+import { checkReadPermission, checkWritePermission } from '../utils/checkPermission';
 import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
 import { authenticate } from '../utils/middleware';
@@ -22,10 +22,10 @@ router.get('/', (req: RequestWithToken, res, next) => {
     next(new ControllerError(403, 'no permissions set'));
     return;
   }
-  const permission = checkPermission('entries', req.permissions);
-  // this route required read-permissions
-  if (!permission.read) {
-    next(new ControllerError(403, 'no permission to access this data'));
+  try {
+    checkReadPermission('entries', req.permissions);
+  } catch (error) {
+    next(error);
     return;
   }
   // eslint-disable-next-line no-console
@@ -52,10 +52,10 @@ router.post('/', (req: RequestWithToken, res, next) => {
     next(new ControllerError(403, 'no permissions set'));
     return;
   }
-  const permission = checkPermission('entries', req.permissions);
-  // this route required write-permissions
-  if (!permission.write) {
-    next(new ControllerError(403, 'no permission to access this data'));
+  try {
+    checkWritePermission('entries', req.permissions);
+  } catch (error) {
+    next(error);
     return;
   }
   // we will get userId from middleware later on, for now we hardcode
