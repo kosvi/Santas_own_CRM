@@ -47,7 +47,7 @@ describe('logout controller', () => {
     // now logout
     const adminLoginResponse = await api.post('/api/login').send({ username: 'admin', password: 'password' }).expect(200);
     const adminResult = toLoginResult(adminLoginResponse.body);
-    await api.delete(`/api/logout/session/${santaObj.token}`).set('Authorization', `bearer ${adminResult.token}`).expect(204).expect('Content-Type', /application\/json/);
+    await api.delete(`/api/logout/session/${santaObj.token}`).set('Authorization', `bearer ${adminResult.token}`).expect(204);
     // now accessing with that token should fail
     await api.get('/api/entries').set('Authorization', `bearer ${santaObj.token}`).expect(401);
   });

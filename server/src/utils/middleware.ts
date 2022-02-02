@@ -39,7 +39,7 @@ export const authenticate = async (req: RequestWithToken, _res: express.Response
   const tokenString = validateToString(auth).toLocaleLowerCase().startsWith('bearer ') ? validateToString(auth).substring(7) : undefined;
   // if auth didn't include bearer, we move on
   if (!tokenString) {
-    next();
+    next(new ControllerError(401, 'authentication required'));
     return;
   }
   // now we have something in the authorization header
@@ -75,6 +75,8 @@ export const authenticate = async (req: RequestWithToken, _res: express.Response
           // let's add also permissions of chosen group
           const permissions = await getPermissionsOfGroup(token.activeGroup);
           req.permissions = permissions;
+          // we are ready, let's move on
+          next();
         }
       } else {
         // user was not found from database or result didn't validate as UserAttributes

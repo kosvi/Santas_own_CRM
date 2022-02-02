@@ -109,6 +109,7 @@ Goals:
 |         | 1 | 80 | Worked with middleware. Permissions will become a problem in case the user is in multiple groups... |
 |         | 2 | 82 | Entries endpoint now checks users permissions. Also wrote some tests and fixed code where tests started to fail after all the changes to code. |
 | 2.2.2022| 1 | 83 | Worked on tests and made minor fixes to auth-middleware. Some documentation updates too. |
+|         | 2 | 85 | Worked on logout, wrote/updated documentation, minor refactoring and more and more tests |
 
 Extras:
 - Fixed Github Actions to use docker image of Postgres 

@@ -31,7 +31,7 @@ router.delete('/session/:token', (req: RequestWithToken, res, next) => {
   logoutSingleSession(req.params.token)
     .then(result => {
       if (result) {
-        res.status(204);
+        res.status(204).send();
       } else {
         next(new ControllerError(400, 'no session was destroyed'));
       }
