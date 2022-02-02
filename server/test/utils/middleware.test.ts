@@ -37,6 +37,7 @@ describe('test authenticate from middleware', () => {
   });
 
   test('without permissions, access fails if authentication is needed', async () => {
+    // nobody has no group -> no permissions set
     const loginResponse = await api.post('/api/login').send({ username: 'nobody', password: 'nobody' }).expect(200);
     const loginResult = toLoginResult(loginResponse.body);
     const nobodyObj = {
@@ -51,6 +52,19 @@ describe('test authenticate from middleware', () => {
   test('without Authorization-header 401 is returned if auth needed', async () => {
     const response = await api.get('/api/entries').expect(401).expect('Content-Type', /application\/json/);
     expect(response.body).toHaveProperty('error');
+  });
+
+  test('if read permission is false, can\'t read api', async ()=>{
+    const loginResponse = await api.post('/api/login').send({username: 'elf', password: 'elf'}).expect(200);
+    const loginResult = toLoginResult(loginResponse.body);
+    // elf:elf belongs to group 'scout' -> read / write are set to false on every endpoint
+    const scoutObj = {
+      id: loginResult.id,
+      token: loginResult.token
+    };
+    const accessResponse = await api.get('/api/entries')
+      .set('Authorization', `bearer ${scoutObj.token}`).expect(403).expect('Content-Type', /application\/json/);
+    expect(accessResponse.body).toHaveProperty('error');
   });
 
 });
