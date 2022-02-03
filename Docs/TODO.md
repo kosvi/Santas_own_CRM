@@ -1,4 +1,4 @@
 # TODO
 
-- `/api/entries` controller/service/tests
-- write API-documentation
+- Move on to next endpoint
+- API-documentation

@@ -1,4 +1,4 @@
-type StatusCode = 400 | 403 | 404 | 500;
+type StatusCode = 400 | 401 | 403 | 404 | 500;
 
 export class ControllerError extends Error {
   statusCode!: number;

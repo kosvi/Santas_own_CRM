@@ -78,3 +78,4 @@ export const addPermission = async (permission: PermissionAttributes): Promise<G
     throw (error);
   }
 };
+

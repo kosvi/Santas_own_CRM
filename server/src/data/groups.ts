@@ -9,5 +9,8 @@ export const groups: GroupAttributes[] = [
   },
   {
     name: 'santa'
+  },
+  {
+    name: 'empty'
   }
 ];

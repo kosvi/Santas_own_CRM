@@ -30,7 +30,7 @@ services:
       context: ./client
       dockerfile: dev.Dockerfile
     environment:
-      REACT_APP_API_BASE: "/api/"
+      REACT_APP_API_BASE: "/api"
       HOST: "santas-client"
       WDS_SOCKET_HOST: "localhost"
     volumes: 
@@ -48,6 +48,7 @@ services:
       PORT: 3001
       DATABASE_URL: "postgres://santa:password@santas-db:5432/santa"
       NODE_ENV: "develop"
+      SECRET: "my-secret-key"
     volumes:
       - ./server/:/usr/src/app
     container_name: santas-server

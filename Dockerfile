@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-ENV REACT_APP_API_BASE=/api/
+ENV REACT_APP_API_BASE=/api
 
 RUN npm install --production --prefix client && \
     npm install --prefix server && \
