@@ -1,7 +1,7 @@
 import { connectionToDatabase, sequelize } from '../../src/utils/db';
 import app from '../../src/app';
 import supertest from 'supertest';
-import { toLoginResult } from '../helpers/toApiObject';
+import { toLoginResult, toApiError } from '../helpers/toApiObject';
 const api = supertest(app);
 
 interface UserObj {
@@ -65,6 +65,28 @@ describe('test authenticate from middleware', () => {
     const accessResponse = await api.get('/api/entries')
       .set('Authorization', `bearer ${scoutObj.token}`).expect(403).expect('Content-Type', /application\/json/);
     expect(accessResponse.body).toHaveProperty('error');
+  });
+
+  test('disabling user remove access instantly', async () => {
+    const loginResponse = await api.post('/api/login').send({username: 'santa', password: 'santa'}).expect(200);
+    const loginResult = toLoginResult(loginResponse.body);
+    await api.get('/api/entries').set('Authorization', `bearer ${loginResult.token}`).expect(200);
+    await api.put(`/api/users/disable/${loginResult.id}`).set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    // santa should be disabled now, we should get 403
+    const deniedResponse = await api.get('/api/entries').set('Authorization', `bearer ${loginResult.token}`).expect(403);
+    const denialError = toApiError(deniedResponse.body);
+    expect(denialError.error).toBe('account disabled');
+    // try to delete session 
+    await api.delete(`/api/logout/session/${loginResult.token}`).set('Authorization', `bearer ${adminObj.token}`).expect(404);
+    await api.put(`/api/users/enable/${loginResult.id}`).set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    const secondLoginResponse = await api.post('/api/login').send({username: 'santa', password: 'santa'}).expect(200);
+    const secondLoginResult = toLoginResult(secondLoginResponse.body);
+    // this token should be expired
+    await api.get('/api/entries').set('Authorization', `bearer ${secondLoginResult.token}`).expect(200);
+    // two lines below are just for debugging purposes, but should remain here for now...
+    await api.delete(`/api/logout/session/${secondLoginResult.token}`).set('Authorization', `bearer ${adminObj.token}`).expect(204);
+    await api.get('/api/entries').set('Authorization', `bearer ${secondLoginResult.token}`).expect(401);
+    await api.get('/api/entries').set('Authorization', `bearer ${loginResult.token}`).expect(401); 
   });
 
 });

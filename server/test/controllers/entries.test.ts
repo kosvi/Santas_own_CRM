@@ -88,6 +88,16 @@ describe('entries controller', () => {
     expect(getResultEntry.description).toBe('Was really kind to old lady!');
   });
 
+  test('entries can\'t be read if permission set to false', async () => {
+    const loginResponse = await api.post('/api/login').send({
+      username: 'elf',
+      password: 'elf'
+    }).expect(200);
+    const loginResult = toLoginResult(loginResponse.body);
+    const getResponse = await api.get('/api/entries').set('Authorization', `bearer ${loginResult.token}`).expect(403);
+    expect(getResponse.body).toHaveProperty('error');
+  });
+
   test('new entry can not be posted with write permission set false', async () => {
     // elf has no permissions for anything - false for read/write
     const loginResponse = await api.post('/api/login').send({

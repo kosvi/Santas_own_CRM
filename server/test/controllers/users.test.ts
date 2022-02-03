@@ -1,11 +1,18 @@
 import supertest from 'supertest';
 import app from '../../src/app';
 import { connectionToDatabase, sequelize } from '../../src/utils/db';
-import { toApiUser } from '../helpers/toApiObject/toApiUser';
+import { toApiUser, toLoginResult } from '../helpers/toApiObject';
 const api = supertest(app);
 
 const NUMBER_OF_DEFAULT_USERS = 5;
 const NONEXISTING_USER_ID = 1000000;
+
+const adminObj = {
+  username: 'admin',
+  password: 'password',
+  id: 0,
+  token: ''
+};
 
 beforeAll(async () => {
   await connectionToDatabase();
@@ -15,6 +22,10 @@ describe('users controller', () => {
 
   beforeEach(async () => {
     await api.post('/api/reset/full');
+    const response = await api.post('/api/login').send({ username: adminObj.username, password: adminObj.password });
+    const loginResult = toLoginResult(response.body);
+    adminObj.id = loginResult.id;
+    adminObj.token = loginResult.token;
   });
 
   test('list all users', async () => {
@@ -84,6 +95,29 @@ describe('users controller', () => {
   test('no results on search gives 404', async () => {
     const rawResponse = await api.get('/api/users/?name=foo').expect(404).expect('Content-Type', /application\/json/);
     expect(rawResponse.body).toHaveProperty('error');
+  });
+
+  test('user with correct privilidges can disable and enable users', async () => {
+    const findSantaIdRes = await api.post('/api/login').send({username: 'santa', password: 'santa'}).expect(200);
+    const santaResult = toLoginResult(findSantaIdRes.body);
+    await api.put(`/api/users/disable/${santaResult.id}`).set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    // santa shouldn't be able to login now
+    await api.post('/api/login').send({username: 'santa', password: 'santa'}).expect(403);
+    await api.put(`/api/users/enable/${santaResult.id}`).set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    // login should succeed again
+    await api.post('/api/login').send({username: 'santa', password: 'santa'}).expect(200);
+  });
+
+  test('invalid id with disable and enable returns 400', async () => {
+    await api.put('/api/users/disable/foo').set('Authorization', `bearer ${adminObj.token}`).expect(400);
+    await api.put('/api/users/enable/foo').set('Authorization', `bearer ${adminObj.token}`).expect(400);
+  });
+
+  test('disable and enable without priviledges gives 403', async () => {
+    const loginResponse = await api.post('/api/login').send({username: 'santa', password: 'santa'}).expect(200);
+    const loginResult = toLoginResult(loginResponse.body);
+    await api.put('/api/users/disable/1').set('Authorization', `bearer ${loginResult.token}`).expect(403);
+    await api.put('/api/users/enable/1').set('Authorization', `bearer ${loginResult.token}`).expect(403);
   });
 
 });

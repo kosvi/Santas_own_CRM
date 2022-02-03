@@ -158,3 +158,29 @@ Status: 400
   "error": "Incorrect or missing number"
 }
 ```
+
+## Disable user
+
+**Example**
+
+PUT `/api/users/disable/2`
+Status: 200
+
+```
+{
+  "msg": "santa has been disabled"
+}
+```
+
+## Enable user
+
+**Example**
+
+PUT `/api/users/enable/2`
+Status: 200
+
+```
+{
+  "msg": "santa has been enabled"
+}
+```

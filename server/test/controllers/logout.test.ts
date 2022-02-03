@@ -1,7 +1,7 @@
 import { connectionToDatabase, sequelize } from '../../src/utils/db';
 import app from '../../src/app';
 import supertest from 'supertest';
-import { toLoginResult } from '../helpers/toApiObject';
+import { toLoginResult, toApiMsg } from '../helpers/toApiObject';
 const api = supertest(app);
 
 interface UserObj {
@@ -50,6 +50,25 @@ describe('logout controller', () => {
     await api.delete(`/api/logout/session/${santaObj.token}`).set('Authorization', `bearer ${adminResult.token}`).expect(204);
     // now accessing with that token should fail
     await api.get('/api/entries').set('Authorization', `bearer ${santaObj.token}`).expect(401);
+  });
+
+  test('logout user by admin removes all sessions from user', async () => {
+    // let's give second session for santa
+    await api.post('/api/login').send({username: 'santa', password: 'santa'}).expect(200);
+    const adminLoginResponse = await api.post('/api/login').send({username: 'admin', password: 'password'}).expect(200);
+    const adminResult = toLoginResult(adminLoginResponse.body);
+    const response = await api.delete(`/api/logout/user/${santaObj.id}`).set('Authorization', `bearer ${adminResult.token}`).expect(200);
+    expect(response.body).toHaveProperty('msg');
+    const apiMsg = toApiMsg(response.body);
+    expect(apiMsg.msg).toBe('2 sessions deleted');
+    await api.get('/api/entries').set('Authorization', `bearer ${santaObj.token}`).expect(401);
+  });
+
+  test('try to logout user with incorrect id gives 400', async () => {
+    const adminLoginResponse = await api.post('/api/login').send({username: 'admin', password: 'password'}).expect(200);
+    const adminResult = toLoginResult(adminLoginResponse.body);
+    const response = await api.delete('/api/logout/user/foo').set('Authorization', `bearer ${adminResult.token}`).expect(400);
+    expect(response.body).toHaveProperty('error');
   });
 
 });

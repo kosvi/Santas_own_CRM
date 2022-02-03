@@ -18,3 +18,15 @@ Status: 200
 DELETE `/api/logout/session/<token-as-string>`
 Status: 204
 
+## Delete sessions from user
+
+**Example**
+
+DELETE `/api/logout/user/3`
+Status: 200
+
+```
+{
+  "msg": "2 sessions deleted"
+}
+```

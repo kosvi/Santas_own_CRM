@@ -110,6 +110,8 @@ Goals:
 |         | 2 | 82 | Entries endpoint now checks users permissions. Also wrote some tests and fixed code where tests started to fail after all the changes to code. |
 | 2.2.2022| 1 | 83 | Worked on tests and made minor fixes to auth-middleware. Some documentation updates too. |
 |         | 2 | 85 | Worked on logout, wrote/updated documentation, minor refactoring and more and more tests |
+| 3.2.2022| 2 | 87 | Added logout and it's functionalities, kept documentation up-to-date and added tests. And uh... mostly banged my head against the wall with middleware-tests and never found out why it works how it works. | 
+|         | 1 | 88 | Logout and users endpoints and their tests. |
 
 Extras:
 - Fixed Github Actions to use docker image of Postgres 

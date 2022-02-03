@@ -7,6 +7,8 @@
 |[List all users](API/users.md#list-all-users) | `/api/users` | GET | users |read | 200 | - |
 |[Search users](API/users.md#search-users) | `/api/users?name=<key>` | GET | users |read | 200 | 404 |
 |[Display user by ID](API/users.md#display-user-by-id) | `/api/users/:id` | GET | users |read | 200 | 400, 404 |
+|[Disable user](API/users.md#disable-user) | `/api/users/disable/:id` | PUT | users | write | 200 | 400, 404, 500 |
+|[Enable user](API/users.md#enable-user) | `/api/users/enable/:id` | PUT | users | write | 200 | 400, 404, 500 |
 
 ## Groups
 
@@ -50,4 +52,15 @@
 | Description| URL|Method | Functionality | Access|Success | Possible errors|
 |------------|----|-------|---------------|-------|--------|----------------|
 |[Logout current user](API/logout.md#logout-current-user)|`/api/logout`|DELETE| - | - | 200 | - |
-|[Logout single session](API/logout.md#logout-single-session)|`/api/logout/session/:token`|DELETE | users | write | 204 | - |
+|[Logout single session](API/logout.md#logout-single-session)|`/api/logout/session/:token`|DELETE | users | write | 204 | 404 |
+|[Delete sessions from user](API/logout.md#delete-sessions-from-user)|`/api/logout/user/:id`|DELETE | users | write | 200 | 400 |
+
+## Reset
+
+This endpoint is only available in dev/test -modes. 
+
+| Description| URL|Method | Functionality | Access|Success | Possible errors|
+|------------|----|-------|---------------|-------|--------|----------------|
+|clear db | `/api/reset/clear` | DELETE | - | - | 204 | - |
+| populate db | `/api/reset/populate` | POST | - | - | 201 | - |
+|clear & populate db | `/api/reset/full` | POST | - | - | 200 | - |

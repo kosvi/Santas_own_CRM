@@ -1,8 +1,11 @@
 import express from 'express';
-import { getAllUsersWithGroups, getUsersBySearchString, getUserWithPermissions } from '../services/userService';
+import { getAllUsersWithGroups, getUsersBySearchString, getUserWithPermissions, disableSingleUser, enableDisabledUser} from '../services/userService';
 import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
 import { validateToNumber, validateToString } from '../utils/validators';
+import { RequestWithToken } from '../types';
+import { authenticate } from '../utils/middleware';
+import { checkWritePermission } from '../utils/checkPermission';
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
@@ -57,6 +60,65 @@ router.get('/:id', (req, res, next) => {
     .catch(error => {
       logger.logError(error);
       next(error);
+    });
+});
+
+router.put('/disable/:id', authenticate, (req: RequestWithToken, res, next) => {
+  // make sure user has write permission to users
+  try {
+    checkWritePermission('users', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
+  // make sure the ID given is a number
+  let id: number;
+  try {
+    id = validateToNumber(Number(req.params.id));
+  } catch(error) {
+    next(new ControllerError(400, 'invalid id'));
+    return;
+  }
+  // disable user or throw error to middleware to handle
+  disableSingleUser(id)
+    .then(user => {
+      res.status(200).json({msg: `${user.username} has been disabled`});
+    })
+    .catch(error => {
+      logger.logError(error);
+      if(error instanceof ControllerError) {
+	next(error);
+      } else {
+	next(new ControllerError(500, 'unknown error'));
+      }
+    });
+});
+
+router.put('/enable/:id', authenticate, (req: RequestWithToken, res, next) => {
+  try {
+    checkWritePermission('users', req.permissions);
+  } catch(error) {
+    next(error);
+    return;
+  }
+  let id:number;
+  try {
+    id = validateToNumber(Number(req.params.id));
+  } catch (error) {
+    next(new ControllerError(400, 'invalid id'));
+    return;
+  }
+  enableDisabledUser(id)
+    .then(user => {
+      res.status(200).json({msg: `${user.username} has been enabled`});
+    })
+    .catch(error => {
+      logger.logError(error);
+      if(error instanceof ControllerError) {
+	next(error);
+      } else {
+	next(new ControllerError(500, 'unknown error'));
+      }
     });
 });
 
