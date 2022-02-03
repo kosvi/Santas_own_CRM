@@ -96,9 +96,11 @@ Extras:
 
 Goals:
 - ~~add `/api/login`~~
-- add `/api/logout`
+- ~~add `/api/logout`~~
 - ~~add middleware to handle authentication~~
-- fix controllers to check permissions
+- *fix controllers to check permissions* **partly**
+
+Going to leave some of the goals of the sprint to be unfulfilled. Permission checking can be added later to all the endpoints needed, but we really should move on to the frontend at this point. 
 
 | Date | Hours | Total Hours |Description |
 |------|-------|-------------|------------|
@@ -112,6 +114,8 @@ Goals:
 |         | 2 | 85 | Worked on logout, wrote/updated documentation, minor refactoring and more and more tests |
 | 3.2.2022| 2 | 87 | Added logout and it's functionalities, kept documentation up-to-date and added tests. And uh... mostly banged my head against the wall with middleware-tests and never found out why it works how it works. | 
 |         | 1 | 88 | Logout and users endpoints and their tests. |
+|         | 1 | 89 | Added authenticate to users-endpoint and fixed tests to pass with this change. |
+| sprint total | 20 | 89 | |
 
 Extras:
 - Fixed Github Actions to use docker image of Postgres 

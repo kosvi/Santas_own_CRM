@@ -4,6 +4,5 @@ export * from './toApiPerson';
 export * from './toApiItem';
 export * from './toApiEntry';
 export * from './toApiLogin';
-export * from './toLoginResult';
 export * from './toApiError';
 export * from './toApiMsg';

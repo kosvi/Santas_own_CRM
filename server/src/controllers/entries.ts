@@ -17,11 +17,6 @@ router.use(authenticate);
  * limit is an optional argument that can be used to limit the amount of entries returned
  */
 router.get('/', (req: RequestWithToken, res, next) => {
-  // first check to make sure that permissions are set
-  if (!req.permissions) {
-    next(new ControllerError(403, 'no permissions set'));
-    return;
-  }
   try {
     checkReadPermission('entries', req.permissions);
   } catch (error) {
@@ -47,11 +42,6 @@ router.get('/', (req: RequestWithToken, res, next) => {
 });
 
 router.post('/', (req: RequestWithToken, res, next) => {
-  // first check to make sure that permissions are set
-  if (!req.permissions) {
-    next(new ControllerError(403, 'no permissions set'));
-    return;
-  }
   try {
     checkWritePermission('entries', req.permissions);
   } catch (error) {

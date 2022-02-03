@@ -54,8 +54,8 @@ describe('test authenticate from middleware', () => {
     expect(response.body).toHaveProperty('error');
   });
 
-  test('if read permission is false, can\'t read api', async ()=>{
-    const loginResponse = await api.post('/api/login').send({username: 'elf', password: 'elf'}).expect(200);
+  test('if read permission is false, can\'t read api', async () => {
+    const loginResponse = await api.post('/api/login').send({ username: 'elf', password: 'elf' }).expect(200);
     const loginResult = toLoginResult(loginResponse.body);
     // elf:elf belongs to group 'scout' -> read / write are set to false on every endpoint
     const scoutObj = {
@@ -68,7 +68,7 @@ describe('test authenticate from middleware', () => {
   });
 
   test('disabling user remove access instantly', async () => {
-    const loginResponse = await api.post('/api/login').send({username: 'santa', password: 'santa'}).expect(200);
+    const loginResponse = await api.post('/api/login').send({ username: 'santa', password: 'santa' }).expect(200);
     const loginResult = toLoginResult(loginResponse.body);
     await api.get('/api/entries').set('Authorization', `bearer ${loginResult.token}`).expect(200);
     await api.put(`/api/users/disable/${loginResult.id}`).set('Authorization', `bearer ${adminObj.token}`).expect(200);
@@ -79,14 +79,12 @@ describe('test authenticate from middleware', () => {
     // try to delete session 
     await api.delete(`/api/logout/session/${loginResult.token}`).set('Authorization', `bearer ${adminObj.token}`).expect(404);
     await api.put(`/api/users/enable/${loginResult.id}`).set('Authorization', `bearer ${adminObj.token}`).expect(200);
-    const secondLoginResponse = await api.post('/api/login').send({username: 'santa', password: 'santa'}).expect(200);
+    const secondLoginResponse = await api.post('/api/login').send({ username: 'santa', password: 'santa' }).expect(200);
     const secondLoginResult = toLoginResult(secondLoginResponse.body);
+    expect(loginResult.token).not.toBe(secondLoginResult.token);
     // this token should be expired
+    await api.get('/api/entries').set('Authorization', `bearer ${loginResult.token}`).expect(401);
     await api.get('/api/entries').set('Authorization', `bearer ${secondLoginResult.token}`).expect(200);
-    // two lines below are just for debugging purposes, but should remain here for now...
-    await api.delete(`/api/logout/session/${secondLoginResult.token}`).set('Authorization', `bearer ${adminObj.token}`).expect(204);
-    await api.get('/api/entries').set('Authorization', `bearer ${secondLoginResult.token}`).expect(401);
-    await api.get('/api/entries').set('Authorization', `bearer ${loginResult.token}`).expect(401); 
   });
 
 });

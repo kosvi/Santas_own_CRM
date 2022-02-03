@@ -1,24 +1,39 @@
-import { validateToString, validateToNumber } from '../../../src/utils/validators';
+import { validateToNumber, validateToString } from '../../../src/utils/validators';
 
-interface LoginObject {
-  username: string,
+export interface LoginResult {
+  id: number,
   name: string,
+  username: string,
+  activeGroup: number,
   token: string,
-  id: number
+  signTime: number
 }
 
+/*
+ *  Accidentally had this code written twice, so two equal functions for legacy reasons. 
+ *  Going to remove another one of them once I decide which name will stay
+ */
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const toApiLogin = (data: any): LoginObject => {
+export const toLoginResult = (data: any): LoginResult => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  return toApiLoginFromAny(data);
+  return toLoginResultFromAny(data);
 };
 
-type LoginFields = { username: unknown, name: unknown, token: unknown, id: unknown };
-const toApiLoginFromAny = ({ username, name, token, id }: LoginFields): LoginObject => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const toApiLogin = (data: any): LoginResult => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  return toLoginResultFromAny(data);
+};
+
+type LoginResultFields = { id: unknown, name: unknown, username: unknown, activeGroup: unknown, token: unknown, signTime: unknown };
+const toLoginResultFromAny = ({ id, name, username, activeGroup, token, signTime }: LoginResultFields): LoginResult => {
   return {
-    username: validateToString(username),
+    id: validateToNumber(id),
     name: validateToString(name),
+    username: validateToString(username),
+    activeGroup: validateToNumber(activeGroup),
     token: validateToString(token),
-    id: validateToNumber(id)
+    signTime: validateToNumber(signTime)
   };
 };
