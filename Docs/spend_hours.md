@@ -119,3 +119,15 @@ Going to leave some of the goals of the sprint to be unfulfilled. Permission che
 
 Extras:
 - Fixed Github Actions to use docker image of Postgres 
+
+### Sprint 4 - first version of frontend
+
+Goals: 
+- add login-form to frontend
+- add menu
+- add search-field
+- add logout -functionality
+
+| Date | Hours | Total Hours | Description |
+|------|-------|-------------|-------------|
+| | | | |
