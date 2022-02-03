@@ -44,6 +44,8 @@ jobs:
         run: npm test --prefix server
         env:
           DATABASE_URL: "postgres://santa:password@localhost:5432/santa"
+          NODE_ENV: "test"
+          SECRET: "token-sign-secret"
       # Install, lint and test frontend
       - name: install frontend
         run: npm install --prefix client

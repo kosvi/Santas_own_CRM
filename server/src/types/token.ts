@@ -3,7 +3,7 @@ export interface AccessTokenContent {
   name: string,
   username: string,
   activeGroup: number,
-  signTime: number
+  loginTime: number
 }
 
 export interface UserWithGroupsInLogin {

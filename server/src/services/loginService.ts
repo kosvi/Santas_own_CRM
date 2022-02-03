@@ -47,7 +47,7 @@ export const login = async (loginObject: LoginObject) => {
       name: userFromDatabase.name,
       id: validateToNumber(userFromDatabase.id),
       activeGroup: activeGroup,
-      signTime: Date.now()
+      loginTime: Date.now()
     };
     if (!SECRET) {
       throw new ControllerError(500, 'server can\'t sign token');

@@ -6,7 +6,7 @@ export interface LoginResult {
   username: string,
   activeGroup: number,
   token: string,
-  signTime: number
+  loginTime: number
 }
 
 /*
@@ -26,14 +26,14 @@ export const toApiLogin = (data: any): LoginResult => {
   return toLoginResultFromAny(data);
 };
 
-type LoginResultFields = { id: unknown, name: unknown, username: unknown, activeGroup: unknown, token: unknown, signTime: unknown };
-const toLoginResultFromAny = ({ id, name, username, activeGroup, token, signTime }: LoginResultFields): LoginResult => {
+type LoginResultFields = { id: unknown, name: unknown, username: unknown, activeGroup: unknown, token: unknown, loginTime: unknown };
+const toLoginResultFromAny = ({ id, name, username, activeGroup, token, loginTime }: LoginResultFields): LoginResult => {
   return {
     id: validateToNumber(id),
     name: validateToString(name),
     username: validateToString(username),
     activeGroup: validateToNumber(activeGroup),
     token: validateToString(token),
-    signTime: validateToNumber(signTime)
+    loginTime: validateToNumber(loginTime)
   };
 };
