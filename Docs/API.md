@@ -63,4 +63,4 @@ This endpoint is only available in dev/test -modes.
 |------------|----|-------|---------------|-------|--------|----------------|
 |clear db | `/api/reset/clear` | DELETE | - | - | 204 | - |
 | populate db | `/api/reset/populate` | POST | - | - | 201 | - |
-|clear & populate db | `/api/reset/full` | POST | - | - | 200 | - |
+|[clear & populate db](API/reset.md#reset-and-re-populate-database) | `/api/reset/full` | POST | - | - | 200 | - |
