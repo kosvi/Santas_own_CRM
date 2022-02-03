@@ -24,5 +24,11 @@ export const users: UserAttributes[] = [
     password: 'password',
     name: 'Admin Elf',
     disabled: false
+  },
+  {
+    username: 'nobody',
+    password: 'nobody',
+    name: 'Someone Without Group',
+    disabled: false
   }
 ];

@@ -1,5 +1,6 @@
 import models from '../models';
 import { UserAttributes } from '../types';
+import { ControllerError } from '../utils/customError';
 import { Op } from 'sequelize';
 // import { logger } from '../utils/logger';
 
@@ -49,5 +50,25 @@ export const getUserWithPermissions = async (id: number) => {
       include: [models.Functionality]
     }
   });
+  return user;
+};
+
+export const disableSingleUser = async (id: number) => {
+  const user = await models.User.findByPk(id);
+  if(!user) {
+    throw new ControllerError(404, 'user not found');
+  }
+  user.disabled = true;
+  await user.save();
+  return user;
+};
+
+export const enableDisabledUser = async (id: number) => {
+  const user = await models.User.findByPk(id);
+  if(!user) {
+    throw new ControllerError(404, 'user not found');
+  }
+  user.disabled = false;
+  await user.save();
   return user;
 };

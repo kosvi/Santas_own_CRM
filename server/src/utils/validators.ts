@@ -3,6 +3,8 @@
  * This file contains all sorts of validators that can be used to validate 'unknown' types to specific types. 
  */
 
+// import { AccessTokenContent } from '../types';
+
 export const validateToString = (text: unknown): string => {
   if (text === '') {
     return '';
@@ -52,3 +54,15 @@ export const validateToBoolean = (value: unknown): boolean => {
   }
   throw new Error('Value is not boolean');
 };
+
+export function validateToObject<T>(obj: unknown, props: Array<string | number | symbol>): obj is T {
+  if(!(obj instanceof Object)) {
+    return false;
+  }
+  for(let i=0;i<props.length;i++) {
+    if(!Object.prototype.hasOwnProperty.call(obj, props[i])) {
+      return false;
+    }
+  }
+  return true;
+}

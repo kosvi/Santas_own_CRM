@@ -14,6 +14,8 @@ import {
   apiUserWithoutId,
   apiUserWithoutName,
   apiUserWithoutUsername,
+  apiUserWithNonArrayGroups,
+  apiUserWithMalformedGroup,
   groupObjectWithIncorrectPermission,
   groupObjectWithInvalidDate,
   groupObjectWithInvalidName,
@@ -45,9 +47,14 @@ import {
   invalidEntryWithStringAsNiceness,
   invalidEntryWithNullAsDesc,
   invalidEntryUserIdAsUndefined,
-  invalidEntryWithInvalidUpdateDate
+  invalidEntryWithInvalidUpdateDate,
+  groupObjectWithPermissionMissingRead,
+  validError,
+  invalidErrorMissingError,
+  invalidErrorWithBooleanError,
+  invalidErrorWithUndefinedError
 } from './data';
-import { toApiGroup, toApiUser, toApiPerson, toApiItem, toApiEntry } from './toApiObject';
+import { toApiGroup, toApiUser, toApiPerson, toApiItem, toApiEntry, toApiError } from './toApiObject';
 
 
 
@@ -72,6 +79,7 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiGroup(groupObjectWithInvalidDate); }).toThrow(Error);
     expect(() => { toApiGroup(groupObjectWithoutId); }).toThrow(Error);
     expect(() => { toApiGroup(groupObjectWithMissingPermission); }).toThrow(Error);
+    expect(() => { toApiGroup(groupObjectWithPermissionMissingRead); }).toThrow(Error);
     expect(() => { toApiGroup(groupObjectWithIncorrectPermission); }).toThrow(Error);
     // This should work and it should return an empty array as functionalities
     validGroupData = toApiGroup(groupObjectWithoutFunctionalities);
@@ -98,6 +106,8 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiUser(apiUserWithInvalidDisabled); }).toThrow(Error);
     expect(() => { toApiUser(apiUserWithInvalidDate); }).toThrow(Error);
     expect(() => { toApiUser(apiUserWithNonArrayGroup); }).toThrow(Error);
+    expect(() => { toApiUser(apiUserWithNonArrayGroups); }).toThrow(Error);
+    expect(() => { toApiUser(apiUserWithMalformedGroup); }).toThrow(Error);
     // also trying to parse the Array should fail
     expect(() => { toApiUser(validUserDataWithGroups); }).toThrow(Error);
   });
@@ -155,6 +165,15 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiEntry(invalidEntryWithInvalidUpdateDate); }).toThrow(Error);
     // also giving the whole array should throw error
     expect(() => { toApiEntry(validEntryArray); }).toThrow(Error);
+  });
+
+  test('toApiError tests', () => {
+    const validErrorData = toApiError(validError);
+    expect(validErrorData.error).toBe('string');
+    // these should fail
+    expect(() => { toApiError(invalidErrorMissingError); }).toThrow(Error);
+    expect(() => { toApiError(invalidErrorWithBooleanError); }).toThrow(Error);
+    expect(() => { toApiError(invalidErrorWithUndefinedError); }).toThrow(Error);
   });
 
 });

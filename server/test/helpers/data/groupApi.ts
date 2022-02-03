@@ -79,6 +79,23 @@ export const groupObjectWithMissingPermission = {
   ]
 };
 
+export const groupObjectWithPermissionMissingRead = {
+  id: 1,
+  name: 'name',
+  createdAt: '2022-01-20T18:16:02.681Z',
+  updatedAt: '2022-01-20T18:16:02.681Z',
+  functionalities: [
+    {
+      id: 1,
+      code: 'users',
+      name: 'users',
+      permission: {
+        write: true
+      }
+    }
+  ]
+};
+
 export const groupObjectWithIncorrectPermission = {
   id: 1,
   name: 'name',

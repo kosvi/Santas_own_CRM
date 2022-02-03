@@ -35,6 +35,8 @@ export const addData = async (): Promise<boolean> => {
     await addGroups();
     await connectGroupsAndUsers();
     await addPermissionsToAdmin();
+    await addPermissionsToScout();
+    await addPermissionsToSanta();
     const newPeople = await addPeople();
     await addEntries(newUsers, newPeople);
     const newItems = await addItems();
@@ -99,6 +101,46 @@ const addPermissionsToAdmin = async () => {
           functionalityId: validateToNumber(f.id),
           read: true,
           write: true
+        };
+      });
+      await models.Permission.bulkCreate(permissionArray);
+    }
+  } catch (error) {
+    logError(error);
+  }
+};
+
+const addPermissionsToScout = async () => {
+  try {
+    const scoutGroup = await models.Group.findOne({ where: { name: 'scout' } });
+    const functionalities = await models.Functionality.findAll();
+    if (scoutGroup && functionalities) {
+      const permissionArray = functionalities.map(f => {
+        return {
+          groupId: validateToNumber(scoutGroup.id),
+          functionalityId: validateToNumber(f.id),
+          read: false,
+          write: false
+        };
+      });
+      await models.Permission.bulkCreate(permissionArray);
+    }
+  } catch (error) {
+    logError(error);
+  }
+};
+
+const addPermissionsToSanta = async () => {
+  try {
+    const santaGroup = await models.Group.findOne({ where: { name: 'santa' } });
+    const functionalities = await models.Functionality.findAll();
+    if (santaGroup && functionalities) {
+      const permissionArray = functionalities.map(f => {
+        return {
+          groupId: validateToNumber(santaGroup.id),
+          functionalityId: validateToNumber(f.id),
+          read: true,
+          write: false
         };
       });
       await models.Permission.bulkCreate(permissionArray);

@@ -88,3 +88,31 @@ export const apiUserWithNonArrayGroup = {
     name: 'name'
   }
 };
+
+export const apiUserWithNonArrayGroups = {
+  id: 2,
+  username: 'user2',
+  name: 'name2',
+  disabled: true,
+  createdAt: '2022-01-22T19:01:56.994Z',
+  updatedAt: '2022-01-22T19:01:56.994Z',
+  groups: {
+    id: 1,
+    name: 'name'
+  }
+};
+
+export const apiUserWithMalformedGroup = {
+  id: 2,
+  username: 'user2',
+  name: 'name2',
+  disabled: true,
+  createdAt: '2022-01-22T19:01:56.994Z',
+  updatedAt: '2022-01-22T19:01:56.994Z',
+  groups: [
+    {
+      id: '1',
+      name: 'name'
+    }
+  ]
+};

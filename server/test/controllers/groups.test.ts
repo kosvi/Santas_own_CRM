@@ -4,7 +4,7 @@ import { connectionToDatabase, sequelize } from '../../src/utils/db';
 import { toApiGroup } from '../helpers/toApiObject';
 const api = supertest(app);
 
-const NUMBER_OF_DEFAULT_GROUPS = 3;
+const NUMBER_OF_DEFAULT_GROUPS = 4;
 const ADMIN_GROUP_FUNCTIONALITIES = 5;
 const NONEXISTENT_GROUP_ID = 1000000;
 
@@ -91,32 +91,32 @@ describe('groups controller', () => {
   });
 
   test('a permission can be added to a group', async () => {
-    const rawScout = await api.get('/api/groups/scout');
-    const scout = toApiGroup(rawScout.body);
-    const rawScoutWithPermission = await api.post(`/api/groups/${scout.id}`).send({
+    const rawEmpty = await api.get('/api/groups/empty');
+    const empty = toApiGroup(rawEmpty.body);
+    const rawEmptyWithPermission = await api.post(`/api/groups/${empty.id}`).send({
       functionalityId: 1,
       read: true,
       write: false
     }).expect(201).expect('Content-Type', /application\/json/);
-    const scoutWithPermission = toApiGroup(rawScoutWithPermission.body);
-    expect(scoutWithPermission.name).toEqual('scout');
-    expect(scoutWithPermission.functionalities).toHaveLength(1);
-    expect(scoutWithPermission.functionalities[0].permission.read).toBe(true);
-    expect(scoutWithPermission.functionalities[0].permission.write).toBe(false);
+    const emptyWithPermission = toApiGroup(rawEmptyWithPermission.body);
+    expect(emptyWithPermission.name).toEqual('empty');
+    expect(emptyWithPermission.functionalities).toHaveLength(1);
+    expect(emptyWithPermission.functionalities[0].permission.read).toBe(true);
+    expect(emptyWithPermission.functionalities[0].permission.write).toBe(false);
   });
 
   test('can\'t create duplicate permission to same group', async () => {
-    // let's get 'scout' group in play around with it
-    const rawScout = await api.get('/api/groups/scout');
-    const scout = toApiGroup(rawScout.body);
+    // let's get 'empty' group in play around with it
+    const rawEmpty = await api.get('/api/groups/empty');
+    const empty = toApiGroup(rawEmpty.body);
     // let's first add a permission
-    await api.post(`/api/groups/${scout.id}`).send({
+    await api.post(`/api/groups/${empty.id}`).send({
       functionalityId: 1,
       read: false,
       write: false
     }).expect(201);
     // now duplicate should fail!
-    const rawResponse = await api.post(`/api/groups/${scout.id}`).send({
+    const rawResponse = await api.post(`/api/groups/${empty.id}`).send({
       functionalityId: 1,
       read: true,
       write: true
