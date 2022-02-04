@@ -122,7 +122,8 @@ WDS_SOCKET_HOST=
 ```
 | Variable | Description | default |
 |----------|-------------|---------|
-|REACT_APP_API_BASE| Used as prefix for all api-queries | - |
+|REACT_APP_API_BASE| Used as prefix for all api-queries | `/api` |
+|REACT_APP_LOGGING| Defines if logging is enabled or not | false |
 |HOST | Needed when app is run in docker-compose while developing | - |
 |WDS_SOCKET_HOST | Needed when app is run in docker-compose while developing | - |
 

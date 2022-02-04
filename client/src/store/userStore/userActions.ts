@@ -1,10 +1,13 @@
-import * from './actionTypes';
-import { UserData, UserAction } from '../types';
+import * as actionTypes from './actionTypes';
+import { UserDispatchType } from '../../types';
+import { userService } from '../../services/userService';
 
-export const storeUser = (user: UserData) => {
-  const action: UserAction = {
-    type: STORE_USER,
-    user
+export const storeUser = (username: string, password: string) => {
+  return async (dispatch: UserDispatchType) => {
+    const user = await userService.login(username, password);
+    dispatch({
+      type: actionTypes.STORE_USER,
+      user: user
+    });
   };
-  return;
 };

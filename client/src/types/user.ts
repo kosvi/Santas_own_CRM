@@ -15,3 +15,4 @@ export type UserAction = {
   user: UserData
 };
 
+export type UserDispatchType = (args: UserAction) => UserAction;

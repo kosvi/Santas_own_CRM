@@ -1,29 +1,23 @@
 import * as actionTypes from './actionTypes';
-import { UserData, UserState, UserAction } from '../types';
+import { UserState, UserAction } from '../../types';
 
-const initialState: UserState = {
+export const initialUserState: UserState = {
   user: {
     id: 0,
     name: '',
     username: '',
-    token: ''.
+    token: '',
     loginTime: 0
   }
 };
 
-const userReducer = (state: UserState = initialState, action: UserAction): UserState => {
+export const userReducer = (state: UserState = initialUserState, action: UserAction): UserState => {
   switch (action.type) {
-    case actionTypes.STORE_USER: 
-      const newUser: UserData = {
-	...action.user
-      };
-      return {
-	...state,
-	user: newUser
-      }
-      break;
+  case actionTypes.STORE_USER:
+    return {
+      ...state,
+      user: action.user
+    };
+  default: return state;
   }
-  return state;
 };
-
-export default userReducer;
