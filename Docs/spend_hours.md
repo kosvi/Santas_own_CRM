@@ -130,4 +130,4 @@ Goals:
 
 | Date | Hours | Total Hours | Description |
 |------|-------|-------------|-------------|
-| | | | |
+|4.2.2022 |1 |1 |Started work with frontend. Wondered the directory structure and how to implement redux. |
