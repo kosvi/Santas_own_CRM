@@ -13,7 +13,7 @@ export const initialUserState: UserState = {
 
 export const userReducer = (state: UserState = initialUserState, action: UserAction): UserState => {
   switch (action.type) {
-  case actionTypes.STORE_USER:
+  case actionTypes.LOGIN_USER:
     return {
       ...state,
       user: action.user

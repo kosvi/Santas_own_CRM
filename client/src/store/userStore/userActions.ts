@@ -6,7 +6,7 @@ export const storeUser = (username: string, password: string) => {
   return async (dispatch: UserDispatchType) => {
     const user = await userService.login(username, password);
     dispatch({
-      type: actionTypes.STORE_USER,
+      type: actionTypes.LOGIN_USER,
       user: user
     });
   };

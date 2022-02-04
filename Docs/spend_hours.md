@@ -130,4 +130,5 @@ Goals:
 
 | Date | Hours | Total Hours | Description |
 |------|-------|-------------|-------------|
-|4.2.2022 |1 |1 |Started work with frontend. Wondered the directory structure and how to implement redux. |
+|4.2.2022 |1 |90 |Started work with frontend. Wondered the directory structure and how to implement redux. |
+|         |2 |92 | Struggled to get redux to work with typescript. Going to do it with Redux Toolkit, but now Im done for the day. |

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { logger } from './utils/logger';
 import { validateToString } from './utils/validators';
 
 interface VersionInfo {
@@ -10,6 +11,7 @@ interface VersionInfo {
 
 const App = () => {
 
+  logger.log('App started');
   const [version, setVersion] = useState<string>();
 
   useEffect(() => {
