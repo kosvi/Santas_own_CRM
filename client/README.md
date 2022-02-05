@@ -13,7 +13,7 @@ You will also see any lint errors in the console.
 However, it's recommended to start the whole \
 app with backend using docker. See [README](../README.md) for more details. 
 
-####`npm test`
+#### `npm test`
 
 Launches the test runner in non-interactive mode.\
 
