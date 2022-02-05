@@ -1,8 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { LoginForm } from './components/LoginForm';
 import { authSelector } from './store';
-import { authActions } from './store/auth/authActions';
 import { logger } from './utils/logger';
 import { validateToString } from './utils/validators';
 
@@ -16,7 +16,6 @@ const App = () => {
 
   logger.log('App started');
   const [version, setVersion] = useState<string>();
-  const dispatch = useDispatch();
   const { isLoading, isLoggedin, user } = useSelector(authSelector);
   console.log(isLoading, isLoggedin, user);
 
@@ -37,8 +36,8 @@ const App = () => {
   return (
     <div>
       backend version: {version}
-      <button onClick={() => dispatch(authActions.loginUser())}>press</button>
       <div>{user && user.name}</div>
+      <LoginForm />
     </div>
   );
 };
