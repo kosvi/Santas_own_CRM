@@ -6,10 +6,13 @@ export interface FormValues {
   password: string
 }
 
+interface HandleFunction {
+  (values: FormValues): void
+}
+
 interface LoginFormProps {
   initialUsername?: string,
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  handleSubmit: Function
+  handleSubmit: HandleFunction
 }
 
 // Pretty much 1:1 from documentation example
