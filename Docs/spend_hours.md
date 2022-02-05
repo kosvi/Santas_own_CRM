@@ -132,3 +132,4 @@ Goals:
 |------|-------|-------------|-------------|
 |4.2.2022 |1 |90 |Started work with frontend. Wondered the directory structure and how to implement redux. |
 |         |2 |92 | Struggled to get redux to work with typescript. Going to do it with Redux Toolkit, but now Im done for the day. |
+|5.2.2022 | 2 | 94 | With alot of effort and time spend on documentation and multiple tutorials, I finally managed to combine the power of typing and state managemend of redux using redux toolkit. |

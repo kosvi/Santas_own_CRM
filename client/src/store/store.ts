@@ -1,17 +1,29 @@
+/*
+ *  This is our actual store.
+ *  reducers are created using createSlice and each reducer has it's own folder where they are imported from
+ *  and added to combineReducers
+ *
+ *  To make life with typing easier, we use reduxjs toolkit to handle our store
+ */
+
 import { configureStore, combineReducers, Action } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { ThunkAction } from 'redux-thunk';
-import { userReducer } from '.';
-import { RootState } from '../types';
+import { authSlice } from './auth';
 
-const reducer = combineReducers({
-  userReducer
+const rootReducer = combineReducers({
+  authReducer: authSlice.reducer
 });
 
 export const store = configureStore({
-  reducer
+  reducer: rootReducer
 });
 
+// https://redux-toolkit.js.org/usage/usage-with-typescript#getting-the-state-type
+// We need to set RootState type to handle type checking
+export type RootState = ReturnType<typeof rootReducer>
+// https://redux-toolkit.js.org/usage/usage-with-typescript#getting-the-dispatch-type
+// We need to type our dispatches
 export type AppDispatch = typeof store.dispatch;
-export const useAppDispatch = () => useDispatch();
+export const useAppDispatch = () => useDispatch<AppDispatch>();
 export type AppThunk = ThunkAction<void, RootState, unknown, Action>
