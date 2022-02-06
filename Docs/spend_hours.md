@@ -126,7 +126,7 @@ Goals:
 - add login-form to frontend
 - add menu
 - add search-field
-- add logout -functionality
+- ~~add logout -functionality~~
 
 | Date | Hours | Total Hours | Description |
 |------|-------|-------------|-------------|
@@ -134,3 +134,5 @@ Goals:
 |         |2 |92 | Struggled to get redux to work with typescript. Going to do it with Redux Toolkit, but now Im done for the day. |
 |5.2.2022 | 2 | 94 | With alot of effort and time spend on documentation and multiple tutorials, I finally managed to combine the power of typing and state managemend of redux using redux toolkit. |
 |         | 2 | 96 | Spend quite alot of time to learn about typescript + redux + formik + react combination. Finally got a working login form. Next up we'll store login data so we can use it for requesting data from server |
+| 6.2.2022 | 1 | 97 | Login-form works, logout-link works. User is stored to localStorage to allow refreshing of page. Some restructure of code. Hopefully this will be maintainable now. Everything is typesafe! |
+|          | 1 | 98 | However, testing with types took some trial and error. And Redux is now the latest source of pain in the tests. Going to look at it more tomorrow. |

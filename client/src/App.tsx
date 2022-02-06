@@ -1,42 +1,30 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { LoginForm } from './components/LoginForm';
+import { authService } from './services/authService';
 import { authSelector } from './store';
-import { logger } from './utils/logger';
-import { validateToString } from './utils/validators';
-
-interface VersionInfo {
-  mode: string,
-  version: string,
-  license: string
-}
+import { authActions } from './store/auth/authActions';
 
 const App = () => {
 
-  logger.log('App started');
-  const [version, setVersion] = useState<string>();
-  const { isLoading, isLoggedin, user } = useSelector(authSelector);
-  console.log(isLoading, isLoggedin, user);
+  const dispatch = useDispatch();
+  const { user } = useSelector(authSelector);
 
   useEffect(() => {
-    const getApi = async () => {
-      try {
-        const { data: versionInfo } = await axios.get<VersionInfo>(
-          validateToString(`${process.env.REACT_APP_API_BASE}/version`)
-        );
-        setVersion(versionInfo.version);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getApi();
+    const user = authService.loadUser();
+    if (user) {
+      dispatch(authActions.loginUser(user));
+    }
   }, []);
+
+  const logout = () => {
+    authService.deleteUser();
+    dispatch(authActions.logoutUser());
+  };
 
   return (
     <div>
-      backend version: {version}
-      <div>{user && user.name}</div>
+      <div>{user && user.name} {user && <button onClick={logout}>logout</button>} </div>
       <LoginForm />
     </div>
   );

@@ -1,18 +1,15 @@
 import { FormikErrors, withFormik } from 'formik';
 import { InnerForm } from './InnerForm';
+import { HandleFunction } from '../../types';
 
 export interface FormValues {
   username: string,
   password: string
 }
 
-interface HandleFunction {
-  (values: FormValues): void
-}
-
 interface LoginFormProps {
   initialUsername?: string,
-  handleSubmit: HandleFunction
+  handleSubmit: HandleFunction<FormValues>
 }
 
 // Pretty much 1:1 from documentation example
@@ -34,5 +31,12 @@ export const CreateForm = withFormik<LoginFormProps, FormValues>({
     }
     return errors;
   },
-  handleSubmit: (values, bag) => bag.props.handleSubmit(values)
+  handleSubmit: async (values, bag) => {
+    const success = await bag.props.handleSubmit(values);
+    if (success) {
+      bag.resetForm();
+    } else {
+      window.alert('login failed');
+    }
+  }
 })(InnerForm);
