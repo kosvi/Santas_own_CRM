@@ -3,6 +3,7 @@ export interface AuthUser {
   name: string,
   username: string,
   loginTime: number,
+  activeGroup: number,
   token: string
 }
 
@@ -13,6 +14,5 @@ export interface AuthError {
 export type AuthState = {
   isLoggedin: boolean,
   user?: AuthUser,
-  isLoading: boolean,
   error: AuthError
 };

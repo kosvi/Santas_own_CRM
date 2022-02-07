@@ -16,6 +16,7 @@ import axios from 'axios';
 // https://testing-library.com/docs/react-testing-library/api/#wrapper
 
 jest.mock('axios');
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 /*
  * LoginForm is a component that simply includes the handleFunction
@@ -26,7 +27,7 @@ describe('<LoginForm />', () => {
 
   let submitAction: jest.Mock;
   let component: RenderResult;
-  let usernameInput: HTMLElement, passwordInput: HTMLElement, submitButton: HTMLElement;
+  let usernameInput: HTMLElement, passwordInput: HTMLElement; //, submitButton: HTMLElement;
 
   beforeEach(() => {
     // This is our mock-function to handle submit on render-tests
@@ -35,25 +36,25 @@ describe('<LoginForm />', () => {
     component = render(<CreateForm handleSubmit={submitAction} />);
     usernameInput = component.getByTestId('login-username');
     passwordInput = component.getByTestId('login-password');
-    submitButton = component.getByTestId('login-submit');
+    // submitButton = component.getByTestId('login-submit');
   });
 
-  // This test WILL one day test the handleSubmit -function 
+  // This test WILL one day test the handleSubmit -function
   test('make sure handleSubmit works as intended', async () => {
-    const loginResponse: {data: AuthUser}  = {
+    const loginResponse: { data: AuthUser } = {
       data: {
         username: 'santa',
         name: 'Santa Claus',
         id: 1,
         activeGroup: 3,
-        loginime: 1644220693183,
+        loginTime: 1644220693183,
         token: 'super-duper-long-string'
       }
     };
-    await axios.post.mockResolvedValue(loginResponse);
+    await mockedAxios.post.mockResolvedValue(loginResponse);
     const result = await authService.login('santa', 'santa');
     expect(axios.post).toHaveBeenCalledTimes(1);
-    expect(axios.post).toHaveBeenCalledWith('/login', {'username': 'santa', 'password': 'santa'}, apiObjects.AxiosRequestConfigWithoutToken);
+    expect(axios.post).toHaveBeenCalledWith('/login', { 'username': 'santa', 'password': 'santa' }, apiObjects.AxiosRequestConfigWithoutToken);
     expect(result).toEqual(loginResponse.data);
   });
 

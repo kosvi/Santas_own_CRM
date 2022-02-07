@@ -2,9 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '..';
 import { AuthState, AuthError, AuthUser } from '../../types';
 
-const initialAuthState: AuthState = {
+export const initialAuthState: AuthState = {
   isLoggedin: false,
-  isLoading: false,
   error: { message: 'not logged in' }
 };
 
@@ -13,9 +12,6 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState: initialAuthState,
   reducers: {
-    setLoading: (state, action: PayloadAction<boolean>) => {
-      state.isLoading = action.payload;
-    },
     setLogin: (state, action: PayloadAction<AuthUser>) => {
       state.user = action.payload;
       state.isLoggedin = true;

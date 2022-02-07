@@ -6,11 +6,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
 // try to make this an argument to make this universal helper
-import { authSlice } from '../../store/auth';
+import { authSlice, initialAuthState } from '../../store/auth';
 
 // https://testing-library.com/docs/react-testing-library/api/#render-options
 const render = (ui: React.ReactElement<any>, { preloadedState, store = configureStore({ reducer: { auth: authSlice.reducer }, preloadedState }), ...renderOptions } = {}) => {
-  const Wrapper = ({ children }) => {
+  const Wrapper = ({ children }: { children: React.ReactElement<any> }) => {
     return <Provider store={store}>{children}</Provider>;
   };
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });

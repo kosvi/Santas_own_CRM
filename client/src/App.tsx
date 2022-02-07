@@ -8,12 +8,12 @@ import { authActions } from './store/auth/authActions';
 const App = () => {
 
   const dispatch = useDispatch();
-  const { user } = useSelector(authSelector);
+  const user = useSelector(authSelector);
 
   useEffect(() => {
-    const user = authService.loadUser();
-    if (user) {
-      dispatch(authActions.loginUser(user));
+    const storedUser = authService.loadUser();
+    if (storedUser) {
+      dispatch(authActions.loginUser(storedUser));
     }
   }, []);
 
@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <div>
-      <div>{user && user.name} {user && <button onClick={logout}>logout</button>} </div>
+      <div data-testid="name-of-user">{user?.user && user.user?.name} {user && <button onClick={logout}>logout</button>} </div>
       <LoginForm />
     </div>
   );
