@@ -52,10 +52,12 @@ describe('<LoginForm />', () => {
       fireEvent.change(passwordInput, { target: { value: 'santa' } });
     });
     await act(async () => {
+      expect(component.container).not.toHaveTextContent('Santa Claus');
       await fireEvent.click(submitButton);
       await new Promise((r) => setTimeout(r, 2000));
       expect(axios.post).toHaveBeenCalledTimes(1);
       expect(await screen.findByText(/Santa Claus/i)).toBeInTheDocument();
+      expect(component.container).toHaveTextContent('Santa Claus');
     });
   });
 

@@ -136,4 +136,5 @@ Goals:
 |         | 2 | 96 | Spend quite alot of time to learn about typescript + redux + formik + react combination. Finally got a working login form. Next up we'll store login data so we can use it for requesting data from server |
 | 6.2.2022 | 1 | 97 | Login-form works, logout-link works. User is stored to localStorage to allow refreshing of page. Some restructure of code. Hopefully this will be maintainable now. Everything is typesafe! |
 |          | 1 | 98 | However, testing with types took some trial and error. And Redux is now the latest source of pain in the tests. Going to look at it more tomorrow. |
-| 7.2.2022 | 1 | 99 | Worked really hard to get tests to work with Axios and Redux. |
+| 7.2.2022 | 2 | 100 | Worked really hard to get tests to work with Axios and Redux. |
+|          | 2 | 102 | Spend ALOT of time debugging my tests. Finally noticing I configured my 'authReducer' as just 'auth' in the test. No wonder authReducer was undefined and tests failed :) Still ALOT to do and to get a grasp on testing react app with redux using typescript and mocking axios... | 

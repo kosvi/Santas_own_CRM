@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { authSlice, initialAuthState } from '../../store/auth';
 
 // https://testing-library.com/docs/react-testing-library/api/#render-options
-const render = (ui: React.ReactElement<any>, { preloadedState, store = configureStore({ reducer: { auth: authSlice.reducer }, preloadedState }), ...renderOptions } = {}) => {
+const render = (ui: React.ReactElement<any>, { preloadedState, store = configureStore({ reducer: { authReducer: authSlice.reducer }, preloadedState }), ...renderOptions } = {}) => {
   const Wrapper = ({ children }: { children: React.ReactElement<any> }) => {
     return <Provider store={store}>{children}</Provider>;
   };

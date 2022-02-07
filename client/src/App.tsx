@@ -8,7 +8,7 @@ import { authActions } from './store/auth/authActions';
 const App = () => {
 
   const dispatch = useDispatch();
-  const user = useSelector(authSelector);
+  const { user } = useSelector(authSelector);
 
   useEffect(() => {
     const storedUser = authService.loadUser();
@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <div>
-      <div data-testid="name-of-user">{user?.user && user.user?.name} {user && <button onClick={logout}>logout</button>} </div>
+      <div data-testid="name-of-user">{user && user.name} {user && <button onClick={logout}>logout</button>} </div>
       <LoginForm />
     </div>
   );
