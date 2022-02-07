@@ -12,16 +12,10 @@ import axios from 'axios';
 // https://www.robinwieruch.de/axios-jest/
 // https://stackoverflow.com/questions/65111164/axios-default-post-mockimplementationonce-is-not-a-function-vuesjs
 // https://stackoverflow.com/questions/48172819/testing-dispatched-actions-in-redux-thunk-with-jest
-/*
-jest.mock('axios', () => ({
-  post: jest.fn(() => {
-    return Promise.resolve({foo: 'bar'});
-  })
-}));
-*/
-jest.mock('axios', () => ({
-  post: jest.fn().mockResolvedValue({foo: 'bar'})
-}));
+// https://redux.js.org/usage/writing-tests
+// https://testing-library.com/docs/react-testing-library/api/#wrapper
+
+jest.mock('axios');
 
 /*
  * LoginForm is a component that simply includes the handleFunction
@@ -57,10 +51,10 @@ describe('<LoginForm />', () => {
       }
     };
     await axios.post.mockResolvedValue(loginResponse);
-    const foo = await authService.login('santa', 'santa');
-    console.log(foo);
+    const result = await authService.login('santa', 'santa');
     expect(axios.post).toHaveBeenCalledTimes(1);
     expect(axios.post).toHaveBeenCalledWith('/login', {'username': 'santa', 'password': 'santa'}, apiObjects.AxiosRequestConfigWithoutToken);
+    expect(result).toEqual(loginResponse.data);
   });
 
   test('fill in valid username and password and submit', async () => {
