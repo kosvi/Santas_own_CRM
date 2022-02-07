@@ -6,6 +6,7 @@ import { authService } from '../../services/authService';
 import { apiObjects } from '../../services/apiServices';
 import { AuthUser } from '../../types';
 import axios from 'axios';
+import { apiData } from '../../utils/testHelpers/data/api';
 
 // https://jestjs.io/docs/mock-functions#mocking-modules
 // https://vhudyma-blog.eu/3-ways-to-mock-axios-in-jest/
@@ -42,14 +43,7 @@ describe('<LoginForm />', () => {
   // This test WILL one day test the handleSubmit -function
   test('make sure handleSubmit works as intended', async () => {
     const loginResponse: { data: AuthUser } = {
-      data: {
-        username: 'santa',
-        name: 'Santa Claus',
-        id: 1,
-        activeGroup: 3,
-        loginTime: 1644220693183,
-        token: 'super-duper-long-string'
-      }
+      data: apiData.defaultLoginResponse
     };
     await mockedAxios.post.mockResolvedValue(loginResponse);
     const result = await authService.login('santa', 'santa');

@@ -5,12 +5,15 @@ import { render as rtlRender } from '@testing-library/react';
 import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 
-// try to make this an argument to make this universal helper
-import { authSlice, initialAuthState } from '../../store/auth';
+// we can provide all reducers here if we want to
+import { authSlice } from '../../store/auth';
 
 // https://testing-library.com/docs/react-testing-library/api/#render-options
-const render = (ui: React.ReactElement<any>, { preloadedState, store = configureStore({ reducer: { authReducer: authSlice.reducer }, preloadedState }), ...renderOptions } = {}) => {
-  const Wrapper = ({ children }: { children: React.ReactElement<any> }) => {
+// This is more or less 1:1 from documentation (+ added typing)
+const render = (ui: React.ReactElement<unknown>, { store = configureStore({ reducer: { authReducer: authSlice.reducer } }), ...renderOptions } = {}) => {
+  // afaik React.ReactElement<P = props> and since we (for now) send <App />
+  // and it does not have props anyways, 'unknown' works as goood as 'any'
+  const Wrapper = ({ children }: { children: React.ReactElement<unknown> }) => {
     return <Provider store={store}>{children}</Provider>;
   };
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
