@@ -46,13 +46,15 @@ describe('<LoginForm />', () => {
 
   // This test WILL one day test the handleSubmit -function 
   test('make sure handleSubmit works as intended', async () => {
-    const loginResponse: AuthUser = {
-      username: 'santa',
-      name: 'Santa Claus',
-      id: 1,
-      activeGroup: 3,
-      loginime: 1644220693183,
-      token: 'super-duper-long-string'
+    const loginResponse: {data: AuthUser}  = {
+      data: {
+        username: 'santa',
+        name: 'Santa Claus',
+        id: 1,
+        activeGroup: 3,
+        loginime: 1644220693183,
+        token: 'super-duper-long-string'
+      }
     };
     await axios.post.mockResolvedValue(loginResponse);
     const foo = await authService.login('santa', 'santa');
