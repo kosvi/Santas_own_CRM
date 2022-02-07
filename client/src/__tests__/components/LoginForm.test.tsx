@@ -1,8 +1,32 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { fireEvent, render, RenderResult } from '@testing-library/react';
-import { LoginForm } from '../../components/LoginForm';
+import { fireEvent, render, RenderResult, act } from '@testing-library/react';
+import { CreateForm } from '../../components/LoginForm/CreateForm';
+import { authService } from '../../services/authService';
+import { apiObjects } from '../../services/apiServices';
+import { AuthUser } from '../../types';
+import axios from 'axios';
 
+// https://jestjs.io/docs/mock-functions#mocking-modules
+// https://vhudyma-blog.eu/3-ways-to-mock-axios-in-jest/
+// https://www.robinwieruch.de/axios-jest/
+// https://stackoverflow.com/questions/65111164/axios-default-post-mockimplementationonce-is-not-a-function-vuesjs
+// https://stackoverflow.com/questions/48172819/testing-dispatched-actions-in-redux-thunk-with-jest
+/*
+jest.mock('axios', () => ({
+  post: jest.fn(() => {
+    return Promise.resolve({foo: 'bar'});
+  })
+}));
+*/
+jest.mock('axios', () => ({
+  post: jest.fn().mockResolvedValue({foo: 'bar'})
+}));
+
+/*
+ * LoginForm is a component that simply includes the handleFunction
+ * and calls CreateForm with that handleFunction as prop
+ */
 
 describe('<LoginForm />', () => {
 
@@ -11,19 +35,43 @@ describe('<LoginForm />', () => {
   let usernameInput: HTMLElement, passwordInput: HTMLElement, submitButton: HTMLElement;
 
   beforeEach(() => {
+    // This is our mock-function to handle submit on render-tests
     submitAction = jest.fn();
-    component = render(<LoginForm />);
+    // get all form elements into their own variables
+    component = render(<CreateForm handleSubmit={submitAction} />);
     usernameInput = component.getByTestId('login-username');
     passwordInput = component.getByTestId('login-password');
     submitButton = component.getByTestId('login-submit');
   });
 
-  test('fill username and password and submit', () => {
-    fireEvent.change(usernameInput, { target: { value: 'user' } });
-    fireEvent.change(passwordInput, { target: { value: 'pass' } });
+  // This test WILL one day test the handleSubmit -function 
+  test('make sure handleSubmit works as intended', async () => {
+    const loginResponse: AuthUser = {
+      username: 'santa',
+      name: 'Santa Claus',
+      id: 1,
+      activeGroup: 3,
+      loginime: 1644220693183,
+      token: 'super-duper-long-string'
+    };
+    await axios.post.mockResolvedValue(loginResponse);
+    const foo = await authService.login('santa', 'santa');
+    console.log(foo);
+    expect(axios.post).toHaveBeenCalledTimes(1);
+    expect(axios.post).toHaveBeenCalledWith('/login', {'username': 'santa', 'password': 'santa'}, apiObjects.AxiosRequestConfigWithoutToken);
+  });
+
+  test('fill in valid username and password and submit', async () => {
+    submitAction.mockResolvedValueOnce(true);
+    act(() => {
+      fireEvent.change(usernameInput, { target: { value: 'user' } });
+      fireEvent.change(passwordInput, { target: { value: 'pass' } });
+    });
     const form = component.container.querySelector('form');
     if (form) {
-      fireEvent.submit(form);
+      await act(async () => {
+        await fireEvent.submit(form);
+      });
     }
     expect(submitAction.mock.calls).toHaveLength(1);
   });

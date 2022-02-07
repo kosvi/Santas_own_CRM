@@ -8,7 +8,7 @@ import axios from 'axios';
 import { AuthUser } from '../types';
 import { logger } from '../utils/logger';
 import { apiObjects, apiServices } from './apiServices';
-import { msgResponse } from '../types/api';
+import { msgResponse } from '../types';
 
 const USER_DATA_KEY = 'loggedInUser';
 
