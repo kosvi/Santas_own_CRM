@@ -1,13 +1,17 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { authService } from '../../services/authService';
 import { authActions } from '../../store/auth/authActions';
+import { authSelector } from '../../store';
 import { logger } from '../../utils/logger';
 import { CreateForm, FormValues } from './CreateForm';
+import { LoginError } from './LoginError';
+import { apiValidators } from '../../utils/apiValidators';
 
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const { error } = useSelector(authSelector);
 
   const handleSubmit = async (values: FormValues): Promise<boolean> => {
     const { username, password } = values;
@@ -22,12 +26,18 @@ export const LoginForm = () => {
       }
     } catch (error) {
       logger.logError(error);
+      if(apiValidators.errorHasErrorResponse(error)) {
+        dispatch(authActions.authError({ message: error.response.data.error }));
+      } else if(error instanceof Error) {
+	dispatch(authActions.authError({ message: error.message }));
+      }
       return false;
     }
   };
 
   return (
     <div>
+      <LoginError msg={error.message} />
       <CreateForm handleSubmit={handleSubmit} />
     </div>
   );

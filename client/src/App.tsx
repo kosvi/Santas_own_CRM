@@ -4,6 +4,7 @@ import { LoginForm } from './components/LoginForm';
 import { authService } from './services/authService';
 import { authSelector } from './store';
 import { authActions } from './store/auth/authActions';
+import { Menu } from './components/Menu';
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
     <div>
       <div data-testid="name-of-user">{user && user.name} {user && <button onClick={logout}>logout</button>} </div>
       <LoginForm />
+      <Menu />
     </div>
   );
 };

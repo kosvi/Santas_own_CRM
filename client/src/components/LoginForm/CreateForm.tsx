@@ -35,8 +35,6 @@ export const CreateForm = withFormik<LoginFormProps, FormValues>({
     const success = await bag.props.handleSubmit(values);
     if (success) {
       bag.resetForm();
-    } else {
-      window.alert('login failed');
     }
   }
 })(InnerForm);

@@ -8,7 +8,7 @@ import axios from 'axios';
 import { AuthUser } from '../types';
 import { logger } from '../utils/logger';
 import { apiObjects, apiServices } from './apiServices';
-import { msgResponse } from '../types';
+import { MsgResponse } from '../types';
 
 const USER_DATA_KEY = 'loggedInUser';
 
@@ -32,19 +32,14 @@ const deleteUser = (): void => {
   apiServices.setToken('null');
 };
 
-const login = async (username: string, password: string): Promise<AuthUser | undefined> => {
-  try {
-    const response = await axios.post<AuthUser>('/login', { username, password }, apiObjects.AxiosRequestConfigWithoutToken);
-    return response.data;
-  } catch (error) {
-    logger.logError(error);
-    return undefined;
-  }
+const login = async (username: string, password: string): Promise<AuthUser> => {
+  const response = await axios.post<AuthUser>('/login', { username, password }, apiObjects.AxiosRequestConfigWithoutToken);
+  return response.data;
 };
 
-const logout = async (): Promise<msgResponse | undefined> => {
+const logout = async (): Promise<MsgResponse | undefined> => {
   try {
-    const response = await axios.delete<msgResponse>('/logout', apiObjects.axiosRequestConfigWithToken);
+    const response = await axios.delete<MsgResponse>('/logout', apiObjects.axiosRequestConfigWithToken);
     return response.data;
   } catch (error) {
     logger.logError(error);

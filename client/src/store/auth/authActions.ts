@@ -1,8 +1,8 @@
 import { authSlice } from '.';
 import { AppThunk } from '..';
-import { AuthUser } from '../../types';
+import { AuthUser, AuthError } from '../../types';
 
-const { setLogin, setLogout } = authSlice.actions;
+const { setLogin, setLogout, setError } = authSlice.actions;
 
 // And here we have all our actions that can be used to alter authentication state
 
@@ -18,6 +18,12 @@ const logoutUser = (): AppThunk => {
   };
 };
 
+const authError = (authError: AuthError): AppThunk => {
+  return dispatch => {
+    dispatch(setError(authError));
+  };
+};
+
 export const authActions = {
-  loginUser, logoutUser
+  loginUser, logoutUser, authError
 };

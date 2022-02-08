@@ -15,10 +15,12 @@ export const authSlice = createSlice({
     setLogin: (state, action: PayloadAction<AuthUser>) => {
       state.user = action.payload;
       state.isLoggedin = true;
+      state.error = { message: '' };
     },
     setLogout: (state) => {
       state.isLoggedin = false;
       state.user = undefined;
+      state.error = { message: '' };
     },
     setError: (state, action: PayloadAction<AuthError>) => {
       state.error = action.payload;
