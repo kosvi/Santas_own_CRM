@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 // we can provide all reducers here if we want to
 import { authSlice } from '../../store/auth';
 
+// https://testing-library.com/docs/react-testing-library/api/#wrapper
 // https://testing-library.com/docs/react-testing-library/api/#render-options
 // This is more or less 1:1 from documentation (+ added typing)
 const render = (ui: React.ReactElement<unknown>, { store = configureStore({ reducer: { authReducer: authSlice.reducer } }), ...renderOptions } = {}) => {

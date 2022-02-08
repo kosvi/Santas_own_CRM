@@ -6,6 +6,7 @@ import { authSelector } from './store';
 import { authActions } from './store/auth/authActions';
 import { Menu } from './components/Menu';
 import './App.css';
+import { SearchForm } from './components/SearchForm';
 
 const App = () => {
 
@@ -26,6 +27,7 @@ const App = () => {
 
   return (
     <div>
+      {isLoggedin && <SearchForm />}
       <div data-testid="name-of-user">{user && user.name} {user && <button onClick={logout}>logout</button>} </div>
       {!isLoggedin && <LoginForm />}
       {isLoggedin && <Menu />}

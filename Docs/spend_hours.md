@@ -140,6 +140,7 @@ Goals:
 |          | 2 | 102 | Spend ALOT of time debugging my tests. Finally noticing I configured my 'authReducer' as just 'auth' in the test. No wonder authReducer was undefined and tests failed :) Still ALOT to do and to get a grasp on testing react app with redux using typescript and mocking axios... | 
 | 8.2.2022 | 1 | 103 | Worked on frontend: first version of menu and loginform displays errors correctly(?) (tests missing) | 
 |          | 1 | 104 | Worked to make frontend prettier. For now all styling is going to be in App.css since I don't consider it the most important thing for now and we are badly behind the schedule (mostly thanks to typing!) |
+|          | 2 | 106 | Made tests prettier (cleaned all spaghetti) and added files for searchfield. |
 
 Extras:
 - Added frontend tests to test.docker-compose.yml

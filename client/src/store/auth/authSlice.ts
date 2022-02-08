@@ -15,7 +15,7 @@ export const authSlice = createSlice({
     setLogin: (state, action: PayloadAction<AuthUser>) => {
       state.user = action.payload;
       state.isLoggedin = true;
-      state.error = { message: '' };
+      state.error = { message: 'logged in' };
     },
     setLogout: (state) => {
       state.isLoggedin = false;

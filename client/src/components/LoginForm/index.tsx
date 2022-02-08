@@ -16,22 +16,26 @@ export const LoginForm = () => {
   const handleSubmit = async (values: FormValues): Promise<boolean> => {
     const { username, password } = values;
     try {
+      // authService basically just runs post-request using axios and return .data
       const authData = await authService.login(username, password);
       if (authData) {
         authService.storeUser(authData);
         dispatch(authActions.loginUser(authData));
         return true;
       } else {
+        // we should NEVER end up here. This is only possible if axios resolves, but .data is not defined
         throw new Error('no authentication data returned by server');
       }
     } catch (error) {
       logger.logError(error);
-      if(apiValidators.errorHasErrorResponse(error)) {
-        dispatch(authActions.authError({ message: error.response.data.error }));
-      } else if(error instanceof Error) {
+      // most likely the error is thrown by Axios, so it should contain the response body in error.response.data
+      // Our api has property 'error' in all failure-responses and it should contain information about the error
+      if (apiValidators.errorIsResponseError(error) && error.response?.data.error) {
+        dispatch(authActions.authError({ message: error.response?.data.error }));
+      } else if (error instanceof Error) {
         dispatch(authActions.authError({ message: error.message }));
       } else {
-	dispatch(authActions.authError({ message: 'unknown error' }));
+        dispatch(authActions.authError({ message: 'unknown error' }));
       }
       return false;
     }

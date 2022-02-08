@@ -2,33 +2,23 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, RenderResult, act } from '@testing-library/react';
 import { CreateForm } from '../../../components/LoginForm/CreateForm';
-import { authService } from '../../../services/authService';
-import { apiObjects } from '../../../services/apiServices';
-import { AuthUser } from '../../../types';
-import axios from 'axios';
-import { apiData } from '../../../utils/testHelpers/data/api';
+import { testHelpers } from '../../../utils/testHelpers/testHelpers';
 
-// https://jestjs.io/docs/mock-functions#mocking-modules
-// https://vhudyma-blog.eu/3-ways-to-mock-axios-in-jest/
-// https://www.robinwieruch.de/axios-jest/
-// https://stackoverflow.com/questions/65111164/axios-default-post-mockimplementationonce-is-not-a-function-vuesjs
-// https://stackoverflow.com/questions/48172819/testing-dispatched-actions-in-redux-thunk-with-jest
-// https://redux.js.org/usage/writing-tests
-// https://testing-library.com/docs/react-testing-library/api/#wrapper
-
-jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 /*
- * LoginForm is a component that simply includes the handleFunction
- * and calls CreateForm with that handleFunction as prop
+ * We simply test that <CreateForm /> works and renders as intended
  */
+
+// Constants
+const USERNAME = 'santa';
+const PASSWORD = 'claus';
 
 describe('<CreateForm />', () => {
 
+  // These are the elements we use for the tests
   let submitAction: jest.Mock;
   let component: RenderResult;
-  let usernameInput: HTMLElement, passwordInput: HTMLElement; //, submitButton: HTMLElement;
+  let usernameInput: HTMLElement, passwordInput: HTMLElement, submitButton: HTMLElement;
 
   beforeEach(() => {
     // This is our mock-function to handle submit on render-tests
@@ -37,26 +27,14 @@ describe('<CreateForm />', () => {
     component = render(<CreateForm handleSubmit={submitAction} />);
     usernameInput = component.getByTestId('login-username');
     passwordInput = component.getByTestId('login-password');
-    // submitButton = component.getByTestId('login-submit');
+    submitButton = component.getByTestId('login-submit');
   });
 
-  // This test WILL one day test the handleSubmit -function
-  test('make sure handleSubmit works as intended', async () => {
-    const loginResponse: { data: AuthUser } = {
-      data: apiData.defaultLoginResponse
-    };
-    await mockedAxios.post.mockResolvedValue(loginResponse);
-    const result = await authService.login('santa', 'santa');
-    expect(axios.post).toHaveBeenCalledTimes(1);
-    expect(axios.post).toHaveBeenCalledWith('/login', { 'username': 'santa', 'password': 'santa' }, apiObjects.AxiosRequestConfigWithoutToken);
-    expect(result).toEqual(loginResponse.data);
-  });
-
-  test('fill in valid username and password and submit', async () => {
+  test('valid username and password submits ok', async () => {
     submitAction.mockResolvedValueOnce(true);
     act(() => {
-      fireEvent.change(usernameInput, { target: { value: 'user' } });
-      fireEvent.change(passwordInput, { target: { value: 'pass' } });
+      fireEvent.change(usernameInput, { target: { value: USERNAME } });
+      fireEvent.change(passwordInput, { target: { value: PASSWORD } });
     });
     const form = component.container.querySelector('form');
     if (form) {
@@ -65,5 +43,37 @@ describe('<CreateForm />', () => {
       });
     }
     expect(submitAction.mock.calls).toHaveLength(1);
+    expect(submitAction.mock.calls[0][0].username).toBe(USERNAME);
+    expect(submitAction.mock.calls[0][0].password).toBe(PASSWORD);
   });
+
+  test('blur username pops up require-message', async () => {
+    await act(async () => {
+      expect(component.container).not.toHaveTextContent('required');
+      usernameInput.focus();
+      usernameInput.blur();
+      await testHelpers.waitGivenTime();
+      expect(component.container).toHaveTextContent('required');
+    });
+  });
+
+  test('blur password pops up require-message', async () => {
+    await act(async () => {
+      expect(component.container).not.toHaveTextContent('required');
+      passwordInput.focus();
+      passwordInput.blur();
+      await testHelpers.waitGivenTime();
+      expect(component.container).toHaveTextContent('required');
+    });
+  });
+
+  test('click on login without username and password pops up require-message', async () => {
+    await act(async () => {
+      expect(component.container).not.toHaveTextContent('required');
+      await fireEvent.click(submitButton);
+      await testHelpers.waitGivenTime();
+      expect(component.container).toHaveTextContent('required');
+    });
+  });
+
 });
