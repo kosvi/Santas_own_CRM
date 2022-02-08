@@ -22,9 +22,9 @@ export const Menu = () => {
   };
 
   return (
-    <div>
+    <div id="Menu">
       {displayMenu && <ItemList items={listOfItems} />}
-      <div onClick={toggleMenu}>Menu</div>
+      <div id="MenuButton" onClick={toggleMenu}>Menu</div>
     </div>
   );
 };

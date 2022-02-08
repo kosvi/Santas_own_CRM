@@ -5,6 +5,7 @@ import { authService } from './services/authService';
 import { authSelector } from './store';
 import { authActions } from './store/auth/authActions';
 import { Menu } from './components/Menu';
+import './App.css';
 
 const App = () => {
 
@@ -26,8 +27,8 @@ const App = () => {
   return (
     <div>
       <div data-testid="name-of-user">{user && user.name} {user && <button onClick={logout}>logout</button>} </div>
-      <LoginForm />
-      <Menu />
+      {!user && <LoginForm />}
+      {user && <Menu />}
     </div>
   );
 };

@@ -123,8 +123,8 @@ Extras:
 ### Sprint 4 - first version of frontend
 
 Goals: 
-- add login-form to frontend
-- add menu
+- ~~add login-form to frontend~~
+- ~~add menu~~
 - add search-field
 - ~~add logout -functionality~~
 
@@ -139,3 +139,4 @@ Goals:
 | 7.2.2022 | 2 | 100 | Worked really hard to get tests to work with Axios and Redux. |
 |          | 2 | 102 | Spend ALOT of time debugging my tests. Finally noticing I configured my 'authReducer' as just 'auth' in the test. No wonder authReducer was undefined and tests failed :) Still ALOT to do and to get a grasp on testing react app with redux using typescript and mocking axios... | 
 | 8.2.2022 | 1 | 103 | Worked on frontend: first version of menu and loginform displays errors correctly(?) (tests missing) | 
+|          | 1 | 104 | Worked to make frontend prettier. For now all styling is going to be in App.css since I don't consider it the most important thing for now and we are badly behind the schedule (mostly thanks to typing!) |

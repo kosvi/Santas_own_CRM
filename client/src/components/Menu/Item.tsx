@@ -3,7 +3,7 @@ import { MenuItem } from '../../types';
 
 export const Item = ({ item }: {item: MenuItem}) => {
   return (
-    <div>
+    <div className="MenuItem">
       {item.title}
     </div>
   );

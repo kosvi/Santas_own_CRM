@@ -24,10 +24,10 @@ export const CreateForm = withFormik<LoginFormProps, FormValues>({
   validate: (values: FormValues) => {
     const errors: FormikErrors<FormValues> = {};
     if (!values.username) {
-      errors.username = 'Required';
+      errors.username = 'Username required';
     }
     if (!values.password) {
-      errors.password = 'Required';
+      errors.password = 'Password required';
     }
     return errors;
   },

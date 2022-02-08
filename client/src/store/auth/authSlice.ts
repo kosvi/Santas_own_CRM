@@ -4,7 +4,7 @@ import { AuthState, AuthError, AuthUser } from '../../types';
 
 export const initialAuthState: AuthState = {
   isLoggedin: false,
-  error: { message: 'not logged in' }
+  error: { message: '' }
 };
 
 // This is our actual authentication reducer
