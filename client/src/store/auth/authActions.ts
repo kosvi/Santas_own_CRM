@@ -24,6 +24,12 @@ const authError = (authError: AuthError): AppThunk => {
   };
 };
 
+const clearError = (): AppThunk => {
+  return dispatch => {
+    dispatch(setError({ message: '' }));
+  };
+};
+
 export const authActions = {
-  loginUser, logoutUser, authError
+  loginUser, logoutUser, authError, clearError
 };

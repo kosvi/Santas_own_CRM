@@ -20,7 +20,7 @@ export const authSlice = createSlice({
     setLogout: (state) => {
       state.isLoggedin = false;
       state.user = undefined;
-      state.error = { message: '' };
+      state.error = { message: 'logged out' };
     },
     setError: (state, action: PayloadAction<AuthError>) => {
       state.error = action.payload;
