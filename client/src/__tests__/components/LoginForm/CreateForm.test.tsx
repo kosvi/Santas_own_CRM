@@ -1,12 +1,12 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, RenderResult, act } from '@testing-library/react';
-import { CreateForm } from '../../components/LoginForm/CreateForm';
-import { authService } from '../../services/authService';
-import { apiObjects } from '../../services/apiServices';
-import { AuthUser } from '../../types';
+import { CreateForm } from '../../../components/LoginForm/CreateForm';
+import { authService } from '../../../services/authService';
+import { apiObjects } from '../../../services/apiServices';
+import { AuthUser } from '../../../types';
 import axios from 'axios';
-import { apiData } from '../../utils/testHelpers/data/api';
+import { apiData } from '../../../utils/testHelpers/data/api';
 
 // https://jestjs.io/docs/mock-functions#mocking-modules
 // https://vhudyma-blog.eu/3-ways-to-mock-axios-in-jest/
@@ -24,7 +24,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
  * and calls CreateForm with that handleFunction as prop
  */
 
-describe('<LoginForm />', () => {
+describe('<CreateForm />', () => {
 
   let submitAction: jest.Mock;
   let component: RenderResult;

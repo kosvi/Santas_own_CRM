@@ -10,7 +10,7 @@ import './App.css';
 const App = () => {
 
   const dispatch = useDispatch();
-  const { user } = useSelector(authSelector);
+  const { user, isLoggedin } = useSelector(authSelector);
 
   useEffect(() => {
     const storedUser = authService.loadUser();
@@ -27,8 +27,8 @@ const App = () => {
   return (
     <div>
       <div data-testid="name-of-user">{user && user.name} {user && <button onClick={logout}>logout</button>} </div>
-      {!user && <LoginForm />}
-      {user && <Menu />}
+      {!isLoggedin && <LoginForm />}
+      {isLoggedin && <Menu />}
     </div>
   );
 };

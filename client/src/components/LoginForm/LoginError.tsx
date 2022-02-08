@@ -11,7 +11,7 @@ export const LoginError = ({ msg }: { msg: string }) => {
   };
 
   return (
-    <div id="LoginFormError" onClick={clearError}>
+    <div id="LoginFormError" data-testid="login-error" onClick={clearError}>
       {msg}&nbsp;
     </div>
   );

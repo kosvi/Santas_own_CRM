@@ -30,6 +30,8 @@ export const LoginForm = () => {
         dispatch(authActions.authError({ message: error.response.data.error }));
       } else if(error instanceof Error) {
         dispatch(authActions.authError({ message: error.message }));
+      } else {
+	dispatch(authActions.authError({ message: 'unknown error' }));
       }
       return false;
     }
