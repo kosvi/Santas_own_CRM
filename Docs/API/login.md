@@ -18,6 +18,7 @@ Status: 200
   "name": "Santa Claus",
   "id": 1,
   "activeGroup": 3,
+  "loginTime": 1643914271799,
   "token": "<token-as-string>"
 }
 ```

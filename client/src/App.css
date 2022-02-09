@@ -1,0 +1,54 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+#Menu {
+  background-color: purple;
+  color: #cccccc;
+  padding: 1em;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+#MenuButton {
+  cursor: pointer;
+  padding: 0.5em;
+}
+
+.MenuItem {
+  padding: 0.3em;
+  border-radius: 0.5em;
+  cursor: pointer;
+}
+
+.MenuItem:hover {
+  color: #ffffff;
+}
+
+#LoginForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+#LoginForm input, button {
+  margin: 0.2em;
+}
+
+#LoginForm div {
+  color: #f00;
+  font-family: sans-serif;
+  font-size: 0.8em;
+}
+
+#LoginFormError {
+  white-space: nowrap;
+  width: 100%;
+  margin-bottom: 0.5em;
+  text-transform: capitalize;
+  cursor: pointer;
+}
