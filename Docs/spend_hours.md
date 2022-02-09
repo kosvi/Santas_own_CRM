@@ -119,3 +119,29 @@ Going to leave some of the goals of the sprint to be unfulfilled. Permission che
 
 Extras:
 - Fixed Github Actions to use docker image of Postgres 
+
+### Sprint 4 - first version of frontend
+
+Goals: 
+- ~~add login-form to frontend~~
+- ~~add menu~~
+- ~~add search-field~~
+- ~~add logout -functionality~~
+
+| Date | Hours | Total Hours | Description |
+|------|-------|-------------|-------------|
+|4.2.2022 |1 |90 |Started work with frontend. Wondered the directory structure and how to implement redux. |
+|         |2 |92 | Struggled to get redux to work with typescript. Going to do it with Redux Toolkit, but now Im done for the day. |
+|5.2.2022 | 2 | 94 | With alot of effort and time spend on documentation and multiple tutorials, I finally managed to combine the power of typing and state managemend of redux using redux toolkit. |
+|         | 2 | 96 | Spend quite alot of time to learn about typescript + redux + formik + react combination. Finally got a working login form. Next up we'll store login data so we can use it for requesting data from server |
+| 6.2.2022 | 1 | 97 | Login-form works, logout-link works. User is stored to localStorage to allow refreshing of page. Some restructure of code. Hopefully this will be maintainable now. Everything is typesafe! |
+|          | 1 | 98 | However, testing with types took some trial and error. And Redux is now the latest source of pain in the tests. Going to look at it more tomorrow. |
+| 7.2.2022 | 2 | 100 | Worked really hard to get tests to work with Axios and Redux. |
+|          | 2 | 102 | Spend ALOT of time debugging my tests. Finally noticing I configured my 'authReducer' as just 'auth' in the test. No wonder authReducer was undefined and tests failed :) Still ALOT to do and to get a grasp on testing react app with redux using typescript and mocking axios... | 
+| 8.2.2022 | 1 | 103 | Worked on frontend: first version of menu and loginform displays errors correctly(?) (tests missing) | 
+|          | 1 | 104 | Worked to make frontend prettier. For now all styling is going to be in App.css since I don't consider it the most important thing for now and we are badly behind the schedule (mostly thanks to typing!) |
+|          | 2 | 106 | Made tests prettier (cleaned all spaghetti) and added files for searchfield. |
+| 9.2.2022 | 1 | 107 | Added search-field, but didn't make any nice UI for it. However, I did add functionality to it. No tests for it yet. Closing sprint... |
+
+Extras:
+- Added frontend tests to test.docker-compose.yml

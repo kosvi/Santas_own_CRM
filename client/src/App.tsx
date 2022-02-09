@@ -1,33 +1,36 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { validateToString } from './utils/validators';
-
-interface VersionInfo {
-  mode: string,
-  version: string,
-  license: string
-}
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { LoginForm } from './components/LoginForm';
+import { authService } from './services/authService';
+import { authSelector } from './store';
+import { authActions } from './store/auth/authActions';
+import { Menu } from './components/Menu';
+import './App.css';
+import { SearchForm } from './components/SearchForm';
 
 const App = () => {
 
-  const [version, setVersion] = useState<string>();
+  const dispatch = useDispatch();
+  const { user, isLoggedin } = useSelector(authSelector);
 
   useEffect(() => {
-    const getApi = async () => {
-      try {
-        const { data: versionInfo } = await axios.get<VersionInfo>(
-          validateToString(`${process.env.REACT_APP_API_BASE}/version`)
-        );
-        setVersion(versionInfo.version);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getApi();
+    const storedUser = authService.loadUser();
+    if (storedUser) {
+      dispatch(authActions.loginUser(storedUser));
+    }
   }, []);
+
+  const logout = () => {
+    authService.deleteUser();
+    dispatch(authActions.logoutUser());
+  };
+
   return (
     <div>
-      backend version: {version}
+      {isLoggedin && <SearchForm />}
+      <div data-testid="name-of-user">{user && user.name} {user && <button onClick={logout}>logout</button>} </div>
+      {!isLoggedin && <LoginForm />}
+      {isLoggedin && <Menu />}
     </div>
   );
 };

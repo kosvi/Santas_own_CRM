@@ -1,4 +1,5 @@
 # TODO
 
-- Move on to next endpoint
+- mark sprint finished and get going!
+  - merge to develop
 - API-documentation
