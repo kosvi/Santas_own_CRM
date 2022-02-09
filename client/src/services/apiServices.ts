@@ -13,7 +13,7 @@ const AxiosRequestConfigWithoutToken: AxiosRequestConfig = {
 
 const axiosRequestConfigWithToken: AxiosRequestConfig = {
   ...AxiosRequestConfigWithoutToken,
-  headers: { Authorization: token }
+  headers: { Authorization: `bearer ${token}` }
 };
 
 export const apiServices = {
