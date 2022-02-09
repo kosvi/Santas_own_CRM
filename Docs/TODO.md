@@ -1,6 +1,5 @@
 # TODO
 
-- Add search-field & make logout-button prettier
-  - add debounce to searchfield
-  - mark sprint finished and get going!
+- mark sprint finished and get going!
+  - merge to develop
 - API-documentation

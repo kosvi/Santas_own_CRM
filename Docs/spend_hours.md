@@ -125,7 +125,7 @@ Extras:
 Goals: 
 - ~~add login-form to frontend~~
 - ~~add menu~~
-- add search-field
+- ~~add search-field~~
 - ~~add logout -functionality~~
 
 | Date | Hours | Total Hours | Description |
@@ -141,6 +141,7 @@ Goals:
 | 8.2.2022 | 1 | 103 | Worked on frontend: first version of menu and loginform displays errors correctly(?) (tests missing) | 
 |          | 1 | 104 | Worked to make frontend prettier. For now all styling is going to be in App.css since I don't consider it the most important thing for now and we are badly behind the schedule (mostly thanks to typing!) |
 |          | 2 | 106 | Made tests prettier (cleaned all spaghetti) and added files for searchfield. |
+| 9.2.2022 | 1 | 107 | Added search-field, but didn't make any nice UI for it. However, I did add functionality to it. No tests for it yet. Closing sprint... |
 
 Extras:
 - Added frontend tests to test.docker-compose.yml
