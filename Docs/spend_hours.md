@@ -142,6 +142,18 @@ Goals:
 |          | 1 | 104 | Worked to make frontend prettier. For now all styling is going to be in App.css since I don't consider it the most important thing for now and we are badly behind the schedule (mostly thanks to typing!) |
 |          | 2 | 106 | Made tests prettier (cleaned all spaghetti) and added files for searchfield. |
 | 9.2.2022 | 1 | 107 | Added search-field, but didn't make any nice UI for it. However, I did add functionality to it. No tests for it yet. Closing sprint... |
+| sprint total | 18 | 107 | |
 
 Extras:
 - Added frontend tests to test.docker-compose.yml
+
+### Sprint 5 - add pages and react-router
+
+Goals:
+- Add react-router 
+- Enable switching 'pages' from Menu
+- Allow admin to create groups & edit permissions
+
+| Date | Hours | Total Hours | Description |
+|------|-------|-------------|-------------|
+|      |       |             |             |
