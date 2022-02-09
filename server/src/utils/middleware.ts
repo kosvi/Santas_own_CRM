@@ -3,9 +3,9 @@ import { verify } from 'jsonwebtoken';
 import { SECRET } from './config';
 import { ControllerError } from './customError';
 import { logger } from './logger';
-import { toPermissionsWithFunctionality } from './apiValidators';
 import { validateToString, validateToObject } from './validators';
-import { AccessTokenContent, PermissionsInRequest, RequestWithToken } from '../types';
+import { AccessTokenContent, RequestWithToken } from '../types';
+import { getPermissionsOfGroup } from '../services/groupService';
 import models from '../models';
 
 export const errorHandler = (error: ControllerError | Error, _req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -91,25 +91,5 @@ export const authenticate = async (req: RequestWithToken, _res: express.Response
     }
     next(new ControllerError(403, 'Malformed token'));
   }
-};
-
-const getPermissionsOfGroup = async (id: number): Promise<PermissionsInRequest[]> => {
-  const permissionsFromDatabase = await models.Permission.findAll({
-    where: { groupId: id },
-    attributes: { exclude: ['id', 'groupId', 'functionalityId'] },
-    include: {
-      model: models.Functionality,
-      attributes: { exclude: ['id', 'name'] }
-    }
-  });
-  // This must be really nasty again
-  if (permissionsFromDatabase instanceof Array && permissionsFromDatabase.length > 0) {
-    const rawPermissions = toPermissionsWithFunctionality(permissionsFromDatabase);
-    const permissions = rawPermissions.map(rp => {
-      return { code: rp.functionality.code, read: rp.read, write: rp.write };
-    });
-    return permissions;
-  }
-  return [];
 };
 

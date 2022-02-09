@@ -117,6 +117,7 @@ Check [Api documentation](Docs/API/reset.md) for `/api/reset` for more informati
 .env
 ```
 REACT_APP_API_BASE=
+REACT_APP_LOGGING=
 HOST=
 WDS_SOCKET_HOST=
 ```

@@ -1,19 +1,8 @@
 import React, { useState } from 'react';
-import { MenuItem } from '../../types';
 import { ItemList } from './ItemList';
+import { listOfItems } from './listOfItems';
 
 export const Menu = () => {
-
-  const listOfItems: Array<MenuItem> = [
-    {
-      title: 'foobar',
-      url: 'foobar'
-    },
-    {
-      title: 'another link',
-      url: 'another url'
-    }
-  ];
 
   const [displayMenu, setDisplayMenu] = useState<boolean>(false);
 

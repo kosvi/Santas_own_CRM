@@ -1,9 +1,9 @@
-import { PermissionsInRequest } from '../types';
+import { PermissionWithCode } from '../types';
 import { ControllerError } from './customError';
 
 type PermissionType = 'users' | 'permissions' | 'people' | 'wishes_and_items' | 'entries';
 
-export const checkReadPermission = (functionality: PermissionType, permissions: Array<PermissionsInRequest> | undefined): boolean => {
+export const checkReadPermission = (functionality: PermissionType, permissions: Array<PermissionWithCode> | undefined): boolean => {
   const permission = findPermission(functionality, permissions);
   if (!permission.read) {
     throw new ControllerError(403, 'no permission to access this data');
@@ -12,7 +12,7 @@ export const checkReadPermission = (functionality: PermissionType, permissions: 
   }
 };
 
-export const checkWritePermission = (functionality: PermissionType, permissions: Array<PermissionsInRequest> | undefined): boolean => {
+export const checkWritePermission = (functionality: PermissionType, permissions: Array<PermissionWithCode> | undefined): boolean => {
   const permission = findPermission(functionality, permissions);
   if (!permission.write) {
     throw new ControllerError(403, 'no permission to access this data');
@@ -21,7 +21,7 @@ export const checkWritePermission = (functionality: PermissionType, permissions:
   }
 };
 
-const findPermission = (functionality: PermissionType, permissions: Array<PermissionsInRequest> | undefined): { read: boolean, write: boolean } => {
+const findPermission = (functionality: PermissionType, permissions: Array<PermissionWithCode> | undefined): { read: boolean, write: boolean } => {
   if (!permissions) {
     throw new ControllerError(403, 'no permissions set');
   }

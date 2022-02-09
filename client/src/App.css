@@ -12,6 +12,15 @@ body {
   width: 100%;
 }
 
+#Menu a {
+  color: #cccccc;
+  text-decoration: none;
+}
+
+#Menu a:hover {
+  color: #ffffff;
+}
+
 #MenuButton {
   cursor: pointer;
   padding: 0.5em;
@@ -21,10 +30,6 @@ body {
   padding: 0.3em;
   border-radius: 0.5em;
   cursor: pointer;
-}
-
-.MenuItem:hover {
-  color: #ffffff;
 }
 
 #LoginForm {

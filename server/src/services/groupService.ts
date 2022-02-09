@@ -1,6 +1,8 @@
 import models from '../models';
 import { GroupAttributes, PermissionAttributes } from '../types';
+import { toPermissionsWithFunctionality } from '../utils/apiValidators';
 import { ControllerError } from '../utils/customError';
+import { PermissionWithCode } from '../types';
 import { logger } from '../utils/logger';
 
 export const getAllGroupsWithPermissions = async () => {
@@ -77,5 +79,25 @@ export const addPermission = async (permission: PermissionAttributes): Promise<G
     }
     throw (error);
   }
+};
+
+export const getPermissionsOfGroup = async (id: number): Promise<PermissionWithCode[]> => {
+  const permissionsFromDatabase = await models.Permission.findAll({
+    where: { groupId: id },
+    attributes: { exclude: ['id', 'groupId', 'functionalityId'] },
+    include: {
+      model: models.Functionality,
+      attributes: { exclude: ['id', 'name'] }
+    }
+  });
+  // This must be really nasty again
+  if (permissionsFromDatabase instanceof Array && permissionsFromDatabase.length > 0) {
+    const rawPermissions = toPermissionsWithFunctionality(permissionsFromDatabase);
+    const permissions = rawPermissions.map(rp => {
+      return { code: rp.functionality.code, read: rp.read, write: rp.write };
+    });
+    return permissions;
+  }
+  return [];
 };
 
