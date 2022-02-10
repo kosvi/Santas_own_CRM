@@ -8,14 +8,20 @@ export const ItemList = ({ items }: { items: Array<MenuItem> }) => {
 
   const { user } = useSelector(authSelector);
 
-  const getPermission = (functionality: string, permissions: Permissions): boolean => {
+  const getPermission = (functionality: PermissionCode, permissions: Permissions): boolean => {
+    switch (functionality) {
+    case 'people':
+      return permissions.people.read;
+    case 'permissions':
+      return permissions.permissions.read;
+    }
+    return false;
   };
 
   return (
     <div>
       {items.map(i => {
-        if(i.permission && user) {
-	  console.log(user.permissions);
+        if (i.permission && user && getPermission(i.permission, user.permissions)) {
           return <Item key={i.title} item={i} />;
         }
         return;
