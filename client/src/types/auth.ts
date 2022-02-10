@@ -1,4 +1,4 @@
-type PermissionCode = 'users' | 'permissions' | 'people' | 'wishes_and_items' | 'entries';
+export type PermissionCode = 'users' | 'permissions' | 'people' | 'wishes_and_items' | 'entries';
 
 export interface Permission {
   code: PermissionCode
@@ -14,14 +14,23 @@ export interface Permissions {
   entries: Omit<Permission, 'code'>
 }
 
-export interface AuthUser {
+interface CommonUser {
   id: number,
   name: string,
   username: string,
   loginTime: number,
   activeGroup: number,
   token: string,
+}
+
+// This is what the API sends us when logging in
+export interface AuthUserDTO extends CommonUser {
   permissions: Array<Permission>
+}
+
+// this is what we parse from it
+export interface AuthUser extends CommonUser {
+  permissions: Permissions
 }
 
 export interface AuthError {
@@ -31,6 +40,5 @@ export interface AuthError {
 export type AuthState = {
   isLoggedin: boolean,
   user?: AuthUser,
-  permissions?: Permissions,
   error: AuthError
 };

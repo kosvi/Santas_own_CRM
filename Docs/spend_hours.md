@@ -157,3 +157,4 @@ Goals:
 | Date | Hours | Total Hours | Description |
 |------|-------|-------------|-------------|
 |9.2.2022 | 2 | 109 | Implemented react-router-dom and added some routes. Made sure that logging in displays the 'page' in url(/path). Some minor tweaks to backend: backend now sends permissions with login response. (makes easier to choose menu-items displayed to the user) |
+|10.2.2022 | 1 | 110 | Worked on permissions on frontend-side. |
