@@ -4,17 +4,26 @@
 
 
 import axios from 'axios';
-// import { API_BASE } from '../utils/config';
 import { AuthUserDTO, AuthUser, Permission, Permissions, MsgResponse, PermissionCode } from '../types';
 import { logger } from '../utils/logger';
 import { apiObjects, apiServices } from './apiServices';
 
 const USER_DATA_KEY = 'loggedInUser';
 
+
+/*
+ * storeUse stores userdata to localstorage where it can be loaded if user
+ * closes browser or refreshes page
+ */
+
 const storeUser = (user: AuthUser): void => {
   window.localStorage.setItem(USER_DATA_KEY, JSON.stringify(user));
   apiServices.setToken(user.token);
 };
+
+/*
+ * loadUser reads userdata from localstorage in case page is reloaded
+ */
 
 const loadUser = (): AuthUser | undefined => {
   const userJSON = window.localStorage.getItem(USER_DATA_KEY);
@@ -59,8 +68,8 @@ const userDTOtoAuthUser = (dto: AuthUserDTO): AuthUser => {
 
 const makePermission = (dto: AuthUserDTO, code: PermissionCode): Omit<Permission, 'code'> => {
   const defaultPermission = { read: false, write: false };
-  const foundPermission = dto.permissions.find(p => p.code===code);
-  if(foundPermission) {
+  const foundPermission = dto.permissions.find(p => p.code === code);
+  if (foundPermission) {
     return toAuthPermission(foundPermission);
   }
   return defaultPermission;

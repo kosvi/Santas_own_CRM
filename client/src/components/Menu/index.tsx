@@ -10,9 +10,13 @@ export const Menu = () => {
     setDisplayMenu(!displayMenu);
   };
 
+  const closeMenu = () => {
+    setDisplayMenu(false);
+  };
+
   return (
     <div id="Menu">
-      {displayMenu && <ItemList items={listOfItems} />}
+      {displayMenu && <ItemList items={listOfItems} closeMenuMethod={closeMenu} />}
       <div id="MenuButton" onClick={toggleMenu}>Menu</div>
     </div>
   );

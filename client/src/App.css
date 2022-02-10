@@ -24,6 +24,7 @@ body {
 #MenuButton {
   cursor: pointer;
   padding: 0.5em;
+  display: inline-block;
 }
 
 .MenuItem {
@@ -56,4 +57,39 @@ body {
   margin-bottom: 0.5em;
   text-transform: capitalize;
   cursor: pointer;
+}
+
+#TopBar {
+  background-color: purple;
+  padding: 1em;
+  position: relative;
+  justify-content: space-between;
+}
+
+#searchForm {
+  position: relative;
+  display: inline-block;
+}
+
+#searchResults {
+  position: absolute;
+  background-color: antiquewhite;
+  color: black;
+  border: solid 2px;
+  border-color: darkslategray; 
+}
+
+#searchResults a {
+  color: black;
+}
+
+#logoutButton {
+  background-color: purple;
+  color: white;
+  border: none;
+  font-size: 1.2em;
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+  display: inline-block;
 }

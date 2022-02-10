@@ -19,14 +19,22 @@ export const SearchForm = () => {
     fetchPeople();
   }, [debounceString]);
 
+  const clearSearch = () => {
+    setPeople([]);
+  };
+
   const updateSearchString = (event: React.FormEvent<HTMLInputElement>) => {
     setSearchString(event.currentTarget.value);
   };
 
   return (
-    <div>
-      <input type="text" onChange={updateSearchString} /> {debounceString}
-      {people.map(p => <DisplayPerson key={p.id} person={p} />)}
+    <div id="searchForm">
+      <input type="text" onChange={updateSearchString} />
+      {people.length > 0 &&
+        <div id="searchResults">
+          {people.map(p => <DisplayPerson key={p.id} person={p} closeResultMethod={clearSearch} />)}
+        </div>
+      }
     </div>
   );
 };

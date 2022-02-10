@@ -11,6 +11,7 @@ import { Permissions } from './routes/Permissions';
 import { Home } from './routes/Home';
 import { NotFound } from './routes/NotFound';
 import { LoginForm } from './components/LoginForm';
+import { TopBar } from './components/TopBar';
 
 const App = () => {
 
@@ -32,9 +33,11 @@ const App = () => {
   // else we display content depending on /path
   return (
     <div>
+      <TopBar />
       <Routes>
         <Route path='/' element={<Home />} />
-        {user.permissions && <Route path='/people' element={<People />} />}
+        <Route path='/people' element={<People />} />
+        <Route path='/people/:id' element={<People />} />
         <Route path='/permissions' element={<Permissions />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
