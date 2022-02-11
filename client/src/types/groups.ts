@@ -3,7 +3,7 @@ export type PermissionCode = 'users' | 'permissions' | 'people' | 'wishes_and_it
 export interface Functionality {
   id: number,
   code: PermissionCode,
-  name: string, 
+  name: string,
   permission: {
     read: boolean,
     write: boolean

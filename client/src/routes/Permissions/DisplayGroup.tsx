@@ -1,9 +1,22 @@
 import React from 'react';
+import { GroupWithFunctionalities } from '../../types';
 
-export const DisplayGroup = ({ id }: { id: number }) => {
+export const DisplayGroup = ({ group }: { group: GroupWithFunctionalities | undefined }) => {
+
+  if (!group) {
+    return null;
+  }
+
   return (
     <div>
-      Hi Group!
+      <div>{group.name}</div>
+      {group.functionalities.map(f => {
+        return (
+          <div key={f.id}>
+            {f.name}
+          </div>
+        );
+      })}
     </div>
   );
 };

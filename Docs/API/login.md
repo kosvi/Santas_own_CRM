@@ -19,7 +19,34 @@ Status: 200
   "id": 1,
   "activeGroup": 3,
   "loginTime": 1643914271799,
-  "token": "<token-as-string>"
+  "token": "<token-as-string>",
+  "permissions": [
+    {
+      "code": "users",
+      "read": true,
+      "write": false
+    },
+    {
+      "code": "permissions",
+      "read": true,
+      "write": false
+    },
+    {
+      "code": "people",
+      "read": true,
+      "write": false
+    },
+    {
+      "code": "wishes_and_items",
+      "read": true,
+      "write": false
+    },
+    {
+      "code": "entries",
+      "read": true,
+      "write": false
+    }
+  ]
 }
 ```
 

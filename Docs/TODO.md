@@ -2,4 +2,3 @@
 
 - Create page to create & edit groups 
 - API-documentation
-  - Login result!

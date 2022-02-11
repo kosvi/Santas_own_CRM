@@ -160,3 +160,4 @@ Goals:
 |10.2.2022 | 1 | 110 | Worked on permissions on frontend-side. |
 |          | 2 | 112 | Try to come up with clever UI. I have ABSOLUTELY NO IDEA of what kind of UI would be nice and intuitive to use. I aint no UX-designer! |
 | 11.2.2022| 2 | 114 | Added groups-reducer to begin work on permissions-page (/route). Spend time debugging and fixing login-form after tests didn't pass. Result: it was only the tests that didn't work after updates to logging in. Minor tweaks to search. |
+|          | 1 | 115 | Worked on permissions page(/route). |
