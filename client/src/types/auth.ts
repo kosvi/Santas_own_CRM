@@ -1,4 +1,4 @@
-export type PermissionCode = 'users' | 'permissions' | 'people' | 'wishes_and_items' | 'entries';
+import { PermissionCode } from '.';
 
 export interface Permission {
   code: PermissionCode

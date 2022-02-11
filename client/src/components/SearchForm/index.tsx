@@ -20,6 +20,7 @@ export const SearchForm = () => {
   }, [debounceString]);
 
   const clearSearch = () => {
+    setSearchString('');
     setPeople([]);
   };
 
@@ -29,7 +30,7 @@ export const SearchForm = () => {
 
   return (
     <div id="searchForm">
-      <input type="text" onChange={updateSearchString} />
+      <input type="text" value={searchString} onChange={updateSearchString} />
       {people.length > 0 &&
         <div id="searchResults">
           {people.map(p => <DisplayPerson key={p.id} person={p} closeResultMethod={clearSearch} />)}

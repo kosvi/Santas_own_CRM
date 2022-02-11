@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../store';
 import { authActions } from '../../store/auth/authActions';
 import { authService } from '../../services/authService';
+import axios from 'axios';
 
 export const Home = () => {
 
@@ -14,8 +15,13 @@ export const Home = () => {
     dispatch(authActions.logoutUser());
   };
 
+  const resetData = async () => {
+    axios.post('/api/reset/full');
+  };
+
   return (
     <div>
+      <div><button onClick={resetData}>reset</button></div>
       <div data-testid="name-of-user">{user?.name} <button onClick={logout}>logout</button></div>
       Hello Home!
 

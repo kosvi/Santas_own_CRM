@@ -1,5 +1,5 @@
 # TODO
 
-- Add permissions to Redux state during login process
-- Make Menu display only links the user has priviledges to 
+- Create page to create & edit groups 
 - API-documentation
+  - Login result!
