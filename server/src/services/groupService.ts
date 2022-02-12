@@ -1,5 +1,5 @@
 import models from '../models';
-import { GroupAttributes, PermissionAttributes } from '../types';
+import { FunctionalityAttributes, GroupAttributes, PermissionAttributes } from '../types';
 import { toPermissionsWithFunctionality } from '../utils/apiValidators';
 import { ControllerError } from '../utils/customError';
 import { PermissionWithCode } from '../types';
@@ -78,6 +78,29 @@ export const addPermission = async (permission: PermissionAttributes): Promise<G
         throw new ControllerError(400, `no functionality exists with id: ${permission.functionalityId}`);
     }
     throw (error);
+  }
+};
+
+export const getFunctionalities = async (): Promise<Array<FunctionalityAttributes>> => {
+  try {
+    const functionalities = await models.Functionality.findAll();
+    return functionalities;
+  } catch (error) {
+    logger.logError(error);
+    throw error;
+  }
+};
+
+export const getFunctionality = async (name: string): Promise<FunctionalityAttributes> => {
+  try {
+    const functionality = await models.Functionality.findOne({ where: { name: name } });
+    if (!functionality) {
+      throw new ControllerError(404, 'functionality not found');
+    }
+    return functionality;
+  } catch (error) {
+    logger.logError(error);
+    throw error;
   }
 };
 

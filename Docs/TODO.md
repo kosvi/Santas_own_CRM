@@ -2,3 +2,4 @@
 
 - Create page to create & edit groups 
 - API-documentation
+  - groups-controller : get functionality
