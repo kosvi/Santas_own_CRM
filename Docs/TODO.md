@@ -5,9 +5,7 @@
   - groups-controller : get functionality
   - groups-controller : put functionality
 
-Different approach:
-- list all permissions of group
-- click to toggle read/write -> direct PUT to server & update Redux state
+Groups on frontend:
 - possibility to add missing permissions 
-
-AND add new groups!
+- AND add new groups!
+- ... and make some really cool UI for the stuff...

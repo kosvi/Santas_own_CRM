@@ -1,8 +1,8 @@
 import React from 'react';
-import { Functionality } from '../../../types';
+import { FunctionalityWithPermission } from '../../../types';
 import { CreateForm } from './CreateForm';
 
-export const EditGroupForm = ({ permission }: { permission: Functionality }) => {
+export const EditGroupForm = ({ permission }: { permission: FunctionalityWithPermission }) => {
 
   const handleSubmit = async (): Promise<boolean> => {
     console.log('handled!');

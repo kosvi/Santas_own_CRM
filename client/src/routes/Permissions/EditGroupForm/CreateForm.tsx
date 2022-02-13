@@ -1,15 +1,15 @@
 import React from 'react';
 import { withFormik } from 'formik';
-import { Functionality, HandleFunction } from '../../../types';
+import { FunctionalityWithPermission, HandleFunction } from '../../../types';
 import { InnerForm } from './InnerForm';
 
 export interface FormValues {
-  permission: Functionality
+  permission: FunctionalityWithPermission
 }
 
 interface PermissionFormProps {
-  permission: Functionality,
-  handleSubmit: HandleFunction<Functionality>
+  permission: FunctionalityWithPermission,
+  handleSubmit: HandleFunction<FunctionalityWithPermission>
 }
 
 export const CreateForm = withFormik<PermissionFormProps, FormValues>({

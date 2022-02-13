@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '..';
-import { GroupsState, GroupsError, GroupWithFunctionalities } from '../../types';
+import { GroupsState, GroupsError, GroupWithFunctionalities, Functionality } from '../../types';
 
 export const initialGroupsState: GroupsState = {
   error: { message: '' },
-  groups: []
+  groups: [],
+  functionalities: []
 };
 
 export const groupsSlice = createSlice({
@@ -33,6 +34,9 @@ export const groupsSlice = createSlice({
     removeGroup: (state, action: PayloadAction<number>) => {
       const newState = state.groups.filter(g => g.id !== action.payload);
       state.groups = newState;
+    },
+    addFunctionalities: (state, action: PayloadAction<Array<Functionality>>) => {
+      state.functionalities = action.payload;
     }
   }
 });

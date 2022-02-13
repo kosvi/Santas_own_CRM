@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { groupsService } from '../../services/groupsService';
 import { groupsSelector } from '../../store';
 import { groupsActions } from '../../store/groups/groupsActions';
+import { Functionality } from '../../types';
 // import { GroupWithFunctionalities } from '../../types';
 import { logger } from '../../utils/logger';
 import { DisplayGroup } from './DisplayGroup';
@@ -13,6 +14,21 @@ export const Permissions = () => {
   const { groups } = useSelector(groupsSelector);
   const [group, setGroup] = useState<number | null>(null);
   const [name, setName] = useState<string>('');
+
+  useEffect(() => {
+    const fetchAllFunctionalities = async () => {
+      try {
+        const functionalities = await groupsService.getFunctionalities();
+        const sortedFunctionalities = [...functionalities].sort((a: Functionality, b: Functionality) => {
+          return a.name > b.name ? 1 : (b.name > a.name ? -1 : 0);
+        });
+        dispatch(groupsActions.addFunctionalities(sortedFunctionalities));
+      } catch (error) {
+        logger.logError(error);
+      }
+    };
+    fetchAllFunctionalities();
+  }, []);
 
   const fetchAllGroups = async () => {
     try {

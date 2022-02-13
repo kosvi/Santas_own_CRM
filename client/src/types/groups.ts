@@ -3,7 +3,10 @@ export type PermissionCode = 'users' | 'permissions' | 'people' | 'wishes_and_it
 export interface Functionality {
   id: number,
   code: PermissionCode,
-  name: string,
+  name: string
+}
+
+export interface FunctionalityWithPermission extends Functionality {
   permission: {
     read: boolean,
     write: boolean
@@ -25,7 +28,7 @@ export interface Group {
 }
 
 export interface GroupWithFunctionalities extends Group {
-  functionalities: Array<Functionality>
+  functionalities: Array<FunctionalityWithPermission>
 }
 
 export interface GroupsError {
@@ -34,5 +37,6 @@ export interface GroupsError {
 
 export interface GroupsState {
   error: GroupsError,
-  groups: Array<GroupWithFunctionalities>
+  groups: Array<GroupWithFunctionalities>,
+  functionalities: Array<Functionality>
 }

@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { groupsService } from '../../services/groupsService';
 import { groupsActions } from '../../store/groups/groupsActions';
-import { Functionality, GroupFunctionality } from '../../types';
+import { FunctionalityWithPermission, GroupFunctionality } from '../../types';
 import { logger } from '../../utils/logger';
 
-export const DisplayPermission = ({ permission, group }: { permission: Functionality, group: number }) => {
+export const DisplayPermission = ({ permission, group }: { permission: FunctionalityWithPermission, group: number }) => {
 
   const dispatch = useDispatch();
   const read = permission.permission.read ? 'true' : 'false';

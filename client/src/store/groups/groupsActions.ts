@@ -1,6 +1,6 @@
 import { groupsSlice } from '.';
 import { AppThunk } from '..';
-import { GroupWithFunctionalities, GroupsError } from '../../types';
+import { GroupWithFunctionalities, GroupsError, Functionality } from '../../types';
 
 const actions = groupsSlice.actions;
 
@@ -28,6 +28,12 @@ const updateError = (groupsError: GroupsError): AppThunk => {
   };
 };
 
+const addFunctionalities = (functionalities: Array<Functionality>): AppThunk => {
+  return dispatch => {
+    dispatch(actions.addFunctionalities(functionalities));
+  };
+};
+
 export const groupsActions = {
-  addGroups, updateGroup, removeGroup, updateError
+  addGroups, updateGroup, removeGroup, updateError, addFunctionalities
 };
