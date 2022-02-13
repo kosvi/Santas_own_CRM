@@ -162,3 +162,4 @@ Goals:
 | 11.2.2022| 2 | 114 | Added groups-reducer to begin work on permissions-page (/route). Spend time debugging and fixing login-form after tests didn't pass. Result: it was only the tests that didn't work after updates to logging in. Minor tweaks to search. |
 |          | 1 | 115 | Worked on permissions page(/route). |
 | 12.2.2022 | 2 | 116 | Worked on admin-view and permission handling. Seems that I can't use checkbox for the form or I have to do something in a different way. withFormic() seems to be unable to handle checkbox initialvalue and change the way I need it to. | 
+| 13.2.2022 | - | - | It's now possible to change permission of a group to a given functionality. Both backend and frontend support it. | 

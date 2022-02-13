@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { logger } from '../utils/logger';
-import { GroupWithFunctionalities } from '../types';
+import { GroupFunctionality, GroupWithFunctionalities } from '../types';
 import { apiObjects } from './apiServices';
 
 const getAllGroups = async (): Promise<Array<GroupWithFunctionalities>> => {
@@ -13,6 +13,17 @@ const getSingleGroup = async (name: string): Promise<GroupWithFunctionalities> =
   return response.data;
 };
 
+const updatePermission = async (permission: GroupFunctionality): Promise<GroupWithFunctionalities> => {
+  const id = permission.groupId;
+  const payload = {
+    functionalityId: permission.functionalityId,
+    read: permission.read,
+    write: permission.write
+  };
+  const response = await axios.put<GroupWithFunctionalities>(`/groups/${id}`, payload, apiObjects.axiosRequestConfigWithToken);
+  return response.data;
+};
+
 export const groupsService = {
-  getAllGroups, getSingleGroup
+  getAllGroups, getSingleGroup, updatePermission
 };

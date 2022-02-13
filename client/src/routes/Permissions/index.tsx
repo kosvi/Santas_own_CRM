@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { groupsService } from '../../services/groupsService';
 import { groupsSelector } from '../../store';
 import { groupsActions } from '../../store/groups/groupsActions';
-import { GroupWithFunctionalities } from '../../types';
+// import { GroupWithFunctionalities } from '../../types';
 import { logger } from '../../utils/logger';
 import { DisplayGroup } from './DisplayGroup';
 
@@ -11,7 +11,7 @@ export const Permissions = () => {
 
   const dispatch = useDispatch();
   const { groups } = useSelector(groupsSelector);
-  const [group, setGroup] = useState<GroupWithFunctionalities | undefined>(undefined);
+  const [group, setGroup] = useState<number | null>(null);
   const [name, setName] = useState<string>('');
 
   const fetchAllGroups = async () => {
@@ -42,9 +42,9 @@ export const Permissions = () => {
       <button onClick={fetchAllGroups}>get all</button>
       Hello Permissions!
       {groups.map(g => {
-        return <div key={g.id} onClick={() => setGroup(g)}>{g.name}</div>;
+        return <div key={g.id} onClick={() => setGroup(g.id)}>{g.name}</div>;
       })}
-      <DisplayGroup group={group} />
+      <DisplayGroup groupId={group} />
     </div>
   );
 };

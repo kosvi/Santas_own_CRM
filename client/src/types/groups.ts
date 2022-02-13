@@ -10,6 +10,13 @@ export interface Functionality {
   }
 }
 
+export interface GroupFunctionality {
+  groupId: number,
+  functionalityId: number,
+  read: boolean,
+  write: boolean
+}
+
 export interface Group {
   id: number,
   name: string,

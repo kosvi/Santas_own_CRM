@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { addGroup, addPermission, getAllGroupsWithPermissions, getFunctionalities, getSingleGroupWithPermissions } from '../services/groupService';
+import { addGroup, addPermission, getAllGroupsWithPermissions, getFunctionalities, getSingleGroupWithPermissions, updatePermission } from '../services/groupService';
 import { logger } from '../utils/logger';
 import { toNewGroup, toNewPermission } from '../utils/apiValidators';
 import { GroupAttributes, PermissionAttributes } from '../types';
@@ -81,6 +81,20 @@ router.post('/:id', (req, res, next) => {
         message = `${message}: ${error.message}`;
       }
       next(new ControllerError(500, message));
+    });
+});
+
+router.put('/:id', (req, res, next) => {
+  const groupId = Number(req.params.id);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const permission: PermissionAttributes = toNewPermission({ ...req.body, groupId: groupId });
+  updatePermission(permission)
+    .then(result => {
+      res.status(200).json(result);
+    })
+    .catch(error => {
+      logger.logError(error);
+      next(error);
     });
 });
 

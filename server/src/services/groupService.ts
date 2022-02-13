@@ -4,6 +4,7 @@ import { toPermissionsWithFunctionality } from '../utils/apiValidators';
 import { ControllerError } from '../utils/customError';
 import { PermissionWithCode } from '../types';
 import { logger } from '../utils/logger';
+import { validateToNumber } from '../utils/validators';
 
 export const getAllGroupsWithPermissions = async () => {
   const groupsWithPermissions = await models.Group.findAll({
@@ -78,6 +79,38 @@ export const addPermission = async (permission: PermissionAttributes): Promise<G
         throw new ControllerError(400, `no functionality exists with id: ${permission.functionalityId}`);
     }
     throw (error);
+  }
+};
+
+export const updatePermission = async (newPermissions: PermissionAttributes): Promise<GroupAttributes> => {
+  try {
+    const permission = await models.Permission.findOne({ where: { groupId: newPermissions.groupId, functionalityId: newPermissions.functionalityId } });
+    if (!permission) {
+      throw new ControllerError(404, 'cannot update non-existent permission');
+    }
+    permission.read = newPermissions.read;
+    permission.write = newPermissions.write;
+    await permission.save();
+  } catch (error) {
+    logger.logError(error);
+    throw (error);
+  }
+  // now return the group
+  try {
+    const id = validateToNumber(newPermissions.groupId);
+    const group = await models.Group.findByPk(id, {
+      include: {
+        model: models.Functionality,
+        through: {
+          attributes: ['read', 'write']
+        }
+      },
+      rejectOnEmpty: true
+    });
+    return group;
+  } catch (error) {
+    logger.logError(error);
+    throw new ControllerError(500, 'permissions stored succesfully, but couldn\'t fetch return data');
   }
 };
 
