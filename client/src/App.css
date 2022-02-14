@@ -1,11 +1,12 @@
 body {
   margin: 0;
   padding: 0;
-  margin-bottom: 200px;
 }
 
 #Content {
   margin: 2em;
+  z-index: 5;
+  margin-bottom: 3em;
 }
 
 #Menu {
@@ -15,6 +16,7 @@ body {
   bottom: 0;
   border-top: solid 2px black;
   width: 100%;
+  z-index: 10;
 }
 
 #Menu a {
@@ -104,6 +106,12 @@ body {
 
 #searchResults a {
   color: black;
+}
+
+#resetDB {
+  position: absolute;
+  left: 50%;
+  top: 0;
 }
 
 #logoutButton {
