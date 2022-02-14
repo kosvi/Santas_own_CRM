@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Link, useNavigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Person } from '../../types';
 
@@ -18,7 +17,7 @@ export const DisplayPerson = ({ person, closeResultMethod }: { person: Person, c
 
   return (
     <div>
-      <span onClick={() => openPerson(person.id)}>{person.name} / {person.address}</span>
+      <span data-testid="display-person-click-name" onClick={() => openPerson(person.id)}>{person.name} / {person.address}</span>
     </div>
   );
 };

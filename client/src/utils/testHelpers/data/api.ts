@@ -1,4 +1,6 @@
-const defaultLoginResponse = {
+import { AuthUserDTO } from '../../../types';
+
+const defaultLoginResponse: AuthUserDTO = {
   username: 'santa',
   name: 'Santa Claus',
   id: 1,

@@ -62,7 +62,7 @@ export const Permissions = () => {
 
   return (
     <div>
-      <input name="groupName" value={name} onChange={(event: React.FormEvent<HTMLInputElement>) => setName(event.currentTarget.value)} />
+      <input name="groupName" value={name} placeholder="search group" onChange={(event: React.FormEvent<HTMLInputElement>) => setName(event.currentTarget.value)} />
       <button onClick={loadGroups}>load</button>
       <div>
         {groups.map(g => {

@@ -16,7 +16,9 @@ export const Menu = () => {
 
   return (
     <div id="Menu">
-      {displayMenu && <ItemList items={listOfItems} closeMenuMethod={closeMenu} />}
+      <div id="MenuItems">
+        {displayMenu && <ItemList items={listOfItems} closeMenuMethod={closeMenu} />}
+      </div>
       <div id="MenuButton" onClick={toggleMenu}>Menu</div>
     </div>
   );

@@ -34,13 +34,15 @@ const App = () => {
   return (
     <div>
       <TopBar />
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/people' element={<People />} />
-        <Route path='/people/:id' element={<People />} />
-        <Route path='/permissions' element={<Permissions />} />
-        <Route path='*' element={<NotFound />} />
-      </Routes>
+      <div id="Content">
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/people' element={<People />} />
+          <Route path='/people/:id' element={<People />} />
+          <Route path='/permissions' element={<Permissions />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </div>
       <Menu />
     </div>
   );

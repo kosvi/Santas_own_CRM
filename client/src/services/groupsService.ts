@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Functionality, GroupFunctionality, GroupWithFunctionalities } from '../types';
+import { Functionality, Group, GroupFunctionality, GroupWithFunctionalities } from '../types';
 import { apiObjects } from './apiServices';
 
 const getAllGroups = async (): Promise<Array<GroupWithFunctionalities>> => {
@@ -9,6 +9,11 @@ const getAllGroups = async (): Promise<Array<GroupWithFunctionalities>> => {
 
 const getSingleGroup = async (name: string): Promise<GroupWithFunctionalities> => {
   const response = await axios.get(`/groups/${name}`, apiObjects.axiosRequestConfigWithToken);
+  return response.data;
+};
+
+const addGroup = async (name: string): Promise<Group> => {
+  const response = await axios.post('/groups', { name: name }, apiObjects.axiosRequestConfigWithToken);
   return response.data;
 };
 
@@ -40,5 +45,5 @@ const getFunctionalities = async (): Promise<Array<Functionality>> => {
 };
 
 export const groupsService = {
-  getAllGroups, getSingleGroup, addPermission, updatePermission, getFunctionalities
+  getAllGroups, getSingleGroup, addGroup, addPermission, updatePermission, getFunctionalities
 };
