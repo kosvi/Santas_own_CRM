@@ -110,6 +110,10 @@ body {
   border-radius: 0.3em;
 }
 
+#NewGroupForm {
+  margin-top: 1em;
+}
+
 .PermissionTitle {
   display: block;
   margin-top: 0.5em;

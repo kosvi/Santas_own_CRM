@@ -33,7 +33,7 @@ export const SearchForm = () => {
       <input type="text" id="searchInput" value={searchString} onChange={updateSearchString} />
       {people.length > 0 &&
         <div id="searchResults">
-	  <span onClick={clearSearch}>clear results</span>
+          <span onClick={clearSearch}>clear results</span>
           {people.map(p => <DisplayPerson key={p.id} person={p} closeResultMethod={clearSearch} />)}
         </div>
       }

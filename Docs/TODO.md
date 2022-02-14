@@ -6,6 +6,5 @@
   - groups-controller : put functionality
 
 Groups on frontend:
-- possibility to add missing permissions 
-- AND add new groups!
-- ... and make some really cool UI for the stuff...
+- AND add new groups! (finish this)
+- ... and make some really cool UI for the stuff... Done(?)

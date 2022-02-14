@@ -50,11 +50,11 @@ const AddPermissionsList = ({ group, functionalities }: { group: GroupWithFuncti
     <div>
       <h2>Missing permissions</h2>
       {functionalities.map(f => {
-	if(!group.functionalities.find(gf => gf.id===f.id)) {
+        if(!group.functionalities.find(gf => gf.id===f.id)) {
           return (
-	    <AddPermission key={f.id} functionality={f} group={group.id} />
+            <AddPermission key={f.id} functionality={f} group={group.id} />
           );
-	}
+        }
       })}
     </div>
   );

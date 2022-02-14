@@ -7,6 +7,7 @@ import { Functionality } from '../../types';
 // import { GroupWithFunctionalities } from '../../types';
 import { logger } from '../../utils/logger';
 import { DisplayGroup } from './DisplayGroup';
+import { NewGroupForm } from './NewGroupForm';
 
 export const Permissions = () => {
 
@@ -67,8 +68,10 @@ export const Permissions = () => {
         {groups.map(g => {
           return <div className="GroupNameDiv" key={g.id} onClick={() => setGroup(g.id)}>{g.name}</div>;
         })}
+        {groups.length>0 && <div className="GroupNameDiv" onClick={() => setGroup(null)}>New Group</div>}
       </div>
-      <DisplayGroup groupId={group} />
+      {group===null && <NewGroupForm />}
+      {group!==null && <DisplayGroup groupId={group} />}
     </div>
   );
 };

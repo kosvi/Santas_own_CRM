@@ -29,7 +29,6 @@ export const groupsSlice = createSlice({
     },
     updateGroup: (state, action: PayloadAction<GroupWithFunctionalities>) => {
       const newState = state.groups.map(g => g.id === action.payload.id ? action.payload : g);
-      console.log(newState);
       state.groups = newState;
     },
     removeGroup: (state, action: PayloadAction<number>) => {

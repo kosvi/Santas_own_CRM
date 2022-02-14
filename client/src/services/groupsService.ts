@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { logger } from '../utils/logger';
 import { Functionality, GroupFunctionality, GroupWithFunctionalities } from '../types';
 import { apiObjects } from './apiServices';
 
