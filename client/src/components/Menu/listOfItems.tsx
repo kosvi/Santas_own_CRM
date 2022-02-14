@@ -14,9 +14,5 @@ export const listOfItems: Array<MenuItem> = [
     title: 'Permissions',
     permission: 'permissions',
     to: '/permissions'
-  },
-  {
-    title: 'react',
-    url: 'https://reactjs.org/'
   }
 ];

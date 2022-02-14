@@ -39,7 +39,7 @@ export const Permissions = () => {
     }
   };
 
-  const addGroupByName = async () => {
+  const fetchGroupByName = async () => {
     if (name.length < 1) {
       return;
     }
@@ -51,15 +51,23 @@ export const Permissions = () => {
     }
   };
 
+  const loadGroups = async () => {
+    if(name==='*') {
+      await fetchAllGroups();
+    } else {
+      await fetchGroupByName();
+    }
+  };
+
   return (
     <div>
       <input name="groupName" value={name} onChange={(event: React.FormEvent<HTMLInputElement>) => setName(event.currentTarget.value)} />
-      <button onClick={addGroupByName}>get single</button>
-      <button onClick={fetchAllGroups}>get all</button>
-      Hello Permissions!
-      {groups.map(g => {
-        return <div key={g.id} onClick={() => setGroup(g.id)}>{g.name}</div>;
-      })}
+      <button onClick={loadGroups}>load</button>
+      <div>
+        {groups.map(g => {
+          return <div className="GroupNameDiv" key={g.id} onClick={() => setGroup(g.id)}>{g.name}</div>;
+        })}
+      </div>
       <DisplayGroup groupId={group} />
     </div>
   );

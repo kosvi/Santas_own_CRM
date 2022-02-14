@@ -24,8 +24,6 @@ export const DisplayGroup = ({ groupId }: { groupId: number | null }) => {
       const sortedFunctionalities = [...result.functionalities].sort(order);
       const newGroup = { ...result, functionalities: sortedFunctionalities };
       setGroup(newGroup);
-      // we will need to find a way to inject missing functionalities to 'sortedFunctionalities'
-      // in case a group is missing a functionality or two(?)
     }
   }, [groupId, groups]);
 
@@ -46,6 +44,7 @@ export const DisplayGroup = ({ groupId }: { groupId: number | null }) => {
   );
 };
 
+// Just to make the code a bit prettier...
 const AddPermissionsList = ({ group, functionalities }: { group: GroupWithFunctionalities, functionalities: Array<Functionality> }) => {
   return (
     <div>

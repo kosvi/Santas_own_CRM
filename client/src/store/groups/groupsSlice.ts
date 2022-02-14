@@ -24,7 +24,8 @@ export const groupsSlice = createSlice({
           newGroups.push(ng);
         }
       });
-      state.groups = state.groups.concat(newGroups);
+      const allGroups = state.groups.concat(newGroups);
+      state.groups = allGroups.sort((a, b) => a.name > b.name ? 1 : (b.name > a.name ? -1 : 0));
     },
     updateGroup: (state, action: PayloadAction<GroupWithFunctionalities>) => {
       const newState = state.groups.map(g => g.id === action.payload.id ? action.payload : g);

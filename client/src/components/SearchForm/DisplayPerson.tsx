@@ -18,7 +18,6 @@ export const DisplayPerson = ({ person, closeResultMethod }: { person: Person, c
 
   return (
     <div>
-      {/* <Link to={`/people/${person.id}`}>{person.name} / {person.address}</Link> */}
       <span onClick={() => openPerson(person.id)}>{person.name} / {person.address}</span>
     </div>
   );

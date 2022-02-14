@@ -19,10 +19,8 @@ export const Item = ({ item, closeMenuMethod }: { item: MenuItem, closeMenuMetho
   };
 
   return (
-    <div className="MenuItem">
-      {/* item.to && <Link to={item.to}>{item.title}</Link> */}
-      {item.to && <span onClick={() => openRoute(item.to)}>{item.title}</span>}
-      {item.url && <a href={item.url}>{item.title}</a>}
+    <div className="MenuItem" onClick={() => openRoute(item.to)}>
+      {item.title}
     </div>
   );
 };

@@ -1,5 +1,5 @@
 body {
-  margin: 0;
+  margin: 0 2em;
   padding: 0;
   margin-bottom: 200px;
 }
@@ -7,16 +7,17 @@ body {
 #Menu {
   background-color: inherit;
   color: #000000;
-  padding: 1em;
   position: fixed;
   bottom: 0;
-  border: solid 2px black;
-  border-radius: 0.1em;
 }
 
 #Menu a {
   color: #000000;
   text-decoration: none;
+}
+
+#Menu a:hover {
+  color: white;
 }
 
 #MenuButton {
@@ -29,6 +30,11 @@ body {
   padding: 0.3em;
   border-radius: 0.5em;
   cursor: pointer;
+}
+
+.MenuItem:hover {
+  background-color: black;
+  color: white;
 }
 
 #LoginForm {
@@ -92,4 +98,42 @@ body {
   top: 0.5em;
   display: inline-block;
   cursor: pointer;
+}
+
+.GroupNameDiv {
+  display: inline-block;
+  margin-top: 1em;
+  margin-right: 1em;
+  cursor: pointer;
+  border: solid 2px black;
+  padding: 0.5em;
+  border-radius: 0.3em;
+}
+
+.PermissionTitle {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.3em;
+  font-weight: bold;
+}
+
+.PermissionLine {
+  line-height: 1em;
+}
+
+.PermissionValue {
+  font-style: italic;
+  cursor: pointer;
+  border: solid 1px black;
+  border-radius: 0.2em;
+  padding-left: 0.3em;
+  padding-right: 0.3em;
+}
+
+.PermissionTrue {
+  background-color: green;
+}
+
+.PermissionFalse {
+  background-color: red;
 }

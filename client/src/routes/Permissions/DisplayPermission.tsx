@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { groupsService } from '../../services/groupsService';
 import { groupsActions } from '../../store/groups/groupsActions';
@@ -28,8 +28,10 @@ export const DisplayPermission = ({ permission, group }: { permission: Functiona
 
   return (
     <div>
-      <b>{permission.name}</b><br />
-      read: <i onClick={() => updatePermission('read')}>{read}</i> write: <i onClick={() => updatePermission('write')}>{write}</i>
+      <span className="PermissionTitle">{permission.name}</span>
+      <div className="PermissionLine">
+        read: <span className="PermissionValue {(read==='read' ? PermissionTrue : PermissionFalse)}" onClick={() => updatePermission('read')}>{read}</span> write: <span className="PermissionValue" onClick={() => updatePermission('write')}>{write}</span>
+      </div>
     </div>
   );
 };
