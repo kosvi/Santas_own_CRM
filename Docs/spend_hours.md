@@ -161,11 +161,12 @@ Goals:
 |          | 2 | 112 | Try to come up with clever UI. I have ABSOLUTELY NO IDEA of what kind of UI would be nice and intuitive to use. I aint no UX-designer! |
 | 11.2.2022| 2 | 114 | Added groups-reducer to begin work on permissions-page (/route). Spend time debugging and fixing login-form after tests didn't pass. Result: it was only the tests that didn't work after updates to logging in. Minor tweaks to search. |
 |          | 1 | 115 | Worked on permissions page(/route). |
-| 12.2.2022 | 2 | 116 | Worked on admin-view and permission handling. Seems that I can't use checkbox for the form or I have to do something in a different way. withFormic() seems to be unable to handle checkbox initialvalue and change the way I need it to. | 
-| 13.2.2022 | 2 | 118 | It's now possible to change permission of a group to a given functionality. Both backend and frontend support it. Also updated Groups-reducer to also contain list of possible permissions, so we know what can be added to a group. | 
-| 14.2.2022 | 1 | 119 | Now permissions can be added to a group and permissions can be changed. |
-|           | 1 | 120 | Alot of tweaks to UI. Some tweaks to 'business logic' and some re-factoring. | 
-|           | 2 | 122 | Tweaks to UI. New Groups can be added. Added some tests too (took quite some time to figure out how to mock useNavigate from react-router-dom). Going to merge to develop (and deploy to Heroku through Release). |
+| 12.2.2022 | 2 | 117 | Worked on admin-view and permission handling. Seems that I can't use checkbox for the form or I have to do something in a different way. withFormic() seems to be unable to handle checkbox initialvalue and change the way I need it to. | 
+| 13.2.2022 | 2 | 119 | It's now possible to change permission of a group to a given functionality. Both backend and frontend support it. Also updated Groups-reducer to also contain list of possible permissions, so we know what can be added to a group. | 
+| 14.2.2022 | 1 | 120 | Now permissions can be added to a group and permissions can be changed. |
+|           | 1 | 121 | Alot of tweaks to UI. Some tweaks to 'business logic' and some re-factoring. | 
+|           | 2 | 123 | Tweaks to UI. New Groups can be added. Added some tests too (took quite some time to figure out how to mock useNavigate from react-router-dom). Going to merge to develop (and deploy to Heroku through Release). |
+| sprint total | 16 | 123 | |
 
 Extras:
 - Added reset-button to UI for easier DB-reset at this stage of development

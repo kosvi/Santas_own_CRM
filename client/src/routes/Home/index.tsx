@@ -15,13 +15,8 @@ export const Home = () => {
     dispatch(authActions.logoutUser());
   };
 
-  const resetData = async () => {
-    axios.post('/api/reset/full');
-  };
-
   return (
     <div>
-      <div><button onClick={resetData}>reset</button></div>
       <div data-testid="name-of-user">{user?.name} <button onClick={logout}>logout</button></div>
       Hello Home!
 
