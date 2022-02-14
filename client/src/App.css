@@ -5,21 +5,18 @@ body {
 }
 
 #Menu {
-  background-color: purple;
-  color: #cccccc;
+  background-color: inherit;
+  color: #000000;
   padding: 1em;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  border: solid 2px black;
+  border-radius: 0.1em;
 }
 
 #Menu a {
-  color: #cccccc;
+  color: #000000;
   text-decoration: none;
-}
-
-#Menu a:hover {
-  color: #ffffff;
 }
 
 #MenuButton {
@@ -61,7 +58,6 @@ body {
 }
 
 #TopBar {
-  background-color: purple;
   padding: 1em;
   position: relative;
   justify-content: space-between;
@@ -87,12 +83,13 @@ body {
 }
 
 #logoutButton {
-  background-color: purple;
-  color: white;
+  background-color: inherit;
+  color: black;
   border: none;
   font-size: 1.2em;
   position: absolute;
   right: 0.5em;
   top: 0.5em;
   display: inline-block;
+  cursor: pointer;
 }

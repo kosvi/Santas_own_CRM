@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { groupsSelector } from '../../store';
-import { FunctionalityWithPermission, GroupWithFunctionalities } from '../../types';
+import { FunctionalityWithPermission, GroupWithFunctionalities, Functionality } from '../../types';
 import { DisplayPermission } from './DisplayPermission';
+import { AddPermission } from './AddPermission';
 
 export const DisplayGroup = ({ groupId }: { groupId: number | null }) => {
 
@@ -34,17 +35,27 @@ export const DisplayGroup = ({ groupId }: { groupId: number | null }) => {
 
   return (
     <div>
-      <h2>{group.name}</h2>
+      <h2>Group: {group.name}</h2>
       {group.functionalities.map(f => {
         return (
           <DisplayPermission key={f.id} permission={f} group={group.id} />
         );
       })}
-      <h2>Test</h2>
+      {!(functionalities.length===group.functionalities.length) && <AddPermissionsList group={group} functionalities={functionalities} />}
+    </div>
+  );
+};
+
+const AddPermissionsList = ({ group, functionalities }: { group: GroupWithFunctionalities, functionalities: Array<Functionality> }) => {
+  return (
+    <div>
+      <h2>Missing permissions</h2>
       {functionalities.map(f => {
-        return (
-          <div key={f.id}>{f.name} / {f.code}</div>
-        );
+	if(!group.functionalities.find(gf => gf.id===f.id)) {
+          return (
+	    <AddPermission key={f.id} functionality={f} group={group.id} />
+          );
+	}
       })}
     </div>
   );

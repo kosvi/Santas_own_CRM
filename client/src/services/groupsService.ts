@@ -13,6 +13,17 @@ const getSingleGroup = async (name: string): Promise<GroupWithFunctionalities> =
   return response.data;
 };
 
+const addPermission = async (permission: GroupFunctionality): Promise<GroupWithFunctionalities> => {
+  const id = permission.groupId;
+  const payload = {
+    functionalityId: permission.functionalityId,
+    read: permission.read,
+    write: permission.write
+  };
+  const response = await axios.post<GroupWithFunctionalities>(`/groups/${id}`, payload, apiObjects.axiosRequestConfigWithToken);
+  return response.data;
+};
+
 const updatePermission = async (permission: GroupFunctionality): Promise<GroupWithFunctionalities> => {
   const id = permission.groupId;
   const payload = {
@@ -30,5 +41,5 @@ const getFunctionalities = async (): Promise<Array<Functionality>> => {
 };
 
 export const groupsService = {
-  getAllGroups, getSingleGroup, updatePermission, getFunctionalities
+  getAllGroups, getSingleGroup, addPermission, updatePermission, getFunctionalities
 };

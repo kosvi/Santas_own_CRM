@@ -163,3 +163,4 @@ Goals:
 |          | 1 | 115 | Worked on permissions page(/route). |
 | 12.2.2022 | 2 | 116 | Worked on admin-view and permission handling. Seems that I can't use checkbox for the form or I have to do something in a different way. withFormic() seems to be unable to handle checkbox initialvalue and change the way I need it to. | 
 | 13.2.2022 | 2 | 118 | It's now possible to change permission of a group to a given functionality. Both backend and frontend support it. Also updated Groups-reducer to also contain list of possible permissions, so we know what can be added to a group. | 
+| 14.2.2022 | 1 | 119 | Now permissions can be added to a group and permissions can be changed. |
