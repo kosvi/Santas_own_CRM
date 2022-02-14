@@ -167,4 +167,5 @@ Goals:
 |           | 1 | 120 | Alot of tweaks to UI. Some tweaks to 'business logic' and some re-factoring. | 
 |           | 2 | 122 | Tweaks to UI. New Groups can be added. Added some tests too (took quite some time to figure out how to mock useNavigate from react-router-dom). Going to merge to develop (and deploy to Heroku through Release). |
 
-
+Extras:
+- Added reset-button to UI for easier DB-reset at this stage of development
