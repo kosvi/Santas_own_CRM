@@ -142,6 +142,30 @@ Goals:
 |          | 1 | 104 | Worked to make frontend prettier. For now all styling is going to be in App.css since I don't consider it the most important thing for now and we are badly behind the schedule (mostly thanks to typing!) |
 |          | 2 | 106 | Made tests prettier (cleaned all spaghetti) and added files for searchfield. |
 | 9.2.2022 | 1 | 107 | Added search-field, but didn't make any nice UI for it. However, I did add functionality to it. No tests for it yet. Closing sprint... |
+| sprint total | 18 | 107 | |
 
 Extras:
 - Added frontend tests to test.docker-compose.yml
+
+### Sprint 5 - add pages and react-router
+
+Goals:
+- ~~Add react-router~~
+- ~~Enable switching 'pages' from Menu~~
+- ~~Allow admin to create groups & edit permissions~~
+
+| Date | Hours | Total Hours | Description |
+|------|-------|-------------|-------------|
+|9.2.2022 | 2 | 109 | Implemented react-router-dom and added some routes. Made sure that logging in displays the 'page' in url(/path). Some minor tweaks to backend: backend now sends permissions with login response. (makes easier to choose menu-items displayed to the user) |
+|10.2.2022 | 1 | 110 | Worked on permissions on frontend-side. |
+|          | 2 | 112 | Try to come up with clever UI. I have ABSOLUTELY NO IDEA of what kind of UI would be nice and intuitive to use. I aint no UX-designer! |
+| 11.2.2022| 2 | 114 | Added groups-reducer to begin work on permissions-page (/route). Spend time debugging and fixing login-form after tests didn't pass. Result: it was only the tests that didn't work after updates to logging in. Minor tweaks to search. |
+|          | 1 | 115 | Worked on permissions page(/route). |
+| 12.2.2022 | 2 | 116 | Worked on admin-view and permission handling. Seems that I can't use checkbox for the form or I have to do something in a different way. withFormic() seems to be unable to handle checkbox initialvalue and change the way I need it to. | 
+| 13.2.2022 | 2 | 118 | It's now possible to change permission of a group to a given functionality. Both backend and frontend support it. Also updated Groups-reducer to also contain list of possible permissions, so we know what can be added to a group. | 
+| 14.2.2022 | 1 | 119 | Now permissions can be added to a group and permissions can be changed. |
+|           | 1 | 120 | Alot of tweaks to UI. Some tweaks to 'business logic' and some re-factoring. | 
+|           | 2 | 122 | Tweaks to UI. New Groups can be added. Added some tests too (took quite some time to figure out how to mock useNavigate from react-router-dom). Going to merge to develop (and deploy to Heroku through Release). |
+
+Extras:
+- Added reset-button to UI for easier DB-reset at this stage of development

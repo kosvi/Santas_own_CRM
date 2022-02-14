@@ -1,19 +1,8 @@
 import React, { useState } from 'react';
-import { MenuItem } from '../../types';
 import { ItemList } from './ItemList';
+import { listOfItems } from './listOfItems';
 
 export const Menu = () => {
-
-  const listOfItems: Array<MenuItem> = [
-    {
-      title: 'foobar',
-      url: 'foobar'
-    },
-    {
-      title: 'another link',
-      url: 'another url'
-    }
-  ];
 
   const [displayMenu, setDisplayMenu] = useState<boolean>(false);
 
@@ -21,9 +10,15 @@ export const Menu = () => {
     setDisplayMenu(!displayMenu);
   };
 
+  const closeMenu = () => {
+    setDisplayMenu(false);
+  };
+
   return (
     <div id="Menu">
-      {displayMenu && <ItemList items={listOfItems} />}
+      <div id="MenuItems">
+        {displayMenu && <ItemList items={listOfItems} closeMenuMethod={closeMenu} />}
+      </div>
       <div id="MenuButton" onClick={toggleMenu}>Menu</div>
     </div>
   );

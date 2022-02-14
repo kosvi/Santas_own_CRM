@@ -37,3 +37,16 @@ export const parseString = (text: unknown): string => {
   }
   throw new Error('could not parse value to string');
 };
+
+export const parseDate = (date: unknown): Date | undefined => {
+  if (date instanceof Date) {
+    return date;
+  }
+  if (isNumber(date)) {
+    return new Date(date);
+  }
+  if (isString(date) && Date.parse(date)) {
+    return new Date(date);
+  }
+  return undefined;
+};

@@ -1,17 +1,22 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { LoginForm } from './components/LoginForm';
 import { authService } from './services/authService';
 import { authSelector } from './store';
 import { authActions } from './store/auth/authActions';
 import { Menu } from './components/Menu';
 import './App.css';
-import { SearchForm } from './components/SearchForm';
+import { Routes, Route } from 'react-router-dom';
+import { People } from './routes/People';
+import { Permissions } from './routes/Permissions';
+import { Home } from './routes/Home';
+import { NotFound } from './routes/NotFound';
+import { LoginForm } from './components/LoginForm';
+import { TopBar } from './components/TopBar';
 
 const App = () => {
 
   const dispatch = useDispatch();
-  const { user, isLoggedin } = useSelector(authSelector);
+  const { user } = useSelector(authSelector);
 
   useEffect(() => {
     const storedUser = authService.loadUser();
@@ -20,17 +25,25 @@ const App = () => {
     }
   }, []);
 
-  const logout = () => {
-    authService.deleteUser();
-    dispatch(authActions.logoutUser());
-  };
+  // If not logged in -> LoginScreen
+  if (!user) {
+    return <LoginForm />;
+  }
 
+  // else we display content depending on /path
   return (
     <div>
-      {isLoggedin && <SearchForm />}
-      <div data-testid="name-of-user">{user && user.name} {user && <button onClick={logout}>logout</button>} </div>
-      {!isLoggedin && <LoginForm />}
-      {isLoggedin && <Menu />}
+      <TopBar />
+      <div id="Content">
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/people' element={<People />} />
+          <Route path='/people/:id' element={<People />} />
+          <Route path='/permissions' element={<Permissions />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </div>
+      <Menu />
     </div>
   );
 };

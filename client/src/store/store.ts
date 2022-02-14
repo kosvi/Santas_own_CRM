@@ -10,9 +10,11 @@ import { configureStore, combineReducers, Action } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { ThunkAction } from 'redux-thunk';
 import { authSlice } from './auth';
+import { groupsSlice } from './groups';
 
 const rootReducer = combineReducers({
-  authReducer: authSlice.reducer
+  authReducer: authSlice.reducer,
+  groupsReducer: groupsSlice.reducer
 });
 
 export const store = configureStore({

@@ -9,7 +9,7 @@ export interface PermissionWithFunctionality {
   }
 }
 
-export interface PermissionsInRequest {
+export interface PermissionWithCode {
   code: string,
   read: boolean,
   write: boolean
@@ -17,5 +17,5 @@ export interface PermissionsInRequest {
 
 export interface RequestWithToken extends express.Request {
   decodedToken?: AccessTokenContent,
-  permissions?: Array<PermissionsInRequest>
+  permissions?: Array<PermissionWithCode>
 }

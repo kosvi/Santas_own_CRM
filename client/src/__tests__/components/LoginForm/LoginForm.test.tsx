@@ -3,10 +3,9 @@ import { render, fireEvent, act } from '../../../utils/testHelpers/customRendere
 import axios from 'axios';
 import '@testing-library/jest-dom/extend-expect';
 import { LoginForm } from '../../../components/LoginForm';
-import { ErrorResponse } from '../../../types';
+import { AuthUserDTO, ErrorResponse } from '../../../types';
 import { apiObjects } from '../../../services/apiServices';
 import { testHelpers } from '../../../utils/testHelpers/testHelpers';
-import { AuthUser } from '../../../types';
 import { apiData } from '../../../utils/testHelpers/data/api';
 
 
@@ -60,7 +59,7 @@ describe('<LoginForm />', () => {
   });
 
   test('make sure handleSubmit works as intended when success returned', async () => {
-    const loginResponse: { data: AuthUser } = {
+    const loginResponse: { data: AuthUserDTO } = {
       data: apiData.defaultLoginResponse
     };
     await mockedAxios.post.mockResolvedValue(loginResponse);

@@ -17,6 +17,10 @@ app with backend using docker. See [README](../README.md) for more details.
 
 Launches the test runner in non-interactive mode.\
 
+#### `npm run test:interactive`
+
+Launches the test runner in interactive mode.\ 
+
 #### `npm run build`
 
 Builds the app for production to the `../server/build` folder.\

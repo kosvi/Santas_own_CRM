@@ -76,9 +76,9 @@ Requirements:
 - Docker
 - Docker-compose
 
-Clone repository and run `npm install --prefix server` in repository root. After dependencies are installed, you can start tests by running command `docker-compose -f test.docker-compose.yml up --abort-on-container-exit`. This will run unit and integration tests on the backend. You'll see the list of passed tests in the console. 
+Clone repository and run `npm install --prefix server` and `npm install --prefix client` in repository root. After dependencies are installed, you can start tests by running command `docker-compose -f test.docker-compose.yml up`. This will run unit and integration tests on the backend and frontend. You'll see the list of passed tests in the console. 
 
-Frontend and e2e tests will be added later...
+e2e tests will be added later...
 
 
 ## Enviromental variables
@@ -117,6 +117,7 @@ Check [Api documentation](Docs/API/reset.md) for `/api/reset` for more informati
 .env
 ```
 REACT_APP_API_BASE=
+REACT_APP_LOGGING=
 HOST=
 WDS_SOCKET_HOST=
 ```
