@@ -1,7 +1,10 @@
 import models from '../models';
-import { GroupAttributes, PermissionAttributes } from '../types';
+import { FunctionalityAttributes, GroupAttributes, PermissionAttributes } from '../types';
+import { toPermissionsWithFunctionality } from '../utils/apiValidators';
 import { ControllerError } from '../utils/customError';
+import { PermissionWithCode } from '../types';
 import { logger } from '../utils/logger';
+import { validateToNumber } from '../utils/validators';
 
 export const getAllGroupsWithPermissions = async () => {
   const groupsWithPermissions = await models.Group.findAll({
@@ -77,5 +80,80 @@ export const addPermission = async (permission: PermissionAttributes): Promise<G
     }
     throw (error);
   }
+};
+
+export const updatePermission = async (newPermissions: PermissionAttributes): Promise<GroupAttributes> => {
+  try {
+    const permission = await models.Permission.findOne({ where: { groupId: newPermissions.groupId, functionalityId: newPermissions.functionalityId } });
+    if (!permission) {
+      throw new ControllerError(404, 'cannot update non-existent permission');
+    }
+    permission.read = newPermissions.read;
+    permission.write = newPermissions.write;
+    await permission.save();
+  } catch (error) {
+    logger.logError(error);
+    throw (error);
+  }
+  // now return the group
+  try {
+    const id = validateToNumber(newPermissions.groupId);
+    const group = await models.Group.findByPk(id, {
+      include: {
+        model: models.Functionality,
+        through: {
+          attributes: ['read', 'write']
+        }
+      },
+      rejectOnEmpty: true
+    });
+    return group;
+  } catch (error) {
+    logger.logError(error);
+    throw new ControllerError(500, 'permissions stored succesfully, but couldn\'t fetch return data');
+  }
+};
+
+export const getFunctionalities = async (): Promise<Array<FunctionalityAttributes>> => {
+  try {
+    const functionalities = await models.Functionality.findAll();
+    return functionalities;
+  } catch (error) {
+    logger.logError(error);
+    throw error;
+  }
+};
+
+export const getFunctionality = async (name: string): Promise<FunctionalityAttributes> => {
+  try {
+    const functionality = await models.Functionality.findOne({ where: { name: name } });
+    if (!functionality) {
+      throw new ControllerError(404, 'functionality not found');
+    }
+    return functionality;
+  } catch (error) {
+    logger.logError(error);
+    throw error;
+  }
+};
+
+export const getPermissionsOfGroup = async (id: number): Promise<PermissionWithCode[]> => {
+  const permissionsFromDatabase = await models.Permission.findAll({
+    where: { groupId: id },
+    attributes: { exclude: ['id', 'groupId', 'functionalityId'] },
+    include: {
+      model: models.Functionality,
+      attributes: { exclude: ['id', 'name'] }
+    }
+  });
+  // This must be really nasty again
+  if (permissionsFromDatabase instanceof Array && permissionsFromDatabase.length > 0) {
+    const rawPermissions = toPermissionsWithFunctionality(permissionsFromDatabase);
+    const permissions = rawPermissions.map(rp => {
+      return { code: rp.functionality.code, read: rp.read, write: rp.write };
+    });
+    return permissions;
+  }
+  return [];
 };
 

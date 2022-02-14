@@ -1,5 +1,8 @@
 # TODO
 
-- mark sprint finished and get going!
-  - merge to develop
+- Create page to create & edit groups 
 - API-documentation
+  - groups-controller : get functionality
+  - groups-controller : put functionality
+
+- Remove reset-button from UI

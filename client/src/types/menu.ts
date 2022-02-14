@@ -1,4 +1,7 @@
+import { PermissionCode } from '.';
+
 export interface MenuItem {
   title: string,
-  url: string
+  permission?: PermissionCode,
+  to?: string
 }

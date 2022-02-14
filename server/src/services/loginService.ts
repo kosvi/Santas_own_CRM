@@ -6,6 +6,7 @@ import { ControllerError } from '../utils/customError';
 import { SECRET } from '../utils/config';
 import { validateToNumber } from '../utils/validators';
 import { AccessTokenContent, UserWithGroupsInLogin } from '../types';
+import { getPermissionsOfGroup } from './groupService';
 
 export const login = async (loginObject: LoginObject) => {
   let tokenContent: AccessTokenContent;
@@ -62,10 +63,12 @@ export const login = async (loginObject: LoginObject) => {
     throw error;
   }
   if (token && tokenContent) {
+    const permissionsWithCode = await getPermissionsOfGroup(tokenContent.activeGroup);
     await models.Session.create({ userId: tokenContent.id, token: token });
     return {
       ...tokenContent,
-      token: token
+      token: token,
+      permissions: permissionsWithCode
     };
   }
   return undefined;

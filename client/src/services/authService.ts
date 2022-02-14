@@ -4,18 +4,26 @@
 
 
 import axios from 'axios';
-// import { API_BASE } from '../utils/config';
-import { AuthUser } from '../types';
+import { AuthUserDTO, AuthUser, Permission, Permissions, MsgResponse, PermissionCode } from '../types';
 import { logger } from '../utils/logger';
 import { apiObjects, apiServices } from './apiServices';
-import { MsgResponse } from '../types';
 
 const USER_DATA_KEY = 'loggedInUser';
+
+
+/*
+ * storeUse stores userdata to localstorage where it can be loaded if user
+ * closes browser or refreshes page
+ */
 
 const storeUser = (user: AuthUser): void => {
   window.localStorage.setItem(USER_DATA_KEY, JSON.stringify(user));
   apiServices.setToken(user.token);
 };
+
+/*
+ * loadUser reads userdata from localstorage in case page is reloaded
+ */
 
 const loadUser = (): AuthUser | undefined => {
   const userJSON = window.localStorage.getItem(USER_DATA_KEY);
@@ -33,8 +41,8 @@ const deleteUser = (): void => {
 };
 
 const login = async (username: string, password: string): Promise<AuthUser> => {
-  const response = await axios.post<AuthUser>('/login', { username, password }, apiObjects.AxiosRequestConfigWithoutToken);
-  return response.data;
+  const response = await axios.post<AuthUserDTO>('/login', { username, password }, apiObjects.AxiosRequestConfigWithoutToken);
+  return userDTOtoAuthUser(response.data);
 };
 
 const logout = async (): Promise<MsgResponse | undefined> => {
@@ -45,6 +53,30 @@ const logout = async (): Promise<MsgResponse | undefined> => {
     logger.logError(error);
     return undefined;
   }
+};
+
+const userDTOtoAuthUser = (dto: AuthUserDTO): AuthUser => {
+  const authPermissions: Permissions = {
+    users: makePermission(dto, 'users'),
+    people: makePermission(dto, 'people'),
+    permissions: makePermission(dto, 'permissions'),
+    wishes_and_items: makePermission(dto, 'wishes_and_items'),
+    entries: makePermission(dto, 'entries')
+  };
+  return { ...dto, permissions: authPermissions };
+};
+
+const makePermission = (dto: AuthUserDTO, code: PermissionCode): Omit<Permission, 'code'> => {
+  const defaultPermission = { read: false, write: false };
+  const foundPermission = dto.permissions.find(p => p.code === code);
+  if (foundPermission) {
+    return toAuthPermission(foundPermission);
+  }
+  return defaultPermission;
+};
+
+const toAuthPermission = ({ read, write }: Permission): { read: boolean, write: boolean } => {
+  return { read, write };
 };
 
 export const authService = {
