@@ -6,7 +6,7 @@
 import axios from 'axios';
 import { AuthUserDTO, AuthUser, Permission, Permissions, MsgResponse, PermissionCode } from '../types';
 import { logger } from '../utils/logger';
-import { apiObjects, apiServices } from './apiServices';
+import { apiServices } from './apiServices';
 
 const USER_DATA_KEY = 'loggedInUser';
 
@@ -41,13 +41,13 @@ const deleteUser = (): void => {
 };
 
 const login = async (username: string, password: string): Promise<AuthUser> => {
-  const response = await axios.post<AuthUserDTO>('/login', { username, password }, apiObjects.AxiosRequestConfigWithoutToken);
+  const response = await axios.post<AuthUserDTO>('/login', { username, password }, apiServices.getAxiosRequestConfigWithoutToken());
   return userDTOtoAuthUser(response.data);
 };
 
 const logout = async (): Promise<MsgResponse | undefined> => {
   try {
-    const response = await axios.delete<MsgResponse>('/logout', apiObjects.axiosRequestConfigWithToken);
+    const response = await axios.delete<MsgResponse>('/logout', apiServices.getAxiosRequestConfigWithToken());
     return response.data;
   } catch (error) {
     logger.logError(error);

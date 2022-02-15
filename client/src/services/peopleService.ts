@@ -5,7 +5,7 @@
 
 import axios from 'axios';
 // import { logger } from '../utils/logger';
-import { apiObjects } from './apiServices';
+import { apiServices } from './apiServices';
 import { Person } from '../types';
 import { logger } from '../utils/logger';
 
@@ -15,7 +15,7 @@ const findPeople = async (name: string): Promise<Array<Person>> => {
     return [];
   }
   try {
-    const response = await axios.get<Array<Person>>(`/people/?name=${name}`, apiObjects.axiosRequestConfigWithToken);
+    const response = await axios.get<Array<Person>>(`/people/?name=${name}`, apiServices.getAxiosRequestConfigWithToken());
     return response.data;
   } catch (error) {
     logger.logError(error);

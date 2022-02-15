@@ -126,6 +126,13 @@ body {
   cursor: pointer;
 }
 
+#Notifications {
+  background-color: silver;
+  position: fixed;
+  bottom: 0;
+  left: 5em;
+}
+
 .GroupNameDiv {
   display: inline-block;
   margin-top: 1em;

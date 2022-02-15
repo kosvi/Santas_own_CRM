@@ -4,7 +4,7 @@ import axios from 'axios';
 import '@testing-library/jest-dom/extend-expect';
 import { LoginForm } from '../../../components/LoginForm';
 import { AuthUserDTO, ErrorResponse } from '../../../types';
-import { apiObjects } from '../../../services/apiServices';
+import { apiServices } from '../../../services/apiServices';
 import { testHelpers } from '../../../utils/testHelpers/testHelpers';
 import { apiData } from '../../../utils/testHelpers/data/api';
 
@@ -52,7 +52,7 @@ describe('<LoginForm />', () => {
       await testHelpers.waitGivenTime();
       // submitting login-form should call axios.post once
       expect(axios.post).toHaveBeenCalledTimes(1);
-      expect(axios.post).toHaveBeenCalledWith('/login', { username: USERNAME, password: PASSWORD }, apiObjects.AxiosRequestConfigWithoutToken);
+      expect(axios.post).toHaveBeenCalledWith('/login', { username: USERNAME, password: PASSWORD }, apiServices.getAxiosRequestConfigWithoutToken());
       // we should now see the error message on the loginform
       expect(errorDiv).toHaveTextContent(ERROR_MESSAGE);
     });
@@ -76,7 +76,7 @@ describe('<LoginForm />', () => {
       await fireEvent.click(submitButton);
       await testHelpers.waitGivenTime();
       expect(axios.post).toHaveBeenCalledTimes(1);
-      expect(axios.post).toHaveBeenCalledWith('/login', { username: USERNAME, password: PASSWORD }, apiObjects.AxiosRequestConfigWithoutToken);
+      expect(axios.post).toHaveBeenCalledWith('/login', { username: USERNAME, password: PASSWORD }, apiServices.getAxiosRequestConfigWithoutToken());
       expect(errorDiv).toHaveTextContent(SUCCESS_MESSAGE);
     });
   });

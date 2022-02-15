@@ -180,3 +180,8 @@ Goals:
 
 | Date | Hours | Total Hours | Description |
 |------|-------|-------------|-------------|
+| 15.2.2022 | 1 | 124 | Started sprint. Worked on user story #1 (admin can manage access to functionalities). UI can handle this for most of the time (redux store keeps state even after logging out, thus allowing another user to access the data). Spend enourmous time to debug why controller on server side couldn't handle authentication just to realize I hadn't made that route to use authentication middleware. |
+|           | 1 | 125 | Fixed all tests that broke after changes in the backend and frontend. Added a couple tests for groups-controller to test new features. Started work on notification reducer. |
+
+Extras:
+- Finished groups-controller on server-side: User story #1 is now completed. 

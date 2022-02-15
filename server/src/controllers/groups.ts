@@ -1,13 +1,25 @@
 import express from 'express';
 const router = express.Router();
-import { addGroup, addPermission, getAllGroupsWithPermissions, getFunctionalities, getSingleGroupWithPermissions, updatePermission } from '../services/groupService';
+import { addGroup, addPermission, getAllGroupsWithPermissions, getSingleGroupWithPermissions, updatePermission } from '../services/groupService';
 import { logger } from '../utils/logger';
 import { toNewGroup, toNewPermission } from '../utils/apiValidators';
 import { GroupAttributes, PermissionAttributes } from '../types';
 import { validateToString } from '../utils/validators';
 import { ControllerError } from '../utils/customError';
+import { authenticate } from '../utils/middleware';
+import { RequestWithToken } from '../types';
+import { checkReadPermission, checkWritePermission } from '../utils/checkPermission';
 
-router.get('/', (_req, res, next) => {
+router.use(authenticate);
+
+router.get('/', (req: RequestWithToken, res, next) => {
+  // make sure user has read permission to groups/permissions
+  try {
+    checkReadPermission('permissions', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
   getAllGroupsWithPermissions()
     .then(groups => {
       res.json(groups);
@@ -18,6 +30,8 @@ router.get('/', (_req, res, next) => {
     });
 });
 
+/*
+We might remove this as non-needed
 router.get('/functionalities', (_req, res, next) => {
   getFunctionalities()
     .then(result => {
@@ -28,8 +42,15 @@ router.get('/functionalities', (_req, res, next) => {
       next(error);
     });
 });
+*/
 
-router.get('/:name', (req, res, next) => {
+router.get('/:name', (req: RequestWithToken, res, next) => {
+  try {
+    checkReadPermission('permissions', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
   let name: string;
   try {
     name = validateToString(req.params.name);
@@ -51,7 +72,13 @@ router.get('/:name', (req, res, next) => {
     });
 });
 
-router.post('/:id', (req, res, next) => {
+router.post('/:id', (req: RequestWithToken, res, next) => {
+  try {
+    checkWritePermission('permissions', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
   const groupId = Number(req.params.id);
   let permission: PermissionAttributes;
   try {
@@ -84,7 +111,13 @@ router.post('/:id', (req, res, next) => {
     });
 });
 
-router.put('/:id', (req, res, next) => {
+router.put('/:id', (req: RequestWithToken, res, next) => {
+  try {
+    checkWritePermission('permissions', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
   const groupId = Number(req.params.id);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const permission: PermissionAttributes = toNewPermission({ ...req.body, groupId: groupId });
@@ -98,7 +131,13 @@ router.put('/:id', (req, res, next) => {
     });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', (req: RequestWithToken, res, next) => {
+  try {
+    checkWritePermission('permissions', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
   // We can safely send req.body to toNewGroup because it will validate the body
   let group: GroupAttributes;
   try {

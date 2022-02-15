@@ -11,10 +11,12 @@ import { useDispatch } from 'react-redux';
 import { ThunkAction } from 'redux-thunk';
 import { authSlice } from './auth';
 import { groupsSlice } from './groups';
+import { notificationSlice } from './notifications';
 
 const rootReducer = combineReducers({
   authReducer: authSlice.reducer,
-  groupsReducer: groupsSlice.reducer
+  groupsReducer: groupsSlice.reducer,
+  notificationReducer: notificationSlice.reducer
 });
 
 export const store = configureStore({

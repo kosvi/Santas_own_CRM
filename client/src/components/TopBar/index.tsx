@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { apiObjects } from '../../services/apiServices';
+import { apiServices } from '../../services/apiServices';
 import { authService } from '../../services/authService';
 import { authActions } from '../../store/auth/authActions';
 import { SearchForm } from '../SearchForm';
@@ -16,7 +16,7 @@ export const TopBar = () => {
   };
 
   const resetDB = async () => {
-    await axios.post('/reset/full', {}, apiObjects.AxiosRequestConfigWithoutToken);
+    await axios.post('/reset/full', {}, apiServices.getAxiosRequestConfigWithoutToken());
   };
 
   return (
