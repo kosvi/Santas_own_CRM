@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { authSelector } from '../../store';
 import { authActions } from '../../store/auth/authActions';
 import { authService } from '../../services/authService';
-import axios from 'axios';
+import { Notification } from '../../types';
+import { notificationActions } from '../../store/notifications/notificationActions';
 
 export const Home = () => {
 
+  const foo: Array<Notification> = [
+    {
+      id: 1,
+      message: 'foo',
+      type: 'error'
+    },
+    {
+      id: 2,
+      message: 'bar',
+      type: 'msg'
+    }
+  ];
+
   const dispatch = useDispatch();
   const { user } = useSelector(authSelector);
+  const [nextId, setNextId] = useState<number>(1);
+
+  const addNotification = () => {
+    dispatch(notificationActions.addNotification(foo[nextId-1]));
+    setNextId((nextId % 2) + 1);
+  };
+
+  console.log(nextId);
 
   const logout = () => {
     authService.deleteUser();
@@ -19,6 +41,10 @@ export const Home = () => {
     <div>
       <div data-testid="name-of-user">{user?.name} <button onClick={logout}>logout</button></div>
       Hello Home!
+
+      <div>
+        <button onClick={addNotification}>add notification</button>
+      </div>
 
 
 

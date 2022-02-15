@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import usePermission from '../../hooks/usePermission';
 import { groupsService } from '../../services/groupsService';
 import { groupsSelector } from '../../store';
 import { groupsActions } from '../../store/groups/groupsActions';
 import { Functionality } from '../../types';
-// import { GroupWithFunctionalities } from '../../types';
 import { logger } from '../../utils/logger';
 import { DisplayGroup } from './DisplayGroup';
 import { NewGroupForm } from './NewGroupForm';
@@ -15,6 +15,7 @@ export const Permissions = () => {
   const { groups } = useSelector(groupsSelector);
   const [group, setGroup] = useState<number | null>(null);
   const [name, setName] = useState<string>('');
+  const [allowReadAccess, allowWriteAccess] = usePermission();
 
   useEffect(() => {
     const fetchAllFunctionalities = async () => {
@@ -60,6 +61,14 @@ export const Permissions = () => {
     }
   };
 
+  if(!allowReadAccess('permissions')) {
+    return (
+      <div>
+        Access denied
+      </div>
+    );
+  }
+
   return (
     <div>
       <input name="groupName" value={name} placeholder="search group" onChange={(event: React.FormEvent<HTMLInputElement>) => setName(event.currentTarget.value)} />
@@ -68,9 +77,9 @@ export const Permissions = () => {
         {groups.map(g => {
           return <div className="GroupNameDiv" key={g.id} onClick={() => setGroup(g.id)}>{g.name}</div>;
         })}
-        {groups.length>0 && <div className="GroupNameDiv" onClick={() => setGroup(null)}>New Group</div>}
+        {groups.length>0 && allowWriteAccess('permissions') && <div className="GroupNameDiv" onClick={() => setGroup(null)}>New Group</div>}
       </div>
-      {group===null && <NewGroupForm />}
+      {group===null && allowWriteAccess('permissions') && <NewGroupForm />}
       {group!==null && <DisplayGroup groupId={group} />}
     </div>
   );

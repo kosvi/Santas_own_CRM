@@ -12,15 +12,17 @@ export const notificationSlice = createSlice({
   initialState: initialNotificationState,
   reducers: {
     addNotification: (state, action: PayloadAction<Notification>) => {
-      const newNotification = {...action.payload, id: state.nextId};
+      const newNotification = { ...action.payload, id: state.nextId };
       const newState = [newNotification].concat(state.notifications);
       state.nextId = state.nextId + 1;
       state.notifications = newState;
     },
     removeLatest: (state) => {
-      const newState = [...state.notifications];
-      newState.pop();
-      state.notifications = newState;
+      if (state.notifications.length > 0) {
+        const newState = [...state.notifications];
+        newState.pop();
+        state.notifications = newState;
+      }
     },
     removeAll: (state) => {
       state.notifications = [];

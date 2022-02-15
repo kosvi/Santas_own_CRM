@@ -5,18 +5,16 @@ body {
 
 #Content {
   margin: 2em;
-  z-index: 5;
   margin-bottom: 3em;
 }
 
 #Menu {
-  background-color: inherit;
+  background-color: #ffffff;
   color: #000000;
   position: fixed;
   bottom: 0;
   border-top: solid 2px black;
   width: 100%;
-  z-index: 10;
 }
 
 #Menu a {
@@ -127,10 +125,21 @@ body {
 }
 
 #Notifications {
-  background-color: silver;
+  display: flex;
+  width: 100%;
   position: fixed;
-  bottom: 0;
-  left: 5em;
+  flex-direction: column;
+  bottom: 3.4em;
+}
+
+.Notification {
+  background-color: aquamarine;
+  border: solid 2px black;
+  border-radius: 0.4em;
+  padding: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.5em;
 }
 
 .GroupNameDiv {

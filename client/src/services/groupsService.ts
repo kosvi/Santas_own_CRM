@@ -3,7 +3,6 @@ import { Functionality, Group, GroupFunctionality, GroupWithFunctionalities } fr
 import { apiServices } from './apiServices';
 
 const getAllGroups = async (): Promise<Array<GroupWithFunctionalities>> => {
-  console.log(apiServices.getAxiosRequestConfigWithToken);
   const response = await axios.get<Array<GroupWithFunctionalities>>('/groups', apiServices.getAxiosRequestConfigWithToken());
   return response.data;
 };

@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { addGroup, addPermission, getAllGroupsWithPermissions, getSingleGroupWithPermissions, updatePermission } from '../services/groupService';
+import { addGroup, addPermission, getAllGroupsWithPermissions, getFunctionalities, getSingleGroupWithPermissions, updatePermission } from '../services/groupService';
 import { logger } from '../utils/logger';
 import { toNewGroup, toNewPermission } from '../utils/apiValidators';
 import { GroupAttributes, PermissionAttributes } from '../types';
@@ -30,9 +30,14 @@ router.get('/', (req: RequestWithToken, res, next) => {
     });
 });
 
-/*
-We might remove this as non-needed
-router.get('/functionalities', (_req, res, next) => {
+// We need to think if this should be open to all(?)
+router.get('/functionalities', (req: RequestWithToken, res, next) => {
+  try {
+    checkReadPermission('permissions', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
   getFunctionalities()
     .then(result => {
       res.json(result);
@@ -42,7 +47,6 @@ router.get('/functionalities', (_req, res, next) => {
       next(error);
     });
 });
-*/
 
 router.get('/:name', (req: RequestWithToken, res, next) => {
   try {

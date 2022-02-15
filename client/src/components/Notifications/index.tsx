@@ -1,24 +1,15 @@
 import React from 'react';
 import { DisplayNotification } from './DisplayNotification';
-import { Notification } from '../../types';
+import { useSelector } from 'react-redux';
+import { notificationSelector } from '../../store/notifications';
 
 export const Notifications = () => {
-  const foo: Array<Notification> = [
-    {
-      id: 1,
-      message: 'foo',
-      type: 'error'
-    },
-    {
-      id: 2,
-      message: 'bar',
-      type: 'msg'
-    }
-  ];
+
+  const { notifications } = useSelector(notificationSelector);
 
   return (
     <div id="Notifications">
-      {foo.map(f => <DisplayNotification key={ f.id } notification={ f } />)}
+      {notifications.map(n => <DisplayNotification key={ n.id } notification={ n } />)}
     </div>
   );
 };
