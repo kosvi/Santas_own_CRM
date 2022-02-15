@@ -170,3 +170,13 @@ Goals:
 
 Extras:
 - Added reset-button to UI for easier DB-reset at this stage of development
+
+### Sprint 6 - MVP
+
+Goals:
+- Allow adding new people
+- Allow adding entries to people
+- Allow adding wishes to people
+
+| Date | Hours | Total Hours | Description |
+|------|-------|-------------|-------------|
