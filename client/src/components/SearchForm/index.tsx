@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useDebounce from '../../hooks/useDebounce';
-import { peopleService } from '../../services/peopleService';
+import usePeople from '../../hooks/usePeople';
 import { Person } from '../../types';
 import { DisplayPerson } from './DisplayPerson';
 
@@ -9,11 +9,12 @@ export const SearchForm = () => {
   const [searchString, setSearchString] = useState<string>('');
   const debounceString = useDebounce<string>(searchString, 1000);
   const [people, setPeople] = useState<Array<Person>>([]);
+  const { findPeopleByName } = usePeople();
 
   useEffect(() => {
     const fetchPeople = async () => {
-      const peopleArray = await peopleService.findPeople(debounceString);
-      setPeople(peopleArray);
+      const newPeople = await findPeopleByName(debounceString);
+      setPeople(newPeople);
     };
     fetchPeople();
   }, [debounceString]);

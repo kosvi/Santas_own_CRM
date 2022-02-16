@@ -32,14 +32,8 @@ export interface FullPerson extends Person {
   entries: Array<Entry>
 }
 
-export interface PersonNameAndId {
-  name: string,
-  id: number
-}
-
 export interface PeopleState {
   people: {
     [id: number]: FullPerson
-  },
-  names: Array<PersonNameAndId>
+  }
 }
