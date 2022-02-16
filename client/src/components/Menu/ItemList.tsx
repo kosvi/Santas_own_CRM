@@ -1,4 +1,6 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { authSelector } from '../../store';
 import usePermission from '../../hooks/usePermission';
 import { MenuItem } from '../../types';
 import { Item } from './Item';
@@ -9,7 +11,8 @@ interface closeMethod {
 
 export const ItemList = ({ items, closeMenuMethod }: { items: Array<MenuItem>, closeMenuMethod: closeMethod }) => {
 
-  const [allowReadAccess] = usePermission();
+  const { user } = useSelector(authSelector);
+  const { allowReadAccess } = usePermission();
 
   const displayLink = (item: MenuItem): boolean => {
     if (!item.permission) {
@@ -21,8 +24,15 @@ export const ItemList = ({ items, closeMenuMethod }: { items: Array<MenuItem>, c
     return false;
   };
 
+  const home: MenuItem = {
+    title: user ? user.name : 'Home',
+    to: '/'
+  };
+
   return (
     <div>
+      <Item item={home} closeMenuMethod={closeMenuMethod} />
+      <div>&nbsp;</div>
       {items.map(i => {
         if (displayLink(i)) {
           return <Item key={i.title} item={i} closeMenuMethod={closeMenuMethod} />;

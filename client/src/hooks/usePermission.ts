@@ -46,9 +46,9 @@ function usePermission() {
     }
   };
 
-  return [
+  return {
     allowReadAccess, allowWriteAccess
-  ];
+  };
 }
 
 export default usePermission;

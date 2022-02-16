@@ -1,5 +1,6 @@
 import { notificationSlice } from '.';
 import { AppThunk } from '..';
+import { NOTIFICATION_DELAY } from '../../utils/config';
 import { Notification } from '../../types';
 
 const actions = notificationSlice.actions;
@@ -9,7 +10,7 @@ const addNotification = (notification: Notification): AppThunk => {
     dispatch(actions.addNotification(notification));
     setTimeout(() => {
       dispatch(actions.removeLatest());
-    }, 5000);
+    }, NOTIFICATION_DELAY);
   };
 };
 

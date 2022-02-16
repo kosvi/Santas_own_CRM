@@ -10,7 +10,7 @@ import { logger } from '../../utils/logger';
 export const AddPermission = ({ functionality, group }: { functionality: Functionality, group: number }) => {
 
   const dispatch = useDispatch();
-  const [createNotification] = useNotification();
+  const { createNotification } = useNotification();
 
   const addPermission = async () => {
     const payload: GroupFunctionality = {

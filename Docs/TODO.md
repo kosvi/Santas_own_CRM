@@ -6,4 +6,3 @@
 
 - Remove reset-button from UI
 
-- Finish permissions for frontend too...

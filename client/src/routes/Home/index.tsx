@@ -30,8 +30,6 @@ export const Home = () => {
     setNextId((nextId % 2) + 1);
   };
 
-  console.log(nextId);
-
   const logout = () => {
     authService.deleteUser();
     dispatch(authActions.logoutUser());

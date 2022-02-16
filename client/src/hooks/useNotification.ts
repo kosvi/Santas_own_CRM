@@ -19,9 +19,9 @@ function useNotification() {
     dispatch(notificationActions.removeNotifications());
   };
 
-  return [
+  return {
     createNotification, clearAll
-  ];
+  };
 }
 
 export default useNotification;

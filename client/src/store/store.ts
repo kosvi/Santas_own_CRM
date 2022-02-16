@@ -12,11 +12,13 @@ import { ThunkAction } from 'redux-thunk';
 import { authSlice } from './auth';
 import { groupsSlice } from './groups';
 import { notificationSlice } from './notifications';
+import { peopleSlice } from './people';
 
 const rootReducer = combineReducers({
   authReducer: authSlice.reducer,
   groupsReducer: groupsSlice.reducer,
-  notificationReducer: notificationSlice.reducer
+  notificationReducer: notificationSlice.reducer,
+  peopleReducer: peopleSlice.reducer
 });
 
 export const store = configureStore({

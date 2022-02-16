@@ -118,6 +118,7 @@ Check [Api documentation](Docs/API/reset.md) for `/api/reset` for more informati
 ```
 REACT_APP_API_BASE=
 REACT_APP_LOGGING=
+REACT_APP_NOTIFICATION_DELAY=
 HOST=
 WDS_SOCKET_HOST=
 ```
@@ -125,6 +126,7 @@ WDS_SOCKET_HOST=
 |----------|-------------|---------|
 |REACT_APP_API_BASE| Used as prefix for all api-queries | `/api` |
 |REACT_APP_LOGGING| Defines if logging is enabled or not | false |
+|REACT_APP_NOTIFICATION_DELAY| Defines the time a notification is displayed in milliseconds | 5000 |
 |HOST | Needed when app is run in docker-compose while developing | - |
 |WDS_SOCKET_HOST | Needed when app is run in docker-compose while developing | - |
 

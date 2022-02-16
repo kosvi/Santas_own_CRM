@@ -14,7 +14,7 @@ export const DisplayPermission = ({ permission, group }: { permission: Functiona
   const [write, setWrite] = useState<boolean>(permission.permission.write);
   const [readStyle, setReadStyle] = useState<string>('');
   const [writeStyle, setWriteStyle] = useState<string>('');
-  const [createNotification] = useNotification();
+  const { createNotification } = useNotification();
 
   // set read & write status for permission
   useEffect(() => {

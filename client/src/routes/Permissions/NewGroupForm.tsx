@@ -11,7 +11,7 @@ export const NewGroupForm = () => {
 
   const dispatch = useDispatch();
   const [name, setName] = useState<string>('');
-  const [createNotification] = useNotification();
+  const { createNotification } = useNotification();
 
   const addNewGroup = async () => {
     try {
