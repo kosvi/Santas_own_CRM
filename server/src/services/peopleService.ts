@@ -39,3 +39,12 @@ export const displayPersonWithWishesAndEntries = async (id: number) => {
     throw error;
   }
 };
+
+export const addNewPerson = async (person: PersonAttributes): Promise<PersonAttributes> => {
+  try {
+    const newPerson = await models.Person.create(person);
+    return newPerson;
+  } catch (error) {
+    throw new ControllerError(500, 'couldn\'t create new database entry');
+  }
+};

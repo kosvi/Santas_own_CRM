@@ -32,6 +32,7 @@ services:
     environment:
       REACT_APP_API_BASE: "/api"
       REACT_APP_LOGGING: "true"
+      REACT_APP_FAKED_API_DELAY: 2000
       HOST: "santas-client"
       WDS_SOCKET_HOST: "localhost"
     volumes: 

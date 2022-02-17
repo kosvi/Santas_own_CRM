@@ -1,11 +1,23 @@
 import express from 'express';
-import { displayPersonWithWishesAndEntries, findPeopleByName } from '../services/peopleService';
+import { addNewPerson, displayPersonWithWishesAndEntries, findPeopleByName } from '../services/peopleService';
+import { PersonAttributes, RequestWithToken } from '../types';
 import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
+import { authenticate } from '../utils/middleware';
 import { validateToString } from '../utils/validators';
+import { checkReadPermission, checkWritePermission } from '../utils/checkPermission';
+import { toNewPerson } from '../utils/apiValidators';
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
+router.use(authenticate);
+
+router.get('/', (req: RequestWithToken, res, next) => {
+  try {
+    checkReadPermission('people', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
   if (req.query.name) {
     // ok, we have a search string
     const search = validateToString(req.query.name);
@@ -22,7 +34,13 @@ router.get('/', (req, res, next) => {
   }
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:id', (req: RequestWithToken, res, next) => {
+  try {
+    checkReadPermission('people', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
   let id: number;
   try {
     id = parseInt(req.params.id);
@@ -36,6 +54,30 @@ router.get('/:id', (req, res, next) => {
   displayPersonWithWishesAndEntries(id)
     .then(response => {
       res.json(response);
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+router.post('/', (req: RequestWithToken, res, next) => {
+  try {
+    checkWritePermission('people', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
+  let person: PersonAttributes;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    person = toNewPerson(req.body);
+  } catch (error) {
+    next(new ControllerError(400, 'request didn\'t include a valid person'));
+    return;
+  }
+  addNewPerson(person)
+    .then(response => {
+      res.status(201).json(response);
     })
     .catch(error => {
       next(error);

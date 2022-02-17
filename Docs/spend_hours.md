@@ -185,6 +185,8 @@ Goals:
 |           | 2 | 127 | Some refactoring of the code. Added notifications to UI and wrote a hook to handle diplaying them. Working to fix UI not to display things the user has no access to. |
 | 16.2.2022 | 2 | 129 | Finished Permissions, fixed logout (still not clearing Redux tho!), enhancements to Notifications and minor fixes. Worked on people reducer. |
 |           | 2 | 131 | Spend some time with people reducer, hook and service. Tried to make a smart redux-cache so that search-form instanty gives results from redux while still loading api-results. Current state: while writing this I realized how this might be possible to achieve! I am going to try that tomorrow! I did some trials and errors with this, but my current solution is possible to extend for that. Atleast I believe so! | 
+| 17.2.2022 | 1 | 132 | Decided to ditch the idea of using redux cache for search: Best solutions would have been O(n^2) and if we have a list of all the kids on planet, it's way too slow. It's faster to do this on database-level and just wait for the api to responde. |
+|           | 1 | 133 | Worked on possibility to add new people from frontend and to store them in database trough API. Probably broke alot of tests in the backend, gotta fix them too. |
 
 Extras:
 - Finished groups-controller on server-side: User story #1 is now completed. 
