@@ -32,7 +32,7 @@ function usePeople() {
 
   const findPersonById = async (id: number): Promise<FullPerson | undefined> => {
     try {
-      const person = await peopleService.finfPersonById(id);
+      const person = await peopleService.findPersonById(id);
       if (person) {
         dispatch(peopleActions.updatePerson(person));
       }
@@ -44,8 +44,22 @@ function usePeople() {
     }
   };
 
+  const addPerson = async (name: string, birthdate: string, address: string): Promise<Person | undefined> => {
+    try {
+      const person = await peopleService.addNewPerson({ name, birthdate, address });
+      return person;
+    } catch (error) {
+      let message = 'failed to save new person';
+      if (error instanceof Error) {
+        message = `${message}: ${error.message}`;
+      }
+      createNotification(message, 'error');
+      return undefined;
+    }
+  };
+
   return {
-    findPeopleByName, findPersonById
+    findPeopleByName, findPersonById, addPerson
   };
 
 }

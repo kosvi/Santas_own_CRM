@@ -6,9 +6,9 @@
 import axios from 'axios';
 // import { logger } from '../utils/logger';
 import { apiServices } from './apiServices';
-import { FullPerson, Person } from '../types';
+import { FullPerson, NewPerson, Person } from '../types';
 import { logger } from '../utils/logger';
-import { testHelpers } from '../utils/testHelpers/testHelpers';
+import { apiRequest } from '../utils/delayedAxios';
 
 const findPeople = async (name: string): Promise<Array<Person>> => {
   // We don't search if key is shorter then 1 character
@@ -16,7 +16,8 @@ const findPeople = async (name: string): Promise<Array<Person>> => {
     return [];
   }
   try {
-    const response = await axios.get<Array<Person>>(`/people/?name=${name}`, apiServices.getAxiosRequestConfigWithToken());
+    // const response = await axios.get<Array<Person>>(`/people/?name=${name}`, apiServices.getAxiosRequestConfigWithToken());
+    const response = await apiRequest<Array<Person>, undefined>('get', `/people/?name=${name}`, apiServices.getAxiosRequestConfigWithToken());
     return response.data;
   } catch (error) {
     logger.logError(error);
@@ -24,12 +25,17 @@ const findPeople = async (name: string): Promise<Array<Person>> => {
   }
 };
 
-const finfPersonById = async (id: number): Promise<FullPerson> => {
-  await testHelpers.waitGivenTime(3000);
-  const response = await axios.get<FullPerson>(`/people/${id}`, apiServices.getAxiosRequestConfigWithToken());
+const findPersonById = async (id: number): Promise<FullPerson> => {
+  // const response = await axios.get<FullPerson>(`/people/${id}`, apiServices.getAxiosRequestConfigWithToken());
+  const response = await apiRequest<FullPerson, undefined>('get', `/people/${id}`, apiServices.getAxiosRequestConfigWithToken());
+  return response.data;
+};
+
+const addNewPerson = async (person: NewPerson): Promise<Person> => {
+  const response = await apiRequest<Person, NewPerson>('post', '/people', apiServices.getAxiosRequestConfigWithToken(), person);
   return response.data;
 };
 
 export const peopleService = {
-  findPeople, finfPersonById
+  findPeople, findPersonById, addNewPerson
 };

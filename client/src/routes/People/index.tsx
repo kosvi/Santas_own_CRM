@@ -5,6 +5,7 @@ import usePeople from '../../hooks/usePeople';
 import { peopleSelector } from '../../store/people';
 import { Person } from '../../types';
 import { parseNumber } from '../../utils/validators';
+import { AddPersonForm } from './AddPersonForm';
 import DisplayPerson from './DisplayPerson';
 
 export const People = () => {
@@ -23,6 +24,9 @@ export const People = () => {
     return (
       <div>
         Hello People!
+        <div>
+          <AddPersonForm />
+        </div>
         <div>
           <input type='text' name='name' value={name} onChange={(event: React.FormEvent<HTMLInputElement>) => setName(event.currentTarget.value)} />
         </div>

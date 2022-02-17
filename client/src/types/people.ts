@@ -1,8 +1,11 @@
-export interface Person {
-  id: number,
+export interface NewPerson {
   name: string,
   birthdate: string,
-  address: string,
+  address: string
+}
+
+export interface Person extends NewPerson {
+  id: number,
   createdAt: string,
   updatedAt: string
 }
