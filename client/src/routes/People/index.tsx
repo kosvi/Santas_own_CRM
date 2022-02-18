@@ -3,38 +3,54 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import usePeople from '../../hooks/usePeople';
 import { peopleSelector } from '../../store/people';
-import { Person } from '../../types';
+import { FullPerson, Person } from '../../types';
 import { parseNumber } from '../../utils/validators';
 import { AddPersonForm } from './AddPersonForm';
-import DisplayPerson from './DisplayPerson';
+import usePermission from '../../hooks/usePermission';
+import useNotification from '../../hooks/useNotification';
+import { DisplayPerson } from './DisplayPerson';
+import { PersonRow } from './PersonRow';
 
 export const People = () => {
 
   const { id } = useParams<'id'>();
-  const [name, setName] = useState<string>('');
-  const [people, setPeople] = useState<Array<Person>>([]);
-  const { findPeopleByName } = usePeople();
-
-  const fetchPeople = async () => {
-    const fetchResult = await findPeopleByName(name);
-    setPeople(fetchResult);
-  };
+  const { people } = useSelector(peopleSelector);
+  const { allowReadAccess, allowWriteAccess } = usePermission();
+  const { createNotification } = useNotification();
 
   if (!id) {
     return (
       <div>
-        Hello People!
+      {allowWriteAccess('people') && 
         <div>
           <AddPersonForm />
         </div>
+      }
         <div>
-          <input type='text' name='name' value={name} onChange={(event: React.FormEvent<HTMLInputElement>) => setName(event.currentTarget.value)} />
-        </div>
-        <div>
-          <button onClick={fetchPeople}>find</button>
-        </div>
-        <div>
-          {people.map(p => <div key={p.id}>{p.name}</div>)}
+	  <table id="PeopleTable">
+	  <thead>
+	  <tr>
+	    <td>
+	      Name
+	    </td>
+	    <td>
+	    Date of birth
+	    </td>
+	    <td>
+	    Address
+	    </td>
+	    <td>
+	    Entries
+	    </td>
+	    <td>
+	    Wishes
+	    </td>
+	  </tr>
+	  </thead>
+	  <tbody>
+          {Object.values(people).map(p => <PersonRow key={p.id} person={p} />)}
+	  </tbody>
+	  </table>
         </div>
       </div>
     );

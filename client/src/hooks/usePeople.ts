@@ -47,6 +47,15 @@ function usePeople() {
   const addPerson = async (name: string, birthdate: string, address: string): Promise<Person | undefined> => {
     try {
       const person = await peopleService.addNewPerson({ name, birthdate, address });
+      if(person) {
+        const fullPerson: FullPerson = {
+          ...person,
+          wishes: [],
+          entries: []
+        };
+        dispatch(peopleActions.addPeople([fullPerson]));
+        createNotification(`${name} was added succesfully`, 'msg');
+      }
       return person;
     } catch (error) {
       let message = 'failed to save new person';

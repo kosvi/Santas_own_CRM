@@ -5,7 +5,7 @@ import { peopleSelector } from '../../store/people';
 import { FullPerson } from '../../types';
 import { parseNumber } from '../../utils/validators';
 
-const DisplayPerson = ({ idString }: { idString: string }) => {
+export const DisplayPerson = ({ idString }: { idString: string }) => {
 
   const { people } = useSelector(peopleSelector);
   const [person, setPerson] = useState<FullPerson>();
@@ -58,4 +58,3 @@ const DisplayPerson = ({ idString }: { idString: string }) => {
 
 };
 
-export default DisplayPerson;

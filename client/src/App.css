@@ -183,3 +183,18 @@ body {
 .PermissionFalse {
   background-color: red;
 }
+
+#PeopleTable {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.PersonRow {
+  cursor: pointer;
+}
+
+.PersonRow:hover {
+  background-color: silver;
+}

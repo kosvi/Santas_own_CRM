@@ -13,6 +13,13 @@ interface NewPersonFormProps {
 }
 
 export const CreateForm = withFormik<NewPersonFormProps, FormValues>({
+  mapPropsToValues: props => {
+    return {
+      name: '',
+      birthdate: '',
+      address: ''
+    };
+  },
   validate: (values: FormValues) => {
     const errors: FormikErrors<FormValues> = {};
     if (!values.name) {

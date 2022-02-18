@@ -187,6 +187,8 @@ Goals:
 |           | 2 | 131 | Spend some time with people reducer, hook and service. Tried to make a smart redux-cache so that search-form instanty gives results from redux while still loading api-results. Current state: while writing this I realized how this might be possible to achieve! I am going to try that tomorrow! I did some trials and errors with this, but my current solution is possible to extend for that. Atleast I believe so! | 
 | 17.2.2022 | 1 | 132 | Decided to ditch the idea of using redux cache for search: Best solutions would have been O(n^2) and if we have a list of all the kids on planet, it's way too slow. It's faster to do this on database-level and just wait for the api to responde. |
 |           | 1 | 133 | Worked on possibility to add new people from frontend and to store them in database trough API. Probably broke alot of tests in the backend, gotta fix them too. |
+| 18.2.2022 | 1 | 134 | Fixed people-form to not give errors. Spend ENOURMOUS time searching for problem with posting new people. I had wrote 'birthday' in apiValidator on server side while it should have been 'birthdate'... |
+|           | 1 | 135 | Worked on diplaying people. Actually realized that there is a simple way of using the Redux-cache for search! Implemented... |
 
 Extras:
 - Finished groups-controller on server-side: User story #1 is now completed. 
