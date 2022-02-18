@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FullPerson } from '../../types';
 
-export const PersonRow = ({person}: {person: FullPerson}) => {
+export const PersonRow = ({ person }: { person: FullPerson }) => {
 
   const navigate = useNavigate();
 

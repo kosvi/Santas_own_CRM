@@ -13,7 +13,7 @@ interface NewPersonFormProps {
 }
 
 export const CreateForm = withFormik<NewPersonFormProps, FormValues>({
-  mapPropsToValues: props => {
+  mapPropsToValues: () => {
     return {
       name: '',
       birthdate: '',

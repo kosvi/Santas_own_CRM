@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useDebounce from '../../hooks/useDebounce';
 import usePeople from '../../hooks/usePeople';
-import { Person } from '../../types';
 import { DisplayPerson } from './DisplayPerson';
 import { useSelector } from 'react-redux';
 import { peopleSelector } from '../../store/people';
@@ -36,14 +35,14 @@ export const SearchForm = () => {
     <div id="searchForm">
       <label htmlFor="searchInput">People: </label>
       <input type="text" id="searchInput" value={searchString} onChange={updateSearchString} />
-      {debounceString.length > 0 && displayResult && 
+      {debounceString.length > 0 && displayResult &&
         <div id="searchResults">
           <span onClick={clearSearch}>clear results</span>
           {Object.values(people).map(p => {
-	    if(p.name.toLowerCase().includes(debounceString.toLowerCase())) {
-	      return (<DisplayPerson key={p.id} person={p} closeResultMethod={clearSearch} />);
-	    }
-	  })}
+            if (p.name.toLowerCase().includes(debounceString.toLowerCase())) {
+              return (<DisplayPerson key={p.id} person={p} closeResultMethod={clearSearch} />);
+            }
+          })}
         </div>
       }
     </div>

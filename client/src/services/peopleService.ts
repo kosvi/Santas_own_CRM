@@ -3,8 +3,6 @@
  */
 
 
-import axios from 'axios';
-// import { logger } from '../utils/logger';
 import { apiServices } from './apiServices';
 import { FullPerson, NewPerson, Person } from '../types';
 import { logger } from '../utils/logger';

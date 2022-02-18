@@ -3,6 +3,7 @@
 - API-documentation
   - groups-controller : get functionality
   - groups-controller : put functionality
+  - people-controller : post person
 
 - Remove reset-button from UI
 

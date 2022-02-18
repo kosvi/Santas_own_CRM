@@ -4,8 +4,10 @@ body {
 }
 
 #Content {
-  margin: 2em;
-  margin-bottom: 3em;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 2em;
 }
 
 #Menu {
@@ -184,6 +186,18 @@ body {
   background-color: red;
 }
 
+#AddPersonForm {
+  border: solid 2px black;
+  max-width: 600px;
+  margin: auto;
+  margin-bottom: 2em;
+  padding: 1em;
+}
+
+.PersonFormError {
+  color: red;
+}
+
 #PeopleTable {
   border-collapse: collapse;
   width: 100%;
@@ -197,4 +211,8 @@ body {
 
 .PersonRow:hover {
   background-color: silver;
+}
+
+.PersonListItem {
+  margin-top: 1em;
 }

@@ -13,7 +13,8 @@ export const AddPersonForm = () => {
   };
 
   return (
-    <div>
+    <div id="AddPersonForm">
+      <h3>Add new person</h3>
       <CreateForm handleSubmit={handleSubmit} />
     </div>
   );

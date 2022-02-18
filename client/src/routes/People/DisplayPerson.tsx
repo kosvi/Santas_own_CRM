@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import usePeople from '../../hooks/usePeople';
 import { peopleSelector } from '../../store/people';
 import { FullPerson } from '../../types';
@@ -43,15 +44,32 @@ export const DisplayPerson = ({ idString }: { idString: string }) => {
 
   return (
     <div>
-      {person.name}
+      <Link to='/people'>back</Link>
+      <h3>{person.name}</h3>
+      <div>Address: {person.address}</div>
+      <div>Birthday: {person.birthdate}</div>
       <div>
+        <h4>Wishes</h4>
         {person.wishes.map(w => {
           return (
-            <div key={w.id}>
-              {w.description}
+            <div key={w.id} className="PersonListItem">
+              <b>{w.item.name}</b> <br />
+              Description: {w.description}
             </div>
           );
         })}
+      </div>
+      <div>
+        <h4>Entries</h4>
+        {person.entries.map(e => {
+          return (
+            <div key={e.id} className="PersonListItem">
+              <b>niceness</b> {e.niceness}<br />
+              {e.description}
+            </div>
+          );
+        })
+        }
       </div>
     </div>
   );

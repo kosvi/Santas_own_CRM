@@ -13,6 +13,7 @@ const assertNever = (value: never): never => {
   throw new Error(`Error: ${JSON.stringify(value)}`);
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function apiRequest<T, U>(method: METHOD, endpoint: string, config: AxiosRequestConfig, payload: U | undefined = undefined): Promise<AxiosResponse<T, any>> {
   await waitGivenTime(FAKED_API_DELAY);
   switch (method) {

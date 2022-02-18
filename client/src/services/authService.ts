@@ -3,7 +3,6 @@
  */
 
 
-import axios from 'axios';
 import { AuthUserDTO, AuthUser, Permission, Permissions, MsgResponse, PermissionCode } from '../types';
 import { apiRequest } from '../utils/delayedAxios';
 import { logger } from '../utils/logger';

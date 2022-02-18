@@ -1,6 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { peopleService } from '../services/peopleService';
-import { peopleSelector } from '../store/people';
 import { peopleActions } from '../store/people/peopleActions';
 import { FullPerson, Person } from '../types';
 import { logger } from '../utils/logger';
@@ -47,7 +46,7 @@ function usePeople() {
   const addPerson = async (name: string, birthdate: string, address: string): Promise<Person | undefined> => {
     try {
       const person = await peopleService.addNewPerson({ name, birthdate, address });
-      if(person) {
+      if (person) {
         const fullPerson: FullPerson = {
           ...person,
           wishes: [],
