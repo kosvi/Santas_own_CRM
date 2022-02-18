@@ -5,6 +5,7 @@ import usePeople from '../../hooks/usePeople';
 import { peopleSelector } from '../../store/people';
 import { FullPerson } from '../../types';
 import { parseNumber } from '../../utils/validators';
+import moment from 'moment';
 
 export const DisplayPerson = ({ idString }: { idString: string }) => {
 
@@ -47,7 +48,8 @@ export const DisplayPerson = ({ idString }: { idString: string }) => {
       <Link to='/people'>back</Link>
       <h3>{person.name}</h3>
       <div>Address: {person.address}</div>
-      <div>Birthday: {person.birthdate}</div>
+      <div>Birthday: {moment(person.birthdate).format('DD.MM.YYYY')}</div>
+      <div>Age: {moment().diff(person.birthdate, 'years')}</div>
       <div>
         <h4>Wishes</h4>
         {person.wishes.map(w => {
@@ -61,6 +63,9 @@ export const DisplayPerson = ({ idString }: { idString: string }) => {
       </div>
       <div>
         <h4>Entries</h4>
+        <b>Total</b> {person.entries.reduce((previous, current) => {
+          return previous + current.niceness;
+        }, 0)}
         {person.entries.map(e => {
           return (
             <div key={e.id} className="PersonListItem">
