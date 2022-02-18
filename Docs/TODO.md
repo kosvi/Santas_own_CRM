@@ -8,3 +8,4 @@
 - Remove reset-button from UI
 
 - Make some decent UI to display a person
+- and finish the people-grid

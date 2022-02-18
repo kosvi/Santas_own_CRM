@@ -190,6 +190,7 @@ Goals:
 | 18.2.2022 | 1 | 134 | Fixed people-form to not give errors. Spend ENOURMOUS time searching for problem with posting new people. I had wrote 'birthday' in apiValidator on server side while it should have been 'birthdate'... |
 |           | 1 | 135 | Worked on diplaying people. Actually realized that there is a simple way of using the Redux-cache for search! Implemented... |
 |           | 1 | 136 | Fixed tests that broke after latest changes, added some tests for new features (backend side) and worked on People UI on frontend-side. | 
+|           | 2 | 138 | Worked with people-lists. I am going to switch on AgGrid for listing people. Took a bit of time to study documentation and to learn the basics of AgGrid, but managed to get things working for not after some trial and error. I still believe there is native typing available for it, so I wouldn't have to use my own interfaces. |
 
 Extras:
 - Finished groups-controller on server-side: User story #1 is now completed. 
