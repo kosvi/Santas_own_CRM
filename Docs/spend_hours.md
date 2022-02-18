@@ -189,6 +189,7 @@ Goals:
 |           | 1 | 133 | Worked on possibility to add new people from frontend and to store them in database trough API. Probably broke alot of tests in the backend, gotta fix them too. |
 | 18.2.2022 | 1 | 134 | Fixed people-form to not give errors. Spend ENOURMOUS time searching for problem with posting new people. I had wrote 'birthday' in apiValidator on server side while it should have been 'birthdate'... |
 |           | 1 | 135 | Worked on diplaying people. Actually realized that there is a simple way of using the Redux-cache for search! Implemented... |
+|           | 1 | 136 | Fixed tests that broke after latest changes, added some tests for new features (backend side) and worked on People UI on frontend-side. | 
 
 Extras:
 - Finished groups-controller on server-side: User story #1 is now completed. 
