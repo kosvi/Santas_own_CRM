@@ -87,6 +87,24 @@ describe('people controller', () => {
     }
   });
 
+  test('A person can be updated', async () => {
+    const firstResponse = await api.get('/api/people/1').set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    const person = toApiPerson(firstResponse.body);
+    expect(person.name).not.toBe('John');
+    expect(person.address).not.toBe('TestStreet 12');
+    person.name = 'John';
+    person.address = 'TestStreet 12';
+    const { name, birthdate, address } = person;
+    const putResponse = await api.put('/api/people/1').set('Authorization', `bearer ${adminObj.token}`).send({ name, birthdate, address }).expect(200);
+    const putPerson = toApiPerson(putResponse.body);
+    expect(putPerson.name).toBe('John');
+    expect(putPerson.address).toBe('TestStreet 12');
+    const secondResponse = await api.get('/api/people/1').set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    const newPerson = toApiPerson(secondResponse.body);
+    expect(newPerson.name).toBe('John');
+    expect(newPerson.address).toBe('TestStreet 12');
+  });
+
   test('401 is returned if no token is given', async () => {
     const response = await api.get('/api/people/').expect(401);
     expect(response.body).toHaveProperty('error');

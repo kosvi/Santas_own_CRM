@@ -1,5 +1,5 @@
 import express from 'express';
-import { addNewPerson, displayPersonWithWishesAndEntries, findPeopleByName } from '../services/peopleService';
+import { addNewPerson, displayPersonWithWishesAndEntries, findPeopleByName, updatePerson } from '../services/peopleService';
 import { PersonAttributes, RequestWithToken } from '../types';
 import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
@@ -78,6 +78,34 @@ router.post('/', (req: RequestWithToken, res, next) => {
   addNewPerson(person)
     .then(response => {
       res.status(201).json(response);
+    })
+    .catch(error => {
+      next(error);
+    });
+});
+
+router.put('/:id', (req: RequestWithToken, res, next) => {
+  // check that user is allowed to make changes to person
+  try {
+    checkWritePermission('people', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
+  // create person object with new name & address
+  let person: PersonAttributes;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    person = toNewPerson(req.body);
+    person.id = parseInt(req.params.id);
+  } catch (error) {
+    next(new ControllerError(400, 'invalid request'));
+    return;
+  }
+  // if user has priviledges and person could be parsed
+  updatePerson(person)
+    .then(result => {
+      res.status(200).json(result);
     })
     .catch(error => {
       next(error);

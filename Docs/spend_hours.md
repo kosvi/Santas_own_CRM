@@ -174,8 +174,8 @@ Extras:
 ### Sprint 6 - MVP
 
 Goals:
-- Allow adding new people
-- Allow adding entries to people
+- ~~Allow adding new people~~
+- ~~Allow adding entries to people~~
 - Allow adding wishes to people
 
 | Date | Hours | Total Hours | Description |
@@ -191,6 +191,8 @@ Goals:
 |           | 1 | 135 | Worked on diplaying people. Actually realized that there is a simple way of using the Redux-cache for search! Implemented... |
 |           | 1 | 136 | Fixed tests that broke after latest changes, added some tests for new features (backend side) and worked on People UI on frontend-side. | 
 |           | 2 | 138 | Worked with people-lists. I am going to switch on AgGrid for listing people. Took a bit of time to study documentation and to learn the basics of AgGrid, but managed to get things working for not after some trial and error. I still believe there is native typing available for it, so I wouldn't have to use my own interfaces. |
+| 19.2.2022 | 3 | 141 | Finished UI for the part on displaying people. Added API support for updating a person (server side) and implemented that feature to AgGrid. Also implemented possibility to add entries to a person. Also a test added to backend. Fixed possible memory leak from DisplayPerson on frontend side (if dismounted before async fetch finished). |
 
 Extras:
 - Finished groups-controller on server-side: User story #1 is now completed. 
+- Allow editing existing people (name & address) from AgGrid

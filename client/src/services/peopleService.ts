@@ -34,6 +34,11 @@ const addNewPerson = async (person: NewPerson): Promise<Person> => {
   return response.data;
 };
 
+const updatePerson = async (person: NewPerson, id: number): Promise<Person> => {
+  const response = await apiRequest<Person, NewPerson>('put', `/people/${id}`, apiServices.getAxiosRequestConfigWithToken(), person);
+  return response.data;
+};
+
 export const peopleService = {
-  findPeople, findPersonById, addNewPerson
+  findPeople, findPersonById, addNewPerson, updatePerson
 };

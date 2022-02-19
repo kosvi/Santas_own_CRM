@@ -5,3 +5,4 @@ export * from './menu';
 export * from './people';
 export * from './groups';
 export * from './notification';
+export * from './entries';

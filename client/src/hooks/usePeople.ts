@@ -66,8 +66,29 @@ function usePeople() {
     }
   };
 
+  const updatePerson = async (person: FullPerson): Promise<void> => {
+    try {
+      const updatedPerson = await peopleService.updatePerson({ name: person.name, birthdate: person.birthdate, address: person.address }, person.id);
+      if (updatedPerson) {
+        const fullPerson: FullPerson = {
+          ...person,
+          name: updatedPerson.name,
+          address: updatedPerson.address
+        };
+        dispatch(peopleActions.updatePerson(fullPerson));
+        createNotification(`${fullPerson.name} updated`, 'msg');
+      }
+    } catch (error) {
+      let message = 'failed to updte person';
+      if (error instanceof Error) {
+        message = `${message}: ${error.message}`;
+      }
+      createNotification(message, 'error');
+    }
+  };
+
   return {
-    findPeopleByName, findPersonById, addPerson
+    findPeopleByName, findPersonById, addPerson, updatePerson
   };
 
 }

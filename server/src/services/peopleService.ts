@@ -48,3 +48,24 @@ export const addNewPerson = async (person: PersonAttributes): Promise<PersonAttr
     throw new ControllerError(500, 'couldn\'t create new database entry');
   }
 };
+
+export const updatePerson = async (person: PersonAttributes): Promise<PersonAttributes> => {
+  try {
+    const oldPerson = await models.Person.findByPk(person.id);
+    if (!oldPerson) {
+      throw new ControllerError(404, 'no person found with id');
+    }
+    oldPerson.name = person.name;
+    oldPerson.address = person.address;
+    await oldPerson.save();
+    return oldPerson;
+  } catch (error) {
+    if (error instanceof ControllerError) {
+      throw error;
+    }
+    if (error instanceof Error) {
+      throw new ControllerError(500, 'Failed to save changes to person');
+    }
+    throw error;
+  }
+};
