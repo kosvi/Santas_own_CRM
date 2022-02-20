@@ -18,6 +18,8 @@
 |[Show single group](API/groups.md#show-single-group)|`/api/groups/:name`| GET | permissions|read | 200 | 404 |
 |[Post new group](API/groups.md#post-new-group)|`/api/groups` | POST | permissions |write | 201 | 400, 403, 500(?) |
 |[Add a permission to group](API/groups.md#add-a-permission-to-group) | `/api/groups/:groupId` | POST | permissions |write | 201 | 400, 403, 404, 500(?) |
+|[Update permission of group](API/groups.md#update-permission-of-group)|`/api/groups/:groupId`|PUT|permissions| write|200| - |
+|[List all functionalities](API/groups.md#list-all-functionalities)|`/api/groups/functionalities`|GET |permissions|read|200 |- |
 
 ## People
 
@@ -26,6 +28,8 @@
 |[GET /api/people](API/people.md#get-base)|`/api/people`|GET | people |read | - | 400 |
 |[Search people by name](API/people.md#search-people-by-name) | `/api/people/?name=<key>?` | GET | people |read | 200 | - |
 |[Display single person with wishes](API/people.md#display-single-person-with-wishes) | `/api/people/:id` | GET | people |read | 200 | 400, 404, 500(?) |
+|[Add new person](API/people.md#add-new-person)|`/api/people`|POST | people |write | 201, 400, 500|
+|[Update person](API/peopel.md#update-person)|`/api/people/:id` |PUT | people |write | 200, 400, 404, 500 |
 
 ## Items
 
@@ -39,6 +43,12 @@
 |------------|-----|-------|--------------|--------|----------------|-----------|
 |[Get latest entries](API/entries.md#get-latest-entries)|`/api/entries` or `/api/entries/?limit=<number>`| GET | entries |read | 200 | - |
 |[Add new entry](API/entries.md#add-new-entry)|`/api/entries`| POST | entries | write | 201 | 400|
+
+## Wishes
+
+|Description | URL |Method | Functionality| Access | Success | Possible errors|
+|------------|-----|-------|--------------|--------|----------------|-----------|
+|[Add new wish](API/wishes.md#add-new-wish)|`/api/wishes`|POST |wishes_and_items| write | 201 | 400, 404, 500 |
 
 ## Login
 

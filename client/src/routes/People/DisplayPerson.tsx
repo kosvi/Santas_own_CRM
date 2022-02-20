@@ -15,6 +15,10 @@ export const DisplayPerson = ({ idString }: { idString: string }) => {
   const [person, setPerson] = useState<FullPerson>();
   const { allowWriteAccess } = usePermission();
   const { findPersonById } = usePeople();
+  // This ref tells us if this component is mounted or not
+  // we use the information when we make async calls and update components state
+  // this ref tells us if component has unmounted, so we don't accidentally cause memory-leak
+  // https://reactjs.org/docs/hooks-reference.html#useref
   const mountedRef = useRef(true);
 
   // let's fetch the person to be displayed from 'people' to 'person'
@@ -33,20 +37,23 @@ export const DisplayPerson = ({ idString }: { idString: string }) => {
   // we make API-call every time the ID is updated just to make sure
   // we have the latest version of the person in case
   // another elf has made entries, added wishes or possibly even updated name/address
-  const updatePerson = useCallback(async () => {
+  const updatePerson = async () => {
     const id = parseNumber(idString);
-    if (!id) {
+    if(!id){
       return;
     }
     const updatedPerson = await findPersonById(id);
-    if (!mountedRef.current) {
+    if(!mountedRef.current){
       return;
     }
     setPerson(updatedPerson);
-  }, [mountedRef]);
+  };
 
+  // https://stackoverflow.com/questions/56450975/to-fix-cancel-all-subscriptions-and-asynchronous-tasks-in-a-useeffect-cleanup-f
   useEffect(() => {
     updatePerson();
+    // Cleanup function
+    // https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup
     return () => {
       mountedRef.current = false;
     };

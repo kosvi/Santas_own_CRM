@@ -8,3 +8,9 @@ export interface NewEntry {
   niceness: number,
   description: string
 }
+
+export interface NewWish {
+  personId: number,
+  itemName: string,
+  description: string
+}

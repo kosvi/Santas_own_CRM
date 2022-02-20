@@ -30,7 +30,8 @@ export const TopBar = () => {
   return (
     <div id="TopBar">
       <SearchForm />
-      <button id="resetDB" onClick={resetDB}>reset</button>
+      {/* don't print the reset-button for now... not pretty but will do for now */}
+      {false && <button id="resetDB" onClick={resetDB}>reset</button>}
       <button id="logoutButton" onClick={logout}>logout</button>
     </div>
   );

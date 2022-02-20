@@ -2,7 +2,7 @@ GET http://localhost:3000/api/entries
 
 ### 
 GET http://localhost:3000/api/entries
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhbnRhIiwibmFtZSI6IlNhbnRhIENsYXVzIiwiaWQiOjEsImlhdCI6MTY0MzY1MDAwN30.de0Ph9vtrMgLKlCj_ydmWZ54Dwl4F2_KmB-gPTlw8Kk
+Authorization: bearer 
 
 ### 
 
