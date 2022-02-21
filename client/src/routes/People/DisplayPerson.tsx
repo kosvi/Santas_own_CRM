@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import usePeople from '../../hooks/usePeople';
@@ -39,11 +39,11 @@ export const DisplayPerson = ({ idString }: { idString: string }) => {
   // another elf has made entries, added wishes or possibly even updated name/address
   const updatePerson = async () => {
     const id = parseNumber(idString);
-    if(!id){
+    if (!id) {
       return;
     }
     const updatedPerson = await findPersonById(id);
-    if(!mountedRef.current){
+    if (!mountedRef.current) {
       return;
     }
     setPerson(updatedPerson);

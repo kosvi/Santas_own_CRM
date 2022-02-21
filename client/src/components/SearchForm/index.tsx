@@ -9,7 +9,6 @@ export const SearchForm = () => {
 
   const [searchString, setSearchString] = useState<string>('');
   const debounceString = useDebounce<string>(searchString, 1000);
-  // const [people, setPeople] = useState<Array<Person>>([]);
   const { people } = useSelector(peopleSelector);
   const { findPeopleByName } = usePeople();
   const [displayResult, setDisplayResult] = useState<boolean>(false);
