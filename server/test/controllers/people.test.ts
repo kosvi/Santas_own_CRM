@@ -105,6 +105,15 @@ describe('people controller', () => {
     expect(newPerson.address).toBe('TestStreet 12');
   });
 
+  test('Invalid person ID returns 404', async () => {
+    const response = await api.put(`/api/people/${NONEXISTENT_PERSON_ID}`).set('Authorization', `bearer ${adminObj.token}`).send({
+      name: 'FooBar',
+      birthdate: '2020-12-12',
+      address: 'Foobar 123'
+    }).expect(404);
+    expect(response.body).toHaveProperty('error');
+  });
+
   test('401 is returned if no token is given', async () => {
     const response = await api.get('/api/people/').expect(401);
     expect(response.body).toHaveProperty('error');

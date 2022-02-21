@@ -52,9 +52,10 @@ import {
   validError,
   invalidErrorMissingError,
   invalidErrorWithBooleanError,
-  invalidErrorWithUndefinedError
+  invalidErrorWithUndefinedError,
+  validApiWish
 } from './data';
-import { toApiGroup, toApiUser, toApiPerson, toApiItem, toApiEntry, toApiError } from './toApiObject';
+import { toApiGroup, toApiUser, toApiPerson, toApiItem, toApiEntry, toApiWish, toApiError } from './toApiObject';
 
 
 
@@ -165,6 +166,15 @@ describe('make sure helper functions for tests work as supposed to', () => {
     expect(() => { toApiEntry(invalidEntryWithInvalidUpdateDate); }).toThrow(Error);
     // also giving the whole array should throw error
     expect(() => { toApiEntry(validEntryArray); }).toThrow(Error);
+  });
+
+  test('toApiWish tests', () => {
+    const validWishData = toApiWish(validApiWish);
+    expect(validWishData).toHaveProperty('id');
+    expect(validWishData).toHaveProperty('personId');
+    expect(validWishData).toHaveProperty('itemId');
+    expect(validWishData).toHaveProperty('description');
+    // add error-tests later(?)
   });
 
   test('toApiError tests', () => {

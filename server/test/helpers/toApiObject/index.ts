@@ -6,3 +6,4 @@ export * from './toApiEntry';
 export * from './toApiLogin';
 export * from './toApiError';
 export * from './toApiMsg';
+export * from './toApiWish';

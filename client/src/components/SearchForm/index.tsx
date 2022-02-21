@@ -34,9 +34,9 @@ export const SearchForm = () => {
   return (
     <div id="searchForm">
       <label htmlFor="searchInput">People: </label>
-      <input type="text" id="searchInput" value={searchString} onChange={updateSearchString} />
+      <input type="text" id="searchInput" data-testid="searchInput" value={searchString} onChange={updateSearchString} />
       {debounceString.length > 0 && displayResult &&
-        <div id="searchResults">
+        <div id="searchResults" data-testid="searchResults">
           <span onClick={clearSearch}>clear results</span>
           {Object.values(people).map(p => {
             if (p.name.toLowerCase().includes(debounceString.toLowerCase())) {

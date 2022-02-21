@@ -193,6 +193,7 @@ Goals:
 |           | 2 | 138 | Worked with people-lists. I am going to switch on AgGrid for listing people. Took a bit of time to study documentation and to learn the basics of AgGrid, but managed to get things working for not after some trial and error. I still believe there is native typing available for it, so I wouldn't have to use my own interfaces. |
 | 19.2.2022 | 3 | 141 | Finished UI for the part on displaying people. Added API support for updating a person (server side) and implemented that feature to AgGrid. Also implemented possibility to add entries to a person. Also a test added to backend. Fixed possible memory leak from DisplayPerson on frontend side (if dismounted before async fetch finished). |
 | 20.2.2022 | 2 | 143 | Added possibility to save wishes on backend-side (will add frontend tomorrow). Updated documentation. Minor adjustments on frontend side. |
+| 21.2.2022 | 2 | 145 | Added some tests to backend and frontend. |
 
 Extras:
 - Finished groups-controller on server-side: User story #1 is now completed. 
