@@ -16,10 +16,10 @@ export const Menu = () => {
 
   return (
     <div id="Menu">
-      <div id="MenuItems">
+      <div id="MenuItems" data-testid="MenuItems">
         {displayMenu && <ItemList items={listOfItems} closeMenuMethod={closeMenu} />}
       </div>
-      <div id="MenuButton" onClick={toggleMenu}>Menu</div>
+      <div id="MenuButton" data-testid="MenuButton" onClick={toggleMenu}>Menu</div>
     </div>
   );
 };

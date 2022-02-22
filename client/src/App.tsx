@@ -12,6 +12,7 @@ import { Home } from './routes/Home';
 import { NotFound } from './routes/NotFound';
 import { LoginForm } from './components/LoginForm';
 import { TopBar } from './components/TopBar';
+import { Notifications } from './components/Notifications';
 
 const App = () => {
 
@@ -43,6 +44,7 @@ const App = () => {
           <Route path='*' element={<NotFound />} />
         </Routes>
       </div>
+      <Notifications />
       <Menu />
     </div>
   );

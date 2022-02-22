@@ -7,6 +7,7 @@ import itemRouter from './items';
 import entryRouter from './entries';
 import loginRouter from './login';
 import logoutRouter from './logout';
+import wishRouter from './wishes';
 
 export {
   resetRouter,
@@ -17,5 +18,6 @@ export {
   itemRouter,
   entryRouter,
   loginRouter,
-  logoutRouter
+  logoutRouter,
+  wishRouter
 };

@@ -30,7 +30,7 @@ I will write some simple use stories to help me get started with the project. I 
 
 | id | user | description | implemented | 
 |----|------|-------------|-------------|
-| 1. | admin | as an admin, I want to be able to manage access to different functionalities in the system | sprint 5 (ui) |
+| 1. | admin | as an admin, I want to be able to manage access to different functionalities in the system | - |
 | 2. | admin | as an admin, I want to be able to create new users |  - |
 | 3. | admin | as an admin, I want to be able to reset users passwords | - |
 | 4. | admin | as an admin, I want to be able to disable accounts instantly |- |
