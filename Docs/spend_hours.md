@@ -176,7 +176,7 @@ Extras:
 Goals:
 - ~~Allow adding new people~~
 - ~~Allow adding entries to people~~
-- Allow adding wishes to people
+- ~~Allow adding wishes to people~~
 
 | Date | Hours | Total Hours | Description |
 |------|-------|-------------|-------------|
@@ -196,6 +196,8 @@ Goals:
 | 21.2.2022 | 2 | 145 | Added some tests to backend and frontend. |
 |           | 2 | 147 | Spend ALOT of time working on frontend tests... mocking things and firing events and debugging tests is a thing I really need to learn more about. | 
 | 22.2.2022 | 2 | 149 | Testing React-apps is not as easy as one could think of. Wrote tests for frontend components. | 
+|           | 1 | 150 | Added possibility to add wishes to the frontend. | 
+| sprint total | 27 | 150 | |
 
 Extras:
 - Finished groups-controller on server-side: User story #1 is now completed. 

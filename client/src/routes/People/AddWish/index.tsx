@@ -1,19 +1,19 @@
 import React from 'react';
-import useEntry from '../../../hooks/useEntry';
-import { NewEntry } from '../../../types';
+import useWish from '../../../hooks/useWish';
+import { NewWish } from '../../../types';
 import { CreateForm, FormValues } from './CreateForm';
 
-export const AddEntry = ({ id }: { id: number }) => {
+export const AddWish = ({ id }: { id: number }) => {
 
-  const { addEntry } = useEntry();
+  const { addWish } = useWish();
 
   const handleSubmit = async (values: FormValues): Promise<boolean> => {
-    const newEntry: NewEntry = {
+    const newWish: NewWish = {
       personId: id,
-      niceness: values.niceness,
+      itemName: values.itemName,
       description: values.description
     };
-    await addEntry(newEntry);
+    await addWish(newWish);
     return true;
   };
 

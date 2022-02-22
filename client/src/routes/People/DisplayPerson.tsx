@@ -8,6 +8,7 @@ import { parseNumber } from '../../utils/validators';
 import moment from 'moment';
 import usePermission from '../../hooks/usePermission';
 import { AddEntry } from './AddEntry';
+import { AddWish } from './AddWish';
 
 export const DisplayPerson = ({ idString }: { idString: string }) => {
 
@@ -76,6 +77,7 @@ export const DisplayPerson = ({ idString }: { idString: string }) => {
       <div>Age: {moment().diff(person.birthdate, 'years')}</div>
       <div>
         <h4>Wishes</h4>
+        {allowWriteAccess('wishes_and_items') && <AddWish id={person.id} />}
         {person.wishes.map(w => {
           return (
             <div key={w.id} className="PersonListItem">
