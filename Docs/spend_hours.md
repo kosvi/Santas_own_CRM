@@ -202,3 +202,12 @@ Goals:
 Extras:
 - Finished groups-controller on server-side: User story #1 is now completed. 
 - Allow editing existing people (name & address) from AgGrid
+
+### Sprint 7 - deploy to production
+
+Goals:
+- Finish pipeline to deploy to Docker Hub
+- Add tests (especially e2e!)
+
+| Date | Hours | Total Hours | Description |
+|------|-------|-------------|-------------|
