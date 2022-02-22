@@ -8,7 +8,7 @@ export const Notifications = () => {
   const { notifications } = useSelector(notificationSelector);
 
   return (
-    <div id="Notifications">
+    <div id="Notifications" data-testid="Notifications">
       {notifications.map(n => <DisplayNotification key={ n.id } notification={ n } />)}
     </div>
   );

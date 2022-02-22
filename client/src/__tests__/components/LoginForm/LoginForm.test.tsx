@@ -49,7 +49,7 @@ describe('<LoginForm />', () => {
       // click login and submit form
       await fireEvent.click(submitButton);
       // we need to wait for all the async-code to finish before checking results
-      await testHelpers.waitGivenTime();
+      await testHelpers.waitGivenTime(200);
       // submitting login-form should call axios.post once
       expect(axios.post).toHaveBeenCalledTimes(1);
       expect(axios.post).toHaveBeenCalledWith('/login', { username: USERNAME, password: PASSWORD }, apiServices.getAxiosRequestConfigWithoutToken());
@@ -74,7 +74,7 @@ describe('<LoginForm />', () => {
     });
     await act(async () => {
       await fireEvent.click(submitButton);
-      await testHelpers.waitGivenTime();
+      await testHelpers.waitGivenTime(200);
       expect(axios.post).toHaveBeenCalledTimes(1);
       expect(axios.post).toHaveBeenCalledWith('/login', { username: USERNAME, password: PASSWORD }, apiServices.getAxiosRequestConfigWithoutToken());
       expect(errorDiv).toHaveTextContent(SUCCESS_MESSAGE);

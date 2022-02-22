@@ -30,7 +30,7 @@ export const ItemList = ({ items, closeMenuMethod }: { items: Array<MenuItem>, c
   };
 
   return (
-    <div>
+    <div data-testid="MenuItemsList">
       <Item item={home} closeMenuMethod={closeMenuMethod} />
       <div>&nbsp;</div>
       {items.map(i => {

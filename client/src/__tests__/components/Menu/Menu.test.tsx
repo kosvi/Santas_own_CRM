@@ -5,7 +5,6 @@ import { render, fireEvent, act } from '../../../utils/testHelpers/customRendere
 
 // import component and rest of helpers
 import { Menu } from '../../../components/Menu';
-import { testHelpers } from '../../../utils/testHelpers/testHelpers';
 
 // Our menu uses useNavigate() to handle clicks
 // -> Mock useNavigate
@@ -16,6 +15,10 @@ jest.mock('react-router-dom', () => ({
 
 describe('<Menu />', () => {
 
+  beforeEach(() => {
+    mockedNavigate.mockReset();
+  });
+
   test('Menu opens and closes when clicked', async () => {
     const menuComponent = render(<Menu />);
     const menuItems = menuComponent.getByTestId('MenuItems');
@@ -23,15 +26,31 @@ describe('<Menu />', () => {
     expect(menuItems.childNodes.length).toBe(0);
     await act(async () => {
       await fireEvent.click(menuButton);
-      testHelpers.waitGivenTime(100);
       expect(menuItems.childNodes.length).toBeGreaterThan(0);
       expect(menuItems.childNodes[0]).toHaveTextContent('Home');
       await fireEvent.click(menuButton);
-      testHelpers.waitGivenTime(100);
       expect(menuItems.childNodes.length).toBe(0);
     });
   });
 
   // Add a test where 'Home' is clicked and see what will happen...
+  test('Click on menu-item closes menu and runs navigate() once', async () => {
+    const menuComponent = render(<Menu />);
+    const menuItems = menuComponent.getByTestId('MenuItems');
+    const menuButton = menuComponent.getByTestId('MenuButton');
+    // make sure navigate is not called yet
+    expect(mockedNavigate.mock.calls).toHaveLength(0);
+    await act(async () => {
+      await fireEvent.click(menuButton);
+      // this contains the list that is rendered inside 'MenuItems'
+      const menuItemsList = menuComponent.getByTestId('MenuItemsList');
+      const homeButton = menuItemsList.childNodes[0];
+      await fireEvent.click(homeButton);
+      // menu should be closed by now
+      expect(menuItems.childNodes.length).toBe(0);
+      // and our mockedNavigate should be called once
+      expect(mockedNavigate.mock.calls).toHaveLength(1);
+    });
+  });
 
 });

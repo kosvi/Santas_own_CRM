@@ -195,6 +195,7 @@ Goals:
 | 20.2.2022 | 2 | 143 | Added possibility to save wishes on backend-side (will add frontend tomorrow). Updated documentation. Minor adjustments on frontend side. |
 | 21.2.2022 | 2 | 145 | Added some tests to backend and frontend. |
 |           | 2 | 147 | Spend ALOT of time working on frontend tests... mocking things and firing events and debugging tests is a thing I really need to learn more about. | 
+| 22.2.2022 | 2 | 149 | Testing React-apps is not as easy as one could think of. Wrote tests for frontend components. | 
 
 Extras:
 - Finished groups-controller on server-side: User story #1 is now completed. 
