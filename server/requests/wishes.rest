@@ -1,0 +1,9 @@
+POST http://localhost:3000/api/wishes
+Content-Type: application/json
+Authorization: bearer 
+
+{
+  "personId": 4,
+  "itemName": "Toy Train",
+  "description": "Must say toot toot"
+}

@@ -1,11 +1,14 @@
 {
   "name": "santas-crm",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.7.2",
+    "ag-grid-community": "^27.0.1",
+    "ag-grid-react": "^27.0.1",
     "axios": "^0.24.0",
     "formik": "^2.2.9",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",

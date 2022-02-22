@@ -1,8 +1,7 @@
 # TODO
 
-- Create page to create & edit groups 
 - API-documentation
-  - groups-controller : get functionality
-  - groups-controller : put functionality
 
-- Remove reset-button from UI
+- Add tests (backend):
+
+- Add tests to frontend

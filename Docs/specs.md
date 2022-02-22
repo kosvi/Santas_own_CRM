@@ -28,22 +28,22 @@ In addition to publishing, I will use Docker in development and testing as well.
 
 I will write some simple use stories to help me get started with the project. I am using a one-person-scrum as my project development method. As there is only one person working on the project, I am going to be both: Scrum-master and product owner. Plus all the other roles as well. So what I am trying to say, more user stories might appear on later iterations when I learn more about the funtionalities and requirements. 
 
-| id | user | description | 
-|----|------|-------------|
-| 1. | admin | as an admin, I want to be able to manage access to different functionalities in the system |
-| 2. | admin | as an admin, I want to be able to create new users | 
-| 3. | admin | as an admin, I want to be able to reset users passwords | 
-| 4. | admin | as an admin, I want to be able to disable accounts instantly |
-| 5. | user | as an elf, I want to easily make entries to children when they behave well or badly | 
-| 6. | user | as an elf, I want to be able to register christmas wishes to children | 
-| 7. | user | as an elf, I want to easily see how nice or naugty a kid has been |
-| 8. | user | as an elf, I want to see which wishes has been packed and are waiting in the Santas gift bag |
-| 9. | user | as an elf, I would appriciate the abilitity to get smart suggestions for presents based on the wishlist | 
-| 10. | user | as Santa, I need to easily find the address of any child |
-| 11. | user | as Santa, I really need to easily see who is nice and who is naughty | 
-| 12. | user | as Santa, I need to know what gifts are still waiting to be made |
-| 13. | user | as Santa, I need to know where a family is going to get together to spend their christmas |
-| 14. | user | as Santa, I'd like to easily see family relations to know the the parents are and what is sisters name etc. |
+| id | user | description | implemented | 
+|----|------|-------------|-------------|
+| 1. | admin | as an admin, I want to be able to manage access to different functionalities in the system | - |
+| 2. | admin | as an admin, I want to be able to create new users |  - |
+| 3. | admin | as an admin, I want to be able to reset users passwords | - |
+| 4. | admin | as an admin, I want to be able to disable accounts instantly |- |
+| 5. | user | as an elf, I want to easily make entries to children when they behave well or badly | - |
+| 6. | user | as an elf, I want to be able to register christmas wishes to children | - |
+| 7. | user | as an elf, I want to easily see how nice or naugty a kid has been |- |
+| 8. | user | as an elf, I want to see which wishes has been packed and are waiting in the Santas gift bag |- |
+| 9. | user | as an elf, I would appriciate the abilitity to get smart suggestions for presents based on the wishlist | - |
+| 10. | user | as Santa, I need to easily find the address of any child |- |
+| 11. | user | as Santa, I really need to easily see who is nice and who is naughty | - |
+| 12. | user | as Santa, I need to know what gifts are still waiting to be made |- |
+| 13. | user | as Santa, I need to know where a family is going to get together to spend their christmas |- |
+| 14. | user | as Santa, I'd like to easily see family relations to know the the parents are and what is sisters name etc. |- |
 
 ## Database
 

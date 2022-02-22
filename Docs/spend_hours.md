@@ -161,11 +161,44 @@ Goals:
 |          | 2 | 112 | Try to come up with clever UI. I have ABSOLUTELY NO IDEA of what kind of UI would be nice and intuitive to use. I aint no UX-designer! |
 | 11.2.2022| 2 | 114 | Added groups-reducer to begin work on permissions-page (/route). Spend time debugging and fixing login-form after tests didn't pass. Result: it was only the tests that didn't work after updates to logging in. Minor tweaks to search. |
 |          | 1 | 115 | Worked on permissions page(/route). |
-| 12.2.2022 | 2 | 116 | Worked on admin-view and permission handling. Seems that I can't use checkbox for the form or I have to do something in a different way. withFormic() seems to be unable to handle checkbox initialvalue and change the way I need it to. | 
-| 13.2.2022 | 2 | 118 | It's now possible to change permission of a group to a given functionality. Both backend and frontend support it. Also updated Groups-reducer to also contain list of possible permissions, so we know what can be added to a group. | 
-| 14.2.2022 | 1 | 119 | Now permissions can be added to a group and permissions can be changed. |
-|           | 1 | 120 | Alot of tweaks to UI. Some tweaks to 'business logic' and some re-factoring. | 
-|           | 2 | 122 | Tweaks to UI. New Groups can be added. Added some tests too (took quite some time to figure out how to mock useNavigate from react-router-dom). Going to merge to develop (and deploy to Heroku through Release). |
+| 12.2.2022 | 2 | 117 | Worked on admin-view and permission handling. Seems that I can't use checkbox for the form or I have to do something in a different way. withFormic() seems to be unable to handle checkbox initialvalue and change the way I need it to. | 
+| 13.2.2022 | 2 | 119 | It's now possible to change permission of a group to a given functionality. Both backend and frontend support it. Also updated Groups-reducer to also contain list of possible permissions, so we know what can be added to a group. | 
+| 14.2.2022 | 1 | 120 | Now permissions can be added to a group and permissions can be changed. |
+|           | 1 | 121 | Alot of tweaks to UI. Some tweaks to 'business logic' and some re-factoring. | 
+|           | 2 | 123 | Tweaks to UI. New Groups can be added. Added some tests too (took quite some time to figure out how to mock useNavigate from react-router-dom). Going to merge to develop (and deploy to Heroku through Release). |
+| sprint total | 16 | 123 | |
 
 Extras:
 - Added reset-button to UI for easier DB-reset at this stage of development
+
+### Sprint 6 - MVP
+
+Goals:
+- ~~Allow adding new people~~
+- ~~Allow adding entries to people~~
+- ~~Allow adding wishes to people~~
+
+| Date | Hours | Total Hours | Description |
+|------|-------|-------------|-------------|
+| 15.2.2022 | 1 | 124 | Started sprint. Worked on user story #1 (admin can manage access to functionalities). UI can handle this for most of the time (redux store keeps state even after logging out, thus allowing another user to access the data). Spend enourmous time to debug why controller on server side couldn't handle authentication just to realize I hadn't made that route to use authentication middleware. |
+|           | 1 | 125 | Fixed all tests that broke after changes in the backend and frontend. Added a couple tests for groups-controller to test new features. Started work on notification reducer. |
+|           | 2 | 127 | Some refactoring of the code. Added notifications to UI and wrote a hook to handle diplaying them. Working to fix UI not to display things the user has no access to. |
+| 16.2.2022 | 2 | 129 | Finished Permissions, fixed logout (still not clearing Redux tho!), enhancements to Notifications and minor fixes. Worked on people reducer. |
+|           | 2 | 131 | Spend some time with people reducer, hook and service. Tried to make a smart redux-cache so that search-form instanty gives results from redux while still loading api-results. Current state: while writing this I realized how this might be possible to achieve! I am going to try that tomorrow! I did some trials and errors with this, but my current solution is possible to extend for that. Atleast I believe so! | 
+| 17.2.2022 | 1 | 132 | Decided to ditch the idea of using redux cache for search: Best solutions would have been O(n^2) and if we have a list of all the kids on planet, it's way too slow. It's faster to do this on database-level and just wait for the api to responde. |
+|           | 1 | 133 | Worked on possibility to add new people from frontend and to store them in database trough API. Probably broke alot of tests in the backend, gotta fix them too. |
+| 18.2.2022 | 1 | 134 | Fixed people-form to not give errors. Spend ENOURMOUS time searching for problem with posting new people. I had wrote 'birthday' in apiValidator on server side while it should have been 'birthdate'... |
+|           | 1 | 135 | Worked on diplaying people. Actually realized that there is a simple way of using the Redux-cache for search! Implemented... |
+|           | 1 | 136 | Fixed tests that broke after latest changes, added some tests for new features (backend side) and worked on People UI on frontend-side. | 
+|           | 2 | 138 | Worked with people-lists. I am going to switch on AgGrid for listing people. Took a bit of time to study documentation and to learn the basics of AgGrid, but managed to get things working for not after some trial and error. I still believe there is native typing available for it, so I wouldn't have to use my own interfaces. |
+| 19.2.2022 | 3 | 141 | Finished UI for the part on displaying people. Added API support for updating a person (server side) and implemented that feature to AgGrid. Also implemented possibility to add entries to a person. Also a test added to backend. Fixed possible memory leak from DisplayPerson on frontend side (if dismounted before async fetch finished). |
+| 20.2.2022 | 2 | 143 | Added possibility to save wishes on backend-side (will add frontend tomorrow). Updated documentation. Minor adjustments on frontend side. |
+| 21.2.2022 | 2 | 145 | Added some tests to backend and frontend. |
+|           | 2 | 147 | Spend ALOT of time working on frontend tests... mocking things and firing events and debugging tests is a thing I really need to learn more about. | 
+| 22.2.2022 | 2 | 149 | Testing React-apps is not as easy as one could think of. Wrote tests for frontend components. | 
+|           | 1 | 150 | Added possibility to add wishes to the frontend. | 
+| sprint total | 27 | 150 | |
+
+Extras:
+- Finished groups-controller on server-side: User story #1 is now completed. 
+- Allow editing existing people (name & address) from AgGrid

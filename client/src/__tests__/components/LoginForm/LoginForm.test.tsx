@@ -4,7 +4,7 @@ import axios from 'axios';
 import '@testing-library/jest-dom/extend-expect';
 import { LoginForm } from '../../../components/LoginForm';
 import { AuthUserDTO, ErrorResponse } from '../../../types';
-import { apiObjects } from '../../../services/apiServices';
+import { apiServices } from '../../../services/apiServices';
 import { testHelpers } from '../../../utils/testHelpers/testHelpers';
 import { apiData } from '../../../utils/testHelpers/data/api';
 
@@ -49,10 +49,10 @@ describe('<LoginForm />', () => {
       // click login and submit form
       await fireEvent.click(submitButton);
       // we need to wait for all the async-code to finish before checking results
-      await testHelpers.waitGivenTime();
+      await testHelpers.waitGivenTime(200);
       // submitting login-form should call axios.post once
       expect(axios.post).toHaveBeenCalledTimes(1);
-      expect(axios.post).toHaveBeenCalledWith('/login', { username: USERNAME, password: PASSWORD }, apiObjects.AxiosRequestConfigWithoutToken);
+      expect(axios.post).toHaveBeenCalledWith('/login', { username: USERNAME, password: PASSWORD }, apiServices.getAxiosRequestConfigWithoutToken());
       // we should now see the error message on the loginform
       expect(errorDiv).toHaveTextContent(ERROR_MESSAGE);
     });
@@ -74,9 +74,9 @@ describe('<LoginForm />', () => {
     });
     await act(async () => {
       await fireEvent.click(submitButton);
-      await testHelpers.waitGivenTime();
+      await testHelpers.waitGivenTime(200);
       expect(axios.post).toHaveBeenCalledTimes(1);
-      expect(axios.post).toHaveBeenCalledWith('/login', { username: USERNAME, password: PASSWORD }, apiObjects.AxiosRequestConfigWithoutToken);
+      expect(axios.post).toHaveBeenCalledWith('/login', { username: USERNAME, password: PASSWORD }, apiServices.getAxiosRequestConfigWithoutToken());
       expect(errorDiv).toHaveTextContent(SUCCESS_MESSAGE);
     });
   });
