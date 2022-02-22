@@ -3,4 +3,4 @@ export const validApiWish = {
   personId: 4,
   itemId: 11,
   description: 'Some string'
-}
+};
