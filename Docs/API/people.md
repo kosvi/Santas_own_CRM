@@ -112,3 +112,57 @@ Status: 400
   "error": "malformed id given"
 }
 ```
+
+## Add new person
+
+**Example**
+
+POST `/api/people`
+```
+{
+  "name":"John Doe",
+  "address": "Doestreet 60",
+  "birthdate": "2001-06-10"
+}
+```
+
+Status: 201
+
+```
+{
+  "id": 14,
+  "name": "John Doe",
+  "birthdate": "2001-06-10",
+  "address": "Doestreet 60",
+  "updatedAt": "2022-02-20T18:44:08.504Z",
+  "createdAt": "2022-02-20T18:44:08.504Z"
+}
+```
+
+## Update person
+
+This will only update name & address. Birthdate has to be posted, but it will not be updated at the moment. 
+
+**Example**
+
+PUT `/api/people/14`
+```
+{
+  "name":"Foo Bar",
+  "address": "Foostreet 60",
+  "birthdate": "1993-01-14"
+}
+```
+
+Status: 200
+
+```
+{
+  "id": 14,
+  "name": "Foo Bar",
+  "birthdate": "2001-06-10",
+  "address": "Foostreet 60",
+  "createdAt": "2022-02-20T18:44:08.504Z",
+  "updatedAt": "2022-02-20T18:47:02.424Z"
+}
+```

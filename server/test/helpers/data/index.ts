@@ -8,4 +8,5 @@ export * from './userApi';
 export * from './personApi';
 export * from './itemApi';
 export * from './entryApi';
+export * from './wishApi';
 export * from './errors';

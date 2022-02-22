@@ -257,3 +257,83 @@ Status: 400
   "error": "Error validating request: malformed permission"
 }
 ```
+
+## Update permission of group
+
+**Example**
+
+PUT `/api/groups/5`
+```
+{
+  "functionalityId": 5,
+  "read": false,
+  "write": false
+}
+```
+
+Status: 200
+```
+{
+  "id": 5,
+  "name": "testGroup",
+  "createdAt": "2022-02-20T18:57:02.367Z",
+  "updatedAt": "2022-02-20T18:57:02.367Z",
+  "functionalities": [
+    {
+      "id": 2,
+      "code": "permissions",
+      "name": "Groups and permissions",
+      "permission": {
+        "read": false,
+        "write": false
+      }
+    },
+    {
+      "id": 5,
+      "code": "entries",
+      "name": "Entries to person",
+      "permission": {
+        "read": false,
+        "write": false
+      }
+    }
+  ]
+}
+```
+
+## List all functionalities
+
+**Example**
+
+GET `/api/groups/functionalities`
+Status: 200
+
+```
+[
+  {
+    "id": 1,
+    "code": "users",
+    "name": "Users"
+  },
+  {
+    "id": 2,
+    "code": "permissions",
+    "name": "Groups and permissions"
+  },
+  {
+    "id": 3,
+    "code": "people",
+    "name": "People"
+  },
+  {
+    "id": 4,
+    "code": "wishes_and_items",
+    "name": "Wishes and items"
+  },
+  {
+    "id": 5,
+    "code": "entries",
+    "name": "Entries to person"
+  }
+]
+```

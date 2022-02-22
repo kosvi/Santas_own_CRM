@@ -4,11 +4,17 @@ import { groupsSelector } from '../../store';
 import { FunctionalityWithPermission, GroupWithFunctionalities, Functionality } from '../../types';
 import { DisplayPermission } from './DisplayPermission';
 import { AddPermission } from './AddPermission';
+import usePermission from '../../hooks/usePermission';
 
-export const DisplayGroup = ({ groupId }: { groupId: number | null }) => {
+interface ReloadMethod {
+  (name: string): Promise<void>
+}
+
+export const DisplayGroup = ({ groupId, reloadMethod }: { groupId: number | null, reloadMethod: ReloadMethod }) => {
 
   const { groups, functionalities } = useSelector(groupsSelector);
   const [group, setGroup] = useState<GroupWithFunctionalities | undefined>();
+  const { allowWriteAccess } = usePermission();
 
   const order = (a: FunctionalityWithPermission, b: FunctionalityWithPermission) => {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
@@ -34,12 +40,13 @@ export const DisplayGroup = ({ groupId }: { groupId: number | null }) => {
   return (
     <div>
       <h2>Group: {group.name}</h2>
+      <button onClick={() => reloadMethod(group.name)}>reload</button>
       {group.functionalities.map(f => {
         return (
           <DisplayPermission key={f.id} permission={f} group={group.id} />
         );
       })}
-      {!(functionalities.length===group.functionalities.length) && <AddPermissionsList group={group} functionalities={functionalities} />}
+      {functionalities.length !== group.functionalities.length && allowWriteAccess('permissions') && <AddPermissionsList group={group} functionalities={functionalities} />}
     </div>
   );
 };
@@ -50,7 +57,7 @@ const AddPermissionsList = ({ group, functionalities }: { group: GroupWithFuncti
     <div>
       <h2>Missing permissions</h2>
       {functionalities.map(f => {
-        if(!group.functionalities.find(gf => gf.id===f.id)) {
+        if (!group.functionalities.find(gf => gf.id === f.id)) {
           return (
             <AddPermission key={f.id} functionality={f} group={group.id} />
           );

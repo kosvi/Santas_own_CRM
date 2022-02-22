@@ -4,19 +4,20 @@ body {
 }
 
 #Content {
-  margin: 2em;
-  z-index: 5;
-  margin-bottom: 3em;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 2em;
+  margin-bottom: 5em;
 }
 
 #Menu {
-  background-color: inherit;
+  background-color: #ffffff;
   color: #000000;
   position: fixed;
   bottom: 0;
   border-top: solid 2px black;
   width: 100%;
-  z-index: 10;
 }
 
 #Menu a {
@@ -126,6 +127,24 @@ body {
   cursor: pointer;
 }
 
+#Notifications {
+  display: flex;
+  width: 100%;
+  position: fixed;
+  flex-direction: column;
+  bottom: 3.4em;
+}
+
+.Notification {
+  background-color: aquamarine;
+  border: solid 2px black;
+  border-radius: 0.4em;
+  padding: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0.5em;
+}
+
 .GroupNameDiv {
   display: inline-block;
   margin-top: 1em;
@@ -166,4 +185,35 @@ body {
 
 .PermissionFalse {
   background-color: red;
+}
+
+#AddPersonForm {
+  border: solid 2px black;
+  max-width: 600px;
+  margin: auto;
+  margin-bottom: 2em;
+  padding: 1em;
+}
+
+.PersonFormError {
+  color: red;
+}
+
+#PeopleTable {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.PersonRow {
+  cursor: pointer;
+}
+
+.PersonRow:hover {
+  background-color: silver;
+}
+
+.PersonListItem {
+  margin-top: 1em;
 }
