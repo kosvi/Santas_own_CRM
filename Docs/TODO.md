@@ -4,4 +4,4 @@
 
 - Add tests (backend):
 
-- Add tests to frontend
+- Add tests to frontend & e2e
