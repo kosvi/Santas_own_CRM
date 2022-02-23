@@ -59,12 +59,12 @@ jobs:
       - name: prepare e2e for tests
         run: |
           cat << EOF > e2e/.env
-          CYPRESS_WEB_BASE='http://localhost:3000'
+          CYPRESS_WEB_BASE='http://localhost:3002'
           EOF
       - name: prepare backend for e2e-tests
         run: |
           cat << EOF > server/.env
-          PORT=3000
+          PORT=3002
           DATABASE_URL=postgres://santa:password@localhost:5432/santa
           NODE_ENV=test
           SECRET=token-sign-secret-for-tests
@@ -82,7 +82,7 @@ jobs:
         with:
           command: npm run e2e
           start: npm run dev --prefix ../server
-          wait-on: http://localhost:3000
+          wait-on: http://localhost:3002
           working-directory: ./e2e
 
   deploy:

@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+
+  nginx:
+    image: nginx:1.20.1
+    volumes: 
+      - ./nginx.e2e.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 3002:80
+    container_name: dev-proxy
+    logging:
+      driver: 'none'
+    depends_on:
+      - "santas-e2e-client"
+      - "santas-e2e-server"
+
+  santas-e2e-db:
+    image: postgres
+    environment: 
+      POSTGRES_USER: "santa"
+      POSTGRES_PASSWORD: "password"
+    logging: 
+      driver: 'none'
+    volumes:
+      - ./db_e2e/:/var/lib/postgresql/data
+    container_name: santas-e2e-db
+
+  santas-e2e-client:
+    image: santas-e2e-client
+    build:
+      context: ./client
+      dockerfile: dev.Dockerfile
+    environment:
+      HOST: "santas-e2e-client"
+      WDS_SOCKET_HOST: "localhost"
+      REACT_APP_FAKED_API_DELAY: 200
+      REACT_APP_NOTIFICATION_DELAY: 500
+    volumes: 
+      - ./client/:/usr/src/app
+    container_name: santas-e2e-client
+    depends_on: 
+      - "santas-e2e-server"
+
+  santas-e2e-server:
+    image: santas-e2e-server
+    build:
+      context: ./server
+      dockerfile: e2e.Dockerfile
+    environment:
+      PORT: 3001
+      DATABASE_URL: "postgres://santa:password@santas-e2e-db:5432/santa"
+      NODE_ENV: "test"
+      SECRET: "test-secret"
+    volumes:
+      - ./server/:/usr/src/app
+    container_name: santas-e2e-server
+    depends_on:
+      - "santas-e2e-db"

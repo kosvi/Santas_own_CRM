@@ -211,3 +211,7 @@ Goals:
 
 | Date | Hours | Total Hours | Description |
 |------|-------|-------------|-------------|
+|23.2.2022| 2 | 152 | Added first actual e2e-tests and wrote test environment for them using Docker. | 
+
+Extras:
+- docker-compose environment for e2e tests
