@@ -78,8 +78,9 @@ Requirements:
 
 Clone repository and run `npm install --prefix server` and `npm install --prefix client` in repository root. After dependencies are installed, you can start tests by running command `docker-compose -f test.docker-compose.yml up`. This will run unit and integration tests on the backend and frontend. You'll see the list of passed tests in the console. 
 
-e2e tests will be added later...
+To run e2e tests, do the following: `npm install --prefix server` and `npm install --prefix client`. Run `docker-compose -f e2e.docker-compose.yml up`. Once App is running, you can run run command `npm run cypress:open` inside folder `e2e` and you'll see Cypress window with list of e2e-tests. You can run individual tests by choosing the test. To run all tests on console run command `npm run e2e` inside `e2e` folder. 
 
+#### Production
 
 ## Enviromental variables
 

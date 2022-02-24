@@ -85,7 +85,7 @@ jobs:
           wait-on: http://localhost:3002
           working-directory: ./e2e
 
-  deploy:
+  deploy-heroku:
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/release' }}
     runs-on: ubuntu-20.04
     needs: [test]
@@ -102,3 +102,21 @@ jobs:
           healthcheck: "https://glacial-shore-58496.herokuapp.com/api/version/health"
           checkstring: "OK!"
           rollbackonhealthcheckfailed: true
+
+  deploy-prod:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-20.04
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v2
+      - name: login to docker
+        env: 
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: build image
+        run: |
+          docker build . --file prod.Dockerfile --tag kosvi/santas_own_crm:$(date +%s)
+      - name: push to docker
+        run: docker push ${{ secrets.DOCKER_USER }}/santas_own_crm
