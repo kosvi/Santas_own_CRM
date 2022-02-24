@@ -32,6 +32,7 @@ services:
       context: ./client
       dockerfile: dev.Dockerfile
     environment:
+      PORT: 3002
       HOST: "santas-e2e-client"
       WDS_SOCKET_HOST: "localhost"
       REACT_APP_FAKED_API_DELAY: 200

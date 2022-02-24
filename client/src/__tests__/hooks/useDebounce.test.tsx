@@ -19,7 +19,7 @@ const DebounceTestHelper = () => {
     setObj({ name: 'Foo', age: 10 });
   }, []);
 
-  if(!debounceObj) {
+  if (!debounceObj) {
     return (
       <div data-testid="Content">
       </div>
