@@ -31,8 +31,8 @@ export const NewGroupForm = () => {
   return (
     <div id="NewGroupForm">
       <h2>Add new group</h2>
-      <input type="text" name="name" onChange={(event: React.FormEvent<HTMLInputElement>) => setName(event.currentTarget.value)} placeholder="name" />
-      <button onClick={addNewGroup}>Save</button>
+      <input data-testid="newGroupNameInput" type="text" name="name" value={name} onChange={(event: React.FormEvent<HTMLInputElement>) => setName(event.currentTarget.value)} placeholder="name" />
+      <button data-testid="submitNewGroup" onClick={addNewGroup}>Save</button>
     </div>
   );
 };
