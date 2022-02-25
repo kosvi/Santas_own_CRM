@@ -33,6 +33,10 @@ describe('<Menu />', () => {
     });
   });
 
+  // Add this test!
+  test('Name from Redux store is rendered to Menu', async () => {
+  });
+
   // Add a test where 'Home' is clicked and see what will happen...
   test('Click on menu-item closes menu and runs navigate() once', async () => {
     const menuComponent = render(<Menu />);
