@@ -1,4 +1,4 @@
-import { Group } from '../../types';
+import { Group, GroupWithFunctionalities } from '../../../types';
 
 const defaultNewGroup: Group = {
   id: 100,

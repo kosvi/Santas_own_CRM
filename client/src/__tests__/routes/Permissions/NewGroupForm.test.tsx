@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, fireEvent, RenderResult, act } from '../../../utils/testHelpers/customRenderer';
-import { testHelpers } from '../../../utils/testHelpers/testHelpers';
 import axios from 'axios';
 import '@testing-library/jest-dom/extend-expect';
 
@@ -23,14 +22,14 @@ describe('<NewGroupForm />', () => {
 
   const mockedUseDispatch = jest.spyOn(reactRedux, 'useDispatch');
   let component: RenderResult;
-  let groupInput: HTMLElement, submitButton: HTMLElement;
+  let groupInput: HTMLInputElement, submitButton: HTMLElement;
 
   beforeEach(() => {
     mockedUseDispatch.mockClear();
     // render form
     component = render(<NewGroupForm />);
     // Find input
-    groupInput = component.getByTestId('newGroupNameInput');
+    groupInput = component.getByTestId('newGroupNameInput') as HTMLInputElement;
     submitButton = component.getByTestId('submitNewGroup');
   });
 
@@ -53,6 +52,8 @@ describe('<NewGroupForm />', () => {
     });
     expect(axios.post).toHaveBeenCalledTimes(1);
     expect(axios.post).toHaveBeenCalledWith('/groups', { name: groupData.defaultNewGroup.name }, apiServices.getAxiosRequestConfigWithToken());
+    // dummyDispatch should have been called twice: once for storing the class and once for storing the notification
+    expect(dummyDispatch).toHaveBeenCalledTimes(2);
     expect(groupInput.value).toBe('');
   });
 

@@ -215,6 +215,7 @@ Goals:
 |24.2.2022| 1 | 153 | Added some frontend tests, updated Github Actions pipeline with automatic deployment to Docker Hub (not yet tested!). |
 |         | 2 | 155 | Wrote more e2e tests and made minor fixes to e2e-test-environment. |
 |25.2.2022| 1 | 156 | Added some tests to client. |
+|         | 1 | 157 | Added even more tests to client. |
 
 Extras:
 - docker-compose environment for e2e tests
