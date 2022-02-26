@@ -206,8 +206,8 @@ Extras:
 ### Sprint 7 - deploy to production
 
 Goals:
-- Finish pipeline to deploy to Docker Hub
-- Add tests (especially e2e!)
+- ~~Finish pipeline to deploy to Docker Hub~~
+- ~~Add tests (especially e2e!)~~
 
 | Date | Hours | Total Hours | Description |
 |------|-------|-------------|-------------|
@@ -216,6 +216,7 @@ Goals:
 |         | 2 | 155 | Wrote more e2e tests and made minor fixes to e2e-test-environment. |
 |25.2.2022| 1 | 156 | Added some tests to client. |
 |         | 1 | 157 | Added even more tests to client. |
+|26.2.2022| 1 | 158 | Added some e2e-tests. |
 
 Extras:
 - docker-compose environment for e2e tests
