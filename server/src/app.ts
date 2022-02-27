@@ -6,7 +6,6 @@ import { errorHandler } from './utils/middleware';
 const app = express();
 app.use(express.json());
 
-app.use(express.static('build'));
 app.use('/api/version', versionRouter);
 app.use('/api/users', userRouter);
 app.use('/api/groups', groupRouter);
@@ -16,6 +15,11 @@ app.use('/api/entries', entryRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/logout', logoutRouter);
 app.use('/api/wishes', wishRouter);
+// rest of the requests are forwarded to index.html
+app.use(express.static('build'));
+app.get('*', (_req, res) => {
+  res.sendFile('index.html', { root: 'build' });
+});
 
 // resetting database should only be allowed in develop and test modes
 if (NODE_ENV === 'develop' || NODE_ENV === 'test') {
