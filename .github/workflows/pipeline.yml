@@ -120,10 +120,10 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: build image
         env: 
-          TAG_NAME: ${{ secrets.DOCKER_USER }}/santas_own_crm/${{ env.TAG_DATE }}
+          TAG_NAME: ${{ secrets.DOCKER_USER }}/santas_own_crm:${{ env.TAG_DATE }}
         run: |
           docker build . --file prod.Dockerfile --tag $TAG_NAME
       - name: push to docker
         env: 
-          TAG_NAME: ${{ secrets.DOCKER_USER }}/santas_own_crm/${{ env.TAG_DATE }}
+          TAG_NAME: ${{ secrets.DOCKER_USER }}/santas_own_crm:${{ env.TAG_DATE }}
         run: docker push $TAG_NAME
