@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, fireEvent, act } from '../../../utils/testHelpers/customRenderer';
-import { testHelpers } from '../../../utils/testHelpers/testHelpers';
 import axios from 'axios';
 import '@testing-library/jest-dom/extend-expect';
 
