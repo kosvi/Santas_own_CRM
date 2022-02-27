@@ -217,6 +217,7 @@ Goals:
 |25.2.2022| 1 | 156 | Added some tests to client. |
 |         | 1 | 157 | Added even more tests to client. |
 |26.2.2022| 1 | 158 | Added some e2e-tests. |
+|27.2.2022| 1 | 159 | Publish to Docker Hub and start production instance on production servers. |
 
 Extras:
 - docker-compose environment for e2e tests
