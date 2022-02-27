@@ -18,6 +18,7 @@ This repository contains a customer relationship manager for Santa. It was writt
 | [API.md](Docs/API.md)| API documentation |
 | [specs.md](Docs/specs.md) | Contains specs for the app. Includes latest relational models of the database and user stories that are used to decided content of sprints. |
 | [spend_hours.md](Docs/spend_hours.md) | Contains sprints, time spend on each sprint, sprint goals and what else was achieved during each sprint (extras). Spend hours are recorded by individual sprints. |
+| [guide.md](Docs/guide.md) | Contains a guide on how to use the app (once it's running). |
 | [personal_notes.md](Docs/personal_notes.md) | Personal notes that might be useful again during later development. |
 
 ## Repository
@@ -78,8 +79,18 @@ Requirements:
 
 Clone repository and run `npm install --prefix server` and `npm install --prefix client` in repository root. After dependencies are installed, you can start tests by running command `docker-compose -f test.docker-compose.yml up`. This will run unit and integration tests on the backend and frontend. You'll see the list of passed tests in the console. 
 
-e2e tests will be added later...
+To run e2e tests, do the following: `npm install --prefix server` and `npm install --prefix client`. Run `docker-compose -f e2e.docker-compose.yml up`. Once App is running, you can run run command `npm run cypress:open` inside folder `e2e` and you'll see Cypress window with list of e2e-tests. You can run individual tests by choosing the test. To run all tests on console run command `npm run e2e` inside `e2e` folder. 
 
+#### Production
+
+Requirements:
+- Docker
+Recommends:
+- Docker-compose
+
+We recommend to download [docker-compose.yml](docker-compose.yml) and use it as base for running the server. You can adjust postgres settings by choosing different username & password and different path for database in 'volumes' section of docker-compose.yml. Also choose a valid SECRET in Santas CRM environment. It is used to sign tokens, so it should be long enough to be safe. Also make sure DATABASE_URL matches your postgres settings. Finally choose the port you want to use for running the app. For more options in enviromental variables, take a look at [enviromental variables](#enviromental-variables) section. 
+
+Once `docker-compose.yml` is configured, run it with command: `docker-compose up`
 
 ## Enviromental variables
 

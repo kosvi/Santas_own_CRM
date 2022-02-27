@@ -9,16 +9,16 @@ export const InnerForm = (props: FormikProps<FormValues>) => {
   return (
     <Form>
       <div>
-        <Field type="text" data-testid="login-username" name="username" placeholder="username" />
+        <Field type="text" id="login-username" data-testid="login-username" name="username" placeholder="username" />
       </div>
       {touched.username && errors.username && <div>{errors.username}</div>}
       {!(touched.username && errors.username) && <div>&nbsp;</div>}
       <div>
-        <Field type="password" data-testid="login-password" name="password" placeholder="password" />
+        <Field type="password" id="login-password" data-testid="login-password" name="password" placeholder="password" />
       </div>
       {touched.password && errors.password && <div>{errors.password}</div>}
       {!(touched.password && errors.password) && <div>&nbsp;</div>}
-      <button type="submit" data-testid="login-submit" disabled={isSubmitting}>
+      <button type="submit" id="login-submit" data-testid="login-submit" disabled={isSubmitting}>
         Login
       </button>
     </Form>
