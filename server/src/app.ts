@@ -6,7 +6,6 @@ import { errorHandler } from './utils/middleware';
 const app = express();
 app.use(express.json());
 
-app.use(express.static('build'));
 app.use('/api/version', versionRouter);
 app.use('/api/users', userRouter);
 app.use('/api/groups', groupRouter);
@@ -22,6 +21,11 @@ if (NODE_ENV === 'develop' || NODE_ENV === 'test') {
   app.use('/api/reset', resetRouter);
 }
 
+// rest of the requests are forwarded to index.html
+app.use(express.static('build'));
+app.get('*', (_req, res) => {
+  res.sendFile('index.html', { root: 'build' });
+});
 
 // add error-handler to handle errors
 app.use(errorHandler);

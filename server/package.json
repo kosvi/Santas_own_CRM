@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "tsc": "tsc",
-    "cypress:open": "cypress open",
-    "e2e": "cypress run",
     "lint": "eslint --ext .ts .",
     "dev": "NODE_ENV=develop ts-node-dev src/index.ts",
+    "e2e": "NODE_ENV=test ts-node-dev src/index.ts",
     "build": "npx tsc",
     "start": "node dist/src/index.js",
     "test": "NODE_ENV=test jest --verbose --runInBand"

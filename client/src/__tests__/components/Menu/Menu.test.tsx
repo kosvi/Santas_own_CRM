@@ -6,6 +6,10 @@ import { render, fireEvent, act } from '../../../utils/testHelpers/customRendere
 // import component and rest of helpers
 import { Menu } from '../../../components/Menu';
 
+// mock redux state
+import * as reactRedux from 'react-redux';
+import { authData } from '../../../utils/testHelpers/data/auth';
+
 // Our menu uses useNavigate() to handle clicks
 // -> Mock useNavigate
 const mockedNavigate = jest.fn();
@@ -15,11 +19,15 @@ jest.mock('react-router-dom', () => ({
 
 describe('<Menu />', () => {
 
+  const mockedUseSelector = jest.spyOn(reactRedux, 'useSelector');
+
   beforeEach(() => {
     mockedNavigate.mockReset();
+    mockedUseSelector.mockReset();
   });
 
   test('Menu opens and closes when clicked', async () => {
+    mockedUseSelector.mockReturnValue({ user: undefined });
     const menuComponent = render(<Menu />);
     const menuItems = menuComponent.getByTestId('MenuItems');
     const menuButton = menuComponent.getByTestId('MenuButton');
@@ -33,8 +41,21 @@ describe('<Menu />', () => {
     });
   });
 
+  test('Name from Redux store is rendered to Menu', async () => {
+    // set return value for mocked useSelector
+    mockedUseSelector.mockReturnValue({ user: authData.loggedInUser });
+    const menuComponent = render(<Menu />);
+    const menuItems = menuComponent.getByTestId('MenuItems');
+    const menuButton = menuComponent.getByTestId('MenuButton');
+    await act(async () => {
+      await fireEvent.click(menuButton);
+    });
+    expect(menuItems.childNodes[0]).toHaveTextContent(authData.loggedInUser.name);
+  });
+
   // Add a test where 'Home' is clicked and see what will happen...
   test('Click on menu-item closes menu and runs navigate() once', async () => {
+    mockedUseSelector.mockReturnValue({ user: undefined });
     const menuComponent = render(<Menu />);
     const menuItems = menuComponent.getByTestId('MenuItems');
     const menuButton = menuComponent.getByTestId('MenuButton');
