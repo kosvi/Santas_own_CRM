@@ -1,33 +1,51 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { validateToString } from './utils/validators';
-
-interface Message {
-  msg: string
-}
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { authService } from './services/authService';
+import { authSelector } from './store';
+import { authActions } from './store/auth/authActions';
+import { Menu } from './components/Menu';
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import { People } from './routes/People';
+import { Permissions } from './routes/Permissions';
+import { Home } from './routes/Home';
+import { NotFound } from './routes/NotFound';
+import { LoginForm } from './components/LoginForm';
+import { TopBar } from './components/TopBar';
+import { Notifications } from './components/Notifications';
 
 const App = () => {
 
-  const [message, setMessage] = useState<string>();
+  const dispatch = useDispatch();
+  const { user } = useSelector(authSelector);
 
   useEffect(() => {
-    const getApi = async () => {
-      console.log(`getApi ${process.env.REACT_APP_API_BASE}`);
-      try {
-        const { data: msg } = await axios.get<Message>(
-          validateToString(process.env.REACT_APP_API_BASE)
-        );
-        console.log(msg);
-        setMessage(msg.msg);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getApi();
+    const storedUser = authService.loadUser();
+    if (storedUser) {
+      dispatch(authActions.loginUser(storedUser));
+    }
   }, []);
+
+  // If not logged in -> LoginScreen
+  if (!user) {
+    return <LoginForm />;
+  }
+
+  // else we display content depending on /path
   return (
     <div>
-      msg: {message}!
+      <TopBar />
+      <div id="Content">
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/people' element={<People />} />
+          <Route path='/people/:id' element={<People />} />
+          <Route path='/permissions' element={<Permissions />} />
+          <Route path='*' element={<NotFound />} />
+        </Routes>
+      </div>
+      <Notifications />
+      <Menu />
     </div>
   );
 };

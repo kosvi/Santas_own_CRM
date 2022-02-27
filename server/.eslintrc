@@ -5,12 +5,10 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
   "plugins": [
-    "@typescript-eslint",
-    "cypress"
+    "@typescript-eslint"
   ],
   "env": {
     "node": true,
-    "cypress/globals": true,
     "es6": true
   },
   "rules": {
@@ -27,11 +25,18 @@
         "argsIgnorePattern": "^_"
       }
     ],
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checkVoidReturn": false
+      }
+    ],
     "no-case-declarations": "off",
     "quotes": [
       "error",
       "single"
-    ]
+    ],
+    "no-console": 2
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {

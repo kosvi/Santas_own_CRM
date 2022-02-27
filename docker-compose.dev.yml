@@ -15,13 +15,24 @@ services:
       - "santas-client"
       - "santas-server"
 
+  santas-db:
+    image: postgres
+    environment: 
+      POSTGRES_USER: "santa"
+      POSTGRES_PASSWORD: "password"
+    volumes:
+      - ./db/:/var/lib/postgresql/data
+    container_name: santas-db
+
   santas-client:
     image: santas-client
     build:
       context: ./client
       dockerfile: dev.Dockerfile
     environment:
-      REACT_APP_API_BASE: "http://localhost:3000/api/"
+      REACT_APP_API_BASE: "/api"
+      REACT_APP_LOGGING: "true"
+      REACT_APP_FAKED_API_DELAY: 2000
       HOST: "santas-client"
       WDS_SOCKET_HOST: "localhost"
     volumes: 
@@ -37,6 +48,11 @@ services:
       dockerfile: dev.Dockerfile
     environment:
       PORT: 3001
+      DATABASE_URL: "postgres://santa:password@santas-db:5432/santa"
+      NODE_ENV: "develop"
+      SECRET: "my-secret-key"
     volumes:
       - ./server/:/usr/src/app
     container_name: santas-server
+    depends_on:
+      - "santas-db"

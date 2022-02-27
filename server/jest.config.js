@@ -2,5 +2,18 @@
 module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testPathIgnorePatterns: ['cypress']
+  testPathIgnorePatterns: ['dist'],
+  collectCoverage: true,
+  coverageReporters: ['html', 'text'],
+  coveragePathIgnorePatterns: [
+    'node_modules', '<rootDir>/migrations'
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 75,
+      functions: 80,
+      lines: 80,
+      statements: 80
+    }
+  }
 };

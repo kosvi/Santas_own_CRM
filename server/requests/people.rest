@@ -1,0 +1,21 @@
+POST http://localhost:3000/api/people
+Content-Type: application/json
+Authorization: bearer 
+
+{
+  "name":"John Doe",
+  "address": "Doestreet 60",
+  "birthdate": "2001-06-10"
+}
+
+###
+
+PUT http://localhost:3000/api/people/14
+Content-Type: application/json
+Authorization: bearer 
+
+{
+  "name":"Foo Bar",
+  "address": "Foostreet 60",
+  "birthdate": "1993-01-14"
+}
