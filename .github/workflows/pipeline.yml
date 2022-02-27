@@ -109,14 +109,18 @@ jobs:
     needs: [test]
     steps:
       - uses: actions/checkout@v2
+      - name: Set date for tagging
+        run: |
+          echo "TAG_DATE=$(date +"%Y-%m-%d")" >> $GITHUB_ENV
       - name: login to docker
         env: 
           DOCKER_USER: ${{ secrets.DOCKER_USER }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          TAG_NAME: ${{ secrets.DOCKER_USER }}/santas_own_crm/${{ env.TAG_DATE }}
         run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: build image
         run: |
-          docker build . --file prod.Dockerfile --tag kosvi/santas_own_crm:$(date +%s)
+          docker build . --file prod.Dockerfile --tag $TAG_NAME
       - name: push to docker
-        run: docker push ${{ secrets.DOCKER_USER }}/santas_own_crm
+        run: docker push $TAG_NAME
