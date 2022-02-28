@@ -96,6 +96,8 @@ Once `docker-compose.yml` is configured, run it with command: `docker-compose up
 
 Live production instance is running [here](https://santa-crm.codecache.eu/)
 
+By default, only admin user is added with username set to 'admin' and password set to 'password'. Admin will have read & write permissions to groups and permissions. Login as admin, add full permissions to admin group and change admins password!
+
 ## Enviromental variables
 
 **server:**

@@ -222,3 +222,18 @@ Goals:
 
 Extras:
 - docker-compose environment for e2e tests
+
+### Sprint 8 - fixes
+
+Goals:
+- ~~fix logout to delete all cached data~~
+- ~~fix all api-endpoints to require authentication~~
+- allow adding users and changing passwords
+
+
+| Date | Hours | Total Hours | Description |
+|------|-------|-------------|-------------|
+|28.2.2022| 2 | 162 | Minor documentation updates. Fixed logout on frontend side to delete caches. Fixed api-endpoints to require authentication. |
+
+Extras: 
+- added migration to add default admin user to the system

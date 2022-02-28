@@ -167,9 +167,9 @@ describe('groups controller', () => {
   });
 
   test('do not allow posting new group without valid token', async () => {
-    const response = await api.post('/api/groups').send({name: 'foo'}).expect(401);
+    const response = await api.post('/api/groups').send({ name: 'foo' }).expect(401);
     expect(response.body).toHaveProperty('error');
-    const invalidTokenResponse = await api.post('/api/groups').set('Authorization', 'bearer non-valid-token-string').send({name: 'foo'}).expect(401);
+    const invalidTokenResponse = await api.post('/api/groups').set('Authorization', 'bearer non-valid-token-string').send({ name: 'foo' }).expect(401);
     expect(invalidTokenResponse.body).toHaveProperty('error');
   });
 

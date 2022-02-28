@@ -34,6 +34,12 @@ const addFunctionalities = (functionalities: Array<Functionality>): AppThunk => 
   };
 };
 
+const clearGroups = (): AppThunk => {
+  return dispatch => {
+    dispatch(actions.clearGroups());
+  };
+};
+
 export const groupsActions = {
-  addGroups, updateGroup, removeGroup, updateError, addFunctionalities
+  addGroups, updateGroup, removeGroup, updateError, addFunctionalities, clearGroups
 };
