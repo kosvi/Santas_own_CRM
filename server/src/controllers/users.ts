@@ -1,11 +1,12 @@
 import express from 'express';
-import { getAllUsersWithGroups, getUsersBySearchString, getUserWithPermissions, disableSingleUser, enableDisabledUser } from '../services/userService';
+import { getAllUsersWithGroups, getUsersBySearchString, getUserWithPermissions, disableSingleUser, enableDisabledUser, addNewUser } from '../services/userService';
 import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
 import { validateToNumber, validateToString } from '../utils/validators';
 import { RequestWithToken } from '../types';
 import { authenticate } from '../utils/middleware';
 import { checkReadPermission, checkWritePermission } from '../utils/checkPermission';
+import { toNewUser } from '../utils/apiValidators';
 const router = express.Router();
 
 router.use(authenticate);
@@ -135,6 +136,32 @@ router.put('/enable/:id', (req: RequestWithToken, res, next) => {
       } else {
         next(new ControllerError(500, 'unknown error'));
       }
+    });
+});
+
+router.post('/', (req: RequestWithToken, res, next) => {
+  try {
+    checkWritePermission('users', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const user = toNewUser(req.body);
+  let groupId: number | undefined;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    groupId = validateToNumber(req.body.groupId);
+  } catch (error) {
+    logger.logError(error);
+  }
+  addNewUser(user, groupId)
+    .then(result => {
+      res.status(201).json(result);
+    })
+    .catch(error => {
+      logger.logError(error);
+      next(error);
     });
 });
 

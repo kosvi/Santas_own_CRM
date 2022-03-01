@@ -184,3 +184,50 @@ Status: 200
   "msg": "santa has been enabled"
 }
 ```
+
+## Add new user
+
+**Example**
+
+POST `/api/users`
+```
+{
+  "username": "foo",
+  "password": "bar",
+  "name": "Foo Bar",
+  "groupId": 4
+}
+```
+
+Status: 201
+
+```
+{
+  "id": 9,
+  "username": "foo",
+  "name": "Foo Bar",
+  "disabled": false,
+  "updatedAt": "2022-03-01T18:38:01.153Z",
+  "createdAt": "2022-03-01T18:38:01.153Z"
+}
+```
+
+**Errors**
+
+POST `/api/users`
+```
+{
+  "username": "foo",
+  "password": "bar",
+  "name": "Foo Bar",
+  "groupId": 4
+}
+```
+
+Status: 400
+
+```
+{
+  "error": "cannot create user: username already exists"
+}
+```

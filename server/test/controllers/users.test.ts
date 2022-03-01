@@ -120,6 +120,16 @@ describe('users controller', () => {
     await api.put('/api/users/enable/1').set('Authorization', `bearer ${loginResult.token}`).expect(403);
   });
 
+  test('add new user succesfully', async () => {
+    const response = await api.post('/api/users').set('Authorization', `bearer ${adminObj.token}`).send({
+      username: 'foo',
+      password: 'bar',
+      name: 'Foo Bar'
+    }).expect(201).expect('Content-Type', /application\/json/);
+    expect(response.body).toHaveProperty('username');
+    expect(response.body).not.toHaveProperty('password');
+  });
+
 });
 
 afterAll(async () => {

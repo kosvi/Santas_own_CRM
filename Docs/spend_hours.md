@@ -234,6 +234,7 @@ Goals:
 | Date | Hours | Total Hours | Description |
 |------|-------|-------------|-------------|
 |28.2.2022| 2 | 162 | Minor documentation updates. Fixed logout on frontend side to delete caches. Fixed api-endpoints to require authentication. |
+|1.3.2022 | 1 | 163 | Worked on adding backend support for adding new users. |
 
 Extras: 
 - added migration to add default admin user to the system

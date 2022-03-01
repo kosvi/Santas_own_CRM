@@ -9,6 +9,7 @@
 |[Display user by ID](API/users.md#display-user-by-id) | `/api/users/:id` | GET | users |read | 200 | 400, 404 |
 |[Disable user](API/users.md#disable-user) | `/api/users/disable/:id` | PUT | users | write | 200 | 400, 404, 500 |
 |[Enable user](API/users.md#enable-user) | `/api/users/enable/:id` | PUT | users | write | 200 | 400, 404, 500 |
+|[Add new user](API/users.md#add-new-user)| `/api/users` |POST | users | write | 201 | 400, 500 | 
 
 ## Groups
 
