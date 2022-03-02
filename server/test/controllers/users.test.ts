@@ -34,6 +34,7 @@ describe('users controller', () => {
     // Validate each user to be a valid user object (with valid groups)
     if (rawAllUsers.body instanceof Array) {
       rawAllUsers.body.map(user => {
+        expect(user).not.toHaveProperty('password');
         const apiUser = toApiUser(user);
         expect(apiUser).toHaveProperty('username');
         expect(apiUser).toHaveProperty('name');
@@ -58,6 +59,7 @@ describe('users controller', () => {
       });
     }
     const rawUser = await api.get(`/api/users/${adminID}`).set('Authorization', `bearer ${adminObj.token}`).expect(200).expect('Content-Type', /application\/json/);
+    expect(rawUser.body).not.toHaveProperty('password');
     const user = toApiUser(rawUser.body);
     // seems user could be validated by toApiUser-parser so we can be pretty sure it has all the attributes we wanted
     // Main difference is that with single user the groups SHOULD also contain functionalities 

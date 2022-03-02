@@ -4,6 +4,7 @@ import { authService } from '../services/authService';
 import useNotification from './useNotification';
 import { groupsActions } from '../store/groups/groupsActions';
 import { peopleActions } from '../store/people/peopleActions';
+import { usersActions } from '../store/users/usersActions';
 
 function useLogout() {
   const dispatch = useDispatch();
@@ -16,6 +17,8 @@ function useLogout() {
     dispatch(groupsActions.clearGroups());
     // next clear people
     dispatch(peopleActions.clearPeople());
+    // And clear users
+    dispatch(usersActions.clearUsers());
 
     // now remove token & user information
     try {

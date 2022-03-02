@@ -21,6 +21,7 @@ export const getUsersBySearchString = async (search: string): Promise<UserAttrib
     ]
   };
   const users = await models.User.findAll({
+    attributes: { exclude: ['password'] },
     include: {
       model: models.Group,
       attributes: { exclude: ['createdAt', 'updatedAt'] },
@@ -33,6 +34,7 @@ export const getUsersBySearchString = async (search: string): Promise<UserAttrib
 
 export const getAllUsersWithGroups = async () => {
   const allUsersWithGroups = await models.User.findAll({
+    attributes: { exclude: ['password'] },
     include: {
       model: models.Group,
       attributes: { exclude: ['createdAt', 'updatedAt'] },
@@ -44,6 +46,7 @@ export const getAllUsersWithGroups = async () => {
 
 export const getUserWithPermissions = async (id: number) => {
   const user = await models.User.findByPk(id, {
+    attributes: { exclude: ['password'] },
     include: {
       model: models.Group,
       attributes: { exclude: ['createdAt', 'updatedAt'] },

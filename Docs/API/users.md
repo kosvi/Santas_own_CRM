@@ -10,7 +10,6 @@ Status: 200
   {
     "id": 1,
     "username": "santa",
-    "password": "santa",
     "name": "Santa Claus",
     "disabled": false,
     "createdAt": "2022-01-24T07:53:48.302Z",
@@ -25,7 +24,6 @@ Status: 200
   {
     "id": 4,
     "username": "admin",
-    "password": "password",
     "name": "Admin Elf",
     "disabled": false,
     "createdAt": "2022-01-24T07:53:48.302Z",
@@ -52,7 +50,6 @@ Status: 200
   {
     "id": 2,
     "username": "elf",
-    "password": "elf",
     "name": "Small Elf",
     "disabled": false,
     "createdAt": "2022-01-24T07:53:48.302Z",
@@ -62,7 +59,6 @@ Status: 200
   {
     "id": 4,
     "username": "admin",
-    "password": "password",
     "name": "Admin Elf",
     "disabled": false,
     "createdAt": "2022-01-24T07:53:48.302Z",
@@ -99,7 +95,6 @@ Status: 200
 {
   "id": 4,
   "username": "admin",
-  "password": "password",
   "name": "Admin Elf",
   "disabled": false,
   "createdAt": "2022-01-24T07:53:48.302Z",
