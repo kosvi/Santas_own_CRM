@@ -14,13 +14,24 @@ export interface User {
   updatedAt: string
 }
 
-export interface UserWithGroups extends User {
-  groups: [
+interface UserGroup {
+  id: number,
+  name: string,
+  functionalities?: [
     {
       id: number,
-      name: string
+      code: string,
+      name: string,
+      permission: {
+        read: boolean,
+        write: boolean
+      }
     }
   ]
+}
+
+export interface UserWithGroups extends User {
+  groups: Array<UserGroup>
 }
 
 export type UsersState = {

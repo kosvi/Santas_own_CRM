@@ -10,5 +10,9 @@
 
 For new sprint:
 - new for next sprint: allow adding users & changing passwords
--> add needed hooks for Users -route and actual content to handle display & form to add users
+-> Allow display of single user with full info and enable/disable -button. Also make update password -form. 
+
+Enhancements: 
+- verify password in the form (and user input type password)
+- make notifications contain details of possible failured (ex. username already exists)
 

@@ -236,6 +236,7 @@ Goals:
 |28.2.2022| 2 | 162 | Minor documentation updates. Fixed logout on frontend side to delete caches. Fixed api-endpoints to require authentication. |
 |1.3.2022 | 1 | 163 | Worked on adding backend support for adding new users. |
 |2.3.2022 | 1 | 164 | Worked on frontend support for users. |
+|3.3.2022 | 2 | 166 | Worked on frontend support for users. It's now possible to display list of users and also add new users. | 
 
 Extras: 
 - added migration to add default admin user to the system

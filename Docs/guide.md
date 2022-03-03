@@ -4,6 +4,7 @@ Pages:
 - [Login](#login)
 - [Home screen](#home-screen)
 - [People](#people)
+- [Users](#users)
 - [Permissions](#permissions)
 
 ## Login
@@ -33,6 +34,14 @@ If you have the right priviledges, you can add people with the form on top of th
 By default there are no people in the list. They are added once found by the search, so just type in the name at the top of the screen and the results will also appear to the list. Once on the list, you can click the `View` button on the right most column on the row to see details on the person. 
 
 Visiting persons full info, will also fetch the full and latest information for of that person. This means that number of entries and wishes is also updated to the list. 
+
+## Users
+
+To enter users screen, use the [menu](#menu).
+
+List of all users is automatically downloaded from the server if you have correct priviledges. You can click the users row to display full information of the user. From users profile, an administrator with correct priviledges can also enable/disable a user and also change users password. 
+
+New users can be added using the form above the user list. Form is only displayed if user has write-access to users. 
 
 ## Permissions
 
