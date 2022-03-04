@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { userService } from '../services/userService';
 import { usersSelector } from '../store';
@@ -23,12 +24,14 @@ function useUsers() {
     }
   };
 
-  const updateUser = async (id: number) => {
+  const updateUser = async (id: number): Promise<UserWithGroups | undefined> => {
     try {
       const data = await userService.getSingleUser(id);
       dispatch(usersActions.updateUser(data));
+      return data;
     } catch (error) {
       logger.logError(error);
+      return undefined;
     }
   };
 
@@ -41,14 +44,37 @@ function useUsers() {
       };
       dispatch(usersActions.updateUser(newUser));
     } catch (error) {
-      console.log(error);
       logger.logError(error);
-      createNotification('failed to save new user', 'error');
+      if (axios.isAxiosError(error)) {
+        createNotification(error.response?.data.error, 'error');
+      } else {
+        createNotification('failed to save new user', 'error');
+      }
+    }
+  };
+
+  const changeUserDisableStatus = async (userId: number, newStatus: boolean) => {
+    try {
+      if (newStatus) {
+        const data = await userService.disableUser(userId);
+        createNotification(data.msg, 'msg');
+      } else {
+        const data = await userService.enableUser(userId);
+        createNotification(data.msg, 'msg');
+      }
+      await updateUser(userId);
+    } catch (error) {
+      logger.logError(error);
+      if (axios.isAxiosError(error)) {
+        createNotification(error.response?.data.error, 'error');
+      } else {
+        createNotification('failed to update user', 'error');
+      }
     }
   };
 
   return {
-    fetchUsers, updateUser, addUser
+    fetchUsers, updateUser, addUser, changeUserDisableStatus
   };
 }
 

@@ -15,8 +15,12 @@ export const InnerForm = (props: FormikProps<FormValues>) => {
         {touched.username && errors.username && <span className="UserFormError"> {errors.username}</span>}
       </div>
       <div>
-        <Field type="text" name="password" placeholder="Password" />
+        <Field type="password" name="password" placeholder="Password" />
         {touched.password && errors.password && <span className="UserFormError"> {errors.password}</span>}
+      </div>
+      <div>
+        <Field type="password" name="passwordConfirm" placeholder="Confirm password" />
+        {touched.passwordConfirm && errors.passwordConfirm && <span className="UserFormError"> {errors.passwordConfirm}</span>}
       </div>
       <div>
         <button type="submit" disabled={isSubmitting}>

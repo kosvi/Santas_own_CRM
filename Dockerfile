@@ -4,7 +4,8 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-ENV REACT_APP_API_BASE=/api
+ENV REACT_APP_API_BASE=/api \
+    REACT_APP_FAKED_API_DELAY=1000
 
 RUN npm install --prefix client && \
     npm install --prefix server && \

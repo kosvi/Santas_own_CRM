@@ -5,7 +5,8 @@ import { InnerForm } from './InnerForm';
 export interface FormValues {
   name: string,
   username: string,
-  password: string
+  password: string,
+  passwordConfirm: string
 }
 
 interface NewUserFormProps {
@@ -17,7 +18,8 @@ export const CreateForm = withFormik<NewUserFormProps, FormValues>({
     return {
       name: '',
       username: '',
-      password: ''
+      password: '',
+      passwordConfirm: ''
     };
   },
   validate: (values: FormValues) => {
@@ -30,6 +32,9 @@ export const CreateForm = withFormik<NewUserFormProps, FormValues>({
     }
     if (!values.password) {
       errors.password = 'Password is required';
+    }
+    if (values.passwordConfirm !== values.password) {
+      errors.passwordConfirm = 'Passwords don\'t match';
     }
     return errors;
   },

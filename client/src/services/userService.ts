@@ -1,4 +1,4 @@
-import { NewUser, User, UserWithGroups } from '../types';
+import { MsgResponse, NewUser, User, UserWithGroups } from '../types';
 import { apiRequest } from '../utils/delayedAxios';
 import { apiServices } from './apiServices';
 
@@ -17,6 +17,16 @@ const addUser = async (user: NewUser): Promise<User> => {
   return response.data;
 };
 
+const disableUser = async (userId: number) => {
+  const response = await apiRequest<MsgResponse, undefined>('put', `/users/disable/${userId}`, apiServices.getAxiosRequestConfigWithToken());
+  return response.data;
+};
+
+const enableUser = async (userId: number) => {
+  const response = await apiRequest<MsgResponse, undefined>('put', `/users/enable/${userId}`, apiServices.getAxiosRequestConfigWithToken());
+  return response.data;
+};
+
 export const userService = {
-  getUsers, getSingleUser, addUser
+  getUsers, getSingleUser, addUser, disableUser, enableUser
 };
