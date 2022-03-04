@@ -237,7 +237,7 @@ Goals:
 |1.3.2022 | 1 | 163 | Worked on adding backend support for adding new users. |
 |2.3.2022 | 1 | 164 | Worked on frontend support for users. |
 |3.3.2022 | 2 | 166 | Worked on frontend support for users. It's now possible to display list of users and also add new users. | 
-|4.3.2022 | 2 | 168 | Worked on frontend support fot all the users-functionalities. Also made our test instance in Heroku to use api delay of 1s (once instance is updates) |
+|4.3.2022 | 2 | 168 | Worked on frontend support for all the users-functionalities. Also made our test instance in Heroku to use api delay of 1s (once instance is updates) |
 
 Extras: 
 - added migration to add default admin user to the system

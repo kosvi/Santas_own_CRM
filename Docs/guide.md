@@ -31,7 +31,7 @@ To enter people screen, use the [menu](#menu).
 
 If you have the right priviledges, you can add people with the form on top of the page. Otherwise the form is not shown. Also, you can change name & address from existing person by double clicking the name/address you want to change. 
 
-By default there are no people in the list. They are added once found by the search, so just type in the name at the top of the screen and the results will also appear to the list. Once on the list, you can click the `View` button on the right most column on the row to see details on the person. 
+By default there are no people in the list. They are added once found by the search, so just type in the name at the top of the screen and the results will also appear to the list. Once on the list, you can click the `Display` button on the right most column on the row to see details on the person. 
 
 Visiting persons full info, will also fetch the full and latest information for of that person. This means that number of entries and wishes is also updated to the list. 
 
