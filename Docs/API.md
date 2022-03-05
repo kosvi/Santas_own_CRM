@@ -12,7 +12,7 @@
 |[Add new user](API/users.md#add-new-user)| `/api/users` |POST | users | write | 201 | 400, 500 | 
 |[Update password](API/users.md#update-password)|`/api/users/:id`|PUT | users* | write | 204 | 404, 500|
 
-\* or if `:id` is the id of current user
+&ast; or if `:id` is the id of current user
 
 ## Groups
 
