@@ -7,3 +7,20 @@ Authorization: bearer <token>
   "password": "bar",
   "name": "Foo Bar"
 }
+
+###
+
+GET http://localhost:3000/api/users/1
+Content-Type: application/json
+Authorization: bearer <token>
+
+
+###
+
+PUT http://localhost:3000/api/users/1
+Content-Type: application/json
+Authorization: bearer <token>
+
+{
+  "password": "santa"
+}

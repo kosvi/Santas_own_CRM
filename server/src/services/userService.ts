@@ -3,6 +3,7 @@ import { UserAttributes } from '../types';
 import { ControllerError } from '../utils/customError';
 import { Op, ValidationError } from 'sequelize';
 import { validateToNumber } from '../utils/validators';
+import { logger } from '../utils/logger';
 // import { logger } from '../utils/logger';
 
 /*
@@ -113,4 +114,24 @@ export const addNewUser = async (user: UserAttributes, groupId: number | undefin
     throw new ControllerError(500, msg);
   }
   return newUser;
+};
+
+export const updateUser = async (id: number, password: string) => {
+  // we expect controller to handle permissions!
+  try {
+    const currenUser = await models.User.findByPk(id);
+    if (!currenUser) {
+      throw new ControllerError(404, 'user not found');
+    }
+    // currently only password updates are supported
+    currenUser.password = password;
+    await currenUser.save();
+  } catch (error) {
+    if (error instanceof ControllerError) {
+      throw error;
+    } else {
+      logger.logError(error);
+      throw new ControllerError(500, 'failed to update user data');
+    }
+  }
 };

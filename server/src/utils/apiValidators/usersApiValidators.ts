@@ -11,3 +11,10 @@ export const toNewUser = ({ username, password, name }: NewUserFields): UserAttr
     disabled: false
   };
 };
+
+type NewPasswordFields = { password: unknown };
+export const toNewPassword = ({ password }: NewPasswordFields): { password: string } => {
+  return {
+    password: hashPassword(validateToString(password))
+  };
+};

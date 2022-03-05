@@ -226,3 +226,18 @@ Status: 400
   "error": "cannot create user: username already exists"
 }
 ```
+
+## Update password
+
+This can be done for own account or anyone if user has write access to 'users'
+
+**Example**
+
+PUT `/api/users/1`
+```
+{
+  "password": "foobar"
+}
+```
+
+Status: 204

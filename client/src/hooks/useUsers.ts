@@ -73,8 +73,22 @@ function useUsers() {
     }
   };
 
+  const changePassword = async (userId: number, newPassword: string) => {
+    try {
+      await userService.updatePassword(userId, newPassword);
+      createNotification('password updated', 'msg');
+    } catch (error) {
+      logger.logError(error);
+      if (axios.isAxiosError(error)) {
+        createNotification(error.response?.data.error, 'error');
+      } else {
+        createNotification('failed to update user', 'error');
+      }
+    }
+  };
+
   return {
-    fetchUsers, updateUser, addUser, changeUserDisableStatus
+    fetchUsers, updateUser, addUser, changeUserDisableStatus, changePassword
   };
 }
 

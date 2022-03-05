@@ -132,6 +132,19 @@ describe('users controller', () => {
     expect(response.body).not.toHaveProperty('password');
   });
 
+  test('try to update password without token', async () => {
+    const response = await api.put('/api/users/1').send({ password: 'foobar' }).expect(401);
+    expect(response.body).toHaveProperty('error');
+  });
+
+  test('update password with valid request', async () => {
+    const userResp = await api.get('/api/users/1').set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    const user = toApiUser(userResp.body);
+    await api.put(`/api/users/${user.id}`).set('Authorization', `bearer ${adminObj.token}`).send({ password: 'foobar' }).expect(204);
+    const response = await api.post('/api/login').send({ username: user.username, password: 'foobar' }).expect(200);
+    expect(() => { toLoginResult(response.body); }).not.toThrow(Error);
+  });
+
 });
 
 afterAll(async () => {

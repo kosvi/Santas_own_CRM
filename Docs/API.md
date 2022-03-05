@@ -10,6 +10,9 @@
 |[Disable user](API/users.md#disable-user) | `/api/users/disable/:id` | PUT | users | write | 200 | 400, 404, 500 |
 |[Enable user](API/users.md#enable-user) | `/api/users/enable/:id` | PUT | users | write | 200 | 400, 404, 500 |
 |[Add new user](API/users.md#add-new-user)| `/api/users` |POST | users | write | 201 | 400, 500 | 
+|[Update password](API/users.md#update-password)|`/api/users/:id`|PUT | users* | write | 204 | 404, 500|
+
+* or if `:id` is the id of current user
 
 ## Groups
 

@@ -27,6 +27,10 @@ const enableUser = async (userId: number) => {
   return response.data;
 };
 
+const updatePassword = async (userId: number, newPassword: string) => {
+  await apiRequest<undefined, { password: string }>('put', `/users/${userId}`, apiServices.getAxiosRequestConfigWithToken(), { password: newPassword });
+};
+
 export const userService = {
-  getUsers, getSingleUser, addUser, disableUser, enableUser
+  getUsers, getSingleUser, addUser, disableUser, enableUser, updatePassword
 };
