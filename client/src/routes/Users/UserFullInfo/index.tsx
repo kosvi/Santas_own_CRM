@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import usePermission from '../../../hooks/usePermission';
 import useUsers from '../../../hooks/useUsers';
 import { usersSelector } from '../../../store';
 import { UserWithGroups } from '../../../types';
 import { parseNumber } from '../../../utils/validators';
 import { AdminButtons } from './AdminButtons';
+import { UserInfo } from './UserInfo';
 
 export const UserFullInfo = ({ id }: { id: string }) => {
 
@@ -39,8 +41,10 @@ export const UserFullInfo = ({ id }: { id: string }) => {
 
   return (
     <div>
+      <Link to='/users'>back</Link>
       <h2>{user.name}</h2>
       {allowWriteAccess('users') && <AdminButtons user={user} />}
+      <UserInfo user={user} />
     </div>
   );
 };

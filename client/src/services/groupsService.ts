@@ -1,19 +1,23 @@
 import axios from 'axios';
 import { Functionality, Group, GroupFunctionality, GroupWithFunctionalities } from '../types';
+import { apiRequest } from '../utils/delayedAxios';
 import { apiServices } from './apiServices';
 
 const getAllGroups = async (): Promise<Array<GroupWithFunctionalities>> => {
-  const response = await axios.get<Array<GroupWithFunctionalities>>('/groups', apiServices.getAxiosRequestConfigWithToken());
+  const response = await apiRequest<Array<GroupWithFunctionalities>, undefined>('get', '/groups', apiServices.getAxiosRequestConfigWithToken());
+  // const response = await axios.get<Array<GroupWithFunctionalities>>('/groups', apiServices.getAxiosRequestConfigWithToken());
   return response.data;
 };
 
 const getSingleGroup = async (name: string): Promise<GroupWithFunctionalities> => {
-  const response = await axios.get(`/groups/${name}`, apiServices.getAxiosRequestConfigWithToken());
+  const response = await apiRequest<GroupWithFunctionalities, undefined>('get', `/groups/${name}`, apiServices.getAxiosRequestConfigWithToken());
+  // const response = await axios.get(`/groups/${name}`, apiServices.getAxiosRequestConfigWithToken());
   return response.data;
 };
 
 const addGroup = async (name: string): Promise<Group> => {
-  const response = await axios.post('/groups', { name: name }, apiServices.getAxiosRequestConfigWithToken());
+  const response = await apiRequest<Group, { name: string }>('post', '/groups', apiServices.getAxiosRequestConfigWithToken(), { name: name });
+  // const response = await axios.post('/groups', { name: name }, apiServices.getAxiosRequestConfigWithToken());
   return response.data;
 };
 

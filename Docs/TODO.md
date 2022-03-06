@@ -10,6 +10,9 @@
 
 For new sprint:
 - new for next sprint: allow adding users & changing passwords
--> Allow display of single user with full info and enable/disable -button. Also make update password -form. 
+
+Next:
+- finish functionality to add groups to user
+- make a form for user to change his/her own password
 
 

@@ -217,3 +217,16 @@ body {
 .PersonListItem {
   margin-top: 1em;
 }
+
+.commonTable {
+  border-spacing: 0;
+}
+
+.commonTable thead {
+  background-color: darkgray;
+  color: white;
+}
+
+.commonTable td {
+  padding: 0 1em;
+}
