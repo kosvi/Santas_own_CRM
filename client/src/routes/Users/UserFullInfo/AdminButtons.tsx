@@ -1,19 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import useGroups from '../../../hooks/useGroups';
 import useUsers from '../../../hooks/useUsers';
-import { groupsSelector } from '../../../store';
 import { UserWithGroups } from '../../../types';
+import { AddGroupForm } from './AddGroupForm';
+import usePermission from '../../../hooks/usePermission';
 
 export const AdminButtons = ({ user }: { user: UserWithGroups }) => {
 
   const { changeUserDisableStatus, changePassword } = useUsers();
-  const { fetchAllGroups } = useGroups();
-  const { groups } = useSelector(groupsSelector);
+  const { allowWriteAccess } = usePermission();
   const [updating, setUpdating] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [password2, setPassword2] = useState<string>('');
   const [passwordMessage, setPasswordMessage] = useState<string>('');
+  const [currentGroup, setCurrentGroup] = useState<{id: number, name: string}>({ id: 0, name: '' });
 
   const allowStateUpdates = useRef(true);
 
@@ -83,17 +82,17 @@ export const AdminButtons = ({ user }: { user: UserWithGroups }) => {
               <button onClick={() => handleChangePassword()}>update password</button>
             </td>
           </tr>
+          {allowWriteAccess('permissions') &&
           <tr>
             <td>
-              <button onClick={fetchAllGroups}>load groups</button>
-              <select onChange={(event) => console.log(event.currentTarget.value)}>{groups.map(g => {
-                return <option key={g.id} value={g.id}>{g.name}</option>;
-              })}</select>
+              <AddGroupForm setGroup={setCurrentGroup} />
             </td>
             <td>
+              {currentGroup.name}<br />
               <button>Add group</button>
             </td>
           </tr>
+          }
         </tbody>
       </table>
     </div>

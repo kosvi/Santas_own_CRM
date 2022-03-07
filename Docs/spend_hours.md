@@ -240,6 +240,8 @@ Goals:
 |4.3.2022 | 2 | 168 | Worked on frontend support for all the users-functionalities. Also made our test instance in Heroku to use api delay of 1s (once instance is updates) |
 |5.3.2022 | 2 | 170 | Worked on backend side to add support for updating password. Also wrote couple of tests for the case (not really comprehensive test cases). |
 |6.3.2022 | 1 | 171 | Admin can change users password. Worked on allowing admin to add groups to user. |
+|7.3.2022 | 1 | 172 | Worked on possibility to add group(s) to user. | 
 
 Extras: 
 - added migration to add default admin user to the system
+- allow adding users to groups 

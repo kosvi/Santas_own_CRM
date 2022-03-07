@@ -13,6 +13,7 @@ For new sprint:
 
 Next:
 - finish functionality to add groups to user
+  - backend support required
 - make a form for user to change his/her own password
 
 

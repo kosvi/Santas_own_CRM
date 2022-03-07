@@ -54,3 +54,5 @@ List of available groups is shown below the search form. Click the name of a gro
 If you have correct priviledges, there is also a form to add new groups. In that case you can add a group by giving it a name and pressing `Save`. New priviledges can be given to a group by clicking it's name in the list and clicking `add permissions` below the desired permission. 
 
 New permissions are always given with no read and no write permission. To add them, click the red `false` buttons. Once clicked, they will turn green. 
+
+After changing users permissions, make sure user logs out and logs in again. That way frontend will recognize new priviledges and will display all features available to user. 
