@@ -337,3 +337,20 @@ Status: 200
   }
 ]
 ```
+
+## Connect user to group
+
+POST `/api/groups/connect`
+```
+{
+  "groupId": 4,
+  "userId": 18
+}
+```
+Status: 201
+```
+  "id": 13,
+  "userId": 18,
+  "groupId": 4
+}
+```

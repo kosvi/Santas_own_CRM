@@ -241,6 +241,7 @@ Goals:
 |5.3.2022 | 2 | 170 | Worked on backend side to add support for updating password. Also wrote couple of tests for the case (not really comprehensive test cases). |
 |6.3.2022 | 1 | 171 | Admin can change users password. Worked on allowing admin to add groups to user. |
 |7.3.2022 | 1 | 172 | Worked on possibility to add group(s) to user. | 
+|         | 1 | 173 | Worked on backend-support for adding users to groups. Also debugged frontend tests. | 
 
 Extras: 
 - added migration to add default admin user to the system

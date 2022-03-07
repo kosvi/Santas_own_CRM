@@ -16,9 +16,14 @@ const getSingleGroup = async (name: string): Promise<GroupWithFunctionalities> =
 };
 
 const addGroup = async (name: string): Promise<Group> => {
-  const response = await apiRequest<Group, { name: string }>('post', '/groups', apiServices.getAxiosRequestConfigWithToken(), { name: name });
-  // const response = await axios.post('/groups', { name: name }, apiServices.getAxiosRequestConfigWithToken());
+  // For some reason tests fail if we use apiRequest instead of axios.post here. Dunno why, can't figure out...
+  // const response = await apiRequest<Group, { name: string }>('post', '/groups', apiServices.getAxiosRequestConfigWithToken(), { name: name });
+  const response = await axios.post('/groups', { name: name }, apiServices.getAxiosRequestConfigWithToken());
   return response.data;
+};
+
+const connectUserToGroup = async (groupId: number, userId: number) => {
+  await apiRequest<undefined, { groupId: number, userId: number }>('post', '/groups/connect', apiServices.getAxiosRequestConfigWithToken(), { groupId, userId });
 };
 
 const addPermission = async (permission: GroupFunctionality): Promise<GroupWithFunctionalities> => {
@@ -49,5 +54,5 @@ const getFunctionalities = async (): Promise<Array<Functionality>> => {
 };
 
 export const groupsService = {
-  getAllGroups, getSingleGroup, addGroup, addPermission, updatePermission, getFunctionalities
+  getAllGroups, getSingleGroup, addGroup, connectUserToGroup, addPermission, updatePermission, getFunctionalities
 };

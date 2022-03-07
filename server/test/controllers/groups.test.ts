@@ -1,12 +1,13 @@
 import supertest from 'supertest';
 import app from '../../src/app';
 import { connectionToDatabase, sequelize } from '../../src/utils/db';
-import { toApiGroup, toLoginResult } from '../helpers/toApiObject';
+import { ApiUser, toApiGroup, toApiUser, toLoginResult } from '../helpers/toApiObject';
 const api = supertest(app);
 
 const NUMBER_OF_DEFAULT_GROUPS = 4;
 const ADMIN_GROUP_FUNCTIONALITIES = 5;
 const NONEXISTENT_GROUP_ID = 1000000;
+const NONEXISTENT_USER_ID = 1000000;
 
 const adminObj = {
   username: 'admin',
@@ -171,6 +172,26 @@ describe('groups controller', () => {
     expect(response.body).toHaveProperty('error');
     const invalidTokenResponse = await api.post('/api/groups').set('Authorization', 'bearer non-valid-token-string').send({ name: 'foo' }).expect(401);
     expect(invalidTokenResponse.body).toHaveProperty('error');
+  });
+
+  test('non-existing user cannot be connected to non-existing group', async () => {
+    const response = await api.post('/api/groups/connect').set('Authorization', `bearer ${adminObj.token}`).send({ userId: NONEXISTENT_USER_ID, groupId: NONEXISTENT_GROUP_ID }).expect(400);
+    expect(response.body).toHaveProperty('error');
+  });
+
+  test('connecting existing user to existing group succeeds', async () => {
+    const userResp = await api.get('/api/users?name=elf').set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    let userObj: ApiUser | undefined;
+    if (userResp.body instanceof Array) {
+      userObj = toApiUser(userResp.body[0]);
+    }
+    expect(userObj).not.toBe(undefined);
+    const groupResp = await api.get('/api/groups/santa').set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    const groupObj = toApiGroup(groupResp.body);
+    if (userObj) {
+      const response = await api.post('/api/groups/connect').set('Authorization', `bearer ${adminObj.token}`).send({ userId: userObj.id, groupId: groupObj.id }).expect(201);
+      expect(response.body).toHaveProperty('id');
+    }
   });
 
 });

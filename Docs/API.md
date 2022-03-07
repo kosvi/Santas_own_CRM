@@ -24,6 +24,7 @@
 |[Add a permission to group](API/groups.md#add-a-permission-to-group) | `/api/groups/:groupId` | POST | permissions |write | 201 | 400, 403, 404, 500(?) |
 |[Update permission of group](API/groups.md#update-permission-of-group)|`/api/groups/:groupId`|PUT|permissions| write|200| - |
 |[List all functionalities](API/groups.md#list-all-functionalities)|`/api/groups/functionalities`|GET |permissions|read|200 |- |
+|[Connect user to group](API/groups.md#connect-user-to-group)|`/api/groups/connect`|POST|permissions|write|201|400 |
 
 ## People
 

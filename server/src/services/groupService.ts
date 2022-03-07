@@ -157,3 +157,15 @@ export const getPermissionsOfGroup = async (id: number): Promise<PermissionWithC
   return [];
 };
 
+export const addUserToGroup = async (userId: number, groupId: number) => {
+  try {
+    const result = await models.UserGroup.create({ userId, groupId });
+    return result;
+  } catch (error) {
+    logger.logError(error);
+    if (error instanceof Error && error.name === 'SequelizeForeignKeyConstraintError') {
+      throw new ControllerError(400, error.message);
+    }
+    throw error;
+  }
+};
