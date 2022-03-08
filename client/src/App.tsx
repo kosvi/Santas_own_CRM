@@ -13,6 +13,7 @@ import { NotFound } from './routes/NotFound';
 import { LoginForm } from './components/LoginForm';
 import { TopBar } from './components/TopBar';
 import { Notifications } from './components/Notifications';
+import { Users } from './routes/Users';
 
 const App = () => {
 
@@ -40,6 +41,8 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/people' element={<People />} />
           <Route path='/people/:id' element={<People />} />
+          <Route path='/users' element={<Users />} />
+          <Route path='/users/:id' element={<Users />} />
           <Route path='/permissions' element={<Permissions />} />
           <Route path='*' element={<NotFound />} />
         </Routes>

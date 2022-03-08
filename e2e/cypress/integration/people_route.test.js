@@ -34,7 +34,7 @@ describe('People tests', function () {
     cy.get('#searchInput').should('be.visible').type('jane doe');
     // after waiting for a moment, the name sould appear in the table
     cy.get('.ag-theme-alpine').contains('Jane Doe');
-    cy.contains('View').click();
+    cy.contains('Display').click();
     cy.contains('Age: 7').should('be.visible');
   });
 

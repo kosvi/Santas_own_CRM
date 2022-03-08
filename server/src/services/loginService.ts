@@ -7,6 +7,7 @@ import { SECRET } from '../utils/config';
 import { validateToNumber } from '../utils/validators';
 import { AccessTokenContent, UserWithGroupsInLogin } from '../types';
 import { getPermissionsOfGroup } from './groupService';
+import { hashPassword } from '../utils/hashPasswords';
 
 export const login = async (loginObject: LoginObject) => {
   let tokenContent: AccessTokenContent;
@@ -21,7 +22,7 @@ export const login = async (loginObject: LoginObject) => {
         through: { attributes: [] }
       }
     });
-    if (!userFromDatabase || userFromDatabase.password !== loginObject.password) {
+    if (!userFromDatabase || userFromDatabase.password !== hashPassword(loginObject.password)) {
       // passwords don't match
       throw new ControllerError(401, 'invalid username or password');
     }

@@ -10,7 +10,6 @@ Status: 200
   {
     "id": 1,
     "username": "santa",
-    "password": "santa",
     "name": "Santa Claus",
     "disabled": false,
     "createdAt": "2022-01-24T07:53:48.302Z",
@@ -25,7 +24,6 @@ Status: 200
   {
     "id": 4,
     "username": "admin",
-    "password": "password",
     "name": "Admin Elf",
     "disabled": false,
     "createdAt": "2022-01-24T07:53:48.302Z",
@@ -52,7 +50,6 @@ Status: 200
   {
     "id": 2,
     "username": "elf",
-    "password": "elf",
     "name": "Small Elf",
     "disabled": false,
     "createdAt": "2022-01-24T07:53:48.302Z",
@@ -62,7 +59,6 @@ Status: 200
   {
     "id": 4,
     "username": "admin",
-    "password": "password",
     "name": "Admin Elf",
     "disabled": false,
     "createdAt": "2022-01-24T07:53:48.302Z",
@@ -99,7 +95,6 @@ Status: 200
 {
   "id": 4,
   "username": "admin",
-  "password": "password",
   "name": "Admin Elf",
   "disabled": false,
   "createdAt": "2022-01-24T07:53:48.302Z",
@@ -184,3 +179,65 @@ Status: 200
   "msg": "santa has been enabled"
 }
 ```
+
+## Add new user
+
+**Example**
+
+POST `/api/users`
+```
+{
+  "username": "foo",
+  "password": "bar",
+  "name": "Foo Bar",
+  "groupId": 4
+}
+```
+
+Status: 201
+
+```
+{
+  "id": 9,
+  "username": "foo",
+  "name": "Foo Bar",
+  "disabled": false,
+  "updatedAt": "2022-03-01T18:38:01.153Z",
+  "createdAt": "2022-03-01T18:38:01.153Z"
+}
+```
+
+**Errors**
+
+POST `/api/users`
+```
+{
+  "username": "foo",
+  "password": "bar",
+  "name": "Foo Bar",
+  "groupId": 4
+}
+```
+
+Status: 400
+
+```
+{
+  "error": "cannot create user: username already exists"
+}
+```
+
+## Update password
+
+This can be done for own account or anyone if user has write access to 'users'
+
+**Example**
+
+PUT `/api/users/1`
+```
+{
+  "password": "foobar"
+}
+```
+
+Status: 204

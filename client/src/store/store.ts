@@ -9,6 +9,7 @@
 import { configureStore, combineReducers, Action } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 import { ThunkAction } from 'redux-thunk';
+import { usersSlice } from './users';
 import { authSlice } from './auth';
 import { groupsSlice } from './groups';
 import { notificationSlice } from './notifications';
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   authReducer: authSlice.reducer,
   groupsReducer: groupsSlice.reducer,
   notificationReducer: notificationSlice.reducer,
-  peopleReducer: peopleSlice.reducer
+  peopleReducer: peopleSlice.reducer,
+  usersReducer: usersSlice.reducer
 });
 
 export const store = configureStore({

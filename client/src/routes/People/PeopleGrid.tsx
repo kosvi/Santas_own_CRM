@@ -48,7 +48,7 @@ export const PeopleGrid = () => {
     { headerName: 'Address', field: 'address', sortable: true, editable: true, filter: true },
     { headerName: 'Entries', field: 'entries', sortable: true, cellRenderer: (params: { data: GridPerson }) => { return params.data.entries > 0 ? params.data.entries : '-'; } },
     { headerName: 'Wishes', field: 'wishes', sortable: true, cellRenderer: (params: { data: GridPerson }) => { return params.data.wishes > 0 ? params.data.wishes : '-'; } },
-    { headerName: '', field: '', cellRenderer: (params: { data: GridPerson }) => { return (<div style={{ cursor: 'pointer' }} onClick={() => navigate(`/people/${params.data.id}`)}>View</div>); } }
+    { headerName: '', field: '', cellRenderer: (params: { data: GridPerson }) => { return (<div style={{ cursor: 'pointer' }} onClick={() => navigate(`/people/${params.data.id}`)}>Display</div>); } }
   ]);
 
   // adjust people data just a bit to make our grid work as intended

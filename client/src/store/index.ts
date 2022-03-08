@@ -3,3 +3,4 @@ export * from './auth';
 export * from './groups';
 export * from './notifications';
 export * from './people';
+export * from './users';

@@ -222,3 +222,28 @@ Goals:
 
 Extras:
 - docker-compose environment for e2e tests
+
+### Sprint 8 - fixes
+
+Goals:
+- ~~fix logout to delete all cached data~~
+- ~~fix all api-endpoints to require authentication~~
+- ~~allow adding users and changing passwords~~
+
+
+| Date | Hours | Total Hours | Description |
+|------|-------|-------------|-------------|
+|28.2.2022| 2 | 162 | Minor documentation updates. Fixed logout on frontend side to delete caches. Fixed api-endpoints to require authentication. |
+|1.3.2022 | 1 | 163 | Worked on adding backend support for adding new users. |
+|2.3.2022 | 1 | 164 | Worked on frontend support for users. |
+|3.3.2022 | 2 | 166 | Worked on frontend support for users. It's now possible to display list of users and also add new users. | 
+|4.3.2022 | 2 | 168 | Worked on frontend support for all the users-functionalities. Also made our test instance in Heroku to use api delay of 1s (once instance is updates) |
+|5.3.2022 | 2 | 170 | Worked on backend side to add support for updating password. Also wrote couple of tests for the case (not really comprehensive test cases). |
+|6.3.2022 | 1 | 171 | Admin can change users password. Worked on allowing admin to add groups to user. |
+|7.3.2022 | 1 | 172 | Worked on possibility to add group(s) to user. | 
+|         | 1 | 173 | Worked on backend-support for adding users to groups. Also debugged frontend tests. | 
+|8.3.2022 | 1 | 174 | Adding users works, users can be added to groups, groups can be given permissions and users can update their password. -> sprint completed! |
+
+Extras: 
+- added migration to add default admin user to the system
+- allow adding users to groups 

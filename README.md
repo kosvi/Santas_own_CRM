@@ -90,7 +90,13 @@ Recommends:
 
 We recommend to download [docker-compose.yml](docker-compose.yml) and use it as base for running the server. You can adjust postgres settings by choosing different username & password and different path for database in 'volumes' section of docker-compose.yml. Also choose a valid SECRET in Santas CRM environment. It is used to sign tokens, so it should be long enough to be safe. Also make sure DATABASE_URL matches your postgres settings. Finally choose the port you want to use for running the app. For more options in enviromental variables, take a look at [enviromental variables](#enviromental-variables) section. 
 
-Once `docker-compose.yml` is configured, run it with command: `docker-compose up`
+Finally make sure you have correct tag after the image name. For example `image: kosvi/santas_own_crm:2022-02-27` where the tag is the publish date. 
+
+Once `docker-compose.yml` is configured, run it with command: `docker-compose up -d`
+
+Live production instance is running [here](https://santa-crm.codecache.eu/)
+
+By default, only admin user is added with username set to 'admin' and password set to 'password'. Admin will have read & write permissions to groups and permissions. Login as admin, add full permissions to admin group and change admins password!
 
 ## Enviromental variables
 

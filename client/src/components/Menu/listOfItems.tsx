@@ -7,6 +7,11 @@ export const listOfItems: Array<MenuItem> = [
     to: '/people'
   },
   {
+    title: 'Users',
+    permission: 'users',
+    to: '/users'
+  },
+  {
     title: 'Permissions',
     permission: 'permissions',
     to: '/permissions'
