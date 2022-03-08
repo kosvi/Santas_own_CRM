@@ -14,7 +14,7 @@ export const AdminButtons = ({ user }: { user: UserWithGroups }) => {
   const [password, setPassword] = useState<string>('');
   const [password2, setPassword2] = useState<string>('');
   const [passwordMessage, setPasswordMessage] = useState<string>('');
-  const [currentGroup, setCurrentGroup] = useState<{id: number, name: string}>({ id: 0, name: '' });
+  const [currentGroup, setCurrentGroup] = useState<{ id: number, name: string }>({ id: 0, name: '' });
 
   const allowStateUpdates = useRef(true);
 
@@ -60,9 +60,9 @@ export const AdminButtons = ({ user }: { user: UserWithGroups }) => {
   const handleConnectingToGroup = async () => {
     setUpdating(true);
     await connectUserToGroup(user.id, currentGroup.id);
-    if(allowStateUpdates.current) {
+    if (allowStateUpdates.current) {
       setUpdating(false);
-      setCurrentGroup({id: 0, name: ''});
+      setCurrentGroup({ id: 0, name: '' });
     }
   };
 
@@ -94,15 +94,15 @@ export const AdminButtons = ({ user }: { user: UserWithGroups }) => {
             </td>
           </tr>
           {allowWriteAccess('permissions') &&
-          <tr>
-            <td>
-              <AddGroupForm setGroup={setCurrentGroup} />
-            </td>
-            <td>
-              {currentGroup.name}<br />
-              <button onClick={handleConnectingToGroup} disabled={currentGroup.id>0 ? false : true}>Add group</button>
-            </td>
-          </tr>
+            <tr>
+              <td>
+                <AddGroupForm setGroup={setCurrentGroup} />
+              </td>
+              <td>
+                {currentGroup.name}<br />
+                <button onClick={handleConnectingToGroup} disabled={currentGroup.id > 0 ? false : true}>Add group</button>
+              </td>
+            </tr>
           }
         </tbody>
       </table>

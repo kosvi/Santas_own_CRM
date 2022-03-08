@@ -17,6 +17,8 @@ Use a valid username & password to login to the CRM. Possible reasons for login 
 
 Use Menu at the lower left corner of the screen. You can toggle the menu open and close by clicking the text "Menu". 
 
+User can change his/her password here by clicking the text 'Change password'. Home screen can be accessed by clicking users name in the [menu](#menu). 
+
 ### Search people
 
 In order to quickly find a persons file to add wishes & entries on behaviour/actions, write the persons name in top left corners search field. You can open the found person by clicking his/her name. To separate people with same name, also address is shown on results. 
@@ -39,7 +41,7 @@ Visiting persons full info, will also fetch the full and latest information for 
 
 To enter users screen, use the [menu](#menu).
 
-List of all users is automatically downloaded from the server if you have correct priviledges. You can click the users row to display full information of the user. From users profile, an administrator with correct priviledges can also enable/disable a user and also change users password. 
+List of all users is automatically downloaded from the server if you have correct priviledges. You can click the users row to display full information of the user. From users profile, an administrator with correct priviledges can also enable/disable a user and also change users password. Adding user to a group is also possible here if user has correct priviledges. 
 
 New users can be added using the form above the user list. Form is only displayed if user has write-access to users. 
 

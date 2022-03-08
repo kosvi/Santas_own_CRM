@@ -9,9 +9,8 @@
 
 
 For new sprint:
-- new for next sprint: allow adding users & changing passwords
 
-Next:
-- make a form for user to change his/her own password
 
+Issues:
+- Changing own password should require old password (didn't really think of this before hand) :D
 

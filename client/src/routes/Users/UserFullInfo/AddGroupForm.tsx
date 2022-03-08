@@ -4,9 +4,9 @@ import useGroups from '../../../hooks/useGroups';
 import { groupsSelector } from '../../../store';
 import { parseNumber } from '../../../utils/validators';
 
-type Props = { setGroup: React.Dispatch<React.SetStateAction<{id: number, name: string}>> };
+type Props = { setGroup: React.Dispatch<React.SetStateAction<{ id: number, name: string }>> };
 
-export const AddGroupForm = ({ setGroup }: Props  ) => {
+export const AddGroupForm = ({ setGroup }: Props) => {
 
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const { fetchAllGroups } = useGroups();
@@ -19,9 +19,9 @@ export const AddGroupForm = ({ setGroup }: Props  ) => {
 
   const handleGroupChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const id = parseNumber(event.currentTarget.value);
-    if(id && !isNaN(id)) {
-      const group = groups.find(g => g.id===id);
-      if(group) {
+    if (id && !isNaN(id)) {
+      const group = groups.find(g => g.id === id);
+      if (group) {
         setGroup({ id: id, name: group.name });
       }
     } else {

@@ -228,7 +228,7 @@ Extras:
 Goals:
 - ~~fix logout to delete all cached data~~
 - ~~fix all api-endpoints to require authentication~~
-- allow adding users and changing passwords
+- ~~allow adding users and changing passwords~~
 
 
 | Date | Hours | Total Hours | Description |
@@ -242,6 +242,7 @@ Goals:
 |6.3.2022 | 1 | 171 | Admin can change users password. Worked on allowing admin to add groups to user. |
 |7.3.2022 | 1 | 172 | Worked on possibility to add group(s) to user. | 
 |         | 1 | 173 | Worked on backend-support for adding users to groups. Also debugged frontend tests. | 
+|8.3.2022 | 1 | 174 | Adding users works, users can be added to groups, groups can be given permissions and users can update their password. -> sprint completed! |
 
 Extras: 
 - added migration to add default admin user to the system
