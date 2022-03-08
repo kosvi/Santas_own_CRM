@@ -22,8 +22,9 @@ const addGroup = async (name: string): Promise<Group> => {
   return response.data;
 };
 
-const connectUserToGroup = async (groupId: number, userId: number) => {
-  await apiRequest<undefined, { groupId: number, userId: number }>('post', '/groups/connect', apiServices.getAxiosRequestConfigWithToken(), { groupId, userId });
+const connectUserToGroup = async (groupId: number, userId: number): Promise<{id: number, groupId: number, userId: number}> => {
+  const response = await apiRequest<{id: number, groupId: number, userId: number}, { groupId: number, userId: number }>('post', '/groups/connect', apiServices.getAxiosRequestConfigWithToken(), { groupId, userId });
+  return response.data;
 };
 
 const addPermission = async (permission: GroupFunctionality): Promise<GroupWithFunctionalities> => {

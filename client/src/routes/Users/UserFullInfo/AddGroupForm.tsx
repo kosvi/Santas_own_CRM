@@ -19,13 +19,13 @@ export const AddGroupForm = ({ setGroup }: Props  ) => {
 
   const handleGroupChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const id = parseNumber(event.currentTarget.value);
-    if(id && isNaN(id)) {
-      setGroup({ id: 0, name: '' });
-    } else if(id) {
+    if(id && !isNaN(id)) {
       const group = groups.find(g => g.id===id);
       if(group) {
         setGroup({ id: id, name: group.name });
       }
+    } else {
+      setGroup({ id: 0, name: '' });
     }
   };
 

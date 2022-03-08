@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useUsers from '../../../hooks/useUsers';
+import useGroups from '../../../hooks/useGroups';
 import { UserWithGroups } from '../../../types';
 import { AddGroupForm } from './AddGroupForm';
 import usePermission from '../../../hooks/usePermission';
@@ -7,6 +8,7 @@ import usePermission from '../../../hooks/usePermission';
 export const AdminButtons = ({ user }: { user: UserWithGroups }) => {
 
   const { changeUserDisableStatus, changePassword } = useUsers();
+  const { connectUserToGroup } = useGroups();
   const { allowWriteAccess } = usePermission();
   const [updating, setUpdating] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
@@ -55,6 +57,15 @@ export const AdminButtons = ({ user }: { user: UserWithGroups }) => {
     }
   };
 
+  const handleConnectingToGroup = async () => {
+    setUpdating(true);
+    await connectUserToGroup(user.id, currentGroup.id);
+    if(allowStateUpdates.current) {
+      setUpdating(false);
+      setCurrentGroup({id: 0, name: ''});
+    }
+  };
+
   if (updating) {
     return (
       <div>
@@ -89,7 +100,7 @@ export const AdminButtons = ({ user }: { user: UserWithGroups }) => {
             </td>
             <td>
               {currentGroup.name}<br />
-              <button>Add group</button>
+              <button onClick={handleConnectingToGroup} disabled={currentGroup.id>0 ? false : true}>Add group</button>
             </td>
           </tr>
           }
