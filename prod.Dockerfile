@@ -18,8 +18,6 @@ COPY --from=build-stage /usr/src/app/server /usr/src/app
 
 WORKDIR /usr/src/app
 
-ENV PORT=3000
-EXPOSE 3000
 RUN npm install --production
 
 CMD ["npm", "start"]

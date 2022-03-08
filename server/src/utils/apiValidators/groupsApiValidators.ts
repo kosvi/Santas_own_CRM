@@ -27,3 +27,16 @@ export const toNewPermission = ({ groupId, functionalityId, read, write }: Permi
     throw new Error('malformed permission');
   }
 };
+
+type UserGroupFields = { groupId: unknown, userId: unknown };
+
+export const toNewUserGroup = ({ groupId, userId }: UserGroupFields): { groupId: number, userId: number } => {
+  try {
+    return {
+      groupId: validateToNumber(groupId),
+      userId: validateToNumber(userId)
+    };
+  } catch (error) {
+    throw new Error('malformed content');
+  }
+};

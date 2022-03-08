@@ -34,6 +34,7 @@ describe('users controller', () => {
     // Validate each user to be a valid user object (with valid groups)
     if (rawAllUsers.body instanceof Array) {
       rawAllUsers.body.map(user => {
+        expect(user).not.toHaveProperty('password');
         const apiUser = toApiUser(user);
         expect(apiUser).toHaveProperty('username');
         expect(apiUser).toHaveProperty('name');
@@ -58,6 +59,7 @@ describe('users controller', () => {
       });
     }
     const rawUser = await api.get(`/api/users/${adminID}`).set('Authorization', `bearer ${adminObj.token}`).expect(200).expect('Content-Type', /application\/json/);
+    expect(rawUser.body).not.toHaveProperty('password');
     const user = toApiUser(rawUser.body);
     // seems user could be validated by toApiUser-parser so we can be pretty sure it has all the attributes we wanted
     // Main difference is that with single user the groups SHOULD also contain functionalities 
@@ -118,6 +120,29 @@ describe('users controller', () => {
     const loginResult = toLoginResult(loginResponse.body);
     await api.put('/api/users/disable/1').set('Authorization', `bearer ${loginResult.token}`).expect(403);
     await api.put('/api/users/enable/1').set('Authorization', `bearer ${loginResult.token}`).expect(403);
+  });
+
+  test('add new user succesfully', async () => {
+    const response = await api.post('/api/users').set('Authorization', `bearer ${adminObj.token}`).send({
+      username: 'foo',
+      password: 'bar',
+      name: 'Foo Bar'
+    }).expect(201).expect('Content-Type', /application\/json/);
+    expect(response.body).toHaveProperty('username');
+    expect(response.body).not.toHaveProperty('password');
+  });
+
+  test('try to update password without token', async () => {
+    const response = await api.put('/api/users/1').send({ password: 'foobar' }).expect(401);
+    expect(response.body).toHaveProperty('error');
+  });
+
+  test('update password with valid request', async () => {
+    const userResp = await api.get('/api/users/1').set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    const user = toApiUser(userResp.body);
+    await api.put(`/api/users/${user.id}`).set('Authorization', `bearer ${adminObj.token}`).send({ password: 'foobar' }).expect(204);
+    const response = await api.post('/api/login').send({ username: user.username, password: 'foobar' }).expect(200);
+    expect(() => { toLoginResult(response.body); }).not.toThrow(Error);
   });
 
 });

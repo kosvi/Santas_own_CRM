@@ -79,7 +79,7 @@ function usePeople() {
         createNotification(`${fullPerson.name} updated`, 'msg');
       }
     } catch (error) {
-      let message = 'failed to updte person';
+      let message = 'failed to update person';
       if (error instanceof Error) {
         message = `${message}: ${error.message}`;
       }

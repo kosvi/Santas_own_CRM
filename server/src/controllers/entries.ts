@@ -51,7 +51,7 @@ router.post('/', (req: RequestWithToken, res, next) => {
   // we will get userId from middleware later on, for now we hardcode
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    const newEntry = toNewEntry({ ...req.body, userId: 1 });
+    const newEntry = toNewEntry({ ...req.body, userId: req.decodedToken?.id });
     addNewEntry(newEntry)
       .then(result => {
         res.status(201).json(result);

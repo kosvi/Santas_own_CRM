@@ -69,3 +69,14 @@ Authorization: bearer
 GET http://localhost:3000/api/groups/functionalities
 Content-Type: application/json
 Authorization: bearer 
+
+
+### 
+POST http://localhost:3000/api/groups/connect
+Content-Type: application/json
+Authorization: bearer <token>
+
+{
+  "groupId": 4,
+  "userId": 18
+}
