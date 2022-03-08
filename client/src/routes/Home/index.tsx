@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../store';
+import { ChangePassword } from './ChangePassword';
 
 export const Home = () => {
 
   const { user } = useSelector(authSelector);
+  const [displayPasswordForm, setDisplayPasswordForm] = useState<boolean>(false);
+
+  const togglePasswordForm = () => {
+    setDisplayPasswordForm(!displayPasswordForm);
+  };
 
   return (
     <div>
       <div data-testid="name-of-user"><h2>Welcome {user?.name}</h2></div>
+
+      <div>
+        <span onClick={togglePasswordForm} style={{ cursor: 'pointer' }}>Change password</span><br />
+        {displayPasswordForm && <ChangePassword />}
+        <br />
+      </div>
 
       <div style={{ marginBottom: '1em' }}>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris condimentum neque quis felis efficitur, feugiat tempor metus sagittis. Etiam erat urna, pretium sit amet neque id, aliquam mollis metus. Aenean nisl arcu, lacinia at maximus malesuada, sagittis in diam. Duis faucibus lectus id ornare aliquet. Curabitur mattis vitae nunc imperdiet egestas. Sed porta mauris eu libero consectetur pharetra. Integer quis risus pellentesque, malesuada risus iaculis, scelerisque orci. Maecenas sit amet aliquet metus. Phasellus euismod suscipit dui, sagittis pulvinar risus tristique sit amet.

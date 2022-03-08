@@ -16,6 +16,12 @@ const updatePerson = (person: FullPerson): AppThunk => {
   };
 };
 
+const clearPeople = (): AppThunk => {
+  return dispatch => {
+    dispatch(actions.clearPeople());
+  };
+};
+
 export const peopleActions = {
-  addPeople, updatePerson
+  addPeople, updatePerson, clearPeople
 };

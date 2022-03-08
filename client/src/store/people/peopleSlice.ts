@@ -18,6 +18,9 @@ export const peopleSlice = createSlice({
     updatePerson: (state, action: PayloadAction<FullPerson>) => {
       const newState = { ...state.people, [action.payload.id]: action.payload };
       state.people = newState;
+    },
+    clearPeople: (state) => {
+      state.people = initialPeopleState.people;
     }
   }
 });

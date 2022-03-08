@@ -4,6 +4,7 @@ Pages:
 - [Login](#login)
 - [Home screen](#home-screen)
 - [People](#people)
+- [Users](#users)
 - [Permissions](#permissions)
 
 ## Login
@@ -15,6 +16,8 @@ Use a valid username & password to login to the CRM. Possible reasons for login 
 ### Menu
 
 Use Menu at the lower left corner of the screen. You can toggle the menu open and close by clicking the text "Menu". 
+
+User can change his/her password here by clicking the text 'Change password'. Home screen can be accessed by clicking users name in the [menu](#menu). 
 
 ### Search people
 
@@ -30,9 +33,17 @@ To enter people screen, use the [menu](#menu).
 
 If you have the right priviledges, you can add people with the form on top of the page. Otherwise the form is not shown. Also, you can change name & address from existing person by double clicking the name/address you want to change. 
 
-By default there are no people in the list. They are added once found by the search, so just type in the name at the top of the screen and the results will also appear to the list. Once on the list, you can click the `View` button on the right most column on the row to see details on the person. 
+By default there are no people in the list. They are added once found by the search, so just type in the name at the top of the screen and the results will also appear to the list. Once on the list, you can click the `Display` button on the right most column on the row to see details on the person. 
 
 Visiting persons full info, will also fetch the full and latest information for of that person. This means that number of entries and wishes is also updated to the list. 
+
+## Users
+
+To enter users screen, use the [menu](#menu).
+
+List of all users is automatically downloaded from the server if you have correct priviledges. You can click the users row to display full information of the user. From users profile, an administrator with correct priviledges can also enable/disable a user and also change users password. Adding user to a group is also possible here if user has correct priviledges. 
+
+New users can be added using the form above the user list. Form is only displayed if user has write-access to users. 
 
 ## Permissions
 
@@ -45,3 +56,5 @@ List of available groups is shown below the search form. Click the name of a gro
 If you have correct priviledges, there is also a form to add new groups. In that case you can add a group by giving it a name and pressing `Save`. New priviledges can be given to a group by clicking it's name in the list and clicking `add permissions` below the desired permission. 
 
 New permissions are always given with no read and no write permission. To add them, click the red `false` buttons. Once clicked, they will turn green. 
+
+After changing users permissions, make sure user logs out and logs in again. That way frontend will recognize new priviledges and will display all features available to user. 

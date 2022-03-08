@@ -1,11 +1,22 @@
 import express from 'express';
 import { listMostCommonItems } from '../services/itemService';
+import { RequestWithToken } from '../types';
+import { checkReadPermission } from '../utils/checkPermission';
 import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
+import { authenticate } from '../utils/middleware';
 import { validateToNumber, validateToString } from '../utils/validators';
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
+router.use(authenticate);
+
+router.get('/', (req: RequestWithToken, res, next) => {
+  try {
+    checkReadPermission('wishes_and_items', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
   let limit = 0;
   if (req.query.limit) {
     try {

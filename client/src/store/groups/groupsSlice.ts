@@ -37,6 +37,10 @@ export const groupsSlice = createSlice({
     },
     addFunctionalities: (state, action: PayloadAction<Array<Functionality>>) => {
       state.functionalities = action.payload;
+    },
+    clearGroups: (state) => {
+      state.groups = initialGroupsState.groups;
+      state.functionalities = initialGroupsState.functionalities;
     }
   }
 });

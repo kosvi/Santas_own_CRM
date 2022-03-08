@@ -1,33 +1,34 @@
 import { UserAttributes } from '../types';
+import { hashPassword } from '../utils/hashPasswords';
 
 export const users: UserAttributes[] = [
   {
     username: 'santa',
-    password: 'santa',
+    password: hashPassword('santa'),
     name: 'Santa Claus',
     disabled: false
   },
   {
     username: 'elf',
-    password: 'elf',
+    password: hashPassword('elf'),
     name: 'Small Elf',
     disabled: false
   },
   {
     username: 'mickey',
-    password: 'mouse',
+    password: hashPassword('mouse'),
     name: 'Mickey Mouse',
     disabled: true
   },
   {
     username: 'admin',
-    password: 'password',
+    password: hashPassword('password'),
     name: 'Admin Elf',
     disabled: false
   },
   {
     username: 'nobody',
-    password: 'nobody',
+    password: hashPassword('nobody'),
     name: 'Someone Without Group',
     disabled: false
   }

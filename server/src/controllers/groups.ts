@@ -1,8 +1,8 @@
 import express from 'express';
 const router = express.Router();
-import { addGroup, addPermission, getAllGroupsWithPermissions, getFunctionalities, getSingleGroupWithPermissions, updatePermission } from '../services/groupService';
+import { addGroup, addPermission, addUserToGroup, getAllGroupsWithPermissions, getFunctionalities, getSingleGroupWithPermissions, updatePermission } from '../services/groupService';
 import { logger } from '../utils/logger';
-import { toNewGroup, toNewPermission } from '../utils/apiValidators';
+import { toNewGroup, toNewPermission, toNewUserGroup } from '../utils/apiValidators';
 import { GroupAttributes, PermissionAttributes } from '../types';
 import { validateToString } from '../utils/validators';
 import { ControllerError } from '../utils/customError';
@@ -69,6 +69,25 @@ router.get('/:name', (req: RequestWithToken, res, next) => {
   getSingleGroupWithPermissions(name)
     .then(group => {
       res.json(group);
+    })
+    .catch(error => {
+      logger.logError(error);
+      next(error);
+    });
+});
+
+router.post('/connect', (req: RequestWithToken, res, next) => {
+  try {
+    checkWritePermission('permissions', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const userGroup = toNewUserGroup(req.body);
+  addUserToGroup(userGroup.userId, userGroup.groupId)
+    .then(result => {
+      res.status(201).json(result);
     })
     .catch(error => {
       logger.logError(error);
@@ -159,18 +178,19 @@ router.post('/', (req: RequestWithToken, res, next) => {
   // addGroup should either resolve to 'GroupAttributes' or 'Error'
   // if Error, we can read the error and give response according to that
   // (this could probably be handled in middleware?)
-  addGroup(group).then(newGroup => {
-    if (newGroup) {
-      if (newGroup instanceof Error) {
-        next(newGroup);
-      } else {
-        res.status(201).json(newGroup);
+  addGroup(group)
+    .then(newGroup => {
+      if (newGroup) {
+        if (newGroup instanceof Error) {
+          next(newGroup);
+        } else {
+          res.status(201).json(newGroup);
+        }
       }
-    }
-  }).catch(error => {
-    logger.logError(error);
-    next(new ControllerError(500, 'couldn\'t save the group'));
-  });
+    }).catch(error => {
+      logger.logError(error);
+      next(new ControllerError(500, 'couldn\'t save the group'));
+    });
 });
 
 export default router;
