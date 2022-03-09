@@ -248,3 +248,14 @@ Goals:
 Extras: 
 - added migration to add default admin user to the system
 - allow adding users to groups 
+
+### No sprint
+
+Added some features that I considered required. 
+
+| Date | Hours | Total Hours | Description |
+|------|-------|-------------|-------------|
+|9.3.2022 | 1 | 175 | Allow user to delete group (onDelete CASCADE -> remove users from the group and remove permissons from the group) |
+|sprint total | 1 | 175 |  |
+
+

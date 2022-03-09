@@ -169,3 +169,13 @@ export const addUserToGroup = async (userId: number, groupId: number) => {
     throw error;
   }
 };
+
+export const removeGroup = async (groupId: number): Promise<number> => {
+  try {
+    const result = await models.Group.destroy({ where: { id: groupId } });
+    return result;
+  } catch (error) {
+    logger.logError(error);
+    throw error;
+  }
+};

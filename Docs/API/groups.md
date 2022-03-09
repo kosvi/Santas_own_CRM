@@ -340,6 +340,8 @@ Status: 200
 
 ## Connect user to group
 
+**Example**
+
 POST `/api/groups/connect`
 ```
 {
@@ -354,3 +356,15 @@ Status: 201
   "groupId": 4
 }
 ```
+
+## Delete group
+
+**Example**
+
+DELETE `/api/groups/7`
+Status 204
+
+**Errors**
+
+DELETE `/api/groups/7`
+Status 404

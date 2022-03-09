@@ -1,5 +1,12 @@
-GET http://localhost:3000/api/groups
 
+GET http://localhost:3000/api/groups
+Authorization: bearer <token>
+
+
+###
+
+DELETE http://localhost:3000/api/groups/5
+Authorization: bearer <token>
 
 ###
 

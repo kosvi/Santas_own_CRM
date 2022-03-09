@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Functionality, Group, GroupFunctionality, GroupWithFunctionalities } from '../types';
 import { apiRequest } from '../utils/delayedAxios';
+import { logger } from '../utils/logger';
 import { apiServices } from './apiServices';
 
 const getAllGroups = async (): Promise<Array<GroupWithFunctionalities>> => {
@@ -22,8 +23,18 @@ const addGroup = async (name: string): Promise<Group> => {
   return response.data;
 };
 
-const connectUserToGroup = async (groupId: number, userId: number): Promise<{id: number, groupId: number, userId: number}> => {
-  const response = await apiRequest<{id: number, groupId: number, userId: number}, { groupId: number, userId: number }>('post', '/groups/connect', apiServices.getAxiosRequestConfigWithToken(), { groupId, userId });
+const deleteGroup = async (groupId: number): Promise<boolean> => {
+  try {
+    await apiRequest<undefined, undefined>('delete', `/groups/${groupId}`, apiServices.getAxiosRequestConfigWithToken());
+    return true;
+  } catch (error) {
+    logger.logError(error);
+    return false;
+  }
+};
+
+const connectUserToGroup = async (groupId: number, userId: number): Promise<{ id: number, groupId: number, userId: number }> => {
+  const response = await apiRequest<{ id: number, groupId: number, userId: number }, { groupId: number, userId: number }>('post', '/groups/connect', apiServices.getAxiosRequestConfigWithToken(), { groupId, userId });
   return response.data;
 };
 
@@ -55,5 +66,5 @@ const getFunctionalities = async (): Promise<Array<Functionality>> => {
 };
 
 export const groupsService = {
-  getAllGroups, getSingleGroup, addGroup, connectUserToGroup, addPermission, updatePermission, getFunctionalities
+  getAllGroups, getSingleGroup, addGroup, deleteGroup, connectUserToGroup, addPermission, updatePermission, getFunctionalities
 };
