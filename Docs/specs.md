@@ -31,9 +31,9 @@ I will write some simple use stories to help me get started with the project. I 
 | id | user | description | implemented | 
 |----|------|-------------|-------------|
 | 1. | admin | as an admin, I want to be able to manage access to different functionalities in the system | MVP |
-| 2. | admin | as an admin, I want to be able to create new users |  - |
-| 3. | admin | as an admin, I want to be able to reset users passwords | - |
-| 4. | admin | as an admin, I want to be able to disable accounts instantly |- |
+| 2. | admin | as an admin, I want to be able to create new users | MVP |
+| 3. | admin | as an admin, I want to be able to reset users passwords | MVP |
+| 4. | admin | as an admin, I want to be able to disable accounts instantly | MVP |
 | 5. | user | as an elf, I want to easily make entries to children when they behave well or badly | MVP |
 | 6. | user | as an elf, I want to be able to register christmas wishes to children | MVP |
 | 7. | user | as an elf, I want to easily see how nice or naugty a kid has been |- |

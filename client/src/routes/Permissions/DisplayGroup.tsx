@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { groupsSelector } from '../../store';
 import { FunctionalityWithPermission, GroupWithFunctionalities, Functionality } from '../../types';
 import { DisplayPermission } from './DisplayPermission';
 import { AddPermission } from './AddPermission';
 import usePermission from '../../hooks/usePermission';
+import { groupsService } from '../../services/groupsService';
+import { useNavigate } from 'react-router-dom';
+import useNotification from '../../hooks/useNotification';
+import { groupsActions } from '../../store/groups/groupsActions';
 
 interface ReloadMethod {
   (name: string): Promise<void>
@@ -15,12 +19,29 @@ export const DisplayGroup = ({ groupId, reloadMethod }: { groupId: number | null
   const { groups, functionalities } = useSelector(groupsSelector);
   const [group, setGroup] = useState<GroupWithFunctionalities | undefined>();
   const { allowWriteAccess } = usePermission();
+  const navigate = useNavigate();
+  const { createNotification } = useNotification();
+  const dispatch = useDispatch();
 
   const order = (a: FunctionalityWithPermission, b: FunctionalityWithPermission) => {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
     const nameA = a.name.toLowerCase();
     const nameB = b.name.toLowerCase();
     return nameA < nameB ? -1 : (nameB < nameA ? 1 : 0);
+  };
+
+  const deleteCurrentGroup = async () => {
+    if (groupId && window.confirm('Are you sure?')) {
+      if (await groupsService.deleteGroup(groupId)) {
+        // delete succeeded
+        dispatch(groupsActions.removeGroup(groupId));
+        createNotification('Group deleted', 'msg');
+        navigate('/permissions');
+      } else {
+        // delete failed
+        createNotification('Failed to delete group', 'error');
+      }
+    }
   };
 
   useEffect(() => {
@@ -41,6 +62,7 @@ export const DisplayGroup = ({ groupId, reloadMethod }: { groupId: number | null
     <div>
       <h2>Group: {group.name}</h2>
       <button onClick={() => reloadMethod(group.name)}>reload</button>
+      {allowWriteAccess('permissions') && <button onClick={deleteCurrentGroup}>delete group</button>}
       {group.functionalities.map(f => {
         return (
           <DisplayPermission key={f.id} permission={f} group={group.id} />

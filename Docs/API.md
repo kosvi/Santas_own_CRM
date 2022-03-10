@@ -25,6 +25,7 @@
 |[Update permission of group](API/groups.md#update-permission-of-group)|`/api/groups/:groupId`|PUT|permissions| write|200| - |
 |[List all functionalities](API/groups.md#list-all-functionalities)|`/api/groups/functionalities`|GET |permissions|read|200 |- |
 |[Connect user to group](API/groups.md#connect-user-to-group)|`/api/groups/connect`|POST|permissions|write|201|400 |
+|[Delete group](API/groups.md#delete-group)|`/api/groups/:id`|DELETE | permissions|write|204|404|
 
 ## People
 

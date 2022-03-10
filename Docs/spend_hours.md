@@ -243,7 +243,19 @@ Goals:
 |7.3.2022 | 1 | 172 | Worked on possibility to add group(s) to user. | 
 |         | 1 | 173 | Worked on backend-support for adding users to groups. Also debugged frontend tests. | 
 |8.3.2022 | 1 | 174 | Adding users works, users can be added to groups, groups can be given permissions and users can update their password. -> sprint completed! |
+|sprint total | 14 | 174 | | 
 
 Extras: 
 - added migration to add default admin user to the system
 - allow adding users to groups 
+
+### No sprint
+
+Added some features that I considered required. 
+
+| Date | Hours | Total Hours | Description |
+|------|-------|-------------|-------------|
+|9.3.2022 | 1 | 175 | Allow user to delete group (onDelete CASCADE -> remove users from the group and remove permissons from the group) |
+|sprint total | 1 | 175 |  |
+
+
