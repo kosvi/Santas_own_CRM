@@ -1,10 +1,11 @@
 import { sign } from 'jsonwebtoken';
 import models from '../models';
+import { verify } from 'jsonwebtoken';
 import { LoginObject, toUserWithGroupsInLogin } from '../utils/apiValidators';
 import { logger } from '../utils/logger';
 import { ControllerError } from '../utils/customError';
 import { SECRET } from '../utils/config';
-import { validateToNumber } from '../utils/validators';
+import { validateToNumber, validateToString, validateToTokenContent } from '../utils/validators';
 import { AccessTokenContent, UserWithGroupsInLogin } from '../types';
 import { getPermissionsOfGroup } from './groupService';
 import { hashPassword } from '../utils/hashPasswords';
@@ -71,6 +72,58 @@ export const login = async (loginObject: LoginObject) => {
       token: token,
       permissions: permissionsWithCode
     };
+  }
+  return undefined;
+};
+
+export const changeGroup = async (groupId: number, token: string) => {
+  let tokenContent: AccessTokenContent;
+  try {
+    const result = await models.Session.destroy({ where: { token: token } });
+    if (result < 1) {
+      throw new Error('session expired');
+    }
+    const decodedToken = verify(token, validateToString(SECRET)) as AccessTokenContent;
+    if (validateToTokenContent(decodedToken)) {
+      tokenContent = decodedToken;
+    } else {
+      throw new Error('token validation failed');
+    }
+  } catch (error) {
+    logger.logError(error);
+    return undefined;
+  }
+  try {
+    const userFromDatabase = await models.User.findByPk(tokenContent.id, {
+      attributes: { exclude: ['createdAt', 'updatedAt'] },
+      include: {
+        model: models.Group,
+        attributes: { exclude: ['createdAt', 'updatedAt'] },
+        through: { attributes: [] }
+      }
+    });
+    if (userFromDatabase) {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+      const userWithGroups = toUserWithGroupsInLogin(userFromDatabase.toJSON() as UserWithGroupsInLogin);
+      let found = false;
+      userWithGroups.groups.some(g => {
+        found = g.id === groupId;
+        return found;
+      });
+      if (found) {
+        tokenContent.activeGroup = groupId;
+        const permissionsWithCode = await getPermissionsOfGroup(tokenContent.activeGroup);
+        const newToken = sign(tokenContent, validateToString(SECRET));
+        await models.Session.create({ userId: tokenContent.id, token: newToken });
+        return {
+          ...tokenContent,
+          token: newToken,
+          permissions: permissionsWithCode
+        };
+      }
+    }
+  } catch (error) {
+    logger.logError(error);
   }
   return undefined;
 };

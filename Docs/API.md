@@ -61,6 +61,7 @@
 |Description | URL | Method | Functionality | Access | Success | Possible errors |
 |------------|-----|-------|---------|--------------|----------|-----------|
 |[Login](API/login.md#login)|`/api/login`|POST | - | - | 200 | 400, 401, 403, 500 |
+|[Change active group](API/login.md#change-active-group)|`/api/login`|PUT| - | - |200|400 |
 
 
 ## Logout

@@ -1,6 +1,6 @@
 import express from 'express';
-import { login } from '../services/loginService';
-import { LoginObject, toNewLoginObject } from '../utils/apiValidators';
+import { changeGroup, login } from '../services/loginService';
+import { LoginObject, toNewLoginObject, toSwitchGroupFields } from '../utils/apiValidators';
 import { logger } from '../utils/logger';
 import { ControllerError } from '../utils/customError';
 const router = express.Router();
@@ -33,6 +33,22 @@ router.post('/', (req, res, next) => {
         next(error);
       });
   }
+});
+
+router.put('/', (req, res, next) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const payload = toSwitchGroupFields(req.body);
+  changeGroup(payload.groupId, payload.token)
+    .then(result => {
+      if (result) {
+        res.status(200).json(result);
+      } else {
+        res.status(400).json({ error: 'no permission of malformed content' });
+      }
+    })
+    .catch(error => {
+      next(error);
+    });
 });
 
 export default router;
