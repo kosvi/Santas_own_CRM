@@ -46,6 +46,16 @@ Status: 200
       "read": true,
       "write": false
     }
+  ],
+  "groups": [
+    {
+      "id": 4,
+      "name": "empty"
+    },
+    {
+      "id": 3,
+      "name": "santa"
+    }
   ]
 }
 ```
@@ -120,13 +130,22 @@ Status: 200
   "id": 21,
   "activeGroup": 4,
   "loginTime": 1646939564947,
-  "iat": 1646939564,
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImRvbmFsZCIsIm5hbWUiOiJEb25hbGQgRHVjayIsImlkIjoyMSwiYWN0aXZlR3JvdXAiOjQsImxvZ2luVGltZSI6MTY0NjkzOTU2NDk0NywiaWF0IjoxNjQ2OTM5NTY0fQ.9mgkAoyicPPfoidmE6RNbZnwW0HL-aQOLkM0-dAtoqU",
+  "token": "<token-string>",
   "permissions": [
     {
       "code": "entries",
       "read": true,
       "write": false
+    }
+  ],
+  "groups": [
+    {
+      "id": 3,
+      "name": "santa"
+    },
+    {
+      "id": 4,
+      "name": "empty"
     }
   ]
 }

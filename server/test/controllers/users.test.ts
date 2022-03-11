@@ -145,6 +145,53 @@ describe('users controller', () => {
     expect(() => { toLoginResult(response.body); }).not.toThrow(Error);
   });
 
+  test('Allow adding new user', async () => {
+    const newUserResponse = await api.post('/api/users').set('Authorization', `bearer ${adminObj.token}`).send({
+      username: 'foo',
+      password: 'bar',
+      name: 'foo bar'
+    }).expect(201);
+    const newApiUser = toApiUser(newUserResponse.body);
+    expect(newApiUser.name).toBe('foo bar');
+  });
+
+  test('Malformed new user returns 400', async () => {
+    const userResp = await api.post('/api/users').set('Authorization', `bearer ${adminObj.token}`).send({
+      username: 'foo',
+      passworb: 'bar',
+      name: 'foo bar'
+    }).expect(400);
+    expect(userResp.body).toHaveProperty('error');
+    expect(() => { toApiUser(userResp.body); }).toThrow(Error);
+  });
+
+  test('Admin & user him-/herself can update password', async () => {
+    const santaResp = await api.get('/api/users?name=santa').set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const santaObj = toApiUser(santaResp.body[0]);
+    // Admin updates password
+    await api.put(`/api/users/${santaObj.id}`).set('Authorization', `bearer ${adminObj.token}`).send({
+      password: 'foobar'
+    }).expect(204);
+    // Try login as santa
+    const loginResponse = await api.post('/api/login').send({
+      username: 'santa',
+      password: 'foobar'
+    }).expect(200);
+    const loginObj = toLoginResult(loginResponse.body);
+    // update password as user
+    await api.put(`/api/users/${santaObj.id}`).set('Authorization', `bearer ${loginObj.token}`).send({
+      password: 'barfoo'
+    }).expect(204);
+    // try new password
+    const response = await api.post('/api/login').send({
+      username: 'santa',
+      password: 'barfoo'
+    }).expect(200);
+    const newLoginObj = toLoginResult(response.body);
+    expect(newLoginObj).toHaveProperty('token');
+  });
+
 });
 
 afterAll(async () => {

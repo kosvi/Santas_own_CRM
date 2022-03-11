@@ -1,7 +1,7 @@
 import { connectionToDatabase, sequelize } from '../../src/utils/db';
 import app from '../../src/app';
 import supertest from 'supertest';
-import { toApiLogin } from '../helpers/toApiObject';
+import { toApiGroup, toApiLogin, toLoginResult } from '../helpers/toApiObject';
 const api = supertest(app);
 
 beforeAll(async () => {
@@ -25,6 +25,13 @@ describe('login controller', () => {
     expect(loginObject).toHaveProperty('username');
     expect(loginObject).toHaveProperty('id');
     expect(loginObject).toHaveProperty('token');
+    expect(loginObject).toHaveProperty('permissions');
+    expect(loginObject.permissions).toBeInstanceOf(Array);
+    expect(loginObject.permissions[0]).toHaveProperty('code');
+    expect(loginObject).toHaveProperty('groups');
+    expect(loginObject.groups).toBeInstanceOf(Array);
+    expect(loginObject.groups).toHaveLength(1);
+    expect(loginObject.groups[0]).toHaveProperty('name');
   });
 
   test('login fails with incorrect username', async () => {
@@ -65,6 +72,35 @@ describe('login controller', () => {
     }).expect(403).expect('Content-Type', /application\/json/);
     expect(() => { toApiLogin(response.body); }).toThrow(Error);
     expect(response.body).toHaveProperty('error');
+  });
+
+  test('Allow switching active group', async () => {
+    const adminLoginResult = await api.post('/api/login').send({
+      username: 'admin',
+      password: 'password'
+    }).expect(200);
+    const firstAdminLoginObj = toLoginResult(adminLoginResult.body);
+    const santaGroupResponse = await api.get('/api/groups/santa').set('Authorization', `bearer ${firstAdminLoginObj.token}`).expect(200);
+    const santaGroup = toApiGroup(santaGroupResponse.body);
+    // Add santagroup to admin
+    await api.post('/api/groups/connect').set('Authorization', `bearer ${firstAdminLoginObj.token}`).send({
+      userId: firstAdminLoginObj.id,
+      groupId: santaGroup.id
+    }).expect(201);
+    // re-login as admin
+    const newAdminLoginResponse = await api.post('/api/login').send({
+      username: 'admin',
+      password: 'password'
+    }).expect(200);
+    const secondAdminLoginObj = toLoginResult(newAdminLoginResponse.body);
+    expect(secondAdminLoginObj.groups).toHaveLength(2);
+    // now we can change to active group
+    const response = await api.put('/api/login').send({
+      token: secondAdminLoginObj.token,
+      groupId: secondAdminLoginObj.groups[0].id === secondAdminLoginObj.activeGroup ? secondAdminLoginObj.groups[1].id : secondAdminLoginObj.groups[0].id
+    }).expect(200);
+    const newGroupResult = toLoginResult(response.body);
+    expect(newGroupResult.activeGroup).not.toBe(secondAdminLoginObj.activeGroup);
   });
 
 });

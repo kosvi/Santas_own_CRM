@@ -3,7 +3,7 @@ import { getAllUsersWithGroups, getUsersBySearchString, getUserWithPermissions, 
 import { ControllerError } from '../utils/customError';
 import { logger } from '../utils/logger';
 import { validateToNumber, validateToString } from '../utils/validators';
-import { RequestWithToken } from '../types';
+import { RequestWithToken, UserAttributes } from '../types';
 import { authenticate } from '../utils/middleware';
 import { checkReadPermission, checkWritePermission } from '../utils/checkPermission';
 import { toNewPassword, toNewUser } from '../utils/apiValidators';
@@ -146,8 +146,14 @@ router.post('/', (req: RequestWithToken, res, next) => {
     next(error);
     return;
   }
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-  const user = toNewUser(req.body);
+  let user: UserAttributes;
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    user = toNewUser(req.body);
+  } catch (error) {
+    next(new ControllerError(400, 'malformed request'));
+    return;
+  }
   let groupId: number | undefined;
   try {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access

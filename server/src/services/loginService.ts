@@ -12,6 +12,7 @@ import { hashPassword } from '../utils/hashPasswords';
 
 export const login = async (loginObject: LoginObject) => {
   let tokenContent: AccessTokenContent;
+  let groupList: Array<{ id: number, name: string }> = [];
   let token: string;
   try {
     const userFromDatabase = await models.User.findOne({
@@ -41,6 +42,7 @@ export const login = async (loginObject: LoginObject) => {
       if (userWithGroups.groups.length > 0) {
         activeGroup = userWithGroups.groups[0].id;
       }
+      groupList = userWithGroups.groups;
     } catch (error) {
       // or in case there was none or we encountered an error, we'll go with default: 0
       logger.logError(error);
@@ -70,7 +72,8 @@ export const login = async (loginObject: LoginObject) => {
     return {
       ...tokenContent,
       token: token,
-      permissions: permissionsWithCode
+      permissions: permissionsWithCode,
+      groups: groupList
     };
   }
   return undefined;
@@ -83,8 +86,9 @@ export const changeGroup = async (groupId: number, token: string) => {
     if (result < 1) {
       throw new Error('session expired');
     }
-    const decodedToken = verify(token, validateToString(SECRET)) as AccessTokenContent;
+    const decodedToken = verify(token, validateToString(SECRET)) as AccessTokenContent & { iat?: number };
     if (validateToTokenContent(decodedToken)) {
+      delete decodedToken.iat;
       tokenContent = decodedToken;
     } else {
       throw new Error('token validation failed');
@@ -118,7 +122,8 @@ export const changeGroup = async (groupId: number, token: string) => {
         return {
           ...tokenContent,
           token: newToken,
-          permissions: permissionsWithCode
+          permissions: permissionsWithCode,
+          groups: userWithGroups.groups
         };
       }
     }

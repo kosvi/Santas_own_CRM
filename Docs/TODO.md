@@ -18,4 +18,3 @@ Issues:
 Currently working on:
 - Add tests to backend to get enough coverage to pass the tests
 - Add frontend support to change active group
-- try to figure out why the api-response to changing group displays property "iat"
