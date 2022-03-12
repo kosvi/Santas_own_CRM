@@ -19,6 +19,7 @@ This repository contains a customer relationship manager for Santa. It was writt
 | [specs.md](Docs/specs.md) | Contains specs for the app. Includes latest relational models of the database and user stories that are used to decide content of sprints. |
 | [spend_hours.md](Docs/spend_hours.md) | Contains sprints, time spend on each sprint, sprint goals and what else was achieved during each sprint (extras). Spend hours are recorded by individual sprints. |
 | [guide.md](Docs/guide.md) | Contains a guide on how to use the app (once it's running). |
+| ✅ [summary.md](Docs/summary.md) | :tada: **Contains links to live-demo, some useful information for reviewing the assignment and some reflection on learning. IN FINNISH!** :tada: |
 
 ## Repository
 

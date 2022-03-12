@@ -2,9 +2,9 @@
 
 ## Käynnissä olevat versiot
 
-[Tämän linkin](https://santas-crm.codecache.eu/) takaa löytyy ajosta viimeisin Docker Hub -kuva sovelluksesta. Kuva perustuu master-haaran viimeisimpään versioon. 
+[Tämän linkin](https://santas-crm.codecache.eu/) takaa löytyy ajosta viimeisin Docker Hub -kuva sovelluksesta. Kuva perustuu master-haaran viimeisimpään versioon. ("tuotantoversio", eli reset ei toimi)
 
-[Tämän linkin](https://glacial-shore-58496.herokuapp.com/) takaa löytyy Herokussa käynnissä oleva Docker-kuva. Kuva perustuu release-haaran viimeisimpään versioon. 
+[Tämän linkin](https://glacial-shore-58496.herokuapp.com/) takaa löytyy Herokussa käynnissä oleva Docker-kuva. Kuva perustuu release-haaran viimeisimpään versioon. (Suositeltu testaamiseen, mahdollinen resetoida)
 
 ## Tuntikirjanpito
 
