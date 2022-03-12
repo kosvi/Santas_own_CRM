@@ -18,6 +18,12 @@ const defaultLoginResponse: AuthUserDTO = {
       read: false,
       write: false
     }
+  ],
+  groups: [
+    {
+      id: 3,
+      name: 'santa'
+    }
   ]
 };
 

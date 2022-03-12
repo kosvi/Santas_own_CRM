@@ -3,6 +3,8 @@
  * This file contains all sorts of validators that can be used to validate 'unknown' types to specific types. 
  */
 
+import { AccessTokenContent } from '../types';
+
 // import { AccessTokenContent } from '../types';
 
 export const validateToString = (text: unknown): string => {
@@ -55,7 +57,8 @@ export const validateToBoolean = (value: unknown): boolean => {
   throw new Error('Value is not boolean');
 };
 
-export function validateToObject<T>(obj: unknown, props: Array<string | number | symbol>): obj is T {
+/* This function DOES NOT WORK -> it does not validate anything and might lead to huge failures */
+/* export function validateToObject<T>(obj: unknown, props: Array<string | number | symbol>): obj is T {
   if(!(obj instanceof Object)) {
     return false;
   }
@@ -66,3 +69,15 @@ export function validateToObject<T>(obj: unknown, props: Array<string | number |
   }
   return true;
 }
+*/
+
+type TokenFields = { id: unknown, name: unknown, username: unknown, activeGroup: unknown, loginTime: unknown };
+export const validateToTokenContent = ({ id, name, username, activeGroup, loginTime }: TokenFields): AccessTokenContent => {
+  return {
+    id: validateToNumber(id),
+    name: validateToString(name),
+    username: validateToString(username),
+    activeGroup: validateToNumber(activeGroup),
+    loginTime: validateToNumber(loginTime)
+  };
+};

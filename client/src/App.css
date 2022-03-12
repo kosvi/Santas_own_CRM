@@ -145,6 +145,10 @@ body {
   margin-bottom: 0.5em;
 }
 
+#groupList a {
+  color: black;
+}
+
 .GroupNameDiv {
   display: inline-block;
   margin-top: 1em;

@@ -194,6 +194,23 @@ describe('groups controller', () => {
     }
   });
 
+  test('delete group works and deletes group from user', async () => {
+    // get user santa
+    const userResponse = await api.get('/api/users?name=santa').set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const santaUser = toApiUser(userResponse.body[0]);
+    const groupId = santaUser.groups[0].id;
+    // delete group 'santa'
+    await api.delete(`/api/groups/${groupId}`).set('Authorization', `bearer ${adminObj.token}`).expect(204);
+    // now groups should be deleted
+    const groupResp = await api.get('/api/groups').set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    expect(groupResp.body).toHaveLength(NUMBER_OF_DEFAULT_GROUPS - 1);
+    // Make sure santa is still available but has no groups
+    const santaResp = await api.get(`/api/users/${santaUser.id}`).set('Authorization', `bearer ${adminObj.token}`).expect(200);
+    const newSantaUser = toApiUser(santaResp.body);
+    expect(newSantaUser.groups).toHaveLength(0);
+  });
+
 });
 
 afterAll(async () => {

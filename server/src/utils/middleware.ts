@@ -3,7 +3,7 @@ import { verify } from 'jsonwebtoken';
 import { SECRET } from './config';
 import { ControllerError } from './customError';
 import { logger } from './logger';
-import { validateToString, validateToObject } from './validators';
+import { validateToString, validateToTokenContent } from './validators';
 import { AccessTokenContent, RequestWithToken } from '../types';
 import { getPermissionsOfGroup } from '../services/groupService';
 import models from '../models';
@@ -56,11 +56,8 @@ export const authenticate = async (req: RequestWithToken, _res: express.Response
     if (!SECRET) {
       throw new ControllerError(500, 'Can\'t verify tokens');
     }
-    const token = verify(tokenString, SECRET);
-    // make sure we have all properties of AccessTokenContent in 'tokenProps' 
-    const tokenProps: Array<keyof AccessTokenContent> = ['id', 'name', 'username', 'activeGroup'];
-    // and then validate that token has all those properties
-    if (validateToObject<AccessTokenContent>(token, tokenProps)) {
+    const token = verify(tokenString, SECRET) as AccessTokenContent;
+    if (validateToTokenContent(token)) {
       // fetch user information from database
       const userFromDatabase = await models.User.findByPk(token.id);
       if (userFromDatabase) {

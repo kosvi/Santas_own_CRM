@@ -13,11 +13,13 @@ Use a valid username & password to login to the CRM. Possible reasons for login 
 
 ## Home screen
 
+User can change his/her password here by clicking the text 'Change password'. Home screen can be accessed by clicking users name in the [menu](#menu). 
+
+User might belong to multiple groups: active group can be changed from Home by clicking 'Change active group'. 
+
 ### Menu
 
 Use Menu at the lower left corner of the screen. You can toggle the menu open and close by clicking the text "Menu". 
-
-User can change his/her password here by clicking the text 'Change password'. Home screen can be accessed by clicking users name in the [menu](#menu). 
 
 ### Search people
 
@@ -51,7 +53,7 @@ To enter permissions screen, use the [menu](#menu).
 
 By default, there is no groups listed on the permissions page. You can search groups by giving the groups full name in the search input and clicking `load`. If you want to list ALL groups added to the system, use `*` as your search string to download information of all groups. 
 
-List of available groups is shown below the search form. Click the name of a group to see it's details. 
+List of available groups is shown below the search form. Click the name of a group to see it's details. You may also remove the group here if you have correct permissions given to you. 
 
 If you have correct priviledges, there is also a form to add new groups. In that case you can add a group by giving it a name and pressing `Save`. New priviledges can be given to a group by clicking it's name in the list and clicking `add permissions` below the desired permission. 
 

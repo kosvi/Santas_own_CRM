@@ -9,12 +9,13 @@ import { logger } from '../../utils/logger';
 import { DisplayGroup } from './DisplayGroup';
 import { NewGroupForm } from './NewGroupForm';
 import useGroups from '../../hooks/useGroups';
+import { Link, useParams } from 'react-router-dom';
 
 export const Permissions = () => {
 
   const dispatch = useDispatch();
   const { groups } = useSelector(groupsSelector);
-  const [group, setGroup] = useState<number | null>(null);
+  const { id } = useParams<'id'>();
   const [searchKey, setSearchKey] = useState<string>('');
   const { allowReadAccess, allowWriteAccess } = usePermission();
   const { fetchAllGroups, fetchGroupByName } = useGroups();
@@ -56,12 +57,12 @@ export const Permissions = () => {
       <button onClick={loadGroups}>load</button>
       <div id="groupList">
         {groups.map(g => {
-          return <div className="GroupNameDiv" key={g.id} onClick={() => setGroup(g.id)}>{g.name}</div>;
+          return <Link key={g.id} to={`/permissions/${g.id}`}><div className="GroupNameDiv">{g.name}</div></Link>;
         })}
-        {groups.length > 0 && allowWriteAccess('permissions') && <div className="GroupNameDiv" onClick={() => setGroup(null)}>New Group</div>}
+        {groups.length > 0 && allowWriteAccess('permissions') && <Link to='/permissions'><div className="GroupNameDiv">New Group</div></Link>}
       </div>
-      {group === null && allowWriteAccess('permissions') && <NewGroupForm />}
-      {group !== null && <DisplayGroup groupId={group} reloadMethod={fetchGroupByName} />}
+      {!id && allowWriteAccess('permissions') && <NewGroupForm />}
+      {id !== null && <DisplayGroup groupId={Number(id)} reloadMethod={fetchGroupByName} />}
     </div>
   );
 };

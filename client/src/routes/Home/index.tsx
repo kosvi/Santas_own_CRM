@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { authSelector } from '../../store';
+import { ChangeGroup } from './ChangeGroup';
 import { ChangePassword } from './ChangePassword';
 
 export const Home = () => {
 
   const { user } = useSelector(authSelector);
   const [displayPasswordForm, setDisplayPasswordForm] = useState<boolean>(false);
+  const [displayGroupForm, setDisplayGroupForm] = useState<boolean>(false);
 
   const togglePasswordForm = () => {
     setDisplayPasswordForm(!displayPasswordForm);
+  };
+
+  const toggleGroupForm = () => {
+    setDisplayGroupForm(!displayGroupForm);
   };
 
   return (
@@ -19,6 +25,11 @@ export const Home = () => {
       <div>
         <span onClick={togglePasswordForm} style={{ cursor: 'pointer' }}>Change password</span><br />
         {displayPasswordForm && <ChangePassword />}
+        <br />
+      </div>
+      <div>
+        <span onClick={toggleGroupForm} style={{ cursor: 'pointer' }}>Change active group</span><br />
+        {displayGroupForm && <ChangeGroup />}
         <br />
       </div>
 

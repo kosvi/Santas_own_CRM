@@ -46,6 +46,16 @@ Status: 200
       "read": true,
       "write": false
     }
+  ],
+  "groups": [
+    {
+      "id": 4,
+      "name": "empty"
+    },
+    {
+      "id": 3,
+      "name": "santa"
+    }
   ]
 }
 ```
@@ -97,3 +107,46 @@ Status: 403
 {
   "error": "account has been disabled"
 }
+
+
+## Change active group
+
+**Example**
+
+PUT `/api/login`
+```
+{
+  "token": "<token-string>",
+  "groupId": 4
+}
+```
+
+Status: 200
+
+```
+{
+  "username": "donald",
+  "name": "Donald Duck",
+  "id": 21,
+  "activeGroup": 4,
+  "loginTime": 1646939564947,
+  "token": "<token-string>",
+  "permissions": [
+    {
+      "code": "entries",
+      "read": true,
+      "write": false
+    }
+  ],
+  "groups": [
+    {
+      "id": 3,
+      "name": "santa"
+    },
+    {
+      "id": 4,
+      "name": "empty"
+    }
+  ]
+}
+```

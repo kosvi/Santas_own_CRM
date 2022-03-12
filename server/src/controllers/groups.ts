@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { addGroup, addPermission, addUserToGroup, getAllGroupsWithPermissions, getFunctionalities, getSingleGroupWithPermissions, updatePermission } from '../services/groupService';
+import { addGroup, addPermission, addUserToGroup, getAllGroupsWithPermissions, getFunctionalities, getSingleGroupWithPermissions, removeGroup, updatePermission } from '../services/groupService';
 import { logger } from '../utils/logger';
 import { toNewGroup, toNewPermission, toNewUserGroup } from '../utils/apiValidators';
 import { GroupAttributes, PermissionAttributes } from '../types';
@@ -190,6 +190,28 @@ router.post('/', (req: RequestWithToken, res, next) => {
     }).catch(error => {
       logger.logError(error);
       next(new ControllerError(500, 'couldn\'t save the group'));
+    });
+});
+
+router.delete('/:id', (req: RequestWithToken, res, next) => {
+  try {
+    checkWritePermission('permissions', req.permissions);
+  } catch (error) {
+    next(error);
+    return;
+  }
+  const groupId = Number(req.params.id);
+  removeGroup(groupId)
+    .then(result => {
+      if (result > 0) {
+        res.status(204).send();
+      } else {
+        res.status(404).send();
+      }
+    })
+    .catch(error => {
+      logger.logError(error);
+      next(error);
     });
 });
 

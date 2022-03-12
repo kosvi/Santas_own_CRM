@@ -16,10 +16,9 @@ This repository contains a customer relationship manager for Santa. It was writt
 | document | description |
 |----------|-------------|
 | [API.md](Docs/API.md)| API documentation |
-| [specs.md](Docs/specs.md) | Contains specs for the app. Includes latest relational models of the database and user stories that are used to decided content of sprints. |
+| [specs.md](Docs/specs.md) | Contains specs for the app. Includes latest relational models of the database and user stories that are used to decide content of sprints. |
 | [spend_hours.md](Docs/spend_hours.md) | Contains sprints, time spend on each sprint, sprint goals and what else was achieved during each sprint (extras). Spend hours are recorded by individual sprints. |
 | [guide.md](Docs/guide.md) | Contains a guide on how to use the app (once it's running). |
-| [personal_notes.md](Docs/personal_notes.md) | Personal notes that might be useful again during later development. |
 
 ## Repository
 
@@ -28,14 +27,14 @@ This repository contains three directories: [server](server), [client](client) a
 - server:
   - contains the api-code and is capable to serve compiled frontend
 - client:
-  - contains the frontend code and can be compiled and served by the backend
+  - contains the frontend code and can be compiled and then served by the backend
 - e2e:
   - contains e2e tests written using Cypress
 
 ```
-[master] this is the production version - it's update trough pull requests from [release]
+[master] this is the production version - it's updated trough pull requests from [release]
 -> [release] this is a release candidate that has passed all the tests. It will automaticly be deployed to Heroku for live demo
-  -> [develop] this branch is where I develop the project or where feature-branches are merger. Once working, it can be merged to [release]
+  -> [develop] this branch is where I develop the project or where feature-branches are merged. Once working, it can be merged to [release]
     -> [feature-branches] new features will be developed in their own brances and merged to [develop] once ready for it. 
 ```
 
@@ -54,6 +53,14 @@ Automatic tests by branches:
 **server:**
 
 Tests include unit-tests for functions used around application and integration tests that concentrate on testing api-functionality. I will not write separate tests for services, since controllers rely on services and testing services would basically just lead to douple-testing them. 
+
+**client:**
+
+Tests include unit-tests and while some tests might test multiple components and dependencies at once, they do not require backend.
+
+**e2e:**
+
+Cypress tests. Requires running instance of the whole app. App has to be running in dev- or test-mode so that database can be reset and re-populated during tests. 
 
 ## Running the app
 
