@@ -259,4 +259,4 @@ Added some features that I considered required.
 |sprint total | 1 | 175 |  |
 
 Extras: 
-- continued working on improvements. Trying to allow user to switch his/her current active groups (since user can belong to multiple groups). 
+- continued working on improvements: Allow user to switch his/her current active groups (since user can belong to multiple groups). 

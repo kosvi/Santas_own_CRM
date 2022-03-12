@@ -28,7 +28,13 @@ const loggedInUser: AuthUser = {
       read: true,
       write: true
     }
-  }
+  },
+  groups: [
+    {
+      id: 3,
+      name: 'group-name'
+    }
+  ]
 };
 
 export const authData = {
