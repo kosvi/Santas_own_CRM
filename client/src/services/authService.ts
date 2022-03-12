@@ -57,6 +57,11 @@ const logout = async (): Promise<MsgResponse | undefined> => {
   }
 };
 
+const switchGroup = async (payload: { token: string, groupId: number }): Promise<AuthUser> => {
+  const response = await apiRequest<AuthUserDTO, { token: string, groupId: number }>('put', '/login', apiServices.getAxiosRequestConfigWithoutToken(), payload);
+  return userDTOtoAuthUser(response.data);
+};
+
 const userDTOtoAuthUser = (dto: AuthUserDTO): AuthUser => {
   const authPermissions: Permissions = {
     users: makePermission(dto, 'users'),
@@ -82,5 +87,5 @@ const toAuthPermission = ({ read, write }: Permission): { read: boolean, write: 
 };
 
 export const authService = {
-  storeUser, loadUser, deleteUser, login, logout
+  storeUser, loadUser, deleteUser, login, logout, switchGroup
 };

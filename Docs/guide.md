@@ -13,11 +13,13 @@ Use a valid username & password to login to the CRM. Possible reasons for login 
 
 ## Home screen
 
+User can change his/her password here by clicking the text 'Change password'. Home screen can be accessed by clicking users name in the [menu](#menu). 
+
+User might belong to multiple groups: active group can be changed from Home by clicking 'Change active group'. 
+
 ### Menu
 
 Use Menu at the lower left corner of the screen. You can toggle the menu open and close by clicking the text "Menu". 
-
-User can change his/her password here by clicking the text 'Change password'. Home screen can be accessed by clicking users name in the [menu](#menu). 
 
 ### Search people
 

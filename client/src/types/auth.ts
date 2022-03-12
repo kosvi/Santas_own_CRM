@@ -14,6 +14,11 @@ export interface Permissions {
   entries: Omit<Permission, 'code'>
 }
 
+export interface AuthUserGroup {
+  id: number,
+  name: string
+}
+
 interface CommonUser {
   id: number,
   name: string,
@@ -25,12 +30,14 @@ interface CommonUser {
 
 // This is what the API sends us when logging in
 export interface AuthUserDTO extends CommonUser {
-  permissions: Array<Permission>
+  permissions: Array<Permission>,
+  groups: Array<AuthUserGroup>
 }
 
 // this is what we parse from it
 export interface AuthUser extends CommonUser {
-  permissions: Permissions
+  permissions: Permissions,
+  groups: Array<AuthUserGroup>
 }
 
 export interface AuthError {

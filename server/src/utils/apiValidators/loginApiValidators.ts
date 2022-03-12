@@ -19,6 +19,18 @@ export const toNewLoginObject = ({ username, password }: LoginFields): LoginObje
 };
 
 /*
+  This validates the content when user want's to change group
+*/
+
+type SwitchGroupFields = { token: unknown, groupId: unknown };
+export const toSwitchGroupFields = ({ token, groupId }: SwitchGroupFields): { token: string, groupId: number } => {
+  return {
+    token: validateToString(token),
+    groupId: validateToNumber(groupId)
+  };
+};
+
+/*
   This validates data fetched from database, when we need information of users groups during logging in
 */
 
@@ -39,7 +51,7 @@ export const toUserWithGroupsInLogin = ({ id, username, password, name, disabled
 */
 
 export const toPermissionsWithFunctionality = (data: unknown): Array<PermissionWithFunctionality> | [] => {
-  if(data instanceof Array) {
+  if (data instanceof Array) {
     const permissionArray = data.map(perm => toPermissionWithFunctionalityObject(perm as PermissionFields));
     return permissionArray;
   }
@@ -47,7 +59,7 @@ export const toPermissionsWithFunctionality = (data: unknown): Array<PermissionW
 };
 
 type PermissionFields = { read: unknown, write: unknown, functionality: unknown };
-const toPermissionWithFunctionalityObject = ({read, write, functionality}:PermissionFields): PermissionWithFunctionality => {
+const toPermissionWithFunctionalityObject = ({ read, write, functionality }: PermissionFields): PermissionWithFunctionality => {
   return {
     read: validateToBoolean(read),
     write: validateToBoolean(write),
@@ -55,8 +67,8 @@ const toPermissionWithFunctionalityObject = ({read, write, functionality}:Permis
   };
 };
 
-type FunctionalityInPermissionFields = {code: unknown};
-const toFunctionalityInPermission = ({code}:FunctionalityInPermissionFields): {code: string} => {
+type FunctionalityInPermissionFields = { code: unknown };
+const toFunctionalityInPermission = ({ code }: FunctionalityInPermissionFields): { code: string } => {
   return {
     code: validateToString(code)
   };

@@ -258,4 +258,5 @@ Added some features that I considered required.
 |9.3.2022 | 1 | 175 | Allow user to delete group (onDelete CASCADE -> remove users from the group and remove permissons from the group) |
 |sprint total | 1 | 175 |  |
 
-
+Extras: 
+- continued working on improvements: Allow user to switch his/her current active groups (since user can belong to multiple groups). 

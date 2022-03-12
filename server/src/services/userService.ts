@@ -4,14 +4,6 @@ import { ControllerError } from '../utils/customError';
 import { Op, ValidationError } from 'sequelize';
 import { validateToNumber } from '../utils/validators';
 import { logger } from '../utils/logger';
-// import { logger } from '../utils/logger';
-
-/*
-export const getAllUsers = async (): Promise<UserAttributes[]> => {
-  const allUsers = await models.User.findAll();
-  return allUsers;
-};
-*/
 
 export const getUsersBySearchString = async (search: string): Promise<UserAttributes[]> => {
   // construct search options 
